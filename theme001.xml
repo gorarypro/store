@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta charset='utf-8'/>
+    <title><data:blog.pageTitle/></title>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    
+    
+    <b:skin><![CDATA[
+      /* 
+       * FUSION THEME SKIN 
+       */
+      :root {
+          --bs-primary: #000000 !important; 
+          --bs-primary-rgb: 0,0,0 !important;
+      }
+      body { background-color: #ffffff; color: #212529; font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+      .reveal { opacity: 0; transform: translateY(30px); transition: 0.6s ease-out; }
+      .reveal.active { opacity: 1; transform: translateY(0); }
+      .header { display: none !important; }
+      .main-content img { max-width: 100%; height: auto; }
+      .blog-feeds { display: none !important; }
+      
+      /* OLD SYSTEM STYLES */
+      #navbar-iframe-container { display: none !important; }
+      .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; width: 90%; max-width: 350px; display: none; }
+      .toast-body { font-weight: 500; font-size: 1rem; color: white; padding: 10px; }
+      .btn-close-white { filter: brightness(0) invert(1); }
+      
+      .sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100vh; background-color: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); z-index: 1050; transition: right 0.3s ease; display: flex; flex-direction: column; }
+      .sidebar.open { right: 0; }
+      .sidebar-header { padding: 1rem; background-color: var(--bs-primary); color: white; display: flex; justify-content: space-between; align-items: center; }
+      #wishlistSidebar .sidebar-header { background-color: #dc3545; }
+      .sidebar-body { flex-grow: 1; overflow-y: auto; padding: 1rem; }
+      .sidebar-footer { padding: 1rem; border-top: 1px solid #eee; display: none; }
+      
+      .sidebar-item { display: flex; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #eee; }
+      .sidebar-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; margin-right: 1rem; }
+      .sidebar-item-title { font-weight: 600; margin-bottom: 0.25rem; }
+      .sidebar-item-price { color: var(--bs-primary); font-weight: 500; }
+      
+      .phone-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1060; display: none; align-items: center; justify-content: center; padding: 1rem; }
+      .phone-modal-content { background-color: white; border-radius: 12px; width: 100%; max-width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
+      
+      /* Quick View Modal Styles */
+      .quick-view-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1060; display: none; align-items: center; justify-content: center; padding: 1rem; }
+      .quick-view-modal-content { background-color: white; border-radius: 12px; width: 100%; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
+      .quick-view-details { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+      .quick-view-image img { width: 100%; height: auto; object-fit: cover; border-radius: 8px; }
+      
+      /* Floating Buttons */
+      .floating-btn { position: fixed; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; cursor: pointer; transition: all 0.3s ease; text-decoration: none; color: white; }
+      .floating-btn i { font-size: 1.5rem; }
+      .floating-cart { bottom: 145px; right: 15px; background-color: var(--bs-primary); }
+      .floating-wishlist { bottom: 80px; right: 15px; background-color: #dc3545; }
+      .floating-whatsapp { bottom: 15px; right: 15px; background-color: #25D366; }
+      
+      .floating-btn .icon-count { position: absolute; top: -5px; right: -5px; background-color: white; color: var(--bs-primary); font-size: 0.75rem; font-weight: bold; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+      .floating-wishlist .icon-count { background-color: white; color: #dc3545; }
+      
+      /* Loading Indicator */
+      .loading-spinner { width: 50px; height: 50px; border: 5px solid rgba(254, 115, 1, 0.2); border-radius: 50%; border-top-color: var(--bs-primary); animation: spin 1s ease-in-out infinite; }
+      .loading-text { font-size: 1.2rem; color: var(--bs-primary); font-weight: 500; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      
+      /* Notification Toast */
+      #notificationToast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1070; width: 90%; max-width: 350px; display: none; }
+      #notificationToast .toast-body { font-weight: 500; font-size: 1rem; color: white; padding: 10px; }
+      
+      /* Sidebar Footer Styles */
+      .sidebar-total { display: flex; justify-content: space-between; margin-bottom: 1rem; font-weight: 600; font-size: 1.1rem; }
+      
+      /* Responsive */
+      @media (max-width: 768px) {
+        .menu-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+        .phone-modal-content { max-height: 90vh; padding: 1rem; }
+      }
+    ]]></b:skin>
+
+    
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css' rel='stylesheet'/>
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap' rel='stylesheet'/>
+    
+    <link href='https://cdn.jsdelivr.net/gh/gorarypro/store/style.css' rel='stylesheet' type='text/css'/>
+</head>
+<body id='top'>
+
+  
+  <nav class='navbar navbar-expand-lg'>
+    <div class='container-fluid'>
+      <a class='navbar-brand' href='#'>
+        <i class='bi bi-lightning-charge-fill me-2 text-warning'/>
+        <span>Event Sushi</span>
+      </a>
+      <button aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation' class='navbar-toggler' data-bs-target='#navbarNav' data-bs-toggle='collapse' type='button'>
+        <span class='navbar-toggler-icon'/>
+      </button>
+      <div class='collapse navbar-collapse' id='navbarNav'>
+        <ul class='navbar-nav ms-auto'>
+          <li class='nav-item'><a class='nav-link' href='#hero'>Home</a></li>
+          <li class='nav-item'><a class='nav-link' href='#menu'>Menu</a></li>
+          <li class='nav-item'><a class='nav-link' href='#about'>About</a></li>
+          <li class='nav-item'><a class='nav-link' href='#contact'>Contact</a></li>
+          <li class='nav-item'>
+            <a class='nav-link nav-icon' id='wishlistIcon'>
+              <i class='bi bi-heart'/>
+              <span class='icon-count wishlist-count' id='wishlistCount'>0</span>
+            </a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link nav-icon' id='cartIcon'>
+              <i class='bi bi-cart3'/>
+              <span class='icon-count' id='cartCount'>0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  
+  
+  
+  <div class='toast align-items-center text-white bg-success border-0' id='notificationToast' role='alert'>
+      <div class='d-flex'>
+        <div class='toast-body' id='toastBody'>
+          
+        </div>
+        <button aria-label='Close' class='btn-close btn-close-white me-2 m-auto' data-bs-dismiss='toast' type='button'/>
+      </div>
+    </div>
+
+    <div class='sidebar-overlay' id='sidebarOverlay'/>
+
+    <div class='sidebar' id='cartSidebar'>
+      <div class='sidebar-header'>
+        <h4 class='m-0'>Your Cart</h4>
+        <i class='bi bi-x-lg' id='closeCart' style='cursor:pointer'/>
+      </div>
+      <div class='sidebar-body' id='cartBody'>
+        <div class='empty-sidebar' id='emptyCartMessage'>
+          <i class='bi bi-cart-x'/>
+          <p>Your cart is empty</p>
+        </div>
+      </div>
+      <div class='sidebar-footer' id='cartFooter' style='display: none;'>
+        <div class='sidebar-total'>
+          <span>Total:</span>
+          <span id='cartTotal'>0 DH</span>
+        </div>
+        <button class='checkout-btn' id='checkoutBtn'>Proceed to Checkout</button>
+      </div>
+    </div>
+
+    <div class='sidebar' id='wishlistSidebar'>
+      <div class='sidebar-header'>
+        <h4 class='m-0'>Your Wishlist</h4>
+        <i class='bi bi-x-lg' id='closeWishlist' style='cursor:pointer'/>
+      </div>
+      <div class='sidebar-body' id='wishlistBody'>
+        <div class='empty-sidebar' id='emptyWishlistMessage'>
+          <i class='bi bi-heartbreak'/>
+          <p>Your wishlist is empty</p>
+        </div>
+        </div>
+    </div>
+
+    <div class='phone-modal' id='phoneModal'>
+      <div class='phone-modal-content'>
+        <div class='phone-modal-header'>
+          <h4 class='m-0'>Complete Your Order</h4>
+        </div>
+        <div class='phone-modal-body'>
+          <div class='form-group'>
+            <label for='customerPhone'>Phone Number *</label>
+            <input class='form-control' id='customerPhone' placeholder='+212 6 00 00 00' required='required' type='tel'/>
+          </div>
+          
+          <div class='info-option'>
+            <p>Would you like to provide additional information?</p>
+            <div class='info-options'>
+              <button class='btn-secondary' id='noThanksBtn'>No, thanks</button>
+              <button class='btn-primary' id='addInfoBtn'>Yes, add more info</button>
+            </div>
+          </div>
+          
+          <div id='additionalInfo' style='display:none'>
+            <div class='form-group'>
+              <label for='customerName'>Full Name <span class='optional-label'>(Optional)</span></label>
+              <input class='form-control' id='customerName' placeholder='John Doe' type='text'/>
+            </div>
+            <div class='form-group'>
+              <label for='customerEmail'>Email Address <span class='optional-label'>(Optional)</span></label>
+              <input class='form-control' id='customerEmail' placeholder='john@example.com' type='email'/>
+            </div>
+            <div class='form-group'>
+              <label for='customerAddress'>Delivery Address <span class='optional-label'>(Optional)</span></label>
+              <textarea class='form-control' id='customerAddress' placeholder='123 Street, City' rows='3'/>
+            </div>
+          </div>
+        </div>
+        <div class='phone-modal-footer'>
+          <button class='btn-cancel' id='cancelCheckout'>Cancel</button>
+          <button class='btn-success' id='confirmCheckout'>
+            <span id='checkoutButtonText'>Place Order</span>
+            <div class='loading' id='checkoutLoading' style='display:none'/>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class='quick-view-modal' id='quickViewModal'>
+      <div class='quick-view-modal-content'>
+        <div class='quick-view-modal-header'>
+          <h4 id='quickViewTitle'>Product Title</h4>
+          <button class='btn-close' id='closeQuickView' type='button'><i class='bi bi-x'/></button>
+        </div>
+        <div class='quick-view-modal-body'>
+          <div class='quick-view-details'>
+            <div class='quick-view-image'>
+              <img alt='Product Image' id='quickViewImage' src='https://placehold.co/600x400'/>
+            </div>
+            <div class='quick-view-info'>
+              <div class='price' id='quickViewPrice'>0 DH</div>
+              <p class='description' id='quickViewDescription'>Loading product details...</p>
+              <!-- FIX: Removed class 'add-to-cart-btn' to prevent global listener conflict -->
+              <button class='order-btn' id='quickViewAddToCartBtn'>
+                <i class='bi bi-cart-plus'/>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+          <div class='related-products'>
+            <h5>Related Products</h5>
+            <div class='related-products-grid' id='relatedProductsGrid'>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='floating-btn floating-cart' id='floatingCart'>
+      <i class='bi bi-cart3'/>
+      <span class='icon-count' id='floatingCartCount'>0</span>
+    </div>
+  
+  <div class='floating-btn floating-wishlist' id='floatingWishlist'>
+      <i class='bi bi-heart-fill'/>
+      <span class='icon-count' id='floatingWishlistCount'>0</span>
+    </div>
+  
+  <a class='floating-btn floating-whatsapp' href='https://wa.me/212600000000' id='floatingWhatsapp' target='_blank'>
+    <i class='bi bi-whatsapp'/>
+  </a>
+
+  <header id='hero'>
+    <div class='container'>
+      <h1>Event Sushi</h1>
+      <p>Fresh. Authentic. Made with Love 🍣</p>
+      <a class='btn' href='#menu'>Explore Menu</a>
+    </div>
+  </header>
+
+  
+  
+  
+  <section id='menu'>
+    <div class='container'>
+      <h2>🍣 Our Menu</h2>
+      <p>Choose from our selection of Minibox, Box, Appetizers, and Taco options</p>
+      
+      <div class='filter-container' id='filterContainer'>
+        <button class='filter-btn active' data-filter='all'>All</button>
+      </div>
+      
+      <div class='loading-container' id='loadingContainer' style='display: none;'>
+        <div class='loading-spinner'/>
+        <div class='loading-text'>Loading menu...</div>
+      </div>
+      
+      <div class='error-container' id='errorContainer' style='display: none;'>
+        <div class='error-icon'>
+          <i class='bi bi-exclamation-triangle-fill'/>
+        </div>
+        <h3 class='error-title'>Unable to Load Menu</h3>
+        <p class='error-message'>A network error occurred. Please check: <br/>
+            1. Your internet connection. <br/>
+            2. That the Apps Script URL is correct. <br/>
+            3. That the script is deployed for &quot;Anyone&quot;.
+          </p>
+        <button class='retry-btn' id='retryBtn'>Try Again</button>
+      </div>
+      
+      <div id='menuSections' style='display: none;'/>
+      
+      
+      <script>/* <![CDATA[ */
+
+      (function() {
+        'use strict';
+        
+        
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function() {
+            renderMenu();
+          });
+        } else {
+          renderMenu();
+        }
+        
+        
+        function renderMenu() {
+          var container = document.getElementById('menuSections');
+          var loadingContainer = document.getElementById('loadingContainer');
+          var errorContainer = document.getElementById('errorContainer');
+          var catalog = window.FUSION_CATALOG || [];
+
+          
+          if (loadingContainer) loadingContainer.style.display = 'none';
+          if (errorContainer) errorContainer.style.display = 'none';
+
+          
+          if (catalog.length > 0) {
+            console.log('STANDALONE SCRIPT: Rendering ' + catalog.length + ' categories...');
+            
+            var html = '<div class="d-flex justify-content-between align-items-center mb-4"><h2 class="fw-bold mb-0">Products</h2></div><div class="row g-4">';
+            
+            
+            catalog.forEach(function(category) {
+              if (category.posts.length > 0) {
+                 html += `
+                  <div class="category-section" style="margin-bottom: 4rem; scroll-margin-top: 150px;">
+                    <div class="category-header">
+                      <h3 class="category-title">${category.title}</h3>
+                    </div>
+                    <div class="menu-grid">
+                 `;
+                 
+                 category.posts.forEach(function(post) {
+                   html += `
+                           <div class="col-6 col-md-4 col-lg-3">
+                             <div class="card h-100 shadow-sm border-0">
+                               <img src="${post.imageUrl}" class="card-img-top" alt="${post.title}" style="height: 200px; object-fit: cover;">
+                               <div class="card-body d-flex flex-column">
+                                 <h5 class="card-title">${post.title}</h5>
+                                 <p class="card-text small text-muted">${post.description || ''}</p>
+                                 <div class="mt-auto mb-3">
+                                   <span class="h5 text-primary fw-bold mb-0">${post.price}</span>
+                                 </div>
+                                 <div class="d-grid gap-2">
+                                   <button class="btn btn-outline-primary btn-sm rounded-pill" onclick="window.FUSION.Wishlist.toggle('${post.id}')">
+                                     <i class="bi bi-heart"></i>
+                                   </button>
+                                   <button class="btn btn-primary btn-sm flex-grow-1" onclick="window.FUSION.Cart.add('${post.id}')">
+                                     <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                                   </button>
+                                 </div>
+                               </div>
+                             </div>`;
+                 });
+                 
+                 html += `</div></div>`;
+              }
+            });
+            
+            container.innerHTML = html;
+          } else {
+            // 3. EMPTY STATE
+            console.log('STANDALONE SCRIPT: Catalog is empty.');
+            container.innerHTML = '<div class="col-12 text-center py-5"><h3 class="text-muted">Menu Initializing...</h3>';
+            
+            
+            setTimeout(function() {
+              var updatedCatalog = window.FUSION_CATALOG || [];
+              if (updatedCatalog.length > 0) {
+                renderMenu();
+              } else if (updatedCatalog.length === 0) {
+                 
+                 console.log('STANDALONE SCRIPT: No products found.');
+                 container.innerHTML = '<div class="col-12 text-center py-5"><h3 class="text-muted">No products found in catalog.</h3>';
+              }
+            }, 500);
+          })();
+        }
+      }
+    });
+  
+/* ]]> */</script>
+    </div>
+  </section>
+
+  
+  <section id='about'>
+    <div class='container'>
+      <h2>About Us</h2>
+      <p>Welcome to <strong>Event Sushi</strong> &#8212; your home for fresh, handcrafted sushi and Japanese delicacies. Every roll is made with passion and the highest quality ingredients. Whether you&#39;re dining in or ordering for your next event, we bring Japan to your plate!</p>
+    </div>
+  </section>
+
+  
+  <section id='contact'>
+    <div class='container'>
+      <h2>Contact Us</h2>
+      <p><i class='bi bi-geo-alt'/> 123 Sushi Street, Casablanca</p>
+      <p><i class='bi bi-telephone'/> +212 6 00 00 00 00</p>
+      <p><i class='bi bi-envelope'/> hello@goraryplace.com</p>
+      <a class='btn btn-outline-light mt-3' href='#hero'>Back to Top</a>
+    </div>
+  </section>
+
+  
+  <b:section class='main' id='Main' showaddelement='yes'/>
+
+  
+  <footer>
+      &amp;copy; 2025 Event Sushi. all rights reserved.
+  </footer>
+
+  
+  
+  
+  
+  
+
+  
+  
+  
+  <script>/* <![CDATA[ */
+
+    window.FUSION_CONFIG = {"asset_base_url":"https://cdn.jsdelivr.net/gh/gorarypro/multipurpose-website-builder@main/multipurpose-website-builder/src/assets/","site_title":"","primary_color":"#000000","hero_title":"","hero_subtitle":"Experience the finest flavors in Casablanca.","hero_image_url":"","meta_description":"","favicon_url":"","google_verify":"","default_language":"en","currency_symbol":"","base_url":"eventsushi1.blogspot.com","hero_included":true,"pricing_included":"no","floating_buttons_included":"yes","popup_included":"no","contact_whatsapp":"","contact_email":"","order_success_msg":"","github_repo":"gorarypro/multipurpose-website-builder","github_token":"ghp_ozLnsNCmES40m490xul6GoEEFTJNrT3RUUMZ","search_included":"yes","wishlist_included":true,"quickview_included":true,"cart_included":true,"analytics_included":"no","contact_form_msg":"","thank_you_url":"","error_url":"","xml_output":"","blogger_feed_url":"https://eventsushi1.blogspot.com/feeds/posts/default?alt=json&max-results=50","gallery_included":true,"popup_enabled":true,"popup_delay":5000,"popup_content":"","theme_name":"","popup_title":"Special Weekend Offer!","popup_message":"","popup_cta_text":"Shop the Sale","popup_cta_link":"#products","popup_expiry_days":1,"primary_color_hex":"","navbarIncluded":false,"heroIncluded":false,"productGridIncluded":false,"cartIncluded":false,"wishlistIncluded":false,"popupIncluded":false,"floatingButtonsIncluded":false,"footerIncluded":false,"themeName":"Fusion_Master_Theme"};
+    window.FUSION_TEXTMAPPING = {"HOME":{"en":"Home","fr":"Accueil","ar":"الرئيسية"},"PRODUCTS":{"en":"Products","fr":"Produits","ar":"منتجاتنا"},"CONTACT":{"en":"Contact","fr":"Contact","ar":"اتصل بنا"},"CHECKOUT":{"en":"Checkout","fr":"Paiement","ar":"الدفع"},"TEXT_TOTAL":{"en":"Total","fr":"Total","ar":"الإجمالي"},"WISHLIST":{"en":"Wishlist","fr":"Favoris","ar":"المفضلة"},"CART_EMPTY":{"en":"Your cart is empty","fr":"Panier vide","ar":"السلة فارغة"},"TEXT_BROWSE_PRODUCTS":{"en":"Browse products","fr":"Parcourir les produits","ar":"تصفح المنتجات"},"TEXT_CONTACT_US":{"en":"Contact us","fr":"Contactez-nous","ar":"تواصل معنا"},"TEXT_CONTACT_INTRO":{"en":"Send us a message","fr":"Envoyez-nous un message","ar":"أرسل لنا رسالة"},"TEXT_NAME":{"en":"Your name","fr":"Votre nom","ar":"اسمك"},"TEXT_EMAIL":{"en":"Your email","fr":"Votre email","ar":"بريدك الإلكتروني"},"TEXT_MESSAGE":{"en":"Your message","fr":"Votre message","ar":"رسالتك"},"TEXT_SEND_MESSAGE":{"en":"Send message","fr":"Envoyer","ar":"أرسل الرسالة"},"TEXT_CART":{"en":"Cart","fr":"Panier","ar":"السلة"},"TEXT_CLOSE":{"en":"Close","fr":"Fermer","ar":"إغلاق"},"TEXT_CONTINUE_SHOPPING":{"en":"Continue shopping","fr":"Continuer vos achats","ar":"تابع التسوق"},"TEXT_SORT_LATEST":{"en":"Latest","fr":"Plus récent","ar":"الأحدث"},"TEXT_SORT_PRICE_ASC":{"en":"Price (low to high)","fr":"Prix croissant","ar":"السعر تصاعدي"},"TEXT_SORT_PRICE_DESC":{"en":"Price (high to low)","fr":"Prix décroissant","ar":"السعر تنازلي"},"TEXT_NO_PRODUCTS":{"en":"No products found","fr":"Aucun produit","ar":"لا توجد منتجات"},"TEXT_WISHLIST":{"en":"Wishlist","fr":"Favoris","ar":"المفضلة"},"TEXT_WISHLIST_EMPTY":{"en":"Your wishlist is empty","fr":"Pas de favoris","ar":"قائمة المفضلة فارغة"},"TEXT_TESTIMONIALS":{"en":"Testimonials","fr":"Témoignages","ar":"آراء العملاء"},"TEXT_TESTIMONIALS_SUBTITLE":{"en":"What our customers say","fr":"Ce que disent nos clients","ar":"ماذا يقول عملاؤنا"},"TEXT_TESTIMONIAL_SAMPLE":{"en":"Great service and quality!","fr":"Service et qualité au top!","ar":"خدمة رائعة وجودة عالية!"},"TEXT_TESTIMONIAL_ROLE":{"en":"Customer","fr":"Client","ar":"عميل"},"TEXT_PRICING":{"en":"Pricing","fr":"Tarifs","ar":"الأسعار"},"TEXT_PRICING_SUBTITLE":{"en":"Choose the plan that fits you","fr":"Choisissez votre formule","ar":"اختر الخطة المناسبة"},"TEXT_PLAN_BASIC":{"en":"Basic","fr":"Essentiel","ar":"الأساسية"},"TEXT_PLAN_BASIC_SUBTITLE":{"en":"Good for starters","fr":"Pour bien commencer","ar":"جيدة للمبتدئين"},"TEXT_MONTH":{"en":"month","fr":"mois","ar":"شهر"},"TEXT_FEATURE_1":{"en":"Feature 1","fr":"Caractéristique 1","ar":"الميزة 1"},"TEXT_FEATURE_2":{"en":"Feature 2","fr":"Caractéristique 2","ar":"الميزة 2"},"TEXT_CHOOSE_PLAN":{"en":"Choose plan","fr":"Choisir cette offre","ar":"اختر الخطة"},"TEXT_ALL_RIGHTS_RESERVED":{"en":"All rights reserved","fr":"Tous droits réservés","ar":"جميع الحقوق محفوظة"},"TEXT_BACK_TO_TOP":{"en":"Back to top","fr":"Haut de page","ar":"إلى الأعلى"},"TEXT_PRIVACY":{"en":"Privacy policy","fr":"Politique de confidentialité","ar":"سياسة الخصوصية"},"TEXT_TERMS":{"en":"Terms","fr":"Conditions générales","ar":"الشروط والأحكام"},"TEXT_ALL":{"en":"All","fr":"Tous","ar":"الكل"},"TEXT_PHONE":{"en":"Phone","fr":"Téléphone","ar":"هاتف"},"TEXT_WHATSAPP":{"en":"WhatsApp","fr":"WhatsApp","ar":"واتساب"},"TEXT_PRODUCTS":{"en":"Products","fr":"Produits","ar":"المنتجات"}};
+  
+/* ]]> */</script>
+  
+  
+  <script>/* <![CDATA[ */
+
+    window.FUSION_CATALOG = [{"title":"Box","posts":[{"id":"tag:blogger.com,1999:blog-2235355400309817414.post-8819692674067994875","title":"Meal Box 1","price":"0.00 DH","image":"https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhIEp-qZS2ymtmrPXri7_Iso6Ea7_8XUELUNd8kih4kjEbboOW5BVNhRzvPCPpr8blGRTRHpxPxQztEY9X6sPP2oJzL8jupOj2Waq_EGijP8y-PVeuQ2BbvTY-yv_pg2EQtodySoBNS4bHoHQIEn9oXWmj0him8BYWyHsnArRXRhhTbWbnXx6BwHN2p3HY/s320/nigiri-12%20%281%29.jpg","link":"https://eventsushi1.blogspot.com/2025/11/test.html","description":"DESCRIPTION..."}]}];
+  
+/* ]]> */</script>
+  
+  
+  <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'/>
+  
+  
+  <script src='https://cdn.jsdelivr.net/gh/gorarypro/store/app.js?v=2.0' type='text/javascript'/>
+  
+  
+  <script>/* <![CDATA[ */
+
+    (function() {
+      'use strict';
+      
+      // Minimal Fusion Config to keep existing features happy
+      if (typeof window.FUSION === 'undefined') {
+        window.FUSION = {};
+      }
+
+      window.FUSION.Menu = {
+        data: [],
+        init: function() {
+          if (typeof window.FUSION_CATALOG !== 'undefined' && window.FUSION_CATALOG.length > 0) {
+            this.data = window.FUSION_CATALOG;
+            window.dispatchEvent(new Event('FUSION_CATALOG_LOADED'));
+          }
+        },
+        render: function() {}
+      };
+
+      // Initialize local Fusion
+      window.FUSION.Menu.init();
+      
+    })();
+    
+    /*
+     * APP.JS PATCH FOR DOUBLE ADD BUG
+     * 
+     * Issue 1: Wishlist items have class 'add-to-cart-btn'.
+     * Issue 2: Quick View button has class 'add-to-cart-btn'.
+     * 
+     * Both trigger the global body listener in app.js.
+     * We override updateWishlistUI to generate safe HTML.
+     * We removed the class from the Quick View button in the HTML above.
+     */
+    
+    window.updateWishlistUI = function() {
+      var wishlistBody = document.getElementById('wishlistBody');
+      var emptyWishlistMessage = document.getElementById('emptyWishlistMessage');
+      var wishlistCountNav = document.getElementById('wishlistCount');
+      var floatingWishlistCount = document.getElementById('floatingWishlistCount');
+      
+      // Use app.js data
+      var wishlist = (typeof window.wishlist !== 'undefined') ? window.wishlist : [];
+      
+      // Update counters
+      var totalItems = wishlist.length;
+      if (wishlistCountNav) wishlistCountNav.textContent = totalItems;
+      if (floatingWishlistCount) floatingWishlistCount.textContent = totalItems;
+
+      // Update Sidebar
+      if (!wishlistBody) return;
+
+      if (wishlist.length === 0) {
+        wishlistBody.innerHTML = ''; 
+        if (emptyWishlistMessage) emptyWishlistMessage.style.display = 'block';
+      } else {
+        if (emptyWishlistMessage) emptyWishlistMessage.style.display = 'none';
+        
+        var wishlistHTML = '';
+        wishlist.forEach(function(item) {
+          // GENERATE SAFE HTML
+          // - Removed 'add-to-cart-btn' class so the global listener ignores it
+          // - Kept 'add-to-cart-from-wishlist-btn' so the specific listener works
+          wishlistHTML += `
+            <div class='sidebar-item' data-id='${item.id}'>
+              <img src='${item.imageUrl}' alt='${item.title}'>
+              <div class='sidebar-item-info'>
+                <div class='sidebar-item-title'>${item.title}</div>
+                <div class='sidebar-item-price'>${item.price} ${item.currency}</div>
+              </div>
+              <div class='sidebar-item-actions'>
+                <!-- Button WITHOUT 'add-to-cart-btn' class -->
+                <button class='add-to-cart-from-wishlist-btn' data-id='${item.id}' aria-label="Add to Cart">
+                  <i class="bi bi-cart-plus"></i>
+                </button>
+                <button class='remove-from-wishlist-btn' data-id='${item.id}' aria-label="Remove from Wishlist">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        });
+        wishlistBody.innerHTML = wishlistHTML;
+      }
+    };
+    
+    // Trigger the UI update immediately to apply the fix to existing items
+    if (typeof window.wishlist !== 'undefined') {
+        window.updateWishlistUI();
+    }
+
+  <!-- 7. PAGE SPECIFIC (Reveal) -->
+  <script>
+      function reveal() {
+          var reveals = document.querySelectorAll(".reveal");
+          for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var revealTop = reveals[i].getBoundingClientRect().top;
+            if (revealTop < windowHeight - 150) {
+              reveals[i].classList.add("active");
+            }
+          }
+      }
+      window.addEventListener("scroll", reveal); 
+      window.addEventListener("load", reveal);
+  
+/* ]]> */</script>
+</body>
+</html>
