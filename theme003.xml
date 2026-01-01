@@ -1,0 +1,964 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta charset='utf-8'/>
+    <title><data:blog.pageTitle/></title>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+    <b:skin><![CDATA[
+    /*
+     * FUSION ENGINE - FULL MULTIPURPOSE THEME
+     * VERSION: 2026.1.0
+     * AUTHOR: GORARY PRO
+     */
+
+    :root {
+        --bs-primary: #000000 !important;
+        --bs-primary-rgb: 0,0,0 !important;
+        --accent-color: #ffc107;
+        --danger-color: #dc3545;
+        --success-color: #25D366;
+        --bg-light: #f8f9fa;
+        --transition-speed: 0.3s;
+    }
+
+    body {
+        background-color: #ffffff;
+        color: #212529;
+        font-family: 'Poppins', sans-serif;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+
+    /* --- ANIMATIONS --- */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: 0.6s ease-out;
+    }
+
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* --- UTILITIES --- */
+    .header, .blog-feeds, #navbar-iframe-container {
+        display: none !important;
+    }
+
+    /* --- NAVIGATION --- */
+    .navbar {
+        padding: 0.8rem 1rem;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+    }
+
+    .nav-icon {
+        margin-left: 15px;
+        margin-right: 5px;
+        position: relative;
+        cursor: pointer;
+        font-size: 1.3rem;
+        color: var(--bs-primary) !important;
+    }
+
+    .icon-count {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        z-index: 10;
+        font-size: 10px;
+        height: 18px;
+        min-width: 18px;
+        padding: 0 5px;
+        background-color: var(--danger-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    /* --- SEARCH & FILTERS --- */
+    #searchSection {
+        background: #fff;
+        border-bottom: 1px solid #eee;
+    }
+
+    #advancedFilters {
+        background: var(--bg-light);
+        border: 1px solid #eee;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-top: 1rem;
+        display: none;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- PRODUCT CARDS --- */
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        padding: 20px 0;
+    }
+
+    .product-card {
+        background: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid #f1f1f1;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .product-img-wrapper {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+    }
+
+    .product-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .product-card:hover img {
+        transform: scale(1.1);
+    }
+
+    .wishlist-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        cursor: pointer;
+        color: #ccc;
+        transition: 0.2s;
+        z-index: 5;
+    }
+
+    .wishlist-btn.active {
+        color: var(--danger-color);
+    }
+
+    .product-info {
+        padding: 1.2rem;
+    }
+
+    .product-price {
+        font-weight: 800;
+        font-size: 1.2rem;
+        color: var(--bs-primary);
+    }
+
+    /* --- SIDEBARS --- */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        max-width: 400px;
+        height: 100vh;
+        background-color: white;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        z-index: 2000;
+        transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar.open {
+        right: 0;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1999;
+        display: none;
+    }
+
+    .sidebar-header {
+        padding: 1.5rem;
+        background-color: var(--bs-primary);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sidebar-body {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 1rem;
+    }
+
+    .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 12px 0;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .sidebar-item img {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .qty-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 5px;
+    }
+
+    .qty-btn {
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+    }
+
+    /* --- MODALS --- */
+    .phone-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.6);
+        z-index: 3000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    .phone-modal-content {
+        background-color: white;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 480px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+    }
+
+    .modal-header-fusion {
+        padding: 1.5rem;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .modal-body-fusion {
+        padding: 1.5rem;
+    }
+
+    /* --- AUTH STYLES --- */
+    .user-avatar-display {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+    }
+
+    .avatar-circle {
+        width: 35px;
+        height: 35px;
+        background: #f0f0f0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #555;
+    }
+
+    /* --- FLOATING BUTTONS --- */
+    .floating-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 1000;
+    }
+
+    .f-btn {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        font-size: 1.4rem;
+        transition: 0.3s;
+    }
+
+    .f-cart { background-color: var(--bs-primary); }
+    .f-wish { background-color: var(--danger-color); }
+    .f-wa { background-color: var(--success-color); }
+
+    .f-btn:hover { transform: scale(1.1); color: white; }
+
+    /* --- TESTIMONIALS --- */
+    .testimonial-card {
+        padding: 2rem;
+        border-radius: 20px;
+        background: #fff;
+        border: 1px solid #f1f1f1;
+        text-align: center;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+        .menu-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+        .product-img-wrapper { height: 160px; }
+        .nav-link { font-size: 0.9rem; }
+    }
+    ]]></b:skin>
+
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css' rel='stylesheet'/>
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap' rel='stylesheet'/>
+</head>
+<body id='top'>
+
+    <div class='sidebar-overlay' id='sidebarOverlay'/>
+
+    <nav class='navbar navbar-expand-lg navbar-light sticky-top shadow-sm'>
+        <div class='container-fluid'>
+            <a class='navbar-brand fw-bold' href='#'>
+                <i class='bi bi-lightning-charge-fill text-warning'/>
+                <span>FUSION ENGINE</span>
+            </a>
+            
+            <button class='navbar-toggler' data-bs-target='#navMain' data-bs-toggle='collapse' type='button'>
+                <span class='navbar-toggler-icon'/>
+            </button>
+
+            <div class='collapse navbar-collapse' id='navMain'>
+                <ul class='navbar-nav ms-auto align-items-center'>
+                    <li class='nav-item'><a class='nav-link' href='#hero'>Home</a></li>
+                    <li class='nav-item'><a class='nav-link' href='#menu'>Menu</a></li>
+                    <li class='nav-item'><a class='nav-link' href='#about'>About</a></li>
+                    
+                    <li class='nav-item d-none d-lg-block ms-3'>
+                        <span class='badge rounded-pill bg-success' id='openStatusBadge'>Open Now</span>
+                    </li>
+
+                    <li class='nav-item ms-lg-2'>
+                        <a class='btn btn-outline-dark btn-sm rounded-pill px-3' href='javascript:void(0)' id='resTrigger'>
+                            Book a Table
+                        </a>
+                    </li>
+
+                    <li class='nav-item ms-lg-2' id='authArea'>
+                        <a class='nav-icon' href='javascript:void(0)' id='loginBtn'>
+                            <i class='bi bi-person-circle'/>
+                        </a>
+                        <div class='user-avatar-display' id='userDisplay'>
+                            <div class='avatar-circle'><i class='bi bi-person-fill'/></div>
+                            <span id='userName'>User</span>
+                            <i class='bi bi-box-arrow-right text-danger ms-2' id='logoutBtn' style='cursor:pointer'/>
+                        </div>
+                    </li>
+
+                    <li class='nav-item'>
+                        <a class='nav-icon' href='javascript:void(0)' id='wishlistBtnHeader'>
+                            <i class='bi bi-heart'/>
+                            <span class='icon-count' id='wishCount'>0</span>
+                        </a>
+                    </li>
+
+                    <li class='nav-item'>
+                        <a class='nav-icon' href='javascript:void(0)' id='cartBtnHeader'>
+                            <i class='bi bi-cart3'/>
+                            <span class='icon-count' id='cartCount'>0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class='py-3 border-bottom' id='searchSection'>
+        <div class='container'>
+            <div class='row justify-content-center'>
+                <div class='col-md-8'>
+                    <div class='input-group'>
+                        <span class='input-group-text bg-white'><i class='bi bi-search'/></span>
+                        <input class='form-control border-start-0' id='mainSearch' placeholder='Search our menu...' type='text'/>
+                        <button class='btn btn-light border' id='toggleFilter' type='button'>
+                            <i class='bi bi-funnel'/>
+                        </button>
+                    </div>
+
+                    <div id='advancedFilters'>
+                        <div class='row g-3'>
+                            <div class='col-md-6'>
+                                <label class='form-label small fw-bold'>Max Price (DH)</label>
+                                <input class='form-control' id='filterPrice' placeholder='e.g. 150' type='number'/>
+                            </div>
+                            <div class='col-md-6'>
+                                <label class='form-label small fw-bold'>Sort By</label>
+                                <select class='form-select' id='filterSort'>
+                                    <option value='default'>Featured</option>
+                                    <option value='low'>Price: Low to High</option>
+                                    <option value='high'>Price: High to Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class='mt-3 text-end'>
+                            <button class='btn btn-sm btn-dark' id='resetFilters'>Reset All</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <header id='hero' style='background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(&quot;https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&amp;w=2000&quot;) center/cover; padding: 120px 0; color: white;'>
+        <div class='container text-center'>
+            <h1 class='display-3 fw-bold reveal'>Event Sushi</h1>
+            <p class='lead reveal'>Fresh. Authentic. Made with Love in Casablanca.</p>
+            <div class='mt-4 reveal'>
+                <a class='btn btn-warning btn-lg px-5 rounded-pill fw-bold' href='#menu'>Order Now</a>
+            </div>
+        </div>
+    </header>
+
+    <section class='py-5' id='menu'>
+        <div class='container'>
+            <div class='text-center mb-5'>
+                <h2 class='fw-bold'>Explore Our Menu</h2>
+                <p class='text-muted'>Hand-rolled perfection delivered to your door</p>
+            </div>
+
+            <div class='text-center py-5' id='menuLoader' style='display:none;'>
+                <div class='spinner-border text-dark'/>
+            </div>
+
+            <div class='d-flex flex-wrap justify-content-center gap-2 mb-4' id='categoryFilters'>
+                <button class='btn btn-sm btn-dark rounded-pill px-3 cat-filter active' data-cat='all'>All</button>
+            </div>
+
+            <div class='menu-grid' id='menuContainer'>
+                </div>
+        </div>
+    </section>
+
+    <section class='py-5 bg-light'>
+        <div class='container'>
+            <h2 class='text-center fw-bold mb-5'>Customer Reviews</h2>
+            <div class='row g-4'>
+                <div class='col-md-4'>
+                    <div class='testimonial-card reveal'>
+                        <div class='text-warning mb-2'><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/></div>
+                        <p class='fst-italic'>&quot;Best sushi in Casablanca! The freshness is unmatched.&quot;</p>
+                        <h6 class='fw-bold mb-0'>Amine T.</h6>
+                    </div>
+                </div>
+                <div class='col-md-4'>
+                    <div class='testimonial-card reveal'>
+                        <div class='text-warning mb-2'><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/></div>
+                        <p class='fst-italic'>&quot;The ordering system is so smooth. Love the WhatsApp feature.&quot;</p>
+                        <h6 class='fw-bold mb-0'>Sarah L.</h6>
+                    </div>
+                </div>
+                <div class='col-md-4'>
+                    <div class='testimonial-card reveal'>
+                        <div class='text-warning mb-2'><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/><i class='bi bi-star-fill'/></div>
+                        <p class='fst-italic'>&quot;Highly recommend the Spicy Tuna box. Perfect spice level!&quot;</p>
+                        <h6 class='fw-bold mb-0'>Youssef B.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class='bg-dark text-white py-5'>
+        <div class='container'>
+            <div class='row g-4'>
+                <div class='col-md-4'>
+                    <h5 class='fw-bold mb-3'>Event Sushi</h5>
+                    <p class='text-muted'>Bringing authentic Japanese flavors to the heart of Morocco since 2025.</p>
+                </div>
+                <div class='col-md-4'>
+                    <h5 class='fw-bold mb-3'>Contact</h5>
+                    <p class='text-muted mb-1'><i class='bi bi-geo-alt me-2'/> Maarif, Casablanca</p>
+                    <p class='text-muted mb-1'><i class='bi bi-telephone me-2'/> +212 600 000 000</p>
+                </div>
+                <div class='col-md-4'>
+                    <h5 class='fw-bold mb-3'>Follow Us</h5>
+                    <div class='d-flex gap-3'>
+                        <a class='text-white' href='#'><i class='bi bi-instagram'/></a>
+                        <a class='text-white' href='#'><i class='bi bi-facebook'/></a>
+                    </div>
+                </div>
+            </div>
+            <hr class='my-4 opacity-25'/>
+            <div class='text-center text-muted small'>
+                &amp;copy; 2026 Fusion Engine Theme. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <div class='sidebar' id='cartSidebar'>
+        <div class='sidebar-header'>
+            <h5 class='m-0'>Shopping Cart</h5>
+            <i class='bi bi-x-lg close-sidebar' style='cursor:pointer'/>
+        </div>
+        <div class='sidebar-body' id='cartList'>
+            </div>
+        <div class='p-3 border-top' id='cartFooter' style='display:none;'>
+            <div class='d-flex justify-content-between fw-bold mb-3'>
+                <span>Total:</span>
+                <span id='cartTotalSum'>0 DH</span>
+            </div>
+            <button class='btn btn-dark w-100 py-3' id='checkoutTrigger'>Checkout Now</button>
+        </div>
+    </div>
+
+    <div class='sidebar' id='wishSidebar'>
+        <div class='sidebar-header' style='background-color: var(--danger-color);'>
+            <h5 class='m-0'>My Wishlist</h5>
+            <i class='bi bi-x-lg close-sidebar' style='cursor:pointer'/>
+        </div>
+        <div class='sidebar-body' id='wishList'>
+            </div>
+    </div>
+
+    <div class='phone-modal' id='resModal'>
+        <div class='phone-modal-content'>
+            <div class='modal-header-fusion'>
+                <h5 class='m-0'>Table Reservation</h5>
+                <i class='bi bi-x-lg close-modal' style='cursor:pointer'/>
+            </div>
+            <div class='modal-body-fusion'>
+                <div class='mb-3'>
+                    <label class='form-label small fw-bold'>Name</label>
+                    <input class='form-control' id='resName' type='text'/>
+                </div>
+                <div class='mb-3'>
+                    <label class='form-label small fw-bold'>Date</label>
+                    <input class='form-control' id='resDate' type='date'/>
+                </div>
+                <div class='row mb-3'>
+                    <div class='col-6'>
+                        <label class='form-label small fw-bold'>Time</label>
+                        <input class='form-control' id='resTime' type='time'/>
+                    </div>
+                    <div class='col-6'>
+                        <label class='form-label small fw-bold'>Guests</label>
+                        <select class='form-select' id='resGuests'>
+                            <option value='2'>2 People</option>
+                            <option value='4'>4 People</option>
+                            <option value='6'>6+ People</option>
+                        </select>
+                    </div>
+                </div>
+                <button class='btn btn-dark w-100 py-2' id='confirmRes'>Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div class='phone-modal' id='authModal'>
+        <div class='phone-modal-content'>
+            <div class='modal-header-fusion'>
+                <h5 class='m-0' id='authTitle'>Welcome Back</h5>
+                <i class='bi bi-x-lg close-modal' style='cursor:pointer'/>
+            </div>
+            <div class='modal-body-fusion'>
+                <form id='loginForm'>
+                    <div class='mb-3'>
+                        <label class='form-label small fw-bold'>Email</label>
+                        <input class='form-control' id='userMail' required='required' type='email'/>
+                    </div>
+                    <div class='mb-3'>
+                        <label class='form-label small fw-bold'>Password</label>
+                        <input class='form-control' id='userPass' required='required' type='password'/>
+                    </div>
+                    <button class='btn btn-dark w-100 mb-3' type='submit'>Sign In</button>
+                    <div class='text-center small'>
+                        No account? <a class='text-decoration-none' href='#' id='switchReg'>Create one</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class='floating-container'>
+        <a class='f-btn f-cart' href='javascript:void(0)' id='floatCart'><i class='bi bi-cart3'/></a>
+        <a class='f-btn f-wa' href='https://wa.me/212600000000' target='_blank'><i class='bi bi-whatsapp'/></a>
+    </div>
+
+    <b:section id='MainContent' showaddelement='yes'/>
+
+    <script type='text/javascript'>
+    //<![CDATA[
+    (function() {
+        'use strict';
+
+        // --- THEME CONFIGURATION ---
+        const FUSION = {
+            whatsapp: "212600000000",
+            currency: "DH",
+            catalog: [
+                {
+                    id: "cat_1",
+                    category: "Box",
+                    title: "Salmon Lovers Box",
+                    price: 120,
+                    img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400",
+                    desc: "12 pieces of fresh salmon rolls and nigiri."
+                },
+                {
+                    id: "cat_2",
+                    category: "Box",
+                    title: "Dragon Special",
+                    price: 145,
+                    img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=400",
+                    desc: "Signature eel and avocado rolls."
+                },
+                {
+                    id: "cat_3",
+                    category: "Taco",
+                    title: "Crunchy Tuna Taco",
+                    price: 45,
+                    img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=400",
+                    desc: "Seaweed shell with spicy tuna and mayo."
+                }
+            ],
+            cart: JSON.parse(localStorage.getItem('fusion_cart')) || [],
+            wishlist: JSON.parse(localStorage.getItem('fusion_wish')) || []
+        };
+
+        // --- DOM ELEMENTS ---
+        const ui = {
+            menu: document.getElementById('menuContainer'),
+            cartList: document.getElementById('cartList'),
+            cartTotal: document.getElementById('cartTotalSum'),
+            cartCount: document.getElementById('cartCount'),
+            wishCount: document.getElementById('wishCount'),
+            search: document.getElementById('mainSearch'),
+            filterPanel: document.getElementById('advancedFilters')
+        };
+
+        // --- CORE FUNCTIONS ---
+
+        const init = () => {
+            renderMenu(FUSION.catalog);
+            renderCart();
+            renderWishlist();
+            checkAuth();
+            bindGlobalEvents();
+            handleAnimations();
+        };
+
+        const renderMenu = (data) => {
+            ui.menu.innerHTML = '';
+            if (data.length === 0) {
+                ui.menu.innerHTML = '<div class="text-center py-5 w-100">No products found.</div>';
+                return;
+            }
+
+            data.forEach(item => {
+                const isWished = FUSION.wishlist.includes(item.id);
+                const card = `
+                    <div class="product-card reveal active">
+                        <button class="wishlist-btn ${isWished ? 'active' : ''}" data-id="${item.id}">
+                            <i class="bi bi-heart-fill"></i>
+                        </button>
+                        <div class="product-img-wrapper">
+                            <img src="${item.img}" alt="${item.title}" loading="lazy" />
+                        </div>
+                        <div class="product-info">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="fw-bold mb-0">${item.title}</h6>
+                                <span class="product-price">${item.price} ${FUSION.currency}</span>
+                            </div>
+                            <p class="text-muted small mb-3">${item.desc}</p>
+                            <button class="btn btn-dark btn-sm w-100 rounded-pill add-to-cart-btn" data-id="${item.id}">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                `;
+                ui.menu.insertAdjacentHTML('beforeend', card);
+            });
+        };
+
+        const renderCart = () => {
+            ui.cartList.innerHTML = '';
+            let total = 0;
+            
+            if (FUSION.cart.length === 0) {
+                ui.cartList.innerHTML = '<div class="text-center py-5">Your cart is empty.</div>';
+                document.getElementById('cartFooter').style.display = 'none';
+                ui.cartCount.textContent = '0';
+                return;
+            }
+
+            FUSION.cart.forEach(item => {
+                const product = FUSION.catalog.find(p => p.id === item.id);
+                if (product) {
+                    total += product.price * item.qty;
+                    const el = `
+                        <div class="sidebar-item">
+                            <img src="${product.img}" />
+                            <div class="flex-grow-1">
+                                <div class="small fw-bold">${product.title}</div>
+                                <div class="small text-muted">${product.price} ${FUSION.currency}</div>
+                                <div class="qty-controls">
+                                    <button class="qty-btn dec" data-id="${item.id}">-</button>
+                                    <span class="small">${item.qty}</span>
+                                    <button class="qty-btn inc" data-id="${item.id}">+</button>
+                                </div>
+                            </div>
+                            <i class="bi bi-trash text-danger remove-item" data-id="${item.id}" style="cursor:pointer"></i>
+                        </div>
+                    `;
+                    ui.cartList.insertAdjacentHTML('beforeend', el);
+                }
+            });
+
+            ui.cartTotal.textContent = `${total} ${FUSION.currency}`;
+            ui.cartCount.textContent = FUSION.cart.length;
+            document.getElementById('cartFooter').style.display = 'block';
+            localStorage.setItem('fusion_cart', JSON.stringify(FUSION.cart));
+        };
+
+        const renderWishlist = () => {
+            const list = document.getElementById('wishList');
+            list.innerHTML = '';
+            ui.wishCount.textContent = FUSION.wishlist.length;
+
+            if (FUSION.wishlist.length === 0) {
+                list.innerHTML = '<div class="text-center py-5">No items in wishlist.</div>';
+                return;
+            }
+
+            FUSION.wishlist.forEach(id => {
+                const product = FUSION.catalog.find(p => p.id === id);
+                if (product) {
+                    const el = `
+                        <div class="sidebar-item">
+                            <img src="${product.img}" />
+                            <div class="flex-grow-1">
+                                <div class="small fw-bold">${product.title}</div>
+                                <div class="small text-muted">${product.price} ${FUSION.currency}</div>
+                            </div>
+                            <button class="btn btn-sm btn-dark add-to-cart-btn" data-id="${id}">Add</button>
+                            <i class="bi bi-x text-danger remove-wish" data-id="${id}" style="cursor:pointer"></i>
+                        </div>
+                    `;
+                    list.insertAdjacentHTML('beforeend', el);
+                }
+            });
+            localStorage.setItem('fusion_wish', JSON.stringify(FUSION.wishlist));
+        };
+
+        const checkAuth = () => {
+            const user = JSON.parse(localStorage.getItem('fusion_user'));
+            if (user) {
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('userDisplay').style.display = 'flex';
+                document.getElementById('userName').textContent = user.name.split(' ')[0];
+            } else {
+                document.getElementById('loginBtn').style.display = 'block';
+                document.getElementById('userDisplay').style.display = 'none';
+            }
+        };
+
+        // --- EVENT HANDLERS ---
+
+        const bindGlobalEvents = () => {
+            
+            // Toggle Search Filters
+            document.getElementById('toggleFilter').onclick = () => {
+                const isHidden = window.getComputedStyle(ui.filterPanel).display === 'none';
+                ui.filterPanel.style.display = isHidden ? 'block' : 'none';
+            };
+
+            // Search Logic
+            ui.search.oninput = (e) => {
+                const term = e.target.value.toLowerCase();
+                const filtered = FUSION.catalog.filter(p => 
+                    p.title.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term)
+                );
+                renderMenu(filtered);
+            };
+
+            // Sidebar Controls
+            document.getElementById('cartBtnHeader').onclick = () => openSidebar('cartSidebar');
+            document.getElementById('floatCart').onclick = () => openSidebar('cartSidebar');
+            document.getElementById('wishlistBtnHeader').onclick = () => openSidebar('wishSidebar');
+            document.getElementById('sidebarOverlay').onclick = closeSidebars;
+            
+            document.querySelectorAll('.close-sidebar').forEach(btn => {
+                btn.onclick = closeSidebars;
+            });
+
+            // Modal Controls
+            document.getElementById('resTrigger').onclick = () => openModal('resModal');
+            document.getElementById('loginBtn').onclick = () => openModal('authModal');
+            
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.onclick = closeModal;
+            });
+
+            // Cart Actions
+            document.addEventListener('click', (e) => {
+                const target = e.target;
+
+                // Add to Cart
+                if (target.classList.contains('add-to-cart-btn')) {
+                    const id = target.dataset.id;
+                    const existing = FUSION.cart.find(item => item.id === id);
+                    if (existing) {
+                        existing.qty++;
+                    } else {
+                        FUSION.cart.push({ id, qty: 1 });
+                    }
+                    renderCart();
+                    openSidebar('cartSidebar');
+                }
+
+                // Wishlist Toggle
+                if (target.closest('.wishlist-btn')) {
+                    const btn = target.closest('.wishlist-btn');
+                    const id = btn.dataset.id;
+                    if (FUSION.wishlist.includes(id)) {
+                        FUSION.wishlist = FUSION.wishlist.filter(item => item !== id);
+                        btn.classList.remove('active');
+                    } else {
+                        FUSION.wishlist.push(id);
+                        btn.classList.add('active');
+                    }
+                    renderWishlist();
+                }
+
+                // Qty Inc/Dec
+                if (target.classList.contains('qty-btn')) {
+                    const id = target.dataset.id;
+                    const item = FUSION.cart.find(i => i.id === id);
+                    if (target.classList.contains('inc')) item.qty++;
+                    if (target.classList.contains('dec') && item.qty > 1) item.qty--;
+                    renderCart();
+                }
+
+                // Remove Item
+                if (target.classList.contains('remove-item')) {
+                    FUSION.cart = FUSION.cart.filter(i => i.id !== target.dataset.id);
+                    renderCart();
+                }
+            });
+
+            // Auth Logic
+            document.getElementById('loginForm').onsubmit = (e) => {
+                e.preventDefault();
+                const email = document.getElementById('userMail').value;
+                const dummyUser = { name: email.split('@')[0], email: email };
+                localStorage.setItem('fusion_user', JSON.stringify(dummyUser));
+                checkAuth();
+                closeModal();
+            };
+
+            document.getElementById('logoutBtn').onclick = () => {
+                localStorage.removeItem('fusion_user');
+                location.reload();
+            };
+
+            // Checkout Logic
+            document.getElementById('checkoutTrigger').onclick = () => {
+                let msg = "Hello! I'd like to order:%0A";
+                let total = 0;
+                FUSION.cart.forEach(item => {
+                    const p = FUSION.catalog.find(x => x.id === item.id);
+                    msg += `- ${item.qty}x ${p.title} (${p.price * item.qty} DH)%0A`;
+                    total += p.price * item.qty;
+                });
+                msg += `%0ATotal: ${total} DH`;
+                window.open(`https://wa.me/${FUSION.whatsapp}?text=${msg}`, '_blank');
+            };
+        };
+
+        const openSidebar = (id) => {
+            document.getElementById(id).classList.add('open');
+            document.getElementById('sidebarOverlay').style.display = 'block';
+        };
+
+        const closeSidebars = () => {
+            document.querySelectorAll('.sidebar').forEach(s => s.classList.remove('open'));
+            document.getElementById('sidebarOverlay').style.display = 'none';
+        };
+
+        const openModal = (id) => {
+            document.getElementById(id).style.display = 'flex';
+        };
+
+        const closeModal = () => {
+            document.querySelectorAll('.phone-modal').forEach(m => m.style.display = 'none');
+        };
+
+        const handleAnimations = () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        };
+
+        // Start Application
+        init();
+
+    })();
+    //]]>
+    </script>
+</body>
+</html>
