@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta charset='utf-8'/>
+  <title><data:blog.pageTitle/></title>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+  <!-- Bootstrap 5.3 -->
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css' rel='stylesheet'/>
+  <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&amp;display=swap' rel='stylesheet'/>
+
+  <!-- Google Analytics 4 -->
+  <script async='async' src='https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX'/>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag(&#39;js&#39;, new Date());
+    gtag(&#39;config&#39;, &#39;G-XXXXXXXXXX&#39;);
+  </script>
+
+  <!-- CLEAN CSS (NO ESCAPED CHARACTERS) -->
+  <b:skin><![CDATA[
+    /* FUSION ENGINE MASTER STYLESHEET v2026.15.5 */
+    :root{
+      --fe-primary:#000000;
+      --fe-accent:#ffc107;
+      --fe-danger:#dc3545;
+      --fe-success:#25D366;
+      --fe-admin:#6f42c1;
+      --fe-white:#ffffff;
+      --fe-mist:#f8f9fa;
+      --fe-border:#eeeeee;
+      --fe-text-dark:#111111;
+      --fe-text-muted:#6c757d;
+      --fe-radius-xl:40px;
+      --fe-radius-lg:25px;
+      --fe-shadow:0 20px 50px rgba(0,0,0,0.1);
+      --fe-transition:0.5s cubic-bezier(0.165,0.84,0.44,1);
+      --fe-bg-alt:#f8f9fa;
+    }
+    *{box-sizing:border-box;outline:none!important}
+    body{margin:0;padding:0;font-family:'Poppins',sans-serif;background:var(--fe-white);color:var(--fe-text-dark);overflow-x:hidden;line-height:1.8;-webkit-font-smoothing:antialiased}
+    .container{width:92%;max-width:1440px;margin:0 auto;position:relative}
+    section{padding:100px 0;position:relative;width:100%;clear:both}
+    .header,.blog-feeds,#navbar-iframe-container,.post-footer,.comments,.feed-links{display:none!important}
+    .reveal{opacity:0;transform:translateY(40px);transition:0.8s cubic-bezier(0.2,1,0.3,1)}
+    .reveal.active{opacity:1;transform:translateY(0)}
+    /* NAVIGATION */
+    .fe-navbar{position:fixed;top:0;left:0;width:100%;height:80px;background:rgba(255,255,255,.95);backdrop-filter:blur(15px);border-bottom:1px solid var(--fe-border);z-index:5000;display:flex;align-items:center}
+    .nav-inner{display:flex;justify-content:space-between;align-items:center;width:100%}
+    .fe-logo{font-weight:900;font-size:1.8rem;color:#000;text-decoration:none;letter-spacing:-1.5px}
+    .fe-logo span{color:var(--fe-accent)}
+    .fe-links{display:flex;align-items:center;gap:30px;list-style:none;margin:0;padding:0}
+    .fe-links a{font-weight:600;font-size:.9rem;color:#000;text-transform:uppercase;text-decoration:none}
+    .fe-links a:hover{color:var(--fe-accent)}
+    .nav-actions{display:flex;align-items:center;gap:20px}
+    .fe-icon{position:relative;cursor:pointer;font-size:1.5rem;color:#000}
+    .fe-badge{position:absolute;top:-5px;right:-12px;background:var(--fe-danger);color:#fff;font-size:10px;font-weight:900;height:18px;width:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .curr-select{background:var(--fe-mist);border:1px solid #ddd;padding:6px 12px;border-radius:50px;font-size:.8rem;font-weight:800;cursor:pointer}
+    #adminFlag{display:none;background:var(--fe-admin);color:#fff;padding:4px 12px;border-radius:50px;font-size:.75rem;font-weight:900;text-transform:uppercase;cursor:pointer}
+    /* HERO */
+    .fe-hero{height:100vh;width:100%;background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2000');background-size:cover;background-position:center;background-attachment:fixed;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;padding-top:80px}
+    .fe-hero-inner{padding:0 20px;backdrop-filter:brightness(1.1)}
+    .fe-hero h1{font-size:clamp(2.5rem,5vw,6rem);font-weight:900;line-height:1.1;margin-bottom:20px;text-shadow:0 4px 10px rgba(0,0,0,.3)}
+    .fe-hero p{font-size:1.2rem;opacity:.9;max-width:600px;margin:0 auto;text-shadow:0 2px 4px rgba(0,0,0,.3)}
+    /* ABOUT */
+    .about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+    .about-img{position:relative}
+    .about-img img{border-radius:var(--fe-radius-xl);box-shadow:var(--fe-shadow);width:100%;height:auto}
+    .about-badge{position:absolute;bottom:-20px;left:-20px;background:var(--fe-accent);padding:30px;border-radius:var(--fe-radius-lg);box-shadow:0 15px 40px rgba(0,0,0,.15);text-align:center}
+    /* MENU */
+    .fe-filter-bar{display:flex;justify-content:center;gap:15px;margin-bottom:60px;flex-wrap:wrap}
+    .btn-filter{padding:12px 30px;border-radius:50px;border:2px solid #ddd;background:#fff;font-weight:700;font-size:.85rem;cursor:pointer;transition:.3s}
+    .btn-filter:hover,.btn-filter.active{background:#000;color:#fff;border-color:#000}
+    .fe-product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:30px;width:100%}
+    .fe-card{background:#fff;border-radius:var(--fe-radius-lg);overflow:hidden;border:1px solid var(--fe-border);transition:var(--fe-transition);position:relative}
+    .fe-card:hover{transform:translateY(-10px);box-shadow:var(--fe-shadow)}
+    .fe-card.out-of-stock{opacity:.6;pointer-events:none;filter:grayscale(1)}
+    .card-media-box{height:250px;overflow:hidden;position:relative;cursor:pointer}
+    .card-media-box img{width:100%;height:100%;object-fit:cover;transition:.5s}
+    .fe-card:hover .card-media-box img{transform:scale(1.1)}
+    .wish-overlay{position:absolute;top:15px;right:15px;background:#fff;border:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#ddd;box-shadow:0 5px 15px rgba(0,0,0,.1);z-index:10;transition:.3s;cursor:pointer}
+    .wish-overlay.active{color:var(--fe-danger);transform:scale(1.1)}
+    .card-info-box{padding:2rem}
+    .card-price-tag{font-weight:800;font-size:1.5rem;color:#000}
+    .star-display{color:var(--fe-accent);font-size:.9rem;margin-bottom:10px}
+    /* GALLERY */
+    .fe-gallery-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;width:100%}
+    .gallery-frame{height:300px;border-radius:var(--fe-radius-lg);overflow:hidden;cursor:pointer}
+    .gallery-frame img{width:100%;height:100%;object-fit:cover;transition:.5s}
+    .gallery-frame:hover img{transform:scale(1.1);filter:brightness(1.1)}
+    /* SIDEBAR */
+    .side-backdrop{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);backdrop-filter:blur(5px);z-index:5999;display:none}
+    .fe-sidebar{position:fixed;top:0;right:-100%;width:100%;max-width:450px;height:100vh;background:#fff;z-index:6000;transition:right .6s var(--fe-transition);display:flex;flex-direction:column}
+    .fe-sidebar.open{right:0}
+    .side-head-box{padding:20px;background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center}
+    .side-body-box{flex-grow:1;overflow-y:auto;padding:20px}
+    .side-foot-box{padding:20px;border-top:1px solid var(--fe-border);background:var(--fe-bg-alt)}
+    .cart-row-item{display:flex;gap:15px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #eee;align-items:center}
+    .cart-row-item img{width:70px;height:70px;border-radius:15px;object-fit:cover}
+    .qty-engine{display:flex;align-items:center;gap:10px;margin-top:5px}
+    .qty-btn{background:#eee;width:25px;height:25px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:.8rem}
+    /* MODAL */
+    .fe-modal-backdrop{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:7000;display:none;align-items:center;justify-content:center;padding:0}
+    .fe-modal-inner{background:#fff;border-radius:var(--fe-radius-lg);max-width:800px;width:90%;max-height:90vh;overflow-y:auto;padding:40px;position:relative}
+    .fe-modal-x{position:absolute;top:15px;right:20px;font-size:1.5rem;cursor:pointer;color:#000}
+    /* FLOATING BUTTONS */
+    .fe-action-floats{position:fixed;bottom:30px;right:30px;z-index:5000;display:flex;flex-direction:column;gap:15px}
+    .btn-fe-float{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.2);transition:.3s}
+    .f-wa{background:var(--fe-success)}
+    .f-cart{background:var(--fe-primary)}
+    /* FOOTER */
+    footer{background:#000;color:#fff;padding:80px 0}
+    .foot-grid-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px}
+    .foot-title-h{font-weight:700;font-size:1rem;margin-bottom:15px;text-transform:uppercase}
+    .foot-item-l{display:block;color:#ccc;text-decoration:none;margin-bottom:8px;font-size:.9rem}
+    .foot-item-l:hover{color:var(--fe-accent)}
+    
+    /* --- ADDED MODULES CSS --- */
+    /* TOAST NOTIFICATIONS */
+    .fe-toast-container{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+    .fe-toast{min-width:300px;padding:15px 20px;background:#fff;border-left:5px solid #000;border-radius:4px;box-shadow:0 5px 15px rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:space-between;animation:slideIn 0.3s ease forwards}
+    .fe-toast.success{border-color:var(--fe-success)}
+    .fe-toast.error{border-color:var(--fe-danger)}
+    .fe-toast-msg{font-size:0.9rem;font-weight:600;color:var(--fe-text-dark)}
+    .fe-toast-close{cursor:pointer;margin-left:15px;color:#999}
+    @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+    
+    /* MARKETING POPUP */
+    .fe-popup-wrap{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
+    .fe-popup-box{background:#fff;width:90%;max-width:500px;padding:40px;text-align:center;position:relative;border-radius:var(--fe-radius-lg);animation:popUp 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
+    .fe-popup-img{width:120px;height:120px;border-radius:50%;object-fit:cover;margin-bottom:20px;border:5px solid var(--fe-accent)}
+    @keyframes popUp{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
+    
+    /* SEARCH OVERLAY */
+    .fe-search-overlay{position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(255,255,255,0.98);z-index:5500;display:none;flex-direction:column;align-items:center;justify-content:center}
+    .fe-search-input{border:none;border-bottom:2px solid #000;font-size:2rem;font-weight:700;width:80%;text-align:center;outline:none;background:transparent;padding:10px}
+    .search-suggestion-item{font-size:1.2rem;padding:10px;cursor:pointer;opacity:0.7;transition:0.3s}
+    .search-suggestion-item:hover{opacity:1;color:var(--fe-accent)}
+  ]]></b:skin>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class='fe-navbar'>
+    <div class='container nav-inner'>
+      <a class='fe-logo' href='#hero'>EVENT<span>SUSHI</span></a>
+      <ul class='fe-links'>
+        <li><a href='#hero'>Home</a></li>
+        <li><a href='#about'>Our Story</a></li>
+        <li><a href='#menu'>Menu</a></li>
+        <li><a href='#gallery'>Gallery</a></li>
+        <li><a href='#contact'>Contact</a></li>
+      </ul>
+      <div class='nav-actions'>
+        <select class='curr-select' id='feCurrSelect'>
+          <option value='MAD'>MAD (DH)</option>
+          <option value='USD'>USD ($)</option>
+          <option value='EUR'>EUR (&#8364;)</option>
+        </select>
+        <div class='fe-icon' id='btnOpenSearch'><i class='bi bi-search'/></div>
+        <div class='fe-icon' id='wishToggle'><i class='bi bi-heart'/></div>
+        <div class='fe-icon' id='cartToggle'>
+          <i class='bi bi-bag'/><span class='fe-badge' id='cartBadge'>0</span>
+        </div>
+        <div id='adminFlag'>ADMIN</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class='fe-hero' id='hero'>
+    <div class='fe-hero-inner'>
+      <h1 class='reveal'>Art of Perfect Roll.</h1>
+      <p>Casablanca&#39;s premium sushi experience. Hand-crafted with Atlantic freshness and Japanese soul.</p>
+      <button class='btn btn-dark rounded-pill px-5 py-3 me-3 fw-bold' id='btnOrderNow'>Order Now</button>
+      <button class='btn btn-outline-light rounded-pill px-5 py-3 fw-bold' id='btnBookTable'>Book a Table</button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id='about'>
+    <div class='container'>
+      <div class='about-wrap'>
+        <div class='about-img reveal'>
+          <img alt='About Event Sushi' src='https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?q=80&amp;w=600'/>
+          <div class='about-badge'>
+            <h4 class='fw-bold'>12+</h4>
+            <small>Years of Artistry</small>
+          </div>
+        </div>
+        <div class='reveal'>
+          <h6 class='text-warning fw-bold mb-3'>OUR LEGACY</h6>
+          <h2 class='display-5 fw-bold mb-4'>Freshness Without Compromise.</h2>
+          <p class='mb-4'>Established in heart of Maarif in 2014, Event Sushi has become a beacon for those who seek highest quality seafood. We source daily to bring you 2026 excellence in every single bite.</p>
+          <ul class='list-unstyled mb-4'>
+            <li><i class='bi bi-check-circle-fill text-success me-2'/> Premium Sourcing</li>
+            <li><i class='bi bi-check-circle-fill text-success me-2'/> 60-min Delivery</li>
+            <li><i class='bi bi-check-circle-fill text-success me-2'/> Authentic Craftsmanship</li>
+          </ul>
+          <a class='btn btn-dark rounded-pill px-4 py-2 fw-bold' href='#menu'>Explore Our Menu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id='menu'>
+    <div class='container'>
+      <h2 class='text-center fw-bold mb-5 reveal'>Explore Our Menu</h2>
+      <div class='fe-filter-bar reveal'>
+        <button class='btn-filter active' data-filter='*'>All Dishes</button>
+        <button class='btn-filter' data-filter='Box'>Boxes</button>
+        <button class='btn-filter' data-filter='Taco'>Sushi Tacos</button>
+        <button class='btn-filter' data-filter='Appetizer'>Appetizers</button>
+      </div>
+      <div class='fe-product-grid reveal js-menu-grid-container' id='feMenuGrid'/>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id='gallery'>
+    <div class='container'>
+      <h2 class='text-center fw-bold mb-5 reveal'>Visual Gallery</h2>
+      <div class='fe-gallery-wrap reveal js-gallery-grid-container' id='feGalleryGrid'/>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class='bg-light'>
+    <div class='container'>
+      <h2 class='text-center fw-bold mb-5 reveal'>Customer Voices</h2>
+      <div class='row g-4'>
+        <div class='col-md-4 reveal'>
+          <div class='bg-white p-4 rounded-4 shadow-sm'>
+            <p>&#8220;The salmon was like butter. Fresh, delicate, and delivered in under 45 minutes!&#8221;</p>
+            <h6 class='fw-bold mb-0'>Sofia K.</h6>
+          </div>
+        </div>
+        <div class='col-md-4 reveal'>
+          <div class='bg-white p-4 rounded-4 shadow-sm'>
+            <p>&#8220;Our favorite sushi tacos in Casablanca. The crunch is unforgettable.&#8221;</p>
+            <h6 class='fw-bold mb-0'>Omar T.</h6>
+          </div>
+        </div>
+        <div class='col-md-4 reveal'>
+          <div class='bg-white p-4 rounded-4 shadow-sm'>
+            <p>&#8220;Highly professional catering. They made our corporate event a huge success.&#8221;</p>
+            <h6 class='fw-bold mb-0'>Laila R.</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id='contact'>
+    <div class='container'>
+      <div class='row g-5 align-items-center'>
+        <div class='col-lg-6 reveal'>
+          <h2 class='display-5 fw-bold mb-4'>Event Sushi</h2>
+          <p class='mb-2'>Authentic Japanese Cuisine in Morocco</p>
+          <div class='mb-3'>
+             <p class='mb-1'><i class='bi bi-geo-alt me-2'/> Maarif, Casablanca</p>
+             <p class='mb-1'><i class='bi bi-telephone me-2'/> +212 600 000 000</p>
+          </div>
+          <button class='btn btn-dark w-100 py-3 rounded-pill fw-bold' id='btnTriggerContactWA'>
+            <i class='bi bi-whatsapp me-2'/>SEND TO WHATSAPP
+          </button>
+        </div>
+        <div class='col-lg-6 reveal'>
+           <div class='text-center bg-white p-5 rounded-4 shadow-sm'>
+              <img alt='Contact Event Sushi' class='img-fluid rounded-4 mb-4' src='https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&amp;w=600'/>
+              <p class='mb-3'>Reserve your table now!</p>
+           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIDEBARS -->
+  <div class='side-backdrop js-side-backdrop' id='feSideBackdrop'/>
+
+  <!-- Cart Sidebar -->
+  <aside class='fe-sidebar' id='sideCartPanel'>
+    <div class='side-head-box'>
+      <h5 class='m-0 fw-bold'><i class='bi bi-bag-check-fill me-2'/>Your Basket</h5>
+      <i class='bi bi-x-lg close-sidebar-trig' id='closeSideCart' style='cursor:pointer'/>
+    </div>
+    <div class='side-body-box js-cart-list' id='feCartList'/>
+    <div class='side-foot-box' id='feCartFooter' style='display:none'>
+      <div class='mb-3'>
+        <div class='input-group input-group-sm'>
+          <input class='form-control border-0' id='fePromoIn' placeholder='Code (SUSHI10)' type='text'/>
+          <button class='btn btn-dark rounded-pill px-3' id='btnApplyPromo'>Apply</button>
+        </div>
+        <div class='small mt-1 fw-bold' id='fePromoStatus'/>
+      </div>
+      <div class='d-flex justify-content-between h5 fw-bold mb-3'>
+        <span>Grand Total:</span>
+        <span id='feFinalTotalDisplay'>0 DH</span>
+      </div>
+      <button class='btn btn-dark w-100 py-3 rounded-pill fw-bold' id='btnFinalCheckoutWA'>
+        Complete Order
+      </button>
+    </div>
+  </aside>
+
+  <!-- Wishlist Sidebar -->
+  <aside class='fe-sidebar' id='sideWishPanel'>
+    <div class='side-head-box' style='background:var(--fe-danger)'>
+      <h5 class='m-0 fw-bold'><i class='bi bi-heart-fill me-2'/>Favorites</h5>
+      <i class='bi bi-x-lg close-sidebar-trig' id='closeSideWish' style='cursor:pointer'/>
+    </div>
+    <div class='side-body-box js-wish-list' id='feWishList'/>
+  </aside>
+
+  <!-- Quick View Modal -->
+  <div class='fe-modal-backdrop' id='modalQuickView'>
+    <div class='fe-modal-inner'>
+      <i class='bi bi-x-lg fe-modal-x' id='closeModalQV'/>
+      <div class='row g-4 align-items-center'>
+        <div class='col-md-6'><img alt='' class='img-fluid rounded-5 shadow-sm js-qv-img' id='feQVImg' src=''/></div>
+        <div class='col-md-6'>
+          <h1 class='fw-bold mb-3 js-qv-title' id='feQVTitle'>Product</h1>
+          <div class='text-warning h5 mb-3 js-qv-stars' id='feQVStars'/>
+          <p class='text-muted mb-4 lead js-qv-desc' id='feQVDesc'/>
+          <h2 class='text-danger mb-4 js-qv-price' id='feQVPrice'>0 DH</h2>
+          <hr class='my-4'/>
+          <h6 class='fw-bold mb-3'>Customer Feedback</h6>
+          <div class='bg-light p-3 rounded-3 mb-3 js-qv-reviews' id='feQVReviews' style='max-height:200px;overflow-y:auto'/>
+          <textarea class='form-control rounded-4 mb-3 small' id='inUserComment' placeholder='Share your experience...' rows='2'/>
+          <button class='btn btn-dark btn-sm rounded-pill px-5' id='btnPostReview'>Post Review</button>
+          <button class='btn btn-dark w-100 py-3 rounded-pill fw-bold' id='btnModalAddCart'>Add to Basket</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Modal -->
+  <div class='fe-modal-backdrop' id='modalAdminPanel'>
+    <div class='fe-modal-inner' style='max-width:900px'>
+      <i class='bi bi-x-lg fe-modal-x' id='closeModalAdmin'/>
+      <h2 class='fw-bold mb-4'><i class='bi bi-shield-lock-fill me-2 text-primary'/>Master Control Panel</h2>
+      <div class='table-responsive'>
+        <table class='table align-middle'>
+          <thead class='table-dark'><tr><th>Product Item</th><th>Current Status</th><th>Toggle Logic</th></tr></thead>
+          <tbody class='js-admin-body' id='feAdminBody'/>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class='fe-modal-backdrop' id='modalTableBooking'>
+    <div class='fe-modal-inner' style='max-width:500px;padding:40px'>
+      <i class='bi bi-x-lg fe-modal-x' id='closeModalBook'/>
+      <h3 class='fw-bold mb-4 text-center'>Table Reservation</h3>
+      <div class='mb-3'><label class='form-label small fw-bold'>Name</label><input class='form-control fe-control' id='bookInName' type='text'/></div>
+      <div class='mb-3'><label class='form-label small fw-bold'>WhatsApp Number</label><input class='form-control fe-control' id='bookInPhone' type='tel'/></div>
+      <div class='row g-3 mb-3'>
+        <div class='col-6'><label class='form-label small fw-bold'>Date</label><input class='form-control fe-control' id='bookInDate' type='date'/></div>
+        <div class='col-6'><label class='form-label small fw-bold'>Time</label><input class='form-control fe-control' id='bookInTime' type='time'/></div>
+      </div>
+      <select class='form-select fe-control mb-4' id='bookInGuests'>
+        <option value='2'>2 Guests</option>
+        <option value='4'>4 Guests</option>
+        <option value='6'>6 Guests</option>
+        <option value='10'>10+ Guests</option>
+      </select>
+      <button class='btn btn-dark w-100 py-3 rounded-pill fw-bold' id='btnSubmitBooking'>CONFIRM VIA WHATSAPP</button>
+    </div>
+  </div>
+
+  <!-- Auth Modal -->
+  <div class='fe-modal-backdrop' id='modalAuth'>
+    <div class='fe-modal-inner' style='max-width:400px;padding:30px'>
+      <i class='bi bi-x-lg fe-modal-x' id='closeModalAuth'/>
+      <h3 class='fw-bold mb-4 text-center'>Engine Access</h3>
+      <div class='alert alert-warning small py-2 mb-3 text-center'>Login with <strong>admin@eventsushi.com</strong> for Admin rights.</div>
+      <input class='form-control fe-control mb-3' id='loginMailIn' placeholder='Email' type='email'/>
+      <button class='btn btn-dark w-100 py-3 rounded-pill fw-bold' id='btnActionLogin'>SIGN IN</button>
+    </div>
+  </div>
+
+  <!-- Floating Buttons -->
+  <div class='fe-action-floats'>
+    <a class='btn-fe-float f-wa' href='https://wa.me/212600000000' target='_blank'><i class='bi bi-whatsapp'/></a>
+    <div class='btn-fe-float f-cart' id='feFloatCartBtn'><i class='bi bi-cart3'/></div>
+  </div>
+
+  <!-- Blogger Section -->
+  <b:section id='MainBloggerEngine' showaddelement='yes'/>
+
+  <!-- Footer -->
+  <footer>
+    <div class='container'>
+      <div class='foot-grid-wrap'>
+        <div>
+          <h2 class='fw-bold text-white mb-3'>EVENT SUSHI</h2>
+          <p class='opacity-75 small'>The pioneer of authentic sushi fusion in Casablanca. Sourcing Atlantic freshness since 2014.</p>
+        </div>
+        <div>
+          <h6 class='foot-title-h'>Explore</h6>
+          <a class='foot-item-l' href='#hero'>Home</a>
+          <a class='foot-item-l' href='#about'>Our Story</a>
+          <a class='foot-item-l' href='#menu'>The Menu</a>
+          <a class='foot-item-l' href='#gallery'>Gallery</a>
+        </div>
+        <div>
+          <h6 class='foot-title-h'>Information</h6>
+          <a class='foot-item-l' href='#'>Privacy Policy</a>
+          <a class='foot-item-l' href='#'>Refund Policy</a>
+          <a class='foot-item-l' href='#'>Terms of Use</a>
+        </div>
+        <div>
+          <h6 class='foot-title-h'>Visit Us</h6>
+          <p class='small opacity-50 mb-3'>Maarif District, Casablanca.<br/>Open 11:00 AM - 11:00 PM</p>
+          <div class='d-flex gap-3'>
+            <a class='text-white h5' href='#'><i class='bi bi-instagram'/></a>
+            <a class='text-white h5' href='#'><i class='bi bi-facebook'/></a>
+          </div>
+        </div>
+      </div>
+      <hr class='my-4 opacity-10'/>
+      <p class='text-center small opacity-50 mb-0'>&amp;copy; 2026 Fusion Engine Framework. Developed by GORARY PRO.</p>
+    </div>
+  </footer>
+
+  <!-- ADDED HTML MODULES -->
+  
+  <!-- Search Overlay -->
+  <div class='fe-search-overlay' id='searchOverlay'>
+    <i class='bi bi-x-lg' id='closeSearch' style='position:absolute;top:30px;right:30px;font-size:2rem;cursor:pointer'/>
+    <input class='fe-search-input' id='feSearchIn' placeholder='Type to find sushi...' type='text'/>
+    <div id='searchResults' style='margin-top:20px;width:80%;max-height:300px;overflow-y:auto'/>
+  </div>
+
+  <!-- Marketing Popup -->
+  <div class='fe-popup-wrap' id='marketingPopup'>
+    <div class='fe-popup-box'>
+      <i class='bi bi-x-lg' id='closePopup' style='position:absolute;top:15px;right:15px;font-size:1.5rem;cursor:pointer'/>
+      <img alt='Offer' class='fe-popup-img' src='https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=300'/>
+      <h2 class='fw-bold mb-2'>Get 20% Off</h2>
+      <p class='text-muted mb-4'>Join our exclusive sushi club today. Use code <strong>SUSHI20</strong> at checkout.</p>
+      <button class='btn btn-dark rounded-pill px-5 py-2 fw-bold' id='btnPopupAction'>Order Now</button>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class='fe-toast-container js-toast-container' id='feToastContainer'/>
+
+  <!-- SCRIPT (WITH DOM INJECTION FALLBACK) -->
+  <script type='text/javascript'>
+  //<![CDATA[
+  
+  // WAIT FOR DOM TO BE FULLY PARSED
+  document.addEventListener("DOMContentLoaded", function() {
+      
+    (function(){
+      /* --- 7.1 GLOBAL DATA CONFIGURATION --- */
+      const FE = {
+        waLink: "212600000000",
+        rates: { "MAD": 1, "USD": 0.10, "EUR": 0.093 },
+        sym: { "MAD": "DH", "USD": "$", "EUR": "€" },
+        
+        catalog: [
+          { id: "p1", cat: "Box", title: "Salmon Lovers Box", price: 120, img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600", desc: "12 pieces of premium salmon nigiri and california rolls.", inStock: true },
+          { id: "p2", cat: "Box", title: "Dragon King Platter", price: 155, img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600", desc: "Artisan tempura shrimp roll topped with grilled unagi.", inStock: true },
+          { id: "p3", cat: "Taco", title: "Spicy Tuna Nori Taco", price: 45, img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600", desc: "Crunchy nori shell with spicy marinated tuna mash.", inStock: true },
+          { id: "p4", cat: "Taco", title: "Salmon Avocado Taco", price: 40, img: "https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=600", desc: "Light salmon cubes with lime-infused avocado mash.", inStock: true },
+          { id: "p5", cat: "Appetizer", title: "Dynamite Shrimp", price: 85, img: "https://images.unsplash.com/photo-1559715745-e1b33a271c8f?w=600", desc: "Tempura battered shrimp in a spicy fire glaze.", inStock: true },
+          { id: "p6", cat: "Appetizer", title: "Classic Miso Soup", price: 30, img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600", desc: "Traditional broth with silk tofu and spring onions.", inStock: true }
+        ],
+        
+        gallery: [
+          "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?q=80&amp;w=500",
+          "https://images.unsplash.com/photo-1611143669185-af224c5e3252?q=80&amp;w=500",
+          "https://images.unsplash.com/photo-1562436260-8c9216eeb703?q=80&amp;w=500",
+          "https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&amp;w=500",
+          "https://images.unsplash.com/photo-1617196034651-361730097f4a?q=80&amp;w=500",
+          "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?q=80&amp;w=500"
+        ],
+
+        promos: [
+          { code: "SUSHI10", val: 0.10, type: "percent" },
+          { code: "MAD50", val: 50, type: "fixed" }
+        ],
+
+        state: {
+          currency: localStorage.getItem("fe_curr") || "MAD",
+          cart: JSON.parse(localStorage.getItem("fe_cart")) || [],
+          wish: JSON.parse(localStorage.getItem("fe_wish")) || [],
+          user: JSON.parse(localStorage.getItem("fe_user")) || null,
+          revs: JSON.parse(localStorage.getItem("fe_revs")) || { "p1": [{u:"Karim", s:5, t:"Fresh!"}],"p2": [] },
+          discount: 0,
+          discountMsg: ""
+        }
+      };
+
+      /* --- 7.2 SELECTOR SAFETY ENGINE --- */
+      const getEl = function(id, cls) {
+        var el = document.getElementById(id);
+        if (!el && cls) {
+            el = document.querySelector("." + cls);
+        }
+        return el;
+      };
+
+      const $ = function(id) { return document.getElementById(id); };
+      const $$ = function(s) { return document.querySelectorAll(s); };
+      const fmt = function(p) {
+        var r = FE.rates[FE.state.currency];
+        var s = FE.sym[FE.state.currency];
+        var c = (p * r).toFixed(2);
+        return FE.state.currency === "MAD" ? c + " DH" : s + c;
+      };
+      const save = function() {
+        localStorage.setItem("fe_cart", JSON.stringify(FE.state.cart));
+        localStorage.setItem("fe_wish", JSON.stringify(FE.state.wish));
+        localStorage.setItem("fe_curr", FE.state.currency);
+        localStorage.setItem("fe_revs", JSON.stringify(FE.state.revs));
+        localStorage.setItem("fe_user", JSON.stringify(FE.state.user));
+      };
+
+      /* --- HELPER: TOAST NOTIFICATIONS --- */
+      function showToast(msg, type) {
+        var c = getEl("feToastContainer", "js-toast-container");
+        if (!c) { console.warn("Toast container missing"); return; }
+        var h = "<div class=\"fe-toast " + type + "\">";
+        h += "<span class=\"fe-toast-msg\">" + msg + "</span>";
+        h += "<i class=\"bi bi-x-lg fe-toast-close\" onclick=\"this.parentElement.remove()\"/>";
+        h += "</div>";
+        c.insertAdjacentHTML("beforeend", h);
+        setTimeout(function(){ 
+          var t = c.querySelector(".fe-toast:first-child"); 
+          if(t) t.remove(); 
+        }, 3000);
+      }
+
+      /* --- HELPER: QUICK VIEW LOGIC --- */
+      var currentQVId = null;
+      function openQuickView(pid) {
+        var p = FE.catalog.find(function(x) { return x.id === pid; });
+        if (!p) return;
+        currentQVId = pid;
+        
+        var img = getEl("feQVImg", "js-qv-img");
+        var title = getEl("feQVTitle", "js-qv-title");
+        var price = getEl("feQVPrice", "js-qv-price");
+        var desc = getEl("feQVDesc", "js-qv-desc");
+        
+        if(img) img.src = p.img;
+        if(title) title.textContent = p.title;
+        if(price) price.textContent = fmt(p.price);
+        if(desc) desc.textContent = p.desc;
+        
+        var rList = getEl("feQVReviews", "js-qv-reviews");
+        if(rList) {
+          rList.innerHTML = "";
+          var reviews = FE.state.revs[pid] || [];
+          if(reviews.length === 0) rList.innerHTML = "<p class='small text-muted'>No reviews yet.</p>";
+          
+          reviews.forEach(function(r){
+            rList.insertAdjacentHTML("beforeend", "<div class='mb-2 border-bottom pb-1'><strong>"+r.u+"</strong>: "+r.t+"</div>");
+          });
+        }
+        openModal("#modalQuickView");
+      }
+
+      /* --- 7.3 RENDER LOGIC: MENU (ROBUST) --- */
+      function renderMenu() {
+        var g = document.querySelector(".js-menu-grid-container");
+        
+        if (!g) {
+            console.warn("Menu grid not found by class. Injecting container...");
+            var menuSection = document.getElementById("menu");
+            if (menuSection) {
+                var newGrid = document.createElement("div");
+                newGrid.className = "fe-product-grid reveal js-menu-grid-container";
+                newGrid.id = "feMenuGrid";
+                menuSection.appendChild(newGrid);
+                g = newGrid;
+            } else {
+                console.error("Critical: Cannot find menu section to inject grid.");
+                return;
+            }
+        }
+        
+        g.innerHTML = "";
+        FE.catalog.forEach(function(p) {
+          var w = FE.state.wish.includes(p.id);
+          var st = !p.inStock ? "out-of-stock" : "";
+          var html = "";
+          html += "<div class=\"fe-card " + st + "\" data-id=\"" + p.id + "\">"; 
+          html += "<div class=\"card-media-box\">";
+          html += "<img src=\"" + p.img + "\" alt=\"" + p.title + "\"/>";
+          html += "<button class=\"wish-overlay " + (w ? "active" : "") + "\" data-id=\"" + p.id + "\"><i class=\"bi bi-heart-fill\"></i></button>";
+          html += "</div>";
+          html += "<div class=\"card-info-box\">";
+          html += "<h5 class=\"fw-bold mb-2\">" + p.title + "</h5>";
+          html += "<div class=\"star-display mb-2\">★★★★☆</div>";
+          html += "<p class=\"small text-muted mb-2\">" + p.desc + "</p>";
+          html += "<div class=\"d-flex justify-content-between align-items-center\">";
+          html += "<span class=\"card-price-tag\">" + fmt(p.price) + "</span>";
+          html += "<button class=\"btn btn-sm btn-dark rounded-pill add-cart\" data-id=\"" + p.id + "\" " + (!p.inStock ? "disabled" : "") + ">Add</button>";
+          html += "</div>";
+          html += "</div>";
+          html += "</div>";
+          
+          g.insertAdjacentHTML("beforeend", html);
+        });
+      }
+
+      /* --- 7.4 RENDER LOGIC: GALLERY (ROBUST) --- */
+      function renderGallery() {
+        var g = document.querySelector(".js-gallery-grid-container");
+        if (!g) {
+             var galSection = document.getElementById("gallery");
+             if(galSection){
+                var newGal = document.createElement("div");
+                newGal.className = "fe-gallery-wrap reveal js-gallery-grid-container";
+                newGal.id = "feGalleryGrid";
+                galSection.appendChild(newGal);
+                g = newGal;
+             }
+        }
+        if (!g) return; 
+        g.innerHTML = "";
+        FE.gallery.forEach(function(src) {
+          g.insertAdjacentHTML("beforeend", "<div class=\"gallery-frame\"><img src=\"" + src + "\" alt=\"Gallery\"/></div>");
+        });
+      }
+
+      /* --- 7.5 RENDER LOGIC: CART (ROBUST) --- */
+      function renderCart() {
+        var l = getEl("feCartList", "js-cart-list");
+        if (!l) return;
+        l.innerHTML = "";
+        var total = 0;
+        if (!FE.state.cart.length) {
+          l.innerHTML = "<div class=\"text-center py-5 opacity-40\"><i class=\"bi bi-cart-x display-1\"></i><p class=\"mt-2\">Basket Empty</p></div>";
+          if ($("#feCartFooter")) $("#feCartFooter").style.display = "none";
+          if ($("#cartBadge")) $("#cartBadge").textContent = "0";
+          return;
+        }
+        
+        FE.state.cart.forEach(function(i) {
+          var p = FE.catalog.find(function(x) { return x.id === i.id; });
+          if (p) {
+            total += p.price * i.qty;
+            var html = "";
+            html += "<div class=\"cart-row-item\">";
+            html += "<img src=\"" + p.img + "\"/>";
+            html += "<div class=\"flex-grow-1\">";
+            html += "<h6 class=\"fw-bold mb-1\">" + p.title + "</h6>";
+            html += "<div class=\"small text-muted\">" + fmt(p.price) + "</div>";
+            html += "<div class=\"qty-engine\">";
+            html += "<span class=\"qty-btn\" data-id=\"" + i.id + "\" data-op=\"-\">-</span>";
+            html += "<span class=\"small fw-bold\">" + i.qty + "</span>";
+            html += "<span class=\"qty-btn\" data-id=\"" + i.id + "\" data-op=\"+\">+</span>";
+            html += "</div>";
+            html += "</div>";
+            html += "<button class=\"bi bi-trash text-danger del-cart\" data-id=\"" + i.id + "\" style=\"cursor:pointer\"><i class=\"bi bi-trash\"></i></button>";
+            html += "</div>";
+            l.insertAdjacentHTML("beforeend", html);
+          }
+        });
+
+        if (FE.state.discount.type === "percent") total *= (1 - FE.state.discount.val);
+        else if (FE.state.discount.type === "fixed") total -= FE.state.discount.val;
+
+        if ($("#feFinalTotalDisplay")) $("#feFinalTotalDisplay").textContent = fmt(total);
+        if ($("#feCartFooter")) $("#feCartFooter").style.display = "block";
+        if ($("#cartBadge")) $("#cartBadge").textContent = FE.state.cart.length;
+        save();
+      }
+
+      /* --- 7.6 RENDER LOGIC: WISHLIST (ROBUST) --- */
+      function renderWish() {
+        var l = getEl("feWishList", "js-wish-list");
+        if (!l) return;
+        l.innerHTML = "";
+        if (!FE.state.wish.length) {
+          l.innerHTML = "<div class=\"text-center py-5\">No items in wishlist.</div>";
+          return;
+        }
+        
+        FE.state.wish.forEach(function(id) {
+          var p = FE.catalog.find(function(x) { return x.id === id; });
+          if (p) {
+            var html = "";
+            html += "<div class=\"cart-row-item\">";
+            html += "<img src=\"" + p.img + "\"/>";
+            html += "<div class=\"flex-grow-1\">";
+            html += "<h6 class=\"fw-bold mb-1\">" + p.title + "</h6>";
+            html += "<div class=\"small text-muted\">" + fmt(p.price) + "</div>";
+            html += "</div>";
+            html += "<button class=\"btn btn-sm btn-outline-danger rounded-pill remove-wish\" data-id=\"" + id + "\">×</button>";
+            html += "</div>";
+            l.insertAdjacentHTML("beforeend", html);
+          }
+        });
+        save();
+      }
+
+      /* --- 7.7 RENDER LOGIC: ADMIN (ROBUST) --- */
+      function renderAdmin() {
+        var root = getEl("feAdminBody", "js-admin-body");
+        if (!root) return;
+        root.innerHTML = "";
+        FE.catalog.forEach(function(p) {
+          var html = "";
+          html += "<tr>";
+          html += "<td class=\"fw-bold small\">" + p.title + "</td>";
+          html += "<td><span class=\"badge " + (p.inStock ? "bg-success" : "bg-danger") + "\">" + (p.inStock ? "LIVE" : "OUT") + "</span></td>";
+          html += "<td><button class=\"btn btn-sm btn-dark toggle-stock\" data-id=\"" + p.id + "\">TOGGLE</button></td>";
+          html += "</tr>";
+          root.insertAdjacentHTML("beforeend", html);
+        });
+      }
+
+      /* --- 7.8 CORE INTERACTION BINDING --- */
+      document.addEventListener("click", function(e) {
+        var t = e.target;
+
+        /* Add to Cart */
+        if (t.classList.contains("add-cart")) {
+          var id = t.dataset.id;
+          var exists = FE.state.cart.find(function(item) { return item.id === id; });
+          exists ? exists.qty++ : FE.state.cart.push({ id: id, qty: 1 });
+          save(); renderCart();
+          showToast("Added to basket!", "success");
+        }
+
+        /* QUICK VIEW TRIGGER */
+        var card = t.closest(".fe-card");
+        if (card && !t.classList.contains("add-cart") && !t.classList.contains("wish-overlay")) {
+          var pid = card.dataset.id;
+          openQuickView(pid);
+        }
+
+        /* Wishlist */
+        if (t.classList.contains("wish-overlay")) {
+          var id = t.dataset.id;
+          var idx = FE.state.wish.indexOf(id);
+          var btn = t.closest(".wish-overlay");
+          if (idx > -1) {
+            FE.state.wish.splice(idx, 1);
+            btn.classList.remove("active");
+          } else {
+            FE.state.wish.push(id);
+            btn.classList.add("active");
+          }
+          save(); renderWish(); renderMenu();
+        }
+
+        if (t.classList.contains("remove-wish")) {
+          var id = t.dataset.id;
+          FE.state.wish.splice(FE.state.wish.indexOf(id), 1);
+          save(); renderWish(); renderMenu();
+        }
+
+        /* Qty & Delete */
+        if (t.classList.contains("qty-btn")) {
+          var i = FE.state.cart.find(function(x) { return x.id === t.dataset.id; });
+          if (i) {
+            if (t.dataset.op === "+") i.qty++;
+            if (t.dataset.op === "-" && i.qty > 1) i.qty--;
+            if (i.qty <= 0) FE.state.cart.splice(FE.state.cart.indexOf(i), 1);
+            save(); renderCart();
+          }
+        }
+        if (t.classList.contains("del-cart") || t.closest(".del-cart")) {
+           var id = t.closest(".del-cart").dataset.id;
+           FE.state.cart = FE.state.cart.filter(function(x){ return x.id !== id; });
+           save(); renderCart();
+        }
+        
+        /* Search Triggers */
+        if (t.id === "btnOpenSearch") {
+          if($("#searchOverlay")) {
+              $("#searchOverlay").style.display = "flex";
+              if($("#feSearchIn")) $("#feSearchIn").focus();
+          }
+        }
+        if (t.id === "closeSearch") {
+            if($("#searchOverlay")) $("#searchOverlay").style.display = "none";
+        }
+
+        /* Search Result Click (Delegation) */
+        if (t.classList.contains("search-suggestion-item")) {
+          var pid = t.dataset.pid;
+          openQuickView(pid);
+          if($("#searchOverlay")) $("#searchOverlay").style.display = "none";
+        }
+
+        /* Popup Triggers */
+        if (t.id === "closePopup") {
+            if($("#marketingPopup")) $("#marketingPopup").style.display = "none";
+        }
+        if (t.id === "btnPopupAction") {
+          if($("#marketingPopup")) $("#marketingPopup").style.display = "none";
+          openSidebar("#sideCartPanel");
+        }
+        
+        /* Close Modals/Sidebars */
+        if (t.classList.contains("close-sidebar-trig") || t.classList.contains("fe-modal-x") || t.id === "feSideBackdrop") closeAll();
+      });
+
+      /* --- 7.9 MODAL CONTROLS --- */
+      function openModal(id) {
+        var el = $(id);
+        if (el) { el.style.display = "flex"; }
+      }
+      function closeModal() {
+        $$(".fe-modal-backdrop").forEach(function(m) { m.style.display = "none"; });
+      }
+      function closeAll() {
+        $$(".fe-sidebar").forEach(function(s) { s.classList.remove("open"); });
+        $$(".fe-modal-backdrop").forEach(function(m) { m.style.display = "none"; });
+        if ($("#feSideBackdrop")) $("#feSideBackdrop").style.display = "none";
+      }
+      function openSidebar(id) {
+        var s = $(id);
+        if (s) { s.classList.add("open"); if ($("#feSideBackdrop")) $("#feSideBackdrop").style.display = "block"; }
+      }
+
+      /* --- 7.10 INTERACTION LOGIC (SAFE) --- */
+      var currSelect = $("#feCurrSelect");
+      if(currSelect) {
+          currSelect.addEventListener("change", function(e) {
+            FE.state.currency = e.target.value;
+            save(); renderMenu(); renderCart();
+          });
+      }
+
+      var btnApplyPromo = $("#btnApplyPromo");
+      if(btnApplyPromo) {
+          btnApplyPromo.addEventListener("click", function() {
+            var v = $("#fePromoIn").value.trim();
+            var p = FE.promos.find(function(x) { return x.code === v; });
+            if (p) {
+              FE.state.discount = p;
+              if($("#fePromoStatus")) $("#fePromoStatus").textContent = "Promo applied!";
+              renderCart();
+            } else {
+              FE.state.discount = 0;
+              if($("#fePromoStatus")) $("#fePromoStatus").textContent = "Invalid code";
+              renderCart();
+            }
+          });
+      }
+
+      var btnFinalCheckoutWA = $("#btnFinalCheckoutWA");
+      if(btnFinalCheckoutWA) {
+          btnFinalCheckoutWA.addEventListener("click", function() {
+            var msg = "Order:\n";
+            var sum = 0;
+            FE.state.cart.forEach(function(i) {
+              var p = FE.catalog.find(function(x) { return x.id === i.id; });
+              if (p) {
+                msg += "- " + i.qty + "x " + p.title + " (" + fmt(p.price * i.qty) + ")\n";
+                sum += p.price * i.qty;
+              }
+            });
+            msg += "\nTotal: " + ($("#feFinalTotalDisplay") ? $("#feFinalTotalDisplay").textContent : "0");
+            window.open("https://wa.me/" + FE.waLink + "?text=" + encodeURIComponent(msg), "_blank");
+            closeModal();
+          });
+      }
+
+      var btnTriggerContactWA = $("#btnTriggerContactWA");
+      if(btnTriggerContactWA) {
+          btnTriggerContactWA.addEventListener("click", function() {
+            window.open("https://wa.me/" + FE.waLink + "?text=Hello%20Event%20Sushi", "_blank");
+          });
+      }
+
+      var btnOrderNow = $("#btnOrderNow");
+      if(btnOrderNow) btnOrderNow.addEventListener("click", function() { openSidebar("#sideCartPanel"); });
+
+      var btnBookTable = $("#btnBookTable");
+      if(btnBookTable) btnBookTable.addEventListener("click", function() { openModal("#modalTableBooking"); });
+
+      var feFloatCartBtn = $("#feFloatCartBtn");
+      if(feFloatCartBtn) feFloatCartBtn.addEventListener("click", function() { openSidebar("#sideCartPanel"); });
+
+      var wishToggle = $("#wishToggle");
+      if(wishToggle) wishToggle.addEventListener("click", function() { openSidebar("#sideWishPanel"); });
+      
+      var btnModalAddCart = $("#btnModalAddCart");
+      if(btnModalAddCart) {
+          btnModalAddCart.addEventListener("click", function() {
+             if(currentQVId) {
+               var exists = FE.state.cart.find(function(item) { return item.id === currentQVId; });
+               exists ? exists.qty++ : FE.state.cart.push({ id: currentQVId, qty: 1 });
+               save(); renderCart(); showToast("Added from Quick View", "success"); closeModal();
+             }
+          });
+      }
+
+      /* --- 7.11 SEARCH LOGIC --- */
+      var feSearchIn = $("#feSearchIn");
+      if(feSearchIn) {
+          feSearchIn.addEventListener("keyup", function(e) {
+            var val = e.target.value.toLowerCase();
+            var res = $("#searchResults");
+            if(!res) return;
+            res.innerHTML = "";
+            if (val.length < 2) return;
+            
+            var hits = FE.catalog.filter(function(p){ return p.title.toLowerCase().includes(val); });
+            hits.forEach(function(p){
+              res.insertAdjacentHTML("beforeend", 
+                "<div class='search-suggestion-item' data-pid='"+p.id+"'>" + 
+                p.title + " - " + fmt(p.price) + 
+                "</div>"
+              );
+            });
+          });
+      }
+
+      /* --- 7.12 REVIEW LOGIC --- */
+      var btnPostReview = $("#btnPostReview");
+      if(btnPostReview) {
+          btnPostReview.addEventListener("click", function() {
+            var txt = $("#inUserComment").value;
+            if (!txt.trim()) {
+              showToast("Please write a comment", "error");
+              return;
+            }
+            if (!FE.state.revs[currentQVId]) FE.state.revs[currentQVId] = [];
+            FE.state.revs[currentQVId].push({ u: "Guest", s: 5, t: txt });
+            save();
+            showToast("Review posted!", "success");
+            if($("#inUserComment")) $("#inUserComment").value = "";
+            openQuickView(currentQVId); 
+          });
+      }
+
+      /* --- 7.13 BOOKING LOGIC --- */
+      var btnSubmitBooking = $("#btnSubmitBooking");
+      if(btnSubmitBooking) {
+          btnSubmitBooking.addEventListener("click", function() {
+            var n = $("#bookInName").value;
+            var ph = $("#bookInPhone").value;
+            var d = $("#bookInDate").value;
+            var tm = $("#bookInTime").value;
+            var g = $("#bookInGuests").value;
+            if (!n || !ph || !d || !tm) {
+              showToast("Please fill all booking fields", "error");
+              return;
+            }
+            
+            var msg = "Hi, I'd like to reserve a table.\n\n";
+            msg += "Name: " + n + "\n";
+            msg += "Phone: " + ph + "\n";
+            msg += "Date: " + d + "\n";
+            msg += "Time: " + tm + "\n";
+            msg += "Guests: " + g + "\n";
+            
+            window.open("https://wa.me/" + FE.waLink + "?text=" + encodeURIComponent(msg), "_blank");
+            closeModal();
+          });
+      }
+
+      /* --- 7.14 ADMIN & AUTH LOGIC --- */
+      var adminFlag = $("#adminFlag");
+      if(adminFlag) {
+          adminFlag.addEventListener("click", function() { openModal("#modalAdminPanel"); });
+      }
+
+      var btnActionLogin = $("#btnActionLogin");
+      if(btnActionLogin) {
+          btnActionLogin.addEventListener("click", function() {
+            var m = $("#loginMailIn").value;
+            if (m === "admin@eventsushi.com") {
+              FE.state.user = { admin: true };
+              if($("#adminFlag")) $("#adminFlag").style.display = "inline-block";
+              openModal("#modalAdminPanel");
+              showToast("Welcome Admin", "success");
+            } else {
+              FE.state.user = null;
+              if($("#adminFlag")) $("#adminFlag").style.display = "none";
+              showToast("Access Denied", "error");
+            }
+            save(); closeModal();
+          });
+      }
+      
+      // Toggle Stock Admin (Delegation handled in main listener)
+      // No extra direct listeners needed here.
+
+      /* --- 7.15 INITIALIZATION --- */
+      (function init() {
+        renderMenu();
+        renderGallery();
+        renderCart();
+        renderWish();
+        renderAdmin();
+        if (currSelect) currSelect.value = FE.state.currency;
+        
+        // Admin Visibility
+        if (FE.state.user && FE.state.user.admin && $("#adminFlag")) $("#adminFlag").style.display = "inline-block";
+        
+        // Popup Init (Show only once)
+        if (!localStorage.getItem("fe_popup_seen")) {
+          setTimeout(function(){
+            if($("#marketingPopup")) {
+              $("#marketingPopup").style.display = "flex";
+              localStorage.setItem("fe_popup_seen", "true");
+            }
+          }, 2000);
+        }
+      })();
+
+      /* --- 7.16 REVEAL ANIMATION --- */
+      function scrollReveal() {
+        $$(".reveal").forEach(function(el) {
+          var rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 100) el.classList.add("active");
+        });
+      }
+      window.addEventListener("scroll", scrollReveal);
+
+    })(); // End IIFE
+  }); // End DOMContentLoaded
+  //]]>
+  </script>
+</body>
+</html>
