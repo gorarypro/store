@@ -253,6 +253,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 save();
             }
 
+            // EVENT DELEGATION & LISTENERS
             document.addEventListener("click", (e) => {
                 const t = e.target;
                 
