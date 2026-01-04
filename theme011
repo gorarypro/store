@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta charset='utf-8'/>
+  <title><data:blog.pageTitle/></title>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css' rel='stylesheet'/>
+  <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&amp;display=swap' rel='stylesheet'/>
+
+  <b:skin><![CDATA[
+    /* ---------------------------------------------------------
+       MODULE 1: CORE ENGINE & LAYER ARCHITECTURE
+    ------------------------------------------------------------ */
+    :root {
+      --fe-primary: #000000;
+      --fe-accent: #ffc107;
+      --fe-danger: #ff4d4f;
+      --fe-white: #ffffff;
+      --fe-mist: #f4f4f4;
+      --fe-border: #eeeeee;
+      --fe-radius: 24px;
+      --fe-transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    * { box-sizing: border-box; outline: none !important; }
+    i.bi { display: inline-block !important; pointer-events: none !important; min-width: 1em; line-height: 1; }
+    
+    body { margin: 0; padding-top: 140px; font-family: 'Poppins', sans-serif; background: #fff; color: var(--fe-primary); overflow-x: hidden; }
+
+    /* Blogger Cleanse */
+    .header, .blog-feeds, #navbar-iframe-container, .post-footer, .comments, .widget { display: none !important; visibility: hidden !important; height: 0 !important; opacity: 0 !important; }
+
+    /* [THE SHIELD: Z-INDEX STACK] */
+    .fe-navbar { z-index: 10000 !important; }
+    .fe-cat-bar { z-index: 9500 !important; }
+    .side-backdrop { z-index: 20000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: none; opacity: 0; transition: 0.3s; }
+    .fe-sidebar { z-index: 30000 !important; position: fixed; top: 0; right: -110%; width: 100%; max-width: 450px; height: 100vh; background: #ffffff !important; transition: right 0.5s var(--fe-transition); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.2); visibility: hidden; }
+    .fe-modal-backdrop { z-index: 40000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; padding: 15px; }
+    .fe-search-overlay { z-index: 50000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #fff; display: none; padding-top: 80px; }
+
+    /* ---------------------------------------------------------
+       2. UI COMPONENTS: NAVIGATION & CATEGORIES
+    ------------------------------------------------------------ */
+    .fe-navbar { position: fixed; top: 0; left: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-bottom: 1px solid var(--fe-border); display: flex; align-items: center; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 0 4%; }
+    .fe-logo { font-weight: 900; font-size: 1.6rem; color: #000; text-decoration: none; letter-spacing: -1.5px; }
+    .fe-logo span { color: var(--fe-accent); }
+    
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .fe-icon { position: relative; cursor: pointer; font-size: 1.4rem; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.3s; color: #000; }
+    .fe-badge { position: absolute; top: 2px; right: 2px; background: var(--fe-danger); color: #fff; font-size: 10px; font-weight: 900; height: 18px; width: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; }
+
+    .fe-cat-bar { position: fixed; top: 80px; left: 0; width: 100%; height: 60px; background: #fff; border-bottom: 1px solid var(--fe-border); display: flex; align-items: center; overflow-x: auto; white-space: nowrap; padding: 0 4%; scrollbar-width: none; }
+    .cat-item { display: inline-block; padding: 8px 22px; margin-right: 12px; border-radius: 50px; background: var(--fe-mist); font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: 0.3s; }
+    .cat-item.active { background: #000; color: #fff; }
+
+    .fe-hero { height: 45vh; position: relative; display: flex; align-items: center; justify-content: center; color: white; text-align: center; margin-top: -60px; }
+    .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2000'); background-size: cover; background-position: center; z-index: 1; }
+    .hero-content { position: relative; z-index: 2; }
+
+    /* ---------------------------------------------------------
+       3. GRID & CARDS
+    ------------------------------------------------------------ */
+    .fe-product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 40px 0; }
+    .fe-card { background: white; border-radius: var(--fe-radius); border: 1px solid var(--fe-border); overflow: hidden; position: relative; cursor: pointer; display: flex; flex-direction: column; transition: 0.3s; }
+    .card-img-box { height: 250px; overflow: hidden; position: relative; }
+    .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .card-actions { position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; gap: 8px; z-index: 10; }
+    .grid-btn { height: 42px; border-radius: 50px; border: none; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .grid-btn-cart { background: var(--fe-primary); color: #fff; flex: 1; font-size: 0.85rem; gap: 8px; }
+    .grid-btn-wish { background: rgba(255,255,255,0.95); width: 42px; color: #ccc; border: 1px solid #eee; }
+    .grid-btn-wish.active { color: var(--fe-danger); border-color: var(--fe-danger); }
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s var(--fe-transition); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* ---------------------------------------------------------
+       4. QUICKVIEW MODAL
+    ------------------------------------------------------------ */
+    .fe-modal-inner { background: #fff; width: 100%; max-width: 950px; border-radius: 24px; position: relative; display: flex; flex-direction: row; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.5); }
+    .fe-modal-x { position: absolute; top: 15px; right: 15px; width: 45px; height: 45px; background: #000; color: #fff; display: flex; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; z-index: 40005; border: 2px solid #fff; }
+    
+    .qv-left { flex: 1.2; background: #f9f9f9; padding: 20px; display: flex; align-items: center; justify-content: center; }
+    .qv-left img { width: 100%; border-radius: 15px; max-height: 400px; object-fit: contain; }
+    .qv-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+    .qv-title { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+    .qv-price { font-size: 2.2rem; font-weight: 900; margin-bottom: 20px; color: var(--fe-danger); }
+    .qv-qty-input { display: flex; align-items: center; background: #f5f5f5; border-radius: 50px; padding: 10px 20px; gap: 20px; width: fit-content; margin-bottom: 25px; }
+    .qty-btn { cursor: pointer; font-weight: 900; font-size: 1.2rem; }
+
+    /* ---------------------------------------------------------
+       5. SIDEBARS & FORMS
+    ------------------------------------------------------------ */
+    .fe-sidebar.open { right: 0 !important; visibility: visible !important; }
+    .side-head { padding: 25px; background: #000; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+    .side-body { flex-grow: 1; overflow-y: auto; padding: 25px; background: #fff; }
+    .fe-input { width: 100%; padding: 12px; border-radius: 15px; border: 1px solid #ddd; margin-bottom: 12px; font-size: 0.9rem; }
+    .row-item { display: flex; gap: 15px; align-items: center; padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid var(--fe-border); }
+    .row-item img { width: 55px; height: 55px; border-radius: 10px; object-fit: cover; }
+    .js-del-cart { cursor: pointer; color: var(--fe-danger); font-weight: 900; font-size: 0.7rem; padding: 5px 10px; background: #fff5f5; border-radius: 50px; }
+
+    @media (max-width: 850px) {
+      .fe-modal-inner { flex-direction: column; max-height: 95vh; overflow-y: auto; }
+      .qv-right { padding: 25px; }
+      .fe-product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .fe-sidebar { max-width: 92%; }
+    }
+  ]]></b:skin>
+</head>
+
+<body>
+  <nav class='fe-navbar'>
+    <div class='nav-inner'>
+      <a class='fe-logo' href='#'>EVENT<span>SUSHI</span></a>
+      <div class='nav-actions'>
+        <div class='fe-icon' id='btnOpenSearch'><i class='bi bi-search'>&#160;</i></div>
+        <div class='fe-icon' id='wishToggle'><i class='bi bi-heart'>&#160;</i><span class='fe-badge' id='wishBadge'>0</span></div>
+        <div class='fe-icon' id='cartToggle'><i class='bi bi-bag'>&#160;</i><span class='fe-badge' id='cartBadge'>0</span></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class='fe-cat-bar' id='feCatBar'>
+      <div class='cat-item active' data-cat='all'>All Menu</div>
+      <div class='cat-item' data-cat='Special Rolls'>Special Rolls</div>
+      <div class='cat-item' data-cat='Nigiri'>Nigiri</div>
+      <div class='cat-item' data-cat='Sides'>Sides</div>
+  </div>
+
+  <section class='fe-hero' id='hero'>
+    <div class='hero-bg'>&#160;</div>
+    <div class='hero-content'><h1 class='reveal'>Handcrafted Fresh.</h1><p class='reveal mb-4'>The best sushi experience in Casablanca.</p></div>
+  </section>
+
+  <div class='container'><div class='fe-product-grid' id='feMenuGrid'>&#160;</div></div>
+
+  <div class='side-backdrop js-close-all' id='feSideBackdrop'>&#160;</div>
+  
+  <aside class='fe-sidebar' id='sideCartPanel'>
+    <div class='side-head'><h5 class='m-0 fw-bold'>Basket</h5><div class='fe-icon js-close-all' style='color:#fff'><i class='bi bi-x-lg'>&#160;</i></div></div>
+    <div class='side-body'>
+      <div id='feCartList'>&#160;</div>
+      <div class='mt-4 pt-3 border-top' id='feCheckoutArea' style='display:none'>
+        <label class='fw-bold small mb-1'>FULL NAME</label>
+        <input class='fe-input' id='orderName' placeholder='Your name' type='text'/>
+        <label class='fw-bold small mb-1'>DELIVERY ADDRESS</label>
+        <input class='fe-input' id='orderAddress' placeholder='Address in Casablanca' type='text'/>
+      </div>
+    </div>
+    <div class='p-4 border-top bg-light' id='feCartFooter' style='display:none'>
+        <div class='h5 fw-bold d-flex justify-content-between mb-3'><span>Total:</span><span id='feFinalTotalDisplay'>0 DH</span></div>
+        <button class='btn btn-dark w-100 py-3 rounded-pill fw-bold' id='btnOrderWA'>ORDER VIA WHATSAPP</button>
+    </div>
+  </aside>
+
+  <aside class='fe-sidebar' id='sideWishPanel'>
+    <div class='side-head' style='background:var(--fe-danger)'><h5 class='m-0 fw-bold'>Saved Items</h5><div class='fe-icon js-close-all' style='color:#fff'><i class='bi bi-x-lg'>&#160;</i></div></div>
+    <div class='side-body js-wish-list' id='feWishList'>&#160;</div>
+  </aside>
+
+  <div class='fe-modal-backdrop' id='modalQuickView'>
+    <div class='fe-modal-x js-close-all'><i class='bi bi-x-lg'>&#160;</i></div>
+    <div class='fe-modal-inner' onclick='event.stopPropagation()'>
+      <div class='qv-left' style='max-width:400px'><img alt='Product' id='feQVImg' src=''/></div>
+      <div class='qv-right'>
+        <h2 class='fw-bold' id='feQVTitle'>-</h2>
+        <div class='h3 text-danger mb-3' id='feQVPrice'>-</div>
+        <p class='text-muted small' id='feQVDesc'>-</p>
+        <div class='qv-qty-input'>
+          <span class='qty-btn js-modal-qty' data-op='-'>&#8722;</span>
+          <span class='fw-bold' id='feQVQtyVal'>1</span>
+          <span class='qty-btn js-modal-qty' data-op='+'>+</span>
+        </div>
+        <div class='d-flex gap-2'>
+           <button class='btn btn-dark py-3 flex-grow-1 rounded-pill fw-bold' id='btnModalAddToCart'>Add to Basket</button>
+           <button class='grid-btn-wish js-wish-toggle' id='btnModalWishlist' style='width:55px; height:55px; border-radius:50%'><i class='bi bi-heart-fill'>&#160;</i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <b:section id='BloggerLogic' showaddelement='yes'/>
+
+  <script type='text/javascript'>
+  //<![CDATA[
+  document.addEventListener("DOMContentLoaded", function() {
+    (function(){
+      const FE = {
+        config: { waPhone: "212600000000", storeName: "EVENT SUSHI" },
+        catalog: [
+          { id: "p1", title: "Salmon Lovers Box", price: 120, cat: "Special Rolls", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600", desc: "Premium selection of 12 pieces of fresh salmon rolls." },
+          { id: "p2", title: "Dragon Platter", price: 155, cat: "Special Rolls", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600", desc: "Tempura shrimp roll topped with grilled unagi." },
+          { id: "p3", title: "Spicy Tuna Nigiri", price: 45, cat: "Nigiri", img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600", desc: "Hand-pressed spicy tuna nigiri with sriracha mayo." },
+          { id: "p4", title: "Edamame Salt", price: 30, cat: "Sides", img: "https://images.unsplash.com/photo-1542345812-d98b5cd6cf98?w=600", desc: "Steamed soybeans with premium sea salt flakes." }
+        ],
+        state: { filter: "all", cart: JSON.parse(localStorage.getItem("fe_cart") || "[]"), wish: JSON.parse(localStorage.getItem("fe_wish") || "[]"), qvId: null, qvQty: 1 },
+        $: id => document.getElementById(id),
+        $$: s => document.querySelectorAll(s),
+        save: function() { localStorage.setItem("fe_cart",JSON.stringify(this.state.cart)); localStorage.setItem("fe_wish",JSON.stringify(this.state.wish)); },
+        
+        openSidebar: function(id) { 
+          this.$(id).classList.add("open"); 
+          const b = this.$("feSideBackdrop"); b.style.display="block"; 
+          setTimeout(()=>b.style.opacity="1",10); 
+        },
+        closeAll: function() { 
+          this.$$(".fe-sidebar").forEach(s=>s.classList.remove("open")); 
+          this.$$(".fe-modal-backdrop").forEach(m=>m.style.display="none"); 
+          const b = this.$("feSideBackdrop"); b.style.opacity="0"; 
+          setTimeout(()=>b.style.display="none",300); 
+        },
+
+        renderMenu: function() {
+          const items = this.state.filter === "all" ? this.catalog : this.catalog.filter(p => p.cat === this.state.filter);
+          this.$("feMenuGrid").innerHTML = items.map(p => `
+            <div class="fe-card reveal js-card" data-id="${p.id}">
+              <div class="card-img-box"><img src="${p.img}"/><div class="card-actions">
+                  <button class="grid-btn grid-btn-cart js-quick-add" data-id="${p.id}"><i class="bi bi-bag-plus">&#160;</i> Add</button>
+                  <button class="grid-btn grid-btn-wish js-wish-toggle ${this.state.wish.includes(p.id)?'active':''}" data-id="${p.id}"><i class="bi bi-heart-fill">&#160;</i></button>
+              </div></div>
+              <div class="card-body"><h6 class="fw-bold">${p.title}</h6><div>${p.price} DH</div></div>
+            </div>`).join('');
+          const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting) e.target.classList.add("active");}),{threshold:0.1});
+          this.$$(".reveal").forEach(el=>obs.observe(el));
+        },
+
+        renderCart: function() {
+          const valid = this.state.cart.filter(i=>this.catalog.find(p=>p.id===i.id));
+          this.$("feCartList").innerHTML = valid.map(i => {
+            let p=this.catalog.find(x=>x.id===i.id);
+            return `<div class="row-item"><img src="${p.img}"/><div><h6>${p.title}</h6><small>${p.price} DH x ${i.qty}</small></div><div class="ms-auto js-del-cart" data-id="${i.id}" style="cursor:pointer; color:red; font-weight:900">DEL</div></div>`;
+          }).join('');
+          this.$("feFinalTotalDisplay").textContent = valid.reduce((s,i)=>s+(this.catalog.find(x=>x.id===i.id).price*i.qty),0) + " DH";
+          
+          const hasItems = valid.length > 0;
+          this.$("feCartFooter").style.display = hasItems ? "block" : "none";
+          this.$("feCheckoutArea").style.display = hasItems ? "block" : "none";
+          this.$("cartBadge").textContent = valid.reduce((s,i)=>s+i.qty,0);
+          this.save();
+        },
+
+        renderWish: function() {
+          const valid = this.state.wish.filter(id=>this.catalog.find(p=>p.id===id));
+          this.$("feWishList").innerHTML = valid.map(id => {
+            let p=this.catalog.find(x=>x.id===id);
+            return `<div class="row-item"><img src="${p.img}"/><div><h6>${p.title}</h6><button class="btn btn-sm btn-dark js-quick-add" data-id="${p.id}">+ Basket</button></div><div class="ms-auto js-del-wish" data-id="${id}" style="cursor:pointer; font-weight:900">X</div></div>`;
+          }).join('');
+          this.$("wishBadge").textContent = valid.length;
+          this.save();
+        },
+
+        bindEvents: function() {
+          const self = this;
+          document.addEventListener("click", e => {
+            const t = e.target;
+            
+            if (t.closest("#cartToggle")) { self.openSidebar("sideCartPanel"); return; }
+            if (t.closest("#wishToggle")) { self.openSidebar("sideWishPanel"); return; }
+            if (t.closest(".js-close-all") || t.id === "feSideBackdrop" || t.id === "modalQuickView") { self.closeAll(); return; }
+
+            if (t.closest(".cat-item")) {
+                self.$$(".cat-item").forEach(c => c.classList.remove("active"));
+                t.closest(".cat-item").classList.add("active");
+                self.state.filter = t.closest(".cat-item").dataset.cat;
+                self.renderMenu(); return;
+            }
+
+            if (t.closest(".js-del-cart")) { self.state.cart = self.state.cart.filter(x => x.id !== t.closest(".js-del-cart").dataset.id); self.renderCart(); return; }
+            if (t.closest(".js-del-wish")) { self.state.wish = self.state.wish.filter(x => x !== t.closest(".js-del-wish").dataset.id); self.renderWish(); self.renderMenu(); return; }
+
+            const card = t.closest(".js-card");
+            if (card && !t.closest(".card-actions")) {
+              const p = self.catalog.find(x=>x.id===card.dataset.id);
+              self.state.qvId=p.id; self.state.qvQty=1;
+              self.$("feQVImg").src=p.img; self.$("feQVTitle").textContent=p.title; self.$("feQVPrice").textContent=p.price + " DH"; self.$("feQVDesc").textContent=p.desc; self.$("feQVQtyVal").textContent="1";
+              self.$("btnModalWishlist").classList.toggle("active", self.state.wish.includes(p.id));
+              self.$("modalQuickView").style.display="flex";
+              return;
+            }
+
+            if (t.closest(".js-modal-qty")) {
+              const op = t.closest(".js-modal-qty").dataset.op;
+              op === "+" ? self.state.qvQty++ : (self.state.qvQty>1 ? self.state.qvQty-- : null);
+              self.$("feQVQtyVal").textContent = self.state.qvQty;
+              return;
+            }
+
+            if (t.id==="btnModalAddToCart" || t.closest(".js-quick-add")) {
+              const btn = t.closest(".js-quick-add");
+              const id = btn ? btn.dataset.id : self.state.qvId;
+              const qty = btn ? 1 : self.state.qvQty;
+              const ex=self.state.cart.find(x=>x.id===id);
+              ex ? ex.qty+=qty : self.state.cart.push({id, qty});
+              self.closeAll(); self.renderCart(); self.openSidebar("sideCartPanel");
+              return;
+            }
+
+            if (t.closest(".js-wish-toggle")) {
+              const id = t.closest(".js-wish-toggle").dataset.id || self.state.qvId;
+              const idx = self.state.wish.indexOf(id);
+              idx > -1 ? self.state.wish.splice(idx,1) : self.state.wish.push(id);
+              self.renderWish(); self.renderMenu();
+              if(self.$("btnModalWishlist")) self.$("btnModalWishlist").classList.toggle("active", self.state.wish.includes(self.state.qvId));
+              return;
+            }
+
+            if (t.id === "btnOrderWA") {
+                const name = self.$("orderName").value.trim();
+                const addr = self.$("orderAddress").value.trim();
+                if(!name || !addr) { alert("Please fill Name and Address"); return; }
+                let msg = `🍣 ORDER\n👤 Name: ${name}\n📍 Addr: ${addr}\n------------------\n`;
+                self.state.cart.forEach(item => {
+                    let p = self.catalog.find(x => x.id === item.id);
+                    msg += `• ${item.qty}x ${p.title} (${p.price * item.qty} DH)\n`;
+                });
+                window.open(`https://wa.me/${self.config.waPhone}?text=${encodeURIComponent(msg)}`);
+            }
+          }, true);
+        },
+        init: function() { this.renderMenu(); this.renderCart(); this.renderWish(); this.bindEvents(); }
+      };
+      FE.init();
+    })();
+  });
+  //]]>
+  </script>
+</body>
+</html>
