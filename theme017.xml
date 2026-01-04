@@ -92,6 +92,30 @@
 
     .fe-cat-bar { z-index: 15000000 !important; position: fixed; top: 80px; left: 0; width: 100%; height: 60px; background: #fff; border-bottom: 1px solid var(--fe-border); display: flex; align-items: center; overflow-x: auto; white-space: nowrap; padding: 0 4%; }
     
+    /* CATEGORY TAGS FIX */
+    .cat-item {
+        padding: 8px 20px;
+        margin-right: 12px;
+        border-radius: 50px;
+        background: #f4f4f4;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #666;
+        cursor: pointer;
+        transition: 0.3s;
+        white-space: nowrap;
+        border: 1px solid transparent;
+    }
+    .cat-item:hover {
+        background: #e0e0e0;
+        color: #000;
+    }
+    .cat-item.active {
+        background: #000;
+        color: #fff;
+        border-color: #000;
+    }
+    
     .side-backdrop { z-index: 50000000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); display: none; opacity: 0; transition: 0.3s; pointer-events: auto; }
     .fe-sidebar { z-index: 60000000 !important; position: fixed; top: 0; right: -110%; width: 100%; max-width: 450px; height: 100vh; background: #ffffff !important; transition: right 0.5s var(--fe-transition); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.2); visibility: hidden; }
     .fe-modal-backdrop { z-index: 70000000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; padding: 15px; }
@@ -116,7 +140,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      pointer-events: none; /* Let clicks pass through if not on a toast */
+      pointer-events: none;
     }
 
     .fe-toast {
@@ -136,7 +160,6 @@
       overflow: hidden;
     }
 
-    /* Toast States */
     .fe-toast.toast-success { border-left-color: var(--fe-success); }
     .fe-toast.toast-success i { color: var(--fe-success); }
     
@@ -255,7 +278,7 @@
 
 <body>
   <div class='fe-status-banner' id='feStatusBanner'>
-    <i class='bi bi-moon-stars-fill'>&#160;</i> Shop Currently Closed. We open at <span id='feNextOpenTime'>11:00 AM</span>.
+    <i class='bi bi-moon-stars-fill'/> Shop Currently Closed. We open at <span id='feNextOpenTime'>11:00 AM</span>.
   </div>
 
   <nav class='fe-navbar'>
