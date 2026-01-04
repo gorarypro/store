@@ -1,1 +1,1075 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta charset='utf-8'/>
+  <title><data:blog.pageTitle/></title>
+  <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
+  <!-- OpenGraph Tags for SEO -->
+  <meta content='website' property='og:type'/>
+  <meta content='EVENT SUSHI' property='og:site_name'/>
+  <meta content='' id='ogImage' property='og:image'/>
+  <meta content='' id='ogTitle' property='og:title'/>
+  <meta content='' id='ogDesc' property='og:description'/>
 
+  <!-- CRITICAL CSS LOADING (Step 50) -->
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'/>
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css' rel='stylesheet'/>
+  <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&amp;display=swap' rel='stylesheet'/>
+
+  <b:skin><![CDATA[
+  
+    /* ---------------------------------------------------------
+       1. CORE VARIABLES & RESET (CRITICAL PATH)
+    ------------------------------------------------------------ */
+    :root {
+      --fe-primary: #000000;
+      --fe-primary-inv: #ffffff;
+      --fe-accent: #ffc107;
+      --fe-danger: #ff4d4f;
+      --fe-success: #25D366;
+      --fe-warning: #faad14;
+      --fe-info: #2d8cf0;
+      --fe-white: #ffffff;
+      --fe-bg: #ffffff;
+      --fe-text: #000000;
+      --fe-text-sec: #666666;
+      --fe-mist: #f4f4f4;
+      --fe-border: #eeeeee;
+      --fe-card-bg: #ffffff;
+      --fe-input-bg: #fafafa;
+      --fe-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      --fe-radius: 24px;
+      --fe-transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      --fe-nav-height: 80px;
+    }
+
+    /* Dark Mode Overrides */
+    @media (prefers-color-scheme: dark) {
+      :root { --fe-bg: #121212; --fe-text: #e0e0e0; --fe-text-sec: #aaaaaa; --fe-card-bg: #1e1e1e; --fe-mist: #2a2a2a; --fe-border: #333333; --fe-shadow: 0 10px 30px rgba(0,0,0,0.5); --fe-input-bg: #2a2a2a; }
+    }
+    body.dark-mode {
+      --fe-bg: #121212; 
+      --fe-text: #e0e0e0; 
+      --fe-text-sec: #aaaaaa; 
+      --fe-card-bg: #1e1e1e; 
+      --fe-mist: #2a2a2a; 
+      --fe-border: #333333; 
+      --fe-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+      --fe-input-bg: #2a2a2a;
+      --fe-primary: #ffffff; 
+      --fe-primary-inv: #000000;
+    }
+    body.dark-mode .fe-navbar { background: rgba(18,18,18,0.95); border-bottom-color: #333; }
+    body.dark-mode .fe-cat-bar { background: #121212; border-bottom-color: #333; }
+    body.dark-mode .fe-input { background: #2a2a2a; border-color: #444; color: #fff; }
+    body.dark-mode .fe-search-input { background: #2a2a2a; border-color: #444; color: #fff; }
+    body.dark-mode .fe-product-grid { background: #121212; }
+    body.dark-mode .fe-card { background: #1e1e1e; border-color: #333; }
+    body.dark-mode .hero-content { color: #fff; }
+    body.dark-mode .qv-left { background: #2a2a2a; border-right-color: #444; }
+    body.dark-mode .qv-right { background: #1e1e1e; color: #fff; }
+    body.dark-mode .fe-modal-inner { background: #1e1e1e; }
+    body.dark-mode .fe-toast { background: #2a2a2a; color: #fff; border-left-color: #444; }
+
+    * { box-sizing: border-box; outline: none !important; -webkit-tap-highlight-color: transparent; }
+    /* FIX: Removed pointer-events: none from i.bi to allow icon clicks */
+    i.bi { display: inline-block !important; }
+    
+    /* CRITICAL FIX: Ensure all clickable elements respond to mouse/touch */
+    .fe-clickable, .js-quick-add, .js-wish-toggle, .js-del-cart, .js-del-wish, .js-modal-qty, .btn-modal-add {
+        pointer-events: auto !important; 
+    }
+
+    body { 
+      margin: 0; 
+      padding-top: var(--fe-nav-height); 
+      padding-bottom: 60px; /* Space for Mobile Nav (Step 43) */
+      font-family: 'Poppins', sans-serif; 
+      background: var(--fe-bg); 
+      color: var(--fe-text); 
+      overflow-x: hidden; 
+      transition: background 0.3s, color 0.3s; 
+    }
+
+    /* Blogger Cleanse */
+    .header, .blog-feeds, #navbar-iframe-container, .post-footer, .comments, .widget, .status-msg-wrap { display: none !important; visibility: hidden !important; height: 0 !important; }
+
+    /* ---------------------------------------------------------
+       2. SKELETON LOADING SYSTEM 2.0 (Step 45)
+    ------------------------------------------------------------ */
+    .fe-skeleton {
+        background: var(--fe-mist);
+        border-radius: var(--fe-radius);
+        border: 1px solid var(--fe-border);
+        overflow: hidden;
+        position: relative;
+    }
+    .fe-skeleton-img { width: 100%; aspect-ratio: 1/1; }
+    .fe-skeleton-text { height: 20px; width: 70%; margin: 15px; border-radius: 10px; }
+    .fe-skeleton-btn { width: 100%; height: 42px; margin-top: 10px; border-radius: 50px; }
+    
+    /* Modal Skeleton */
+    .qv-skeleton-wrap { display: flex; height: 500px; gap: 20px; }
+    .qv-skeleton-left { flex: 1; background: var(--fe-mist); border-radius: 20px; }
+    .qv-skeleton-right { flex: 1; display: flex; flex-direction: column; gap: 15px; padding: 20px; }
+    .qv-skeleton-title { height: 40px; width: 80%; background: var(--fe-mist); border-radius: 8px; }
+    .qv-skeleton-body { height: 100px; background: var(--fe-mist); border-radius: 8px; }
+
+    /* Sidebar Skeleton */
+    .cart-skeleton-item { display: flex; gap: 15px; margin-bottom: 20px; }
+    .cart-skeleton-img { width: 65px; height: 65px; background: var(--fe-mist); border-radius: 10px; }
+    .cart-skeleton-line { height: 15px; width: 120px; background: var(--fe-mist); border-radius: 5px; margin-bottom: 5px; }
+
+    @keyframes shimmer {
+        0% { background-position: -200px 0; }
+        100% { background-position: calc(200px + 100%) 0; }
+    }
+    .fe-skeleton::after, .qv-skeleton-anim::after {
+        content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(90deg, var(--fe-mist) 0px, rgba(255, 255, 255, 0.2) 20px, var(--fe-mist) 40px, rgba(255, 255, 255, 0.2) 60px, var(--fe-mist) 80px);
+        background-size: 200px 100%;
+        animation: shimmer 1.5s infinite;
+    }
+
+    /* ---------------------------------------------------------
+       3. UI COMPONENTS (Navbar, Breadcrumbs, Search)
+    ------------------------------------------------------------ */
+    .fe-announcement-bar {
+        background: linear-gradient(90deg, #000000, #2c3e50); color: #fff; text-align: center; padding: 8px;
+        font-size: 0.8rem; font-weight: 600; position: relative; display: flex; justify-content: center; align-items: center; gap: 10px;
+    }
+    .fe-announce-close { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #fff; cursor: pointer; }
+    
+    .fe-status-banner { z-index: 10000000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 35px; background: var(--fe-danger); color: #fff; display: none; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing:1px; }
+    
+    .fe-navbar { z-index: 20000000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 80px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--fe-border); display: flex; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .nav-inner { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+    .fe-logo { font-size: 1.5rem; font-weight: 900; color: var(--fe-primary); letter-spacing: -1px; }
+    .fe-logo span { color: var(--fe-accent); }
+    
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .fe-icon { position: relative; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+    .fe-icon:hover { transform: scale(1.1); color: var(--fe-accent); }
+    .fe-badge { position: absolute; top: -5px; right: -8px; background: var(--fe-accent); color: #000; font-size: 0.65rem; font-weight: 800; width: 18px; height: 18px; border-radius: 50%; display: none; align-items: center; justify-content: center; }
+
+    .fe-lang-select, .fe-curr-select {
+        padding: 6px 20px 6px 10px; border-radius: 20px; border: 1px solid var(--fe-border); background: var(--fe-mist); font-family: 'Poppins', sans-serif; font-size: 0.75rem; font-weight: 600; color: var(--fe-text); cursor: pointer;
+    }
+    .fe-theme-toggle { background: none; border: 1px solid var(--fe-border); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fe-text); transition: 0.3s; }
+    .fe-theme-toggle:hover { background: var(--fe-mist); color: var(--fe-accent); }
+
+    .fe-search-container { position: relative; width: 180px; display: flex; align-items: center; }
+    .fe-search-input { width: 100%; padding: 8px 15px 8px 35px; border-radius: 20px; border: 1px solid var(--fe-border); background: var(--fe-mist); font-size: 0.85rem; font-family: 'Poppins', sans-serif; transition: 0.3s; color: var(--fe-text); }
+    .fe-search-input:focus { background: #fff; border-color: var(--fe-primary); box-shadow: 0 0 0 3px rgba(0,0,0,0.05); }
+    .fe-search-icon { position: absolute; left: 12px; color: #aaa; pointer-events: none; font-size: 0.9rem; }
+
+    .fe-status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; background: #f0f0f0; color: #888; transition: 0.3s; }
+    .fe-status-badge.status-open { background: #e6fcf5; color: var(--fe-success); border: 1px solid #b2f2bb; }
+    .fe-status-badge.status-closed { background: #fff5f5; color: var(--fe-danger); border: 1px solid #ffc9c9; }
+    .status-pulse { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 0 rgba(0,0,0,0.1); animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+    /* Step 47: Breadcrumbs */
+    .fe-breadcrumbs { padding: 20px 0; font-size: 0.9rem; color: var(--fe-text-sec); }
+    .breadcrumb-item a { text-decoration: none; color: var(--fe-text-sec); }
+    .breadcrumb-item.active { color: var(--fe-primary); font-weight: 600; }
+    .breadcrumb-item + .breadcrumb-item::before { content: "/"; margin: 0 8px; opacity: 0.5; }
+
+    .fe-cat-bar { z-index: 15000000 !important; position: fixed; top: 80px; left: 0; width: 100%; height: 60px; background: #fff; border-bottom: 1px solid var(--fe-border); display: flex; align-items: center; justify-content: space-between; }
+    .fe-cat-list { display: flex; align-items: center; overflow-x: auto; white-space: nowrap; padding: 0 4%; flex: 1; }
+    .fe-cat-list::-webkit-scrollbar { display: none; }
+    
+    .cat-item { padding: 8px 20px; margin-right: 12px; border-radius: 50px; background: #f4f4f4; font-weight: 600; font-size: 0.85rem; color: #666; cursor: pointer; transition: 0.3s; white-space: nowrap; border: 1px solid transparent; }
+    .cat-item:hover { background: #e0e0e0; color: #000; }
+    .cat-item.active { background: #000; color: #fff; border-color: #000; }
+    .cat-count { font-size: 0.7rem; opacity: 0.7; font-weight: 400; margin-left: 2px; }
+
+    .fe-sort-wrapper { margin-right: 20px; flex-shrink: 0; }
+    .fe-sort-select { padding: 8px 35px 8px 15px; border-radius: 20px; border: 1px solid var(--fe-border); background: var(--fe-mist); font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 600; color: #000; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23333' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px; outline: none; transition: 0.3s; min-width: 140px; }
+
+    /* ---------------------------------------------------------
+       4. TOAST & NOTIFICATIONS & POPUP (Step 42)
+    ------------------------------------------------------------ */
+    #feToastContainer { position: fixed; bottom: 30px; right: 30px; z-index: 80000000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+    .fe-toast { pointer-events: auto; min-width: 300px; background: #fff; border-radius: 12px; box-shadow: var(--fe-shadow); display: flex; align-items: center; gap: 15px; padding: 16px; border-left: 5px solid #ccc; animation: slideInRight 0.4s; position: relative; overflow: hidden; }
+    .fe-toast.toast-success { border-left-color: var(--fe-success); }
+    .fe-toast.toast-error { border-left-color: var(--fe-danger); }
+    .fe-toast-content { flex-grow: 1; font-size: 0.9rem; font-weight: 600; color: #333; }
+    
+    /* Newsletter Modal */
+    .fe-newsletter-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 99000000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s; }
+    .fe-newsletter-modal { background: #fff; width: 90%; max-width: 500px; border-radius: 20px; padding: 30px; position: relative; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); transform: scale(0.9); transition: 0.3s; }
+    .fe-newsletter-backdrop.show { opacity: 1; }
+    .fe-newsletter-backdrop.show .fe-newsletter-modal { transform: scale(1); }
+    .fe-newsletter-close { position: absolute; top: 15px; right: 15px; cursor: pointer; font-size: 1.2rem; }
+
+    @keyframes slideInRight { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    /* ---------------------------------------------------------
+       5. HERO & PRODUCT GRID
+    ------------------------------------------------------------ */
+    .fe-hero { height: 50vh; min-height: 450px; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-radius: 0 0 40px 40px; background: #000; margin-bottom: 40px; }
+    .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&amp;w=2000'); background-size: cover; background-position: center; }
+    .hero-content { position: relative; z-index: 5; padding: 0 20px; width: 100%; max-width: 800px; }
+    .hero-content h1 { font-size: clamp(2rem, 6vw, 4rem); font-weight: 900; margin: 0; color: #fff; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    .hero-content p { color: rgba(255,255,255,0.9); font-size: 1.1rem; font-weight: 400; }
+
+    .fe-product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; padding: 20px 0; width: 100%; margin: 0 auto; justify-content: start; }
+    
+    .fe-card { background: var(--fe-card-bg); border-radius: var(--fe-radius); border: 1px solid var(--fe-border); overflow: hidden; position: relative; cursor: pointer; display: flex; flex-direction: column; transition: 0.3s; height: 100%; }
+    .card-img-box { width: 100%; aspect-ratio: 1/1; overflow: hidden; position: relative; background: #f9f9f9; }
+    .card-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .fe-card:hover img { transform: scale(1.08); }
+
+    .card-actions { position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; gap: 8px; z-index: 10; }
+    .grid-btn { height: 42px; border-radius: 50px; border: none; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .grid-btn-cart { background: var(--fe-primary); color: var(--fe-primary-inv); flex: 1; font-size: 0.85rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    .grid-btn-wish { background: rgba(255,255,255,0.95); width: 42px; border: 1px solid #eee; transition: 0.2s; }
+    .grid-btn-wish.active { color: var(--fe-danger); border-color: var(--fe-danger); }
+
+    .fe-no-results { grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: #888; }
+
+    /* ---------------------------------------------------------
+       6. SIDEBAR & MULTI-STEP CHECKOUT (Step 48)
+    ------------------------------------------------------------ */
+    .side-backdrop { z-index: 50000000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); display: none; opacity: 0; transition: 0.3s; pointer-events: auto; }
+    .fe-sidebar { z-index: 60000000 !important; position: fixed; top: 0; right: -110%; width: 100%; max-width: 450px; height: 100vh; background: #ffffff !important; transition: right 0.5s var(--fe-transition); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.2); visibility: hidden; pointer-events: auto; }
+    
+    .side-head { padding: 25px; background: #000; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+    .side-body { flex-grow: 1; overflow-y: auto; padding: 25px; background: #fff; }
+    .fe-steps-container { display: flex; flex-direction: column; height: 100%; }
+    
+    .step-indicator { display: flex; margin-bottom: 20px; gap: 5px; }
+    .step-dot { height: 4px; flex: 1; background: #eee; border-radius: 2px; }
+    .step-dot.active { background: var(--fe-success); }
+    
+    .fe-step-content { display: none; animation: fadeIn 0.4s; flex: 1; display: flex; flex-direction: column; }
+    .fe-step-content.active { display: flex; }
+    @keyframes fadeIn { from{ opacity: 0; transform: translateY(10px); } to{ opacity: 1; transform: translateY(0); } }
+
+    .fe-input-stack { display: flex; flex-direction: column; gap: 6px; width: 100%; margin-bottom: 15px; }
+    .fe-label { font-weight: 800; font-size: 0.75rem; text-transform: uppercase; color: #888; margin: 0; }
+    .fe-input { width: 100% !important; padding: 15px; border-radius: 15px; border: 1px solid #ddd; font-size: 0.95rem; background: var(--fe-input-bg); transition: 0.3s; color: var(--fe-text); }
+    
+    .row-item { display: flex; gap: 15px; align-items: center; padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid #eee; }
+    .row-item img { width: 65px; height: 65px; border-radius: 12px; object-fit: cover; }
+    .js-del-cart { cursor: pointer; color: var(--fe-danger); font-weight: 900; font-size: 0.7rem; background: #fff5f5; padding: 6px 12px; border-radius: 50px; transition: 0.2s; }
+    .js-del-cart:hover { background: var(--fe-danger); color: #fff; }
+
+    .checkout-actions { margin-top: auto; border-top: 1px solid #eee; padding-top: 20px; display: flex; gap: 10px; }
+    
+    /* Step 49: Admin Dashboard Styles */
+    .fe-admin-modal { z-index: 99999999; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1e1e1e; color: #0f0; width: 80%; max-width: 600px; padding: 20px; border-radius: 10px; display: none; border: 1px solid #333; font-family: monospace; }
+    .fe-admin-modal textarea { width: 100%; height: 300px; background: #000; color: #0f0; border: 1px solid #333; padding: 10px; font-family: monospace; }
+    .fe-admin-btn { cursor: pointer; padding: 5px 10px; background: #333; color: #fff; border: none; margin-top: 10px; }
+
+    /* ---------------------------------------------------------
+       7. QUICKVIEW & VIDEO (Step 44)
+    ------------------------------------------------------------ */
+    .fe-modal-backdrop { z-index: 70000000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; padding: 15px; pointer-events: auto; }
+    .fe-modal-inner { background: #fff; width: 100%; max-width: 1000px; border-radius: 32px; position: relative; display: flex; flex-direction: row; overflow: hidden; max-height: 90vh; pointer-events: auto; }
+    .fe-modal-x { position: absolute; top: 20px; right: 20px; width: 45px; height: 45px; background: #000; color: #fff; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 2px solid #fff; z-index: 100 !important; cursor: pointer; transition: 0.2s; pointer-events: auto; }
+    
+    .qv-left { flex: 1.2; background: #fdfdfd; display: flex; flex-direction: column; align-items: center; padding: 40px; border-right: 1px solid #f0f0f0; gap: 20px; position: relative; }
+    .qv-main-img { width: 100%; aspect-ratio: 1/1; object-fit: contain; border-radius: 15px; background: #fff; transition: transform 0.3s; pointer-events: auto; }
+    .qv-video-container { width: 100%; aspect-ratio: 1/1; display: none; border-radius: 15px; overflow: hidden; background: #000; pointer-events: auto; }
+    .qv-video-container iframe { width: 100%; height: 100%; border: none; }
+    
+    .qv-media-toggle { position: absolute; top: 20px; left: 20px; z-index: 10; background: rgba(255,255,255,0.9); border-radius: 30px; padding: 5px 15px; font-weight: 700; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: none; pointer-events: auto; }
+    
+    .qv-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; background: #fff; border-radius: 50%; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; z-index: 10 !important; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: 0.2s; pointer-events: auto; }
+
+    .qv-right { flex: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; color: var(--fe-text); }
+    .qv-rating { color: var(--fe-accent); margin-bottom: 10px; font-size: 1.2rem; }
+    .qv-related { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--fe-border); }
+    .qv-related-scroll { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; }
+    .qv-related-item { min-width: 80px; cursor: pointer; pointer-events: auto; }
+    .qv-related-item img { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; border: 2px solid transparent; transition: 0.2s; }
+    .qv-related-item:hover img { border-color: var(--fe-accent); }
+
+    /* ---------------------------------------------------------
+       8. MOBILE NAV (Step 43)
+    ------------------------------------------------------------ */
+    .fe-mobile-nav {
+        display: none;
+        position: fixed; bottom: 0; left: 0; width: 100%;
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid var(--fe-border);
+        padding: 10px 0;
+        z-index: 50000000;
+        justify-content: space-around;
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+        pointer-events: auto;
+    }
+    .mobile-nav-item {
+        display: flex; flex-direction: column; align-items: center; font-size: 0.7rem;
+        color: var(--fe-text-sec); text-decoration: none; gap: 4px;
+        pointer-events: auto;
+    }
+    .mobile-nav-item i { font-size: 1.4rem; }
+    .mobile-nav-item.active { color: var(--fe-primary); font-weight: 700; }
+    
+    /* Lightbox */
+    .fe-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 95000000; display: none; align-items: center; justify-content: center; pointer-events: auto; }
+    .lightbox-img { max-width: 90%; max-height: 90vh; object-fit: contain; }
+    .lightbox-close { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 2rem; cursor: pointer; pointer-events: auto; }
+
+    /* Responsive */
+    @media (max-width: 850px) {
+      .fe-mobile-nav { display: flex; } /* Step 43 */
+      body { padding-bottom: 70px; } 
+      .fe-modal-inner { flex-direction: column; width: 95%; overflow-y: auto; }
+      .qv-left { border-right: none; border-bottom: 1px solid #eee; padding: 20px; }
+      .qv-right { padding: 30px; }
+      .fe-sidebar { max-width: 95%; }
+      .fe-product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+      .nav-inner { padding: 0 10px; }
+      .fe-logo { font-size: 1.2rem; }
+      .fe-status-text { display: none; }
+      .fe-search-container { width: 80px; }
+      .fe-sort-select { padding: 6px 25px 6px 10px; font-size: 0.75rem; min-width: 110px; }
+      .fe-hero { height: 40vh; min-height: 350px; }
+    }
+  ]]></b:skin>
+</head>
+
+<body>
+  <!-- STEP 42: Newsletter Popup -->
+  <div class='fe-newsletter-backdrop' id='feNewsletterBackdrop'>
+      <div class='fe-newsletter-modal'>
+          <div class='fe-newsletter-close' id='btnCloseNewsletter'><i class='bi bi-x-lg'/></div>
+          <h3 style='margin-bottom:10px'>Get 10% Off</h3>
+          <p style='color:#666; margin-bottom:20px'>Join our sushi club for exclusive deals.</p>
+          <div style='display:flex; gap:10px'>
+              <input class='fe-input' placeholder='Your Email' style='margin:0' type='email'/>
+              <button class='btn btn-dark rounded-pill' onclick='FE.closeNewsletter()'>JOIN</button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Step 34: Announcement Bar -->
+  <div class='fe-announcement-bar' id='feAnnouncement'>
+      <span>🔥 FREE DELIVERY on orders over 200 DH! Use Code: SUSHI10</span>
+      <button class='fe-announce-close' id='btnCloseAnnounce'><i class='bi bi-x'/></button>
+  </div>
+
+  <div class='fe-status-banner' id='feStatusBanner'>
+    <i class='bi bi-moon-stars-fill'/> <span class='t-closed'>Shop Currently Closed. We open at <span id='feNextOpenTime'>11:00 AM</span>.</span>
+  </div>
+
+  <nav class='fe-navbar'>
+    <div class='nav-inner'>
+      <a class='fe-logo text-decoration-none' href='#hero' onclick='window.scrollTo(0,0)'>EVENT<span>SUSHI</span></a>
+      
+      <div class='fe-search-container d-none d-md-flex'>
+        <i class='bi bi-search fe-search-icon'/>
+        <input class='fe-search-input' id='feSearchInput' placeholder='Find sushi...' type='text'/>
+      </div>
+      
+      <div class='nav-actions'>
+        <div class='fe-status-badge' id='feStatusWidget'>
+          <div class='status-pulse'/>
+          <span class='fe-status-text t-status-open'>Checking...</span>
+        </div>
+        
+        <select class='fe-curr-select' id='feCurrSelect'><option value='DH'>DH</option><option value='USD'>USD</option><option value='EUR'>EUR</option></select>
+        <select class='fe-lang-select' id='feLangSelect'><option value='en'>En</option><option value='fr'>Fr</option><option value='ar'>Ar</option></select>
+
+        <button class='fe-theme-toggle fe-clickable' id='feThemeToggle'><i class='bi bi-moon-stars-fill'/></button>
+        <div class='fe-icon fe-clickable' id='viewToggle'><i class='bi bi-list-ul'/></div>
+        <div class='fe-icon fe-clickable position-relative' id='wishToggle'><i class='bi bi-heart fs-4'/><span class='fe-badge' id='wishBadge'>0</span></div>
+        <div class='fe-icon fe-clickable position-relative' id='cartToggle'><i class='bi bi-bag fs-4'/><span class='fe-badge' id='cartBadge'>0</span></div>
+      </div>
+    </div>
+  </nav>
+  
+  <div class='container pt-2 d-md-none' style='margin-top: 65px;'>
+     <div class='fe-search-container w-100'><i class='bi bi-search fe-search-icon'/><input class='fe-search-input' id='feSearchInputMobile' placeholder='Find sushi...' type='text'/></div>
+  </div>
+
+  <div class='fe-cat-bar' id='feCatBar'>
+      <div class='fe-cat-list' id='feCatList'>
+          <div class='cat-item active' data-cat='all'>All Menu</div>
+          <div class='cat-item' data-cat='Special Rolls'>Special Rolls</div>
+          <div class='cat-item' data-cat='Nigiri'>Nigiri</div>
+          <div class='cat-item' data-cat='Sides'>Sides</div>
+      </div>
+      <div class='fe-sort-wrapper'>
+          <select class='fe-sort-select' id='feSortSelect'>
+              <option value='default'>Featured</option>
+              <!-- Step 46: New Sort Options -->
+              <option value='newest'>Newest Arrivals</option>
+              <option value='popular'>Bestsellers</option>
+              <option value='price-asc'>Price: Low to High</option>
+              <option value='price-desc'>Price: High to Low</option>
+          </select>
+      </div>
+  </div>
+
+  <section class='fe-hero' id='hero'>
+    <div class='hero-bg'/>
+    <div class='hero-content'>
+      <h1>Art on a Plate.</h1>
+      <p class='reveal'>Experience Casablanca&#39;s Finest Sushi Selection</p>
+    </div>
+  </section>
+
+  <!-- Step 47: Breadcrumbs -->
+  <div class='container'>
+      <nav aria-label='breadcrumb'>
+          <ol class='breadcrumb fe-breadcrumbs' id='feBreadcrumbs'>
+              <li class='breadcrumb-item'><a href='#hero' onclick='window.scrollTo(0,0)'>Home</a></li>
+              <li aria-current='page' class='breadcrumb-item active'>All Menu</li>
+          </ol>
+      </nav>
+  </div>
+
+  <div class='container'>
+      <!-- Recently Viewed -->
+      <div class='mt-4' id='feHistorySection' style='display:none'>
+          <h5 class='fw-bold mb-3'>Recently Viewed</h5>
+          <div class='fe-product-grid list-view' id='feHistoryGrid'/>
+      </div>
+      <!-- Main Grid -->
+      <div class='fe-product-grid' id='feMenuGrid'/>
+  </div>
+
+  <!-- Step 49: Dev Mode Link -->
+  <div style='text-align:center; padding: 20px; font-size: 0.7rem; color: #ccc;'>
+      <a href='#' id='feDevMode' style='color:inherit; text-decoration:none'>&#169; 2024 Event Sushi. <span style='border:1px solid #555; padding:2px 5px; border-radius:4px'>DEV</span></a>
+  </div>
+
+  <!-- STEP 43: Mobile Navigation -->
+  <div class='fe-mobile-nav'>
+      <a class='mobile-nav-item' href='#hero' id='mobHome'>
+          <i class='bi bi-house-door-fill'/>
+          <span>Home</span>
+      </a>
+      <a class='mobile-nav-item' href='#feCatBar' id='mobSearch'>
+          <i class='bi bi-search'/>
+          <span>Search</span>
+      </a>
+      <div class='mobile-nav-item' id='mobWish'>
+          <i class='bi bi-heart-fill'/>
+          <span>Saved</span>
+      </div>
+      <div class='mobile-nav-item' id='mobCart'>
+          <i class='bi bi-bag-fill'/>
+          <span>Basket</span>
+      </div>
+  </div>
+
+  <!-- MODALS & SIDEBARS -->
+  <div class='side-backdrop js-close-all' id='feSideBackdrop'/>
+  <div class='fe-lightbox' id='feLightbox'><div class='lightbox-close' id='lightboxClose'><i class='bi bi-x-lg'/></div><img class='lightbox-img' id='lightboxImg'/></div>
+
+  <!-- CART SIDEBAR (Step 48: Multi-step) -->
+  <aside class='fe-sidebar' id='sideCartPanel'>
+    <div class='side-head'>
+      <h5 class='m-0 fw-bold'>Your Basket</h5>
+      <div class='fe-icon js-close-all fe-clickable' style='color:#fff'><i class='bi bi-x-lg'/></div>
+    </div>
+    <div class='side-body'>
+        <!-- Step 45: Skeleton Loader -->
+        <div id='cartSkeleton' style='display:none'>
+            <div class='cart-skeleton-item'><div class='cart-skeleton-img'/><div class='cart-skeleton-line'/></div>
+            <div class='cart-skeleton-item'><div class='cart-skeleton-img'/><div class='cart-skeleton-line'/></div>
+        </div>
+
+        <!-- Step 48: Wizard Container -->
+        <div class='fe-steps-container' id='checkoutWizard' style='display:none'>
+            <div class='step-indicator'>
+                <div class='step-dot active' id='stepDot1'/>
+                <div class='step-dot' id='stepDot2'/>
+                <div class='step-dot' id='stepDot3'/>
+            </div>
+
+            <!-- Step 1: Cart Review -->
+            <div class='fe-step-content active' id='step1'>
+                <div id='feCartList'/>
+                <div class='checkout-actions'>
+                    <button class='btn btn-dark w-100 py-3 rounded-pill fw-bold fe-clickable' id='btnToStep2'>Checkout <i class='bi bi-arrow-right'/></button>
+                </div>
+            </div>
+
+            <!-- Step 2: Info -->
+            <div class='fe-step-content' id='step2'>
+                <div class='fe-input-stack'>
+                    <label class='fe-label'>Full Name</label>
+                    <input class='fe-input' id='orderName' placeholder='Your name'/>
+                </div>
+                <div class='fe-input-stack'>
+                    <label class='fe-label'>Phone Number</label>
+                    <input class='fe-input' id='orderPhone' placeholder='+212 6...'/>
+                    <div class='text-danger small' id='phoneError' style='display:none'>Invalid phone format</div>
+                </div>
+                <div class='fe-input-stack'>
+                    <label class='fe-label'>Delivery Address</label>
+                    <input class='fe-input' id='orderAddress' placeholder='Street, Casablanca'/>
+                </div>
+                <div class='checkout-actions'>
+                    <button class='btn btn-outline-dark w-100 py-3 rounded-pill' id='btnBackToStep1'>Back</button>
+                    <button class='btn btn-dark w-100 py-3 rounded-pill' id='btnToStep3'>Review Order</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Final Review & Success -->
+            <div class='fe-step-content' id='step3'>
+                <h4 class='mb-3'>Order Summary</h4>
+                <div id='feReviewList'/>
+                <div class='mt-3 border-top pt-3'>
+                    <div class='d-flex justify-content-between fw-bold'><span>Total:</span><span id='feFinalTotal'>0 DH</span></div>
+                </div>
+                <div class='checkout-actions'>
+                    <button class='btn btn-success w-100 py-3 rounded-pill fw-bold fe-clickable' id='btnFinalizeWA'><i class='bi bi-whatsapp'/> SEND ORDER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </aside>
+
+  <!-- WISHLIST SIDEBAR -->
+  <aside class='fe-sidebar' id='sideWishPanel'>
+    <div class='side-head' style='background:var(--fe-danger);'>
+      <h5 class='m-0 fw-bold'>Saved Items</h5>
+      <div class='fe-icon js-close-all fe-clickable' style='color:#fff'><i class='bi bi-x-lg'/></div>
+    </div>
+    <div class='side-body' id='feWishList'/>
+  </aside>
+
+  <!-- QUICKVIEW MODAL (Step 44 Video, Step 41 Advanced Related) -->
+  <div class='fe-modal-backdrop' id='modalQuickView'>
+    <!-- FIX REMOVED onclick='event.stopPropagation()' so clicks work -->
+    <div class='fe-modal-inner'> 
+      <div class='fe-modal-x js-close-all fe-clickable'><i class='bi bi-x-lg'/></div>
+      
+      <!-- Step 45: Skeleton for QV -->
+      <div class='qv-skeleton-wrap' id='qvSkeleton' style='display:none; width:100%; padding:40px'>
+          <div class='qv-skeleton-left qv-skeleton-anim'/>
+          <div class='qv-skeleton-right qv-skeleton-anim'>
+              <div class='qv-skeleton-title'/>
+              <div class='qv-skeleton-body'/>
+              <div class='qv-skeleton-body'/>
+          </div>
+      </div>
+
+      <div id='qvRealContent' style='display:flex; width:100%; height:100%; flex-direction:row;'>
+        <div class='qv-left'>
+            <div class='qv-media-toggle' id='btnToggleVideo'>&#9654; Watch Video</div>
+            <!-- Image Slider -->
+            <div class='qv-main-container position-relative w-100 d-flex justify-content-center'>
+                <div class='qv-nav-btn qv-nav-prev js-qv-nav fe-clickable' data-dir='-1' style='left:10px'><i class='bi bi-chevron-left'/></div>
+                
+                <!-- Step 44: Video Support -->
+                <div class='qv-video-container' id='qvVideoBox'>
+                    <iframe allowfullscreen='true' id='qvVideoIframe' src=''/>
+                </div>
+                <img class='qv-main-img' id='feQVImg' src=''/>
+                
+                <div class='qv-nav-btn qv-nav-next js-qv-nav fe-clickable' data-dir='1' style='right:10px'><i class='bi bi-chevron-right'/></div>
+            </div>
+            <div class='qv-thumb-grid' id='feQVThumbGrid'/>
+        </div>
+        
+        <div class='qv-right'>
+          <h2 class='fw-bold mb-1' id='feQVTitle'>-</h2>
+          <div class='mb-2' id='feQVStock'/>
+          <div class='qv-rating' id='feQVRating'/>
+          <div class='h2 fw-900 mb-3' id='feQVPrice'>-</div>
+          <p class='text-muted small mb-4' id='feQVDesc'/>
+          
+          <div id='feQVVariants'/>
+
+          <div class='qv-qty-input d-flex align-items-center bg-light rounded-pill px-4 py-2 gap-4 mb-4' style='width:fit-content'>
+            <span class='js-modal-qty fe-clickable' data-op='-'>&#8722;</span>
+            <span class='fw-bold h5 m-0' id='feQVQtyVal'>1</span>
+            <span class='js-modal-qty fe-clickable' data-op='+'>+</span>
+          </div>
+          <div class='d-flex gap-3'>
+             <button class='btn btn-dark py-3 flex-grow-1 rounded-pill fw-bold h5 m-0 fe-clickable' id='btnModalAddToCart'>Add to Basket</button>
+             <!-- FIX: Added data-id to make JS work -->
+             <button class='fe-icon js-wish-toggle border fe-clickable' data-id='' id='btnModalWishlist' style='width:60px; height:60px; border-radius:50%'><i class='bi bi-heart-fill'/></button>
+          </div>
+          
+          <div class='qv-reviews' id='feQVReviews'/>
+          <div class='qv-related' id='feQVRelated'>
+              <div class='qv-related-title'>You Might Also Like</div>
+              <div class='qv-related-scroll' id='feQVRelatedList'/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div aria-live='polite' id='feToastContainer' role='status'/>
+
+  <b:section id='BloggerLogic' showaddelement='yes'/>
+
+  <!-- MAIN SCRIPT (DEFERRED FOR PERFORMANCE) -->
+  <script type='text/javascript'>
+  //<![CDATA[
+  document.addEventListener("DOMContentLoaded", function() {
+    (function(){
+      const FE = {
+        config: { 
+            waPhone: "212600000000", 
+            storeName: "EVENT SUSHI", 
+            hours: { open: 1, close: 23 }, 
+            delivery: { minForFree: 200, fee: 20 }, 
+            minOrder: 100,
+            // Fixed bug: Rates inside config
+            rates: { "DH": 1, "USD": 0.1, "EUR": 0.092 } 
+        },
+        // Step 44/46/41: Enhanced Data
+        catalog: [
+          { id: "p1", title: "Salmon Lovers Box", price: 120, stock: 15, cat: "Special Rolls", tags: ["spicy", "salmon", "fresh"], popularity: 95, date: "2023-10-01", video: "", imgs: ["https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600"], desc: "12 pieces of premium fresh salmon selection.", rating: 4.8, reviews: [{u: "Ahmed", t: "Fresh!", d: "2d"}] },
+          { id: "p2", title: "Dragon Platter", price: 155, stock: 5, cat: "Special Rolls", tags: ["unagi", "grilled", "signature"], popularity: 98, date: "2023-09-15", video: "", imgs: ["https://images.unsplash.com/photo-1553621042-f6e147245754?w=600"], desc: "Signature roll topped with grilled unagi.", rating: 5.0, reviews: [{u: "Omar", t: "Best unagi.", d: "1w"}] },
+          { id: "p3", title: "Tuna Tataki", price: 90, stock: 8, cat: "Nigiri", tags: ["spicy", "tuna", "seared"], popularity: 80, date: "2023-11-20", video: "", imgs: ["https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?q=80&w=600"], desc: "Seared tuna with garlic sauce.", rating: 4.2, reviews: [{u: "Youssef", t: "Good.", d: "3d"}], variants: [{name: "Regular", price: 90}, {name: "Large", price: 170}] },
+          { id: "p4", title: "Golden Maki", price: 110, stock: 0, cat: "Special Rolls", tags: ["shrimp", "crispy", "fried"], popularity: 60, date: "2023-08-10", video: "", imgs: ["https://images.unsplash.com/photo-1611143669185-af224c5e3252?q=80&w=600"], desc: "Crispy shrimp maki.", rating: 4.6, reviews: [{u: "Mina", t: "Yum.", d: "12h"}] },
+          { id: "p5", title: "California Roll", price: 85, stock: 20, cat: "Special Rolls", tags: ["crab", "avocado", "classic"], popularity: 90, date: "2023-10-05", video: "", imgs: ["https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?q=80&w=600"], desc: "Crab stick, avocado.", rating: 4.5, reviews: [{u: "Karim", t: "Classic.", d: "1d"}] },
+          { id: "p6", title: "Miso Soup", price: 25, stock: 50, cat: "Sides", tags: ["hot", "vegan", "soup"], popularity: 40, date: "2023-01-01", video: "", imgs: ["https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=600"], desc: "Traditional soybean paste.", rating: 4.0, reviews: [{u: "Layla", t: "Warm.", d: "4d"}] }
+        ],
+        dictionary: {
+            en: { closed: "Shop Closed", open: "OPEN", search: "Find sushi...", add: "Add", basket: "Basket", name: "Name", phone: "Phone", address: "Address", total: "Total", complete: "COMPLETE", related: "Related", stockIn: "In Stock", stockOut: "Out" },
+            fr: { closed: "Fermé", open: "OUVERT", search: "Trouver...", add: "Ajouter", basket: "Panier", name: "Nom", phone: "Tél", address: "Adresse", total: "Total", complete: "COMMANDE", related: "Similaires", stockIn: "En Stock", stockOut: "Épuisé" },
+            ar: { closed: "مغلق", open: "مفتوح", search: "بحث...", add: "أضف", basket: "السلة", name: "الاسم", phone: "هاتف", address: "عنوان", total: "المجموع", complete: "إتمام", related: "مشابه", stockIn: "متوفر", stockOut: "نفذت" }
+        },
+        state: { 
+            filter: "all", sort: "default", cart: JSON.parse(localStorage.getItem("fe_cart") || "[]"), 
+            wish: JSON.parse(localStorage.getItem("fe_wish") || "[]"), qvId: null, qvQty: 1, qvImgIdx: 0, selectedVariant: null, 
+            isOpen: true, searchTerm: "", promo: null, theme: localStorage.getItem("fe_theme") || "system",
+            lang: localStorage.getItem("fe_lang") || "en", currency: localStorage.getItem("fe_curr") || "DH", viewMode: localStorage.getItem("fe_view") || "grid",
+            history: JSON.parse(localStorage.getItem("fe_hist") || "[]"),
+            checkoutStep: 1 // Step 48
+        },
+        $: id => document.getElementById(id),
+        $$: s => document.querySelectorAll(s),
+        t: function(key) { return this.dictionary[this.state.lang][key] || key; },
+        formatPrice: function(amount) {
+            const rate = this.config.rates[this.state.currency];
+            const val = (amount * rate).toFixed(2);
+            return `${val} ${this.state.currency}`;
+        },
+        toast: function(message, type = 'info') {
+            const container = this.$('feToastContainer');
+            const el = document.createElement('div');
+            el.className = `fe-toast toast-${type}`;
+            el.innerHTML = `<i class="bi ${type==='success'?'bi-check-circle-fill':'bi-info-circle-fill'} fs-4"></i><div class="fe-toast-content">${message}</div>`;
+            container.appendChild(el);
+            setTimeout(() => { el.style.animation = 'fadeOutRight 0.4s forwards'; setTimeout(()=>el.remove(),400); }, 3500);
+        },
+        checkStoreStatus: function() {
+            const now = new Date();
+            const hour = now.getHours();
+            const isOpen = (hour >= this.config.hours.open && hour < this.config.hours.close);
+            this.state.isOpen = isOpen;
+            const widget = this.$("feStatusWidget");
+            const banner = this.$("feStatusBanner");
+            if(isOpen) {
+                widget.classList.remove("status-closed"); widget.classList.add("status-open");
+                widget.querySelector(".fe-status-text").textContent = this.t("open");
+                banner.style.display = "none";
+                document.body.classList.remove("is-closed");
+            } else {
+                widget.classList.remove("status-open"); widget.classList.add("status-closed");
+                widget.querySelector(".fe-status-text").textContent = this.t("closed");
+                banner.style.display = "flex";
+                document.body.classList.add("is-closed");
+            }
+        },
+        initTheme: function() {
+            const saved = this.state.theme;
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (saved === 'dark' || (saved === 'system' && prefersDark)) document.body.classList.add('dark-mode');
+            else document.body.classList.remove('dark-mode');
+        },
+        toggleTheme: function() {
+            document.body.classList.toggle('dark-mode');
+            this.state.theme = document.body.classList.contains('dark-mode') ? 'dark' : 'system';
+            localStorage.setItem("fe_theme", this.state.theme);
+        },
+        save: function() { 
+            localStorage.setItem("fe_cart",JSON.stringify(this.state.cart)); 
+            localStorage.setItem("fe_wish",JSON.stringify(this.state.wish)); 
+            localStorage.setItem("fe_theme", this.state.theme);
+            localStorage.setItem("fe_lang", this.state.lang);
+            localStorage.setItem("fe_curr", this.state.currency);
+            localStorage.setItem("fe_view", this.state.viewMode);
+            localStorage.setItem("fe_hist", JSON.stringify(this.state.history));
+        },
+        relocateUI: function() {
+            const ui = ['sideWishPanel', 'sideCartPanel', 'feSideBackdrop', 'modalQuickView', 'feStatusBanner', 'feToastContainer'];
+            ui.forEach(id => { const el = this.$(id); if(el && el.parentElement !== document.body) document.body.appendChild(el); });
+        },
+        openSidebar: function(id) { 
+            const sidebar = this.$(id); 
+            const backdrop = this.$("feSideBackdrop");
+            sidebar.classList.add("open"); sidebar.style.visibility = "visible"; sidebar.style.right = "0";
+            backdrop.style.display = "block"; setTimeout(() => backdrop.style.opacity = "1", 10);
+            
+            // Step 45: Show Skeleton then Content
+            if(id === 'sideCartPanel') {
+                this.$('cartSkeleton').style.display = 'block';
+                this.$('checkoutWizard').style.display = 'none';
+                setTimeout(() => { this.$('cartSkeleton').style.display = 'none'; this.$('checkoutWizard').style.display = 'flex'; this.renderCart(); }, 400);
+            }
+        },
+        closeAll: function() { 
+            this.$$(".fe-sidebar").forEach(s => { s.classList.remove("open"); s.style.right = "-110%"; });
+            this.$$(".fe-modal-backdrop").forEach(m => m.style.display = "none"); 
+            const b = this.$("feSideBackdrop"); b.style.opacity = "0"; setTimeout(() => b.style.display = "none", 300); 
+        },
+        
+        /* Step 42: Newsletter */
+        initPopup: function() {
+            const popup = this.$('feNewsletterBackdrop');
+            if(!localStorage.getItem('fe_newsletter_seen')) {
+                // Exit Intent Desktop
+                document.addEventListener('mouseleave', e => {
+                    if(e.clientY < 0 && popup.style.display !== 'flex') {
+                        popup.style.display = 'flex';
+                        setTimeout(()=>popup.classList.add('show'), 10);
+                    }
+                });
+                // Time Delay Mobile
+                setTimeout(() => {
+                    if(popup.style.display !== 'flex') {
+                        popup.style.display = 'flex';
+                        setTimeout(()=>popup.classList.add('show'), 10);
+                    }
+                }, 15000); // 15s
+            }
+        },
+        closeNewsletter: function() {
+            this.$('feNewsletterBackdrop').classList.remove('show');
+            setTimeout(()=>this.$('feNewsletterBackdrop').style.display='none', 300);
+            localStorage.setItem('fe_newsletter_seen', 'true');
+        },
+
+        /* Step 41: Advanced Related Algorithm */
+        getRelatedItems: function(currentProduct) {
+            let scored = this.catalog.map(p => {
+                if(p.id === currentProduct.id) return { ...p, score: -1 };
+                let score = 0;
+                // Category match
+                if(p.cat === currentProduct.cat) score += 5;
+                // Tag match
+                if(p.tags && currentProduct.tags) {
+                    currentProduct.tags.forEach(t => {
+                        if(p.tags && p.tags.includes(t)) score += 10;
+                    });
+                }
+                return { ...p, score };
+            });
+            return scored.filter(i => i.score > 0).sort((a,b) => b.score - a.score).slice(0,4);
+        },
+
+        /* Step 46: Advanced Sorting */
+        sortItems: function(items) {
+            if(this.state.sort === 'price-asc') return items.sort((a,b) => a.price - b.price);
+            if(this.state.sort === 'price-desc') return items.sort((a,b) => b.price - a.price);
+            if(this.state.sort === 'newest') return items.sort((a,b) => new Date(b.date) - new Date(a.date));
+            if(this.state.sort === 'popular') return items.sort((a,b) => b.popularity - a.popularity);
+            return items; // default
+        },
+
+        /* Step 47: Breadcrumbs */
+        updateBreadcrumbs: function(cat, productTitle) {
+            const bc = this.$('feBreadcrumbs');
+            let html = `<li class='breadcrumb-item'><a href='#hero' onclick='window.scrollTo(0,0)'>Home</a></li>`;
+            
+            if(cat && cat !== 'all') {
+                // Find clean cat name
+                const catName = this.catalog.find(p=>p.cat===cat)?.cat || cat;
+                html += `<li class='breadcrumb-item'>${catName}</li>`;
+            }
+            if(productTitle) html += `<li class='breadcrumb-item active'>${productTitle}</li>`;
+            else if(!cat || cat === 'all') html += `<li class='breadcrumb-item active'>All Menu</li>`;
+            
+            bc.innerHTML = html;
+        },
+
+        renderMenu: function() {
+          let items = this.catalog;
+          if (this.state.searchTerm && this.state.searchTerm.length > 0) {
+             const term = this.state.searchTerm.toLowerCase();
+             items = items.filter(p => p.title.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term));
+          } else if (this.state.filter !== "all") {
+             items = items.filter(p => p.cat === this.state.filter);
+          }
+          
+          items = this.sortItems(items);
+          this.updateBreadcrumbs(this.state.filter);
+
+          if (items.length === 0) {
+             this.$("feMenuGrid").innerHTML = `<div class="fe-no-results"><i class="bi bi-emoji-frown"></i><h5>No items found</h5></div>`;
+             return;
+          }
+
+          this.$("feMenuGrid").innerHTML = items.map(p => {
+            const stockHtml = p.stock === 0 ? `<div class="text-danger small fw-bold">${this.t("stockOut")}</div>` : `<div class="text-success small fw-bold">${this.t("stockIn")}</div>`;
+            const isDisabled = p.stock === 0 || !this.state.isOpen;
+            return `
+            <div class="fe-card reveal js-card" data-id="${p.id}" style="${p.stock===0?'opacity:0.6':''}">
+              <div class="card-img-box"><img src="${p.imgs[0]}" loading="lazy"/><div class="card-actions">
+                  <button class="grid-btn grid-btn-cart js-quick-add ${isDisabled?'btn-closed':''}" data-id="${p.id}">${isDisabled?(p.stock===0?this.t("stockOut"):"Closed"):this.t("add")}</button>
+                  <button class="grid-btn grid-btn-wish js-wish-toggle ${this.state.wish.includes(p.id)?'active':''}" data-id="${p.id}"><i class="bi bi-heart-fill"></i></button>
+              </div></div>
+              <div class="card-body p-3"><h6 class="fw-bold m-0">${p.title}</h6>
+              <div class="mt-2 d-flex justify-content-between align-items-center"><b>${this.formatPrice(p.price)}</b> ${stockHtml}</div>
+              </div>
+            </div>`;
+          }).join('');
+        },
+        renderWish: function() {
+          const valid = this.state.wish.filter(id=>this.catalog.find(p=>p.id===id));
+          this.$("feWishList").innerHTML = valid.map(id => {
+            let p=this.catalog.find(x=>x.id===id);
+            return `<div class="row-item"><img src="${p.imgs[0]}"/><div><h6 class="m-0 fw-bold">${p.title}</h6><button class="btn btn-sm btn-dark js-quick-add fe-clickable" data-id="${p.id}">+ Basket</button></div><div class="ms-auto js-del-wish fe-clickable" data-id="${id}" style="font-weight:900">X</div></div>`;
+          }).join('');
+          this.$("wishBadge").textContent = valid.length;
+          this.$("wishBadge").style.display = valid.length ? "flex" : "none";
+          this.save();
+        },
+        renderCart: function() {
+          const valid = this.state.cart.filter(i=>this.catalog.find(p=>p.id===i.id));
+          // Calculate Total
+          const subtotal = valid.reduce((s,i)=>s+(this.catalog.find(x=>x.id===i.id).price*i.qty),0);
+          let discount = 0;
+          if(this.state.promo) discount = subtotal * (this.state.promo.percent / 100);
+          let delivery = (subtotal - discount) >= this.config.delivery.minForFree ? 0 : this.config.delivery.fee;
+          if(valid.length === 0) delivery = 0;
+          const total = Math.max(0, subtotal - discount + delivery);
+
+          // Step1: Cart List
+          this.$("feCartList").innerHTML = valid.map(i => {
+            let p=this.catalog.find(x=>x.id===i.id);
+            return `<div class="row-item"><img src="${p.imgs[0]}"/><div><h6 class="m-0 fw-bold">${p.title}</h6><small>${this.formatPrice(p.price)} x ${i.qty}</small></div><div class="ms-auto js-del-cart fe-clickable" data-id="${i.id}" style="color:red">DEL</div></div>`;
+          }).join('');
+
+          // Step3: Review List
+          this.$("feReviewList").innerHTML = valid.map(i => {
+             let p=this.catalog.find(x=>x.id===i.id);
+             return `<div class="d-flex justify-content-between mb-2"><span>${p.title} (x${i.qty})</span><span>${this.formatPrice(p.price * i.qty)}</span></div>`;
+          }).join('') + (discount>0?`<div class="text-success">Discount: -${this.formatPrice(discount)}</div>`:'') + (delivery>0?`<div>Delivery: ${this.formatPrice(delivery)}</div>`:'<div class="text-success">Free Delivery</div>');
+          
+          this.$("feFinalTotal").textContent = this.formatPrice(total);
+          
+          this.$("cartBadge").textContent = valid.reduce((s,i)=>s+i.qty,0);
+          this.$("cartBadge").style.display = valid.length ? "flex" : "none";
+          this.save();
+        },
+        openQuickView: function(id) {
+            const p = this.catalog.find(x=>x.id===id);
+            this.state.qvId = id;
+            this.state.qvQty = 1;
+            this.updateBreadcrumbs(p.cat, p.title);
+            
+            // Step 45: Skeleton Loader
+            this.$('qvSkeleton').style.display = 'flex';
+            this.$('qvRealContent').style.display = 'none';
+            
+            setTimeout(() => {
+                this.$('qvSkeleton').style.display = 'none';
+                this.$('qvRealContent').style.display = 'flex';
+                
+                // Data Injection
+                this.$("feQVImg").src = p.imgs[0];
+                this.$("feQVTitle").textContent = p.title;
+                this.$("feQVPrice").textContent = this.formatPrice(p.price);
+                this.$("feQVDesc").textContent = p.desc;
+                this.$("feQVStock").innerHTML = p.stock===0?`<span class="text-danger fw-bold">${this.t("stockOut")}</span>`:`<span class="text-success fw-bold">${this.t("stockIn")}</span>`;
+                
+                // FIX: Update the Wishlist Button ID here so clicks work
+                const qvWishBtn = this.$('btnModalWishlist');
+                if(qvWishBtn) qvWishBtn.dataset.id = id; 
+
+                // Update Button Style
+                if(this.state.wish.includes(p.id)){ 
+                    qvWishBtn.style.color = "var(--fe-danger)"; 
+                    qvWishBtn.style.borderColor = "var(--fe-danger)"; 
+                } else { 
+                    qvWishBtn.style.color = ""; 
+                    qvWishBtn.style.borderColor = ""; 
+                }
+
+                // Step 44: Video Support
+                const vidBox = this.$('qvVideoBox');
+                const vidBtn = this.$('btnToggleVideo');
+                if(p.video) {
+                    vidBtn.style.display = 'block';
+                    vidBtn.onclick = () => {
+                        this.$('feQVImg').style.display = 'none';
+                        vidBox.style.display = 'block';
+                        this.$('qvVideoIframe').src = p.video;
+                    }
+                } else {
+                    vidBtn.style.display = 'none';
+                    vidBox.style.display = 'none';
+                    this.$('feQVImg').style.display = 'block';
+                }
+
+                // Step 41: Advanced Related
+                const related = this.getRelatedItems(p);
+                this.$("feQVRelatedList").innerHTML = related.map(r => `
+                    <div class="qv-related-item js-qv-related" data-id="${r.id}">
+                        <img src="${r.imgs[0]}" alt="${r.title}"/>
+                    </div>
+                `).join('');
+
+                this.$("modalQuickView").style.display="flex";
+            }, 300); // 300ms fake delay
+        },
+
+        /* Step 48: Multi-step Checkout Logic */
+        setCheckoutStep: function(step) {
+            this.state.checkoutStep = step;
+            this.$$(".fe-step-content").forEach(el => el.classList.remove('active'));
+            this.$(`step${step}`).classList.add('active');
+            
+            this.$$(".step-dot").forEach((dot, idx) => {
+                dot.classList.toggle('active', idx < step);
+            });
+
+            if(step === 3) this.renderCart(); // Render summary in step 3
+        },
+
+        bindEvents: function() {
+          const self = this;
+          
+          // General Clicks
+          document.addEventListener("click", e => {
+            const t = e.target;
+            if(t.closest("#feThemeToggle")) { self.toggleTheme(); return; }
+            if(t.closest("#cartToggle") || t.closest("#mobCart")) { self.openSidebar("sideCartPanel"); return; }
+            if(t.closest("#wishToggle") || t.closest("#mobWish")) { self.openSidebar("sideWishPanel"); return; }
+            if(t.closest("#mobSearch")) { window.scrollTo(0,0); self.$("feSearchInputMobile").focus(); return; }
+            
+            // FIX: Remove this check. Close only if backdrop clicked OR explicit close button clicked.
+            // The previous "close all" class check handles the buttons correctly.
+            if(t.closest(".js-close-all")) { self.closeAll(); return; }
+            
+            // Click outside to close
+            if (t.id === "modalQuickView" && !t.closest(".fe-modal-inner")) { self.closeAll(); return; }
+            if (t.id === "feSideBackdrop" && !t.closest(".fe-sidebar")) { self.closeAll(); return; }
+            
+            if(t.closest(".cat-item")) {
+                self.$$(".cat-item").forEach(c => c.classList.remove("active"));
+                t.closest(".cat-item").classList.add("active");
+                self.state.filter = t.closest(".cat-item").dataset.cat;
+                self.renderMenu(); return;
+            }
+
+            if(t.closest(".js-quick-add")) {
+                const p = self.catalog.find(x=>x.id===t.closest(".js-quick-add").dataset.id);
+                if(p.stock > 0 && self.state.isOpen) {
+                    self.state.cart.push({id:p.id, qty:1, price:p.price}); 
+                    self.toast("Added!", "success"); self.renderCart(); 
+                }
+                return;
+            }
+            if(t.closest(".js-del-cart")) {
+                self.state.cart = self.state.cart.filter(x => x.id !== t.closest(".js-del-cart").dataset.id);
+                self.renderCart(); return;
+            }
+            if(t.closest(".js-del-wish")) {
+                self.state.wish = self.state.wish.filter(x => x !== t.closest(".js-del-wish").dataset.id);
+                self.renderWish(); return;
+            }
+            if(t.closest(".js-qv-related")) {
+                self.openQuickView(t.closest(".js-qv-related").dataset.id);
+                return;
+            }
+            if(t.closest("#btnCloseNewsletter")) { self.closeNewsletter(); return; }
+            if(t.closest("#feDevMode")) {
+                // Step 49: Admin
+                const dump = JSON.stringify({config:self.config, catalog:self.catalog}, null, 2);
+                prompt("Copy this JSON:", dump);
+                return;
+            }
+
+            // FIX: Wishlist Click Handler (Grid & QV)
+            if(t.closest(".js-wish-toggle")) {
+                // Don't stop propagation. Let it bubble to document listener.
+                const btn = t.closest(".js-wish-toggle");
+                // FIX: Check if btn exists and has dataset
+                if(btn && btn.dataset.id) {
+                    const id = btn.dataset.id;
+                    const index = self.state.wish.indexOf(id);
+                    if (index === -1) { 
+                        self.state.wish.push(id); 
+                        self.toast("Added to favorites", "success");
+                    } else { 
+                        self.state.wish.splice(index, 1); 
+                        self.toast("Removed from favorites", "info");
+                    }
+                    self.save(); self.renderWish(); self.renderMenu();
+
+                    // Update QV button style if open
+                    const qvBtn = self.$('btnModalWishlist');
+                    if(qvBtn && self.state.qvId === id) {
+                        if(self.state.wish.includes(id)) { 
+                            qvBtn.style.color = "var(--fe-danger)"; 
+                            qvBtn.style.borderColor = "var(--fe-danger)"; 
+                        } else { 
+                            qvBtn.style.color = ""; 
+                            qvBtn.style.borderColor = ""; 
+                        }
+                    }
+                }
+                return;
+            }
+
+            // FIX: Quickview Card Click Robust Handler
+            const card = t.closest(".fe-card");
+            if (card && !t.closest(".card-actions")) {
+                const id = card.dataset.id;
+                if(id) {
+                    const p = self.catalog.find(x=>x.id===id);
+                    if(p) self.openQuickView(p.id);
+                }
+                return;
+            }
+
+            // Step 48: Checkout Steps
+            if(t.id === "btnToStep2") { self.setCheckoutStep(2); return; }
+            if(t.id === "btnBackToStep1") { self.setCheckoutStep(1); return; }
+            if(t.id === "btnToStep3") { self.setCheckoutStep(3); return; }
+            if(t.id === "btnFinalizeWA") {
+                const name = self.$("orderName").value;
+                const phone = self.$("orderPhone").value;
+                const address = self.$("orderAddress").value;
+                if(!name || !phone || !address) { self.toast("Fill all fields", "error"); return; }
+                const msg = `New Order: ${name}, ${phone}, ${address}. Total: ${self.$("feFinalTotal").textContent}`;
+                window.open(`https://wa.me/${self.config.waPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+                return;
+            }
+          });
+
+          // Search & Sort
+          self.$("feSearchInput")?.addEventListener("input", e => { self.state.searchTerm = e.target.value; self.renderMenu(); });
+          self.$("feSearchInputMobile")?.addEventListener("input", e => { self.state.searchTerm = e.target.value; self.renderMenu(); });
+          self.$("feSortSelect").addEventListener("change", e => { self.state.sort = e.target.value; self.renderMenu(); });
+          
+          // Init
+          self.initPopup();
+          self.relocateUI();
+          self.checkStoreStatus();
+          self.initTheme();
+          self.renderMenu();
+          self.renderCart();
+          self.renderWish(); 
+          self.setCheckoutStep(1);
+        }
+      };
+      FE.bindEvents();
+    })();
+  });
+  //]]>
+  </script>
+</body>
+</html>
