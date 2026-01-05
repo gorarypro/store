@@ -3,470 +3,386 @@
 <html b:version='2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
 <head>
   <meta charset='utf-8'/>
-  <title><data:blog.pageTitle/> - Replit Style</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
+  <title>EVENT SUSHI - Replit Style</title>
   
-  <!-- REPLIT FONTS: IBM Plex Sans -->
+  <!-- REPLIT FONTS -->
   <link href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;display=swap' rel='stylesheet'/>
   <link href='https://fonts.googleapis.com/css2?family=Grand+Hotel&amp;display=swap' rel='stylesheet'/>
   
-  <!-- OpenGraph Tags -->
-  <meta content='website' property='og:type'/>
-  <meta content='EVENT SUSHI' property='og:site_name'/>
-  <meta content='' id='ogImage' property='og:image'/>
-  <meta content='' id='ogTitle' property='og:title'/>
-  <meta content='' id='ogDesc' property='og:description'/>
-
-  <!-- CRITICAL CSS LOADING -->
+  <!-- BOOTSTRAP CSS -->
   <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'/>
+  <!-- BOOTSTRAP ICONS -->
   <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css' rel='stylesheet'/>
 
+  <!-- STEP: Blogger Skin (CSS Container) -->
   <b:skin><![CDATA[
   
     /* ---------------------------------------------------------
-       1. REPLIT DESIGN TOKENS & RESET
-    ------------------------------------------------------------ */
+       1. TITAN STACK (Z-Index Architecture)
+       ---------------------------------------------------------
+ */
     :root {
+      /* Z-Index Scale (Titan Stack) */
+      --z-content: 1;
+      --z-sticky: 1000;     /* Navbar, Cat Bar */
+      --z-overlay: 1050;    /* Sidebar Backdrop */
+      --z-sidebar: 1100;    /* Cart/Wish Sidebars */
+      --z-modal-bg: 1200;   /* Modal Backdrop */
+      --z-modal: 1300;     /* Modals (QuickView, Admin)
+ */
+      --z-notification: 1400; /* Toasts */
+
       /* Replit Color Palette */
       --bg-root: #0F1017;
       --bg-surface: #1A1C25;
       --bg-surface-higher: #23252F;
-      --bg-overlay: rgba(15, 16, 23, 0.8)
-;
+      --bg-overlay: rgba(15, 16, 23, 0.85);
+      
       --text-primary: #E6E8ED;
       --text-dimmer: #BFC4CA;
       --text-dimmest: #A2A8B2;
+      
       --border-dimmest: #252732;
       --border-dimmer: #31343F;
       --border-default: #3A3D48;
+      
       --accent-primary: #0079F2; /* Replit Blue */
-      --accent-primary-strong: #57ABFF;
+      --accent-primary-dim: rgba(0, 121, 242, 0.1);
       --accent-brand: #EC4E02; /* Replit Orange */
       --accent-success: #009118; /* Replit Green */
       --accent-danger: #E52222; /* Replit Red */
-      --accent-warn: #F26207;
       
-      /* System Variables Mapped to Replit */
-      --fe-primary: #0079F2;
-      --fe-primary-dimmest: rgba(0, 121, 242, 0.1);
- /* Variable required by .fe-card:hover */
-      --fe-primary-inv: #ffffff;
-      --fe-accent: #EC4E02;
-      --fe-danger: #E52222;
-      --fe-success: #009118;
-      --fe-warning: #F26207;
-      --fe-info: #2d8cf0;
-      --fe-white: #E6E8ED;
-      --fe-bg: #0F1017;
-      --fe-text: #E6E8ED;
-      --fe-text-sec: #BFC4CA;
-      --fe-text-dimmest: #BFC4CA;
-      --fe-mist: #23252F;
-      --fe-border: #23252F;
-      --fe-card-bg: #1A1C25;
-      --fe-input-bg: #0F1017;
-      --fe-shadow: 0 10px 30px rgba(0,0,0,0.5);
       --fe-radius: 8px;
-      --fe-transition: 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+      --fe-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      --fe-transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       --fe-nav-height: 80px;
-      --wa-color: #25D366;
-
-      /* FIX: Define gradient variable used in HTML */
       --insta-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     }
 
-    /* Typography */
-    body { font-family: 'IBM Plex Sans', sans-serif !important; }
-    .fe-code-font { font-family: 'ReplitHack', 'Courier New', monospace; }
-
-    /* Dark Mode Overrides (Matches Root by default now) */
-    @media (prefers-color-scheme: dark) {
-      /* Force Replit Dark */
-    }
-    
-    * { box-sizing: border-box; outline: none !important; -webkit-tap-highlight-color: transparent; }
-    i.bi { display: inline-block !important; }
-    
-    /* Ensure Clickable items work */
-    .fe-clickable, .js-quick-add, .js-wish-toggle, .js-del-cart, .js-del-wish {
-        pointer-events: auto !important; 
-    }
-
-    body { 
-      margin: 0; 
-      padding-top: var(--fe-nav-height); 
-      padding-bottom: 60px; 
-      background: var(--fe-bg); 
-      color: var(--fe-text); 
-      overflow-x: hidden; 
-      transition: background 0.3s, color 0.3s; 
-    }
-
-    /* Blogger Cleanse */
-    .header, .blog-feeds, #navbar-iframe-container, .post-footer, .comments, .widget, .status-msg-wrap { display: none !important; visibility: hidden !important; height: 0 !important; }
-
     /* ---------------------------------------------------------
-       2. SKELETON LOADING SYSTEM (Replit Style)
-    ------------------------------------------------------------ */
-    .fe-skeleton {
-        background: var(--fe-card-bg);
-        border-radius: var(--fe-radius);
-        border: 1px solid var(--fe-border);
-        overflow: hidden;
-        position: relative;
+       2. RESET & BASE STYLES
+       --------------------------------------------------------- */
+    body { 
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--bg-root); 
+      color: var(--text-primary); 
+      margin: 0; 
+      padding-top: var(--fe-nav-height);
+      padding-bottom: 80px; 
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
-    /* Replit style skeleton shimmer (Blue/Gray) */
+    
+    * { box-sizing: border-box; outline: none !important; }
+    
+    /* Utilities */
+    .fe-clickable { pointer-events: auto !important; cursor: pointer; }
+    .text-fe-primary { color: var(--accent-primary); }
+    .text-fe-success { color: var(--accent-success) !important; }
+    .text-fe-danger { color: var(--accent-danger) !important; }
+    
+    /* ---------------------------------------------------------
+       3. SKELETON LOADING ANIMATIONS
+       --------------------------------------------------------- */
     @keyframes replit-shimmer {
         0% { background-position: -200px 0; }
         100% { background-position: calc(200px + 100%) 0; }
     }
+    .fe-skeleton {
+        background: var(--bg-surface);
+        border-radius: var(--fe-radius);
+        position: relative;
+        overflow: hidden;
+    }
     .fe-skeleton::after {
         content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0;
         transform: translateX(-100%);
-        /* Blue background mimicking Replit */
-        background-image: linear-gradient(90deg, var(--fe-card-bg) 0px, rgba(0, 121, 242, 0.1) 20px, var(--fe-card-bg) 40px);
+        background-image: linear-gradient(90deg, var(--bg-surface) 0px, var(--accent-primary-dim) 20px, var(--bg-surface) 40px);
         background-size: 200px 100%;
         animation: replit-shimmer 1.5s infinite;
     }
-    
-    .qv-skeleton-wrap { display: flex; height: 500px; gap: 20px; }
-    .qv-skeleton-left { flex: 1; background: var(--fe-card-bg); border-radius: var(--fe-radius); }
-    .qv-skeleton-right { flex: 1; display: flex; flex-direction: column; gap: 15px; padding: 20px; }
-    .qv-skeleton-title { height: 40px; width: 80%; background: var(--fe-mist); border-radius: 8px; }
-    .qv-skeleton-body { height: 100px; background: var(--fe-mist); border-radius: 8px; }
-
-    .cart-skeleton-item { display: flex; gap: 15px; margin-bottom: 20px; }
-    .cart-skeleton-img { width: 65px; height: 65px; background: var(--fe-mist); border-radius: 10px; }
-    .cart-skeleton-line { height: 15px; width: 120px; background: var(--fe-mist); border-radius: 5px; margin-bottom: 5px; }
 
     /* ---------------------------------------------------------
-       3. UI COMPONENTS (Replit Style)
-    ------------------------------------------------------------ */
-    .fe-announcement-bar {
-        background: var(--accent-brand); color: #fff; text-align: center; padding: 8px;
-        font-size: 0.8rem; font-weight: 600; position: relative; display: flex; justify-content: center; align-items: center; gap: 10px;
+       4. UI COMPONENTS
+       --------------------------------------------------------- */
+    
+    /* Navbar (Titan Stack: Sticky) */
+    .fe-navbar { 
+        z-index: var(--z-sticky); 
+        position: fixed; top: 0; left: 0; width: 100%; height: 80px; 
+        background: rgba(15, 16, 23, 0.8); backdrop-filter: blur(12px); 
+        border-bottom: 1px solid var(--border-dimmest); 
+        display: flex; align-items: center; 
+        transition: all 0.3s ease;
     }
-    .fe-announce-close { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #fff; cursor: pointer; }
-    
-    .fe-status-banner { z-index: 10000000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 35px; background: var(--accent-danger); color: #fff; display: none; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing:1px; }
-    
-    /* Glassmorphism Navbar */
-    .fe-navbar { z-index: 20000000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 80px; background: rgba(15, 16, 23, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid var(--fe-border); display: flex; align-items: center; }
     .nav-inner { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-    .fe-logo { font-size: 1.5rem; font-weight: 700; color: var(--fe-text); letter-spacing: -0.5px; }
+    
+    .fe-logo { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.5px; text-decoration: none; }
     .fe-logo span { color: var(--accent-brand); }
     
     .nav-actions { display: flex; align-items: center; gap: 10px; }
-    .fe-icon { position: relative; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
-    .fe-icon:hover { transform: scale(1.1); color: var(--fe-primary); }
-    .fe-badge { position: absolute; top: -5px; right: -8px; background: var(--accent-brand); color: #fff; font-size: 0.65rem; font-weight: 800; width: 18px; height: 18px; border-radius: 50%; display: none; align-items: center; justify-content: center; }
-
-    .fe-lang-select, .fe-curr-select {
-        padding: 6px 20px 6px 10px; border-radius: 20px; border: 1px solid var(--fe-border); background: var(--fe-card-bg); font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75rem; font-weight: 600; color: var(--fe-text); cursor: pointer;
-    }
-    .fe-theme-toggle { background: none; border: 1px solid var(--fe-border); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--fe-text); transition: 0.3s; }
-    .fe-theme-toggle:hover { background: var(--fe-mist); color: var(--fe-primary); }
-
+    .fe-icon { position: relative; transition: 0.3s; display: flex; align-items: center; justify-content: center; color: var(--text-dimmer); }
+    .fe-icon:hover { transform: scale(1.1); color: var(--accent-primary); }
+    
+    .fe-badge { position: absolute; top: -5px; right: -8px; background: var(--accent-brand); color: #fff; font-size: 0.65rem; font-weight: 800; width: 18px; height: 18px; border-radius: 50%; display: none; align-items: center; justify-content: center; border: 2px solid var(--bg-surface); }
+    
+    /* Search Bar */
     .fe-search-container { position: relative; width: 180px; display: flex; align-items: center; }
-    .fe-search-input { width: 100%; padding: 8px 15px 8px 35px; border-radius: 20px; border: 1px solid var(--fe-border); background: var(--fe-card-bg); font-size: 0.85rem; font-family: 'IBM Plex Sans', sans-serif; transition: 0.3s; color: var(--fe-text); }
-    .fe-search-input:focus { background: var(--fe-input-bg); border-color: var(--fe-primary); box-shadow: 0 0 0 2px rgba(0, 121, 242, 0.2); }
-    .fe-search-icon { position: absolute; left: 12px; color: var(--fe-text-dimmest); pointer-events: none; font-size: 0.9rem; }
+    .fe-search-input { width: 100%; padding: 8px 15px 8px 35px; border-radius: 20px; border: 1px solid var(--border-dimmest); background: var(--bg-surface); font-size: 0.85rem; font-family: 'IBM Plex Sans', sans-serif; transition: 0.3s; color: var(--text-primary); }
+    .fe-search-input:focus { background: var(--bg-root); border-color: var(--accent-primary); box-shadow: 0 0 0 2px var(--accent-primary-dim); }
+    .fe-search-icon { position: absolute; left: 12px; color: var(--text-dimmest); pointer-events: none; font-size: 0.9rem; }
 
-    .fe-status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; background: var(--fe-card-bg); color: var(--fe-text-dimmest); border: 1px solid var(--fe-border); transition: 0.3s; }
-    .fe-status-badge.status-open { background: rgba(0, 145, 24, 0.1); color: var(--accent-success); border-color: rgba(0, 145, 24, 0.2); }
-    .fe-status-badge.status-closed { background: rgba(229, 34, 34, 0.1); color: var(--accent-danger); border-color: rgba(229, 34, 34, 0.2); }
-    .status-pulse { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 0 rgba(0,0,0,0.1); animation: pulse 2s infinite; }
-    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 145, 24, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(0, 145, 24, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 145, 24, 0); } }
-
-    .fe-breadcrumbs { padding: 20px 0; font-size: 0.9rem; color: var(--fe-text-dimmest); }
-    .breadcrumb-item a { text-decoration: none; color: var(--fe-text-dimmest); }
-    .breadcrumb-item.active { color: var(--fe-text); font-weight: 600; }
-    .breadcrumb-item + .breadcrumb-item::before { content: "/"; margin: 0 8px; opacity: 0.5; }
-
-    .fe-cat-bar { z-index: 15000000 !important; position: fixed; top: 80px; left: 0; width: 100%; height: 60px; background: rgba(26, 28, 37, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--fe-border); display: flex; align-items: center; justify-content: space-between; }
-    .fe-cat-list { display: flex; align-items: center; overflow-x: auto; white-space: nowrap; padding: 0 4%; flex: 1; }
+    /* Category Bar (Titan Stack: Sticky) */
+    .fe-cat-bar { 
+        z-index: calc(var(--z-sticky) - 1); 
+        position: fixed; top: 80px; left: 0; width: 100%; height: 60px; 
+        background: rgba(26, 28, 37, 0.95); backdrop-filter: blur(12px); 
+        border-bottom: 1px solid var(--border-dimmest); 
+        display: flex; align-items: center; justify-content: space-between; 
+    }
+    .fe-cat-list { display: flex; align-items: center; overflow-x: auto; white-space: nowrap; padding: 0 4%; flex: 1; scrollbar-width: none; }
     .fe-cat-list::-webkit-scrollbar { display: none; }
     
-    .cat-item { padding: 8px 20px; margin-right: 12px; border-radius: 50px; background: var(--fe-mist); font-weight: 600; font-size: 0.85rem; color: var(--fe-text-dimmest); cursor: pointer; transition: 0.3s; white-space: nowrap; border: 1px solid transparent; }
-    .cat-item:hover { background: var(--fe-border); color: var(--fe-text); }
-    .cat-item.active { background: var(--fe-text); color: var(--fe-input-bg); border-color: var(--fe-text); }
+    .cat-item { padding: 8px 20px; margin-right: 12px; border-radius: 50px; background: var(--bg-surface); font-weight: 600; font-size: 0.85rem; color: var(--text-dimmest); cursor: pointer; transition: 0.3s; white-space: nowrap; border: 1px solid transparent; }
+    .cat-item:hover { background: var(--border-dimmest); color: var(--text-primary); }
+    .cat-item.active { background: var(--text-primary); color: var(--bg-root); border-color: var(--text-primary); }
 
-    .fe-sort-wrapper { margin-right: 20px; flex-shrink: 0; }
-    .fe-sort-select { padding: 8px 35px 8px 15px; border-radius: 20px; border: 1px solid var(--fe-border); background: var(--fe-mist); font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--fe-text); cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23E6E8ED' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h5.25c.621 0 1.125.504 1.125 1.125V9H6.375A1.125 1.125 0 0 1 5.25 7.875v-3.75ZM12.75 9h6.375c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125H12.75V9Z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px; outline: none; transition: 0.3s; min-width: 140px; }
+    /* Sort Select */
+    .fe-sort-select { padding: 8px 35px 8px 15px; border-radius: 20px; border: 1px solid var(--border-dimmest); background: var(--bg-surface); font-family: 'IBM Plex Sans', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text-primary); cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23E6E8ED' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h5.25c.621 0 1.125.504 1.125 1.125V9H6.375A1.125 1.125 0 0 1 5.25 7.875v-3.75ZM12.75 9h6.375c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125H12.75V9Z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px; outline: none; transition: 0.3s; min-width: 140px; }
 
-    /* ---------------------------------------------------------
-       4. TOAST & NOTIFICATIONS & POPUP
-    ------------------------------------------------------------ */
-    #feToastContainer { position: fixed; bottom: 30px; right: 30px; z-index: 80000000; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
-    .fe-toast { pointer-events: auto; min-width: 300px; background: var(--fe-card-bg); border-radius: 12px; border: 1px solid var(--fe-border); display: flex; align-items: center; gap: 15px; padding: 16px; animation: slideInRight 0.4s; position: relative; overflow: hidden; }
-    .fe-toast.toast-success { border-left: 5px solid var(--accent-success); }
-    .fe-toast.toast-error { border-left: 5px solid var(--accent-danger); }
-    .fe-toast-content { flex-grow: 1; font-size: 0.9rem; font-weight: 600; color: var(--fe-text); }
-    
-    .fe-newsletter-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 16, 23, 0.9); z-index: 99000000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); opacity: 0; transition: opacity 0.3s; }
-    .fe-newsletter-modal { background: var(--fe-card-bg); width: 90%; max-width: 500px; border-radius: 20px; border: 1px solid var(--fe-border); padding: 30px; position: relative; text-align: center; box-shadow: var(--fe-shadow); transform: scale(0.9); transition: 0.3s; }
-    .fe-newsletter-backdrop.show { opacity: 1; }
-    .fe-newsletter-backdrop.show .fe-newsletter-modal { transform: scale(1); }
-    .fe-newsletter-close { position: absolute; top: 15px; right: 15px; cursor: pointer; font-size: 1.2rem; }
-
-    @keyframes slideInRight { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-
-    /* ---------------------------------------------------------
-       5. HERO & PRODUCT GRID
-    ------------------------------------------------------------ */
-    .fe-hero { height: 50vh; min-height: 450px; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-radius: 0 0 40px 40px; background: #000; margin-bottom: 40px; }
+    /* Hero Section */
+    .fe-hero { height: 50vh; min-height: 450px; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-radius: 0 0 40px 40px; margin-bottom: 40px; }
     .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&amp;w=2000'); background-size: cover; background-position: center; }
     .hero-content { position: relative; z-index: 5; padding: 0 20px; width: 100%; max-width: 800px; }
     .hero-content h1 { font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; margin: 0; color: #fff; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-    .hero-content p { color: rgba(255,255,255,0.9); font-size: 1.1rem; font-weight: 400; }
 
-    .fe-product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; padding: 20px 0; width: 100%; margin: 0 auto; justify-content: start; }
+    /* Product Grid & Cards */
+    .fe-product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; padding: 20px 0; width: 100%; margin: 0 auto; transition: opacity 0.3s; }
     
-    /* Replit Style Cards */
-    .fe-card { background: var(--fe-card-bg); border-radius: var(--fe-radius); border: 1px solid var(--fe-border); overflow: hidden; position: relative; cursor: pointer; display: flex; flex-direction: column; transition: 0.3s; height: 100%; }
-    .card-img-box { width: 100%; aspect-ratio: 1/1; overflow: hidden; position: relative; background: var(--fe-mist); }
+    /* List View Modifier */
+    .fe-product-grid.list-view { grid-template-columns: 1fr; }
+    .list-view .fe-card { flex-direction: row; height: auto; align-items: center; }
+    .list-view .card-img-box { width: 200px; aspect-ratio: 1/1; flex-shrink: 0; }
+    .list-view .card-actions { position: relative; bottom: auto; left: auto; right: auto; margin-top: 15px; }
+
+    .fe-card { 
+        background: var(--bg-surface); border-radius: var(--fe-radius); 
+        border: 1px solid var(--border-dimmest); overflow: hidden; 
+        position: relative; cursor: pointer; display: flex; flex-direction: column; 
+        transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; 
+    }
+    .fe-card:hover { transform: translateY(-5px); border-color: var(--border-default); box-shadow: var(--fe-shadow); }
+    
+    .card-img-box { width: 100%; aspect-ratio: 1/1; overflow: hidden; position: relative; background: var(--bg-surface-higher); }
     .card-img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
     .fe-card:hover img { transform: scale(1.08); }
-    .fe-card:hover { border-color: var(--fe-border); box-shadow: 0 0 0 1px var(--fe-primary-dimmest); }
-
+    
     .card-actions { position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; gap: 8px; z-index: 10; }
     .grid-btn { height: 42px; border-radius: 50px; border: none; font-weight: 600; display: flex; align-items: center; justify-content: center; }
-    .grid-btn-cart { background: var(--accent-primary); color: #fff; flex: 1; font-size: 0.85rem; box-shadow: 0 0 10px rgba(0, 121, 242, 0.2); }
-    .grid-btn-wish { background: var(--fe-card-bg); width: 42px; border: 1px solid var(--fe-border); color: var(--fe-text); }
+    .grid-btn-cart { background: var(--accent-primary); color: #fff; flex: 1; font-size: 0.85rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .grid-btn-wish { background: var(--bg-surface); width: 42px; border: 1px solid var(--border-dimmest); color: var(--text-primary); }
     .grid-btn-wish.active { color: var(--accent-danger); border-color: var(--accent-danger); }
 
-    .fe-no-results { grid-column: 1 / -1; text-align: center; padding: 50px 20px; color: var(--fe-text-dimmest); }
-
     /* ---------------------------------------------------------
-       6. SIDEBAR & MULTI-STEP CHECKOUT
-    ------------------------------------------------------------ */
-    .side-backdrop { z-index: 50000000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 16, 23, 0.6); backdrop-filter: blur(10px); display: none; opacity: 0; transition: 0.3s; pointer-events: auto; }
-    .fe-sidebar { z-index: 60000000 !important; position: fixed; top: 0; right: -110%; width: 100%; max-width: 450px; height: 100vh; background: var(--fe-card-bg) !important; border-left: 1px solid var(--fe-border); transition: right 0.5s var(--fe-transition); display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.2); visibility: hidden; pointer-events: auto; }
+       5. SIDEBARS & MODALS (Titan Stack Layers)
+       --------------------------------------------------------- */
+    
+    /* Backdrop */
+    .fe-backdrop { 
+        z-index: var(--z-overlay); 
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+        background: rgba(15, 16, 23, 0.6); backdrop-filter: blur(5px); 
+        display: none; opacity: 0; transition: opacity 0.3s; 
+    }
+    .fe-backdrop.show { opacity: 1; }
+
+    /* Sidebar (Cart/Wish) */
+    .fe-sidebar { 
+        z-index: var(--z-sidebar); 
+        position: fixed; top: 0; right: -110%; width: 100%; max-width: 450px; height: 100vh; 
+        background: var(--bg-surface) !important; border-left: 1px solid var(--border-dimmest); 
+        transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+        display: flex; flex-direction: column; box-shadow: -20px 0 60px rgba(0,0,0,0.5); 
+    }
     .fe-sidebar.open { visibility: visible; right: 0; }
-    .side-head { padding: 25px; background: var(--bg-surface-higher); color: var(--fe-text); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--fe-border); }
-    .side-body { flex-grow: 1; overflow-y: auto; padding: 25px; background: var(--fe-card-bg); }
-    .fe-steps-container { display: flex; flex-direction: column; height: 100%; }
     
-    .step-indicator { display: flex; margin-bottom: 20px; gap: 5px; }
-    .step-dot { height: 4px; flex: 1; background: var(--fe-mist); border-radius: 2px; }
-    .step-dot.active { background: var(--accent-primary); }
-    
-    .fe-step-content { display: none; animation: fadeIn 0.4s; flex: 1; flex-direction: column; }
-    .fe-step-content.active { display: flex; }
-    @keyframes fadeIn { from{ opacity: 0; transform: translateY(10px); } to{ opacity: 1; transform: translateY(0); } }
+    .side-head { padding: 25px; background: var(--bg-surface-higher); color: var(--text-primary); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-dimmest); }
+    .side-body { flex-grow: 1; overflow-y: auto; padding: 25px; }
 
-    .fe-input-stack { display: flex; flex-direction: column; gap: 6px; width: 100%; margin-bottom: 15px; }
-    .fe-label { font-weight: 600; font-size: 0.75rem; text-transform: uppercase; color: var(--fe-text-dimmest); margin: 0; }
-    .fe-input { width: 100% !important; padding: 15px; border-radius: 8px; border: 1px solid var(--fe-border); font-size: 0.95rem; background: var(--fe-input-bg); transition: 0.3s; color: var(--fe-text); }
-    .fe-input:focus { border-color: var(--accent-primary); background: var(--fe-card-bg); }
+    /* Modal (QuickView/Newsletter) */
+    .fe-modal-backdrop { 
+        z-index: var(--z-modal-bg); 
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+        background: var(--bg-overlay); display: none; align-items: center; justify-content: center; padding: 15px; 
+    }
     
-    .row-item { display: flex; gap: 15px; align-items: center; padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid var(--fe-border); }
-    .row-item img { width: 65px; height: 65px; border-radius: 12px; object-fit: cover; }
-    .js-del-cart { cursor: pointer; font-weight: 700; font-size: 0.7rem; background: rgba(229, 34, 34, 0.1); padding: 6px 12px; border-radius: 50px; transition: 0.2s; }
-    .js-del-cart:hover { background: var(--accent-danger); color: #fff; }
+    .fe-modal-inner { 
+        z-index: var(--z-modal); 
+        background: var(--bg-surface); width: 100%; max-width: 1000px; 
+        border-radius: 24px; position: relative; display: flex; flex-direction: row; 
+        overflow: hidden; max-height: 90vh; border: 1px solid var(--border-dimmest); 
+        box-shadow: var(--fe-shadow); animation: slideUp 0.3s ease-out; 
+    }
+    @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    
+    .qv-left { flex: 1.2; background: #000; display: flex; flex-direction: column; align-items: center; padding: 40px; border-right: 1px solid var(--border-dimmest); position: relative; }
+    .qv-main-img { width: 100%; aspect-ratio: 1/1; object-fit: contain; border-radius: 15px; background: var(--bg-surface-higher); }
+    .qv-right { flex: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; color: var(--text-primary); }
 
-    .checkout-actions { margin-top: auto; border-top: 1px solid var(--fe-border); padding-top: 20px; display: flex; gap: 10px; }
+    /* Newsletter Specific */
+    .fe-newsletter-modal { 
+        z-index: var(--z-modal); 
+        background: var(--bg-surface); width: 90%; max-width: 500px; 
+        border-radius: 20px; border: 1px solid var(--border-dimmest); padding: 30px; 
+        position: relative; text-align: center; box-shadow: var(--fe-shadow); 
+    }
+
+    /* Toasts (Titan Stack: Notification) */
+    #feToastContainer { position: fixed; bottom: 30px; right: 30px; z-index: var(--z-notification); display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+    .fe-toast { 
+        pointer-events: auto; min-width: 300px; background: var(--bg-surface); 
+        border-radius: 12px; border: 1px solid var(--border-dimmest); 
+        display: flex; align-items: center; gap: 15px; padding: 16px; 
+        box-shadow: var(--fe-shadow);
+        animation: slideInRight 0.4s; 
+    }
+    .fe-toast.toast-success { border-left: 5px solid var(--accent-success); }
+    .fe-toast.toast-error { border-left: 5px solid var(--accent-danger); }
+    
+    @keyframes slideInRight { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
     /* ---------------------------------------------------------
-       7. QUICKVIEW & VIDEO
-    ------------------------------------------------------------ */
-    .fe-modal-backdrop { z-index: 70000000 !important; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 16, 23, 0.85); display: none; align-items: center; justify-content: center; padding: 15px; pointer-events: auto; }
-    .fe-modal-inner { background: var(--fe-card-bg); width: 100%; max-width: 1000px; border-radius: 24px; position: relative; display: flex; flex-direction: row; overflow: hidden; max-height: 90vh; border: 1px solid var(--fe-border); pointer-events: auto; box-shadow: var(--fe-shadow); }
-    .fe-modal-x { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; background: var(--fe-mist); color: var(--fe-text); display: flex; align-items: center; justify-content: center; border-radius: 50%; z-index: 100 !important; cursor: pointer; transition: 0.2s; pointer-events: auto; }
-    
-    .qv-left { flex: 1.2; background: #000; display: flex; flex-direction: column; align-items: center; padding: 40px; border-right: 1px solid var(--fe-border); gap: 20px; position: relative; }
-    .qv-main-img { width: 100%; aspect-ratio: 1/1; object-fit: contain; border-radius: 15px; background: var(--fe-mist); transition: transform 0.3s; pointer-events: auto; }
-    .qv-video-container { width: 100%; aspect-ratio: 1/1; display: none; border-radius: 15px; overflow: hidden; background: #000; pointer-events: auto; }
-    .qv-video-container iframe { width: 100%; height: 100%; border: none; }
-    .qv-media-toggle { position: absolute; top: 20px; left: 20px; z-index: 10; background: rgba(255,255,255,0.9); border-radius: 30px; padding: 5px 15px; font-weight: 700; font-size: 0.8rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: none; pointer-events: auto; }
-    .qv-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; background: var(--fe-card-bg); border: 1px solid var(--fe-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10 !important; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: 0.2s; pointer-events: auto; }
-
-    .qv-right { flex: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; color: var(--fe-text); }
-    .qv-rating { color: var(--accent-brand); margin-bottom: 10px; font-size: 1.2rem; }
-    .qv-related { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--fe-border); }
-    .qv-related-scroll { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; }
-    .qv-related-item { min-width: 80px; cursor: pointer; pointer-events: auto; }
-    .qv-related-item img { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; border: 2px solid transparent; transition: 0.2s; }
-    .qv-related-item:hover img { border-color: var(--accent-primary); }
-
-    /* ---------------------------------------------------------
-       8. MOBILE NAV
-    ------------------------------------------------------------ */
+       6. MOBILE NAV & UTILS
+       --------------------------------------------------------- */
     .fe-mobile-nav {
-        display: none;
-        position: fixed; bottom: 0; left: 0; width: 100%;
-        background: rgba(26, 28, 37, 0.95);
-        backdrop-filter: blur(10px);
-        border-top: 1px solid var(--fe-border);
-        padding: 10px 0;
-        z-index: 50000000;
+        z-index: var(--z-sticky);
+        display: none; position: fixed; bottom: 0; left: 0; width: 100%;
+        background: rgba(26, 28, 37, 0.95); backdrop-filter: blur(12px);
+        border-top: 1px solid var(--border-dimmest); padding: 10px 0;
         justify-content: space-around;
-        pointer-events: auto;
     }
-    .mobile-nav-item {
-        display: flex; flex-direction: column; align-items: center; font-size: 0.7rem;
-        color: var(--fe-text-dimmest); text-decoration: none; gap: 4px;
-        pointer-events: auto;
-    }
+    .mobile-nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; color: var(--text-dimmer); text-decoration: none; gap: 4px; }
     .mobile-nav-item i { font-size: 1.4rem; }
     .mobile-nav-item.active { color: var(--accent-primary); font-weight: 700; }
-    
-    .fe-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 95000000; display: none; align-items: center; justify-content: center; pointer-events: auto; }
-    .lightbox-img { max-width: 90%; max-height: 90vh; object-fit: contain; }
-    .lightbox-close { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 2rem; cursor: pointer; pointer-events: auto; }
 
-    /* ---------------------------------------------------------
-       9. MARKETING ADDITIONS & UTILS
-    ------------------------------------------------------------ */
+    /* Back To Top */
+    #feBackToTop {
+        z-index: var(--z-sticky);
+        position: fixed; bottom: 100px; right: 20px;
+        width: 45px; height: 45px; border-radius: 50%;
+        background: var(--bg-surface); border: 1px solid var(--accent-primary);
+        color: var(--accent-primary); display: flex; align-items: center; justify-content: center;
+        opacity: 0; pointer-events: none; transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    #feBackToTop.visible { opacity: 1; pointer-events: auto; }
+    #feBackToTop:hover { background: var(--accent-primary); color: #fff; }
+
+    /* Inputs & Forms */
+    .fe-input { width: 100% !important; padding: 15px; border-radius: 8px; border: 1px solid var(--border-dimmest); font-size: 0.95rem; background: var(--bg-root); transition: 0.3s; color: var(--text-primary); }
+    .fe-input:focus { border-color: var(--accent-primary); background: var(--bg-surface); }
     
-    /* FIX: Define missing utility classes to avoid inline style parsing issues */
-    .text-fe-success { color: var(--accent-success) !important; }
-    .text-fe-danger { color: var(--accent-danger) !important; }
+    .step-dot { height: 4px; flex: 1; background: var(--border-dimmest); border-radius: 2px; transition: 0.3s; }
+    .step-dot.active { background: var(--accent-primary); }
+
+    /* Instagram & Admin */
+    .insta-card { position: relative; aspect-ratio: 1/1; overflow: hidden; border-radius: 10px; border: 1px solid var(--border-dimmest); }
+    .insta-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+    .insta-card:hover img { transform: scale(1.1); }
     
-    /* FIX: Define missing bounce keyframes */
-    @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-        40% {transform: translateY(-10px);}
-        60% {transform: translateY(-5px);}
+    .fe-admin-modal {
+        z-index: var(--z-modal);
+        position: fixed; bottom: 20px; left: 20px; width: 300px;
+        background: var(--bg-surface); border: 1px solid var(--accent-primary);
+        padding: 20px; border-radius: 12px; box-shadow: var(--fe-shadow);
+        display: none;
     }
 
-    /* WhatsApp 2.0 */
-    .wa-float {
-        position: fixed; bottom: 90px; right: 20px; z-index: 99000000;
-        display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
-    }
-    .wa-bubble {
-        width: 60px; height: 60px; background: var(--wa-color); border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        color: #fff; font-size: 32px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-        cursor: pointer; transition: transform 0.3s; animation: bounce 2s infinite;
-    }
-    .wa-bubble:hover { transform: scale(1.1); }
-    
-    /* Instagram Widget */
-    .insta-section { padding: 40px 0; text-align: center; background: var(--fe-bg); }
-    .insta-header { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
-    .insta-title { font-family: 'Grand Hotel', cursive; font-size: 2rem; background: var(--insta-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    
-    /* FIX: Move inline style to CSS to avoid parsing issues with variables */
-    .insta-header i {
-        font-size: 1.5rem; 
-        background: var(--insta-gradient); 
-        -webkit-background-clip: text; 
-        -webkit-text-fill-color: transparent;
-    }
-    .insta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-    .insta-card { position: relative; aspect-ratio: 1/1; overflow: hidden; border-radius: 10px; border: 1px solid var(--fe-border); }
-    .insta-card img { width: 100%; height: 100%; object-fit: cover; }
-    
-    /* JS Generated Elements CSS */
-    .insta-overlay {
-        position: absolute; bottom: 0; left: 0; width: 100%;
-        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-        padding: 10px; display: flex; justify-content: space-around;
-        color: #fff; font-size: 0.8rem; opacity: 0; transition: opacity 0.3s;
-    }
-    .insta-card:hover .insta-overlay { opacity: 1; }
-    
-    .insta-live-badge {
-        position: absolute; top: 10px; left: 10px;
-        background: #E52222; color: white; padding: 2px 6px;
-        border-radius: 4px; font-size: 0.7rem; font-weight: bold;
-    }
-    
-    .urgency-badge {
-        position: absolute; top: 10px; right: 10px;
-        background: rgba(0,0,0,0.7); color: #fff;
-        padding: 4px 8px; border-radius: 4px; font-size: 0.7rem;
-        z-index: 5; backdrop-filter: blur(4px);
-    }
-    .urgency-badge.live { color: #E52222; border: 1px solid #E52222; }
-
+    /* Responsive */
     @media (max-width: 850px) {
       .fe-mobile-nav { display: flex; } 
       .fe-product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-      .nav-inner { padding: 0 10px; }
-      .fe-logo { font-size: 1.2rem; }
-      .fe-status-text { display: none; }
-      .fe-search-container { width: 80px; }
-      .fe-sort-select { padding: 6px 25px 6px 10px; font-size: 0.75rem; min-width: 110px; }
-      .fe-hero { height: 40vh; min-height: 350px; }
+      .list-view .fe-card { flex-direction: column; }
+      .list-view .card-img-box { width: 100%; aspect-ratio: 1/1; }
+      .qv-left, .qv-right { padding: 20px; }
+      .fe-modal-inner { flex-direction: column; overflow-y: auto; max-height: 95vh; }
     }
   ]]></b:skin>
 </head>
 
 <body>
-  <!-- STEP: Newsletter Popup -->
-  <div class='fe-newsletter-backdrop' id='feNewsletterBackdrop' style='display:none'>
-    <div class='fe-newsletter-modal'>
-      <div class='fe-newsletter-close' id='btnCloseNewsletter'><i class='bi bi-x-lg'/></div>
-      <h2 style='font-weight:700'>Wait! 🎁</h2>
-      <p style='color:var(--fe-text-dimmest); margin-bottom:20px'>Get a <strong>FREE Miso Soup</strong> with your first order.</p>
-      <form id='feNewsletterForm' onsubmit='FE.handleNewsletterSubmit(event)'>
-        <div style='display:flex; gap:10px'>
-            <label class='sr-only visually-hidden' for='subEmail'>Email</label>
-            <input autocomplete='email' class='fe-input' id='subEmail' name='email' placeholder='Your Email' required='true' style='margin:0' type='email'/>
-            <button class='btn btn-primary rounded-pill' style='background:var(--accent-primary); color:#fff' type='submit'>CLAIM</button>
-        </div>
+
+  <!-- NEWSLETTER POPUP -->
+  <div class='fe-newsletter-modal' id='feNewsletterModal' style='display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1300;'>
+      <div onclick='FE.closeNewsletter()' style='position:absolute; top: 15px; right: 15px; cursor:pointer'><i class='bi bi-x-lg'/></div>
+      <h2 style='font-weight:700; color: var(--text-primary)'>Wait! 🎁</h2>
+      <p style='color:var(--text-dimmer); margin-bottom:20px'>Get a <strong>FREE Miso Soup</strong> with your first order.</p>
+      <form onsubmit='FE.handleNewsletterSubmit(event)'>
+          <div style='display:flex; gap:10px'>
+              <input class='fe-input' id='subEmail' placeholder='Your Email' type='email'/>
+              <button class='btn btn-primary rounded-pill' style='background:var(--accent-primary); color:#fff' type='submit'>CLAIM</button>
+          </div>
       </form>
-    </div>
   </div>
 
-  <!-- STEP: Announcement Bar -->
-  <div class='fe-announcement-bar' id='feAnnouncement'>
-      <span>🔥 FREE DELIVERY on orders over 200 DH! Use Code: SUSHI10</span>
-      <button class='fe-announce-close' id='btnCloseAnnounce'><i class='bi bi-x'/></button>
+  <!-- ANNOUNCEMENT BAR -->
+  <div class='text-white text-center py-2 fw-bold small' style='background:var(--accent-brand)'>
+      🔥 FREE DELIVERY on orders over 200 DH! Use Code: SUSHI10
+      <span onclick='this.parentElement.style.display=&quot;none&quot;' style='position:absolute; right: 20px; cursor:pointer'><i class='bi bi-x-lg'/></span>
   </div>
 
-  <div class='fe-status-banner' id='feStatusBanner'>
-    <i class='bi bi-moon-stars-fill'/>
-    <span class='t-closed'>Shop Currently Closed. We open at <span id='feNextOpenTime'>11:00 AM</span>.</span>
+  <!-- STATUS BANNER -->
+  <div class='fe-status-banner' id='feStatusBanner' style='background:var(--accent-danger); color:#fff; display:none; align-items:center; justify-content:center; font-size:0.75rem; font-weight:800; padding: 5px; z-index: var(--z-sticky)'>
+      <i class='bi bi-moon-stars-fill' style='margin-right:8px'/> Shop Currently Closed. We open at <span id='feNextOpenTime'>11:00 AM</span>.
   </div>
 
+  <!-- NAVBAR -->
   <nav class='fe-navbar'>
     <div class='nav-inner'>
-      <a class='fe-logo text-decoration-none' href='#hero' onclick='window.scrollTo(0,0)'>EVENT<span>SUSHI</span></a>
+      <a class='fe-logo' href='#' onclick='window.scrollTo(0,0)'>EVENT<span>SUSHI</span></a>
       
       <div class='fe-search-container d-none d-md-flex'>
         <i class='bi bi-search fe-search-icon'/>
-        <input autocomplete='off' class='fe-search-input' id='feSearchInput' placeholder='Find sushi...' type='text'/>
+        <input class='fe-input fe-search-input' id='feSearchInput' placeholder='Find sushi...' type='text'/>
       </div>
       
       <div class='nav-actions'>
-        <div class='fe-status-badge' id='feStatusWidget'>
-          <div class='status-pulse'/>
-          <span class='fe-status-text t-status-open'>Checking...</span>
+        <div class='fe-status-badge' id='feStatusWidget' style='padding: 6px 12px; border-radius: 20px; background: var(--bg-surface); border: 1px solid var(--border-dimmest); font-size: 0.7rem; font-weight: 700; color: var(--text-dimmer); display: flex; align-items: center; gap: 5px'>
+          <div id='statusPulse' style='width: 8px; height: 8px; border-radius: 50%; background: var(--accent-success)'/>
+          <span id='statusText'>Checking...</span>
         </div>
         
-        <select class='fe-curr-select' id='feCurrSelect'><option value='DH'>DH</option><option value='USD'>USD</option><option value='EUR'>EUR</option></select>
-        <select class='fe-lang-select' id='feLangSelect'><option value='en'>En</option><option value='fr'>Fr</option><option value='ar'>Ar</option></select>
-
-        <button class='fe-theme-toggle fe-clickable' id='feThemeToggle'><i class='bi bi-moon-stars-fill'/></button>
-        <div class='fe-icon fe-clickable' id='viewToggle'><i class='bi bi-list-ul'/></div>
-        <div class='fe-icon fe-clickable position-relative' id='wishToggle'><i class='bi bi-heart fs-4'/><span class='fe-badge' id='wishBadge'>0</span></div>
-        <div class='fe-icon fe-clickable position-relative' id='cartToggle'><i class='bi bi-bag fs-4'/><span class='fe-badge' id='cartBadge'>0</span></div>
+        <div class='fe-icon fe-clickable' id='viewToggle' title='Toggle View'><i class='bi bi-list-ul'/></div>
+        <div class='fe-icon fe-clickable position-relative' id='wishToggle'>
+            <i class='bi bi-heart fs-4'/><span class='fe-badge' id='wishBadge'>0</span>
+        </div>
+        <div class='fe-icon fe-clickable position-relative' id='cartToggle'>
+            <i class='bi bi-bag fs-4'/><span class='fe-badge' id='cartBadge'>0</span>
+        </div>
       </div>
     </div>
   </nav>
   
+  <!-- MOBILE SEARCH -->
   <div class='container pt-2 d-md-none' style='margin-top: 65px;'>
      <div class='fe-search-container w-100'>
         <i class='bi bi-search fe-search-icon'/>
-        <input autocomplete='off' class='fe-search-input' id='feSearchInputMobile' placeholder='Find sushi...' type='text'/>
+        <input class='fe-input fe-search-input' id='feSearchInputMobile' placeholder='Find sushi...' type='text'/>
      </div>
   </div>
 
-  <div class='fe-cat-bar' id='feCatBar'>
+  <!-- CATEGORY BAR -->
+  <div class='fe-cat-bar'>
       <div class='fe-cat-list' id='feCatList'>
           <div class='cat-item active' data-cat='all'>All Menu</div>
           <div class='cat-item' data-cat='Special Rolls'>Special Rolls</div>
           <div class='cat-item' data-cat='Nigiri'>Nigiri</div>
           <div class='cat-item' data-cat='Sides'>Sides</div>
       </div>
-      <div class='fe-sort-wrapper'>
+      <div class='px-3 d-none d-md-block' style='flex-shrink: 0'>
           <select class='fe-sort-select' id='feSortSelect'>
               <option value='default'>Featured</option>
-              <!-- Step 46: New Sort Options -->
               <option value='newest'>Newest Arrivals</option>
               <option value='popular'>Bestsellers</option>
               <option value='price-asc'>Price: Low to High</option>
@@ -475,151 +391,127 @@
       </div>
   </div>
 
+  <!-- HERO -->
   <section class='fe-hero' id='hero'>
     <div class='hero-bg'/>
     <div class='hero-content'>
       <h1>Art on a Plate.</h1>
-      <p class='reveal'>Experience Casablanca&#39;s Finest Sushi Selection</p>
+      <p style='color: rgba(255,255,255,0.9); font-size: 1.1rem; font-weight: 400; margin-top: 10px'>Experience Casablanca&#39;s Finest Sushi Selection</p>
     </div>
   </section>
 
   <div class='container'>
+      <!-- Breadcrumbs -->
       <nav aria-label='breadcrumb'>
-          <ol class='breadcrumb fe-breadcrumbs' id='feBreadcrumbs'>
-              <li class='breadcrumb-item'><a href='#hero' onclick='window.scrollTo(0,0)'>Home</a></li>
-              <li aria-current='page' class='breadcrumb-item active'>All Menu</li>
+          <ol class='breadcrumb' id='feBreadcrumbs' style='color: var(--text-dimmer); font-size: 0.9rem'>
+              <li class='breadcrumb-item'><a href='#' style='color:inherit; text-decoration:none'>Home</a></li>
+              <li aria-current='page' class='breadcrumb-item active' style='color: var(--text-primary)'>All Menu</li>
           </ol>
       </nav>
       
-      <div class='mt-4' id='feHistorySection' style='display:none'>
-          <h5 class='fw-bold mb-3'>Recently Viewed</h5>
+      <!-- History Section -->
+      <div id='feHistorySection' style='display:none; margin-bottom: 20px'>
+          <h5 class='fw-bold mb-3 border-bottom pb-2' style='border-color: var(--border-dimmest) !important'>Recently Viewed</h5>
           <div class='fe-product-grid list-view' id='feHistoryGrid'/>
       </div>
       
+      <!-- Main Grid -->
       <div class='fe-product-grid' id='feMenuGrid'/>
   </div>
 
-  <!-- STEP: Instagram Feed Widget -->
-  <section class='insta-section'>
-      <div class='insta-header'>
-          <i class='bi bi-instagram'/><span class='insta-title'>eventsushi</span>
-          <a href='#' style='font-size:0.8rem; color:var(--fe-text-dimmest); text-decoration:none'>Follow us &amp;rarr;</a>
+  <!-- INSTAGRAM SECTION -->
+  <section class='py-5' style='background: var(--bg-root)'>
+      <div class='text-center mb-4'>
+          <h4 style='font-family: Grand Hotel, cursive; font-size: 2.5rem; background: var(--insta-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent'>@eventsushi</h4>
+          <a href='#' style='font-size:0.9rem; color:var(--text-dimmer); text-decoration:none'>Follow us &amp;rarr;</a>
       </div>
-      <div class='insta-grid' id='feInstaGrid'>
-          <!-- JS will populate simulated live feed -->
+      <div class='container'>
+          <div class='row g-3' id='feInstaGrid'>
+              <!-- JS Populated -->
+          </div>
       </div>
   </section>
 
-  <footer style='background:var(--bg-surface-higher); color:var(--fe-text-dimmest); padding:40px 20px; text-align:center; border-top:1px solid var(--fe-border)'>
-      <p class='fw-bold' style='color:var(--fe-text); margin-bottom:20px'>EVENT SUSHI</p>
+  <!-- FOOTER -->
+  <footer style='background:var(--bg-surface); color:var(--text-dimmer); padding:60px 20px; text-align:center; border-top:1px solid var(--border-dimmest)'>
+      <h3 class='fw-bold' style='color:var(--text-primary); margin-bottom:20px'>EVENT SUSHI</h3>
       
-      <button class='btn btn-primary fe-referral-btn' id='btnReferral' onclick='FE.triggerReferral()' style='background:var(--accent-primary); color:#fff'>
+      <button class='btn btn-primary rounded-pill px-4 py-2' onclick='FE.triggerReferral()' style='background:var(--accent-primary); border:none'>
           <i class='bi bi-share-fill'/> Invite Friends &amp; Get 10% Off
       </button>
       
-      <div style='margin-top:30px; font-size:0.8rem; display:flex; justify-content:center; gap:20px; flex-wrap:wrap'>
+      <div style='margin-top:40px; display:flex; justify-content:center; gap:20px; font-size:0.85rem'>
           <a href='#' style='color:inherit; text-decoration:none'>Privacy Policy</a>
           <a href='#' style='color:inherit; text-decoration:none'>Terms of Service</a>
-          <a href='#' id='feDevMode' style='color:var(--fe-text-dimmest); text-decoration:none'>Admin</a>
       </div>
-      <div style='margin-top:20px; font-size:0.7rem; opacity:0.5'>
-          &amp;copy; 2024 Event Sushi. Powered by Blogger.
+      <div style='margin-top:20px; font-size:0.75rem; opacity:0.6'>
+          &amp;copy; 2024 Event Sushi. Powered by Blogger Theme.
       </div>
   </footer>
 
-  <!-- STEP: Mobile Navigation -->
+  <!-- BLOGGER REQUIRED SECTION (Hidden to prevent layout issues) -->
+  <div style='display:none'>
+      <b:section class='main-content-section' id='main-content-section' showaddelement='yes'/>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <div id='feBackToTop' onclick='window.scrollTo(0,0)'><i class='bi bi-arrow-up'/></div>
+
+  <!-- MOBILE NAV -->
   <div class='fe-mobile-nav'>
-      <a class='mobile-nav-item' href='#hero' id='mobHome'><i class='bi bi-house-door-fill'/><span>Home</span></a>
-      <a class='mobile-nav-item' href='#feCatBar' id='mobSearch'><i class='bi bi-search'/><span>Search</span></a>
+      <a class='mobile-nav-item' href='#' onclick='window.scrollTo(0,0)'><i class='bi bi-house-door-fill'/><span>Home</span></a>
+      <a class='mobile-nav-item' href='#feCatBar'><i class='bi bi-search'/><span>Search</span></a>
       <div class='mobile-nav-item' id='mobWish'><i class='bi bi-heart-fill'/><span>Saved</span></div>
       <div class='mobile-nav-item' id='mobCart'><i class='bi bi-bag-fill'/><span>Basket</span></div>
   </div>
 
-  <!-- STEP: WhatsApp 2.0 -->
-  <div class='wa-float' id='waWidget'>
-      <div class='wa-chat-box' id='waChatBox' style='background:var(--fe-card-bg); border:1px solid var(--fe-border); border-radius:12px; padding:10px; width:200px'>
-          <div class='wa-header'>
-              <span style='color:var(--fe-text); font-weight:700'>Support Chat</span>
-              <i class='bi bi-x-lg' onclick='FE.toggleWA()' style='cursor:pointer'/>
-          </div>
-          <div class='wa-body'>
-              <div class='wa-option' onclick='FE.openWAChat(&quot;Hello, I want to track my order.&quot;)' style='padding:8px 0; color:var(--fe-text); cursor:pointer; border-bottom:1px solid var(--fe-border)'>📦 Track Order</div>
-              <div class='wa-option' onclick='FE.openWAChat(&quot;Do you have vegan options?&quot;)' style='padding:8px 0; color:var(--fe-text); cursor:pointer; border-bottom:1px solid var(--fe-border)'>🥗 Vegan Options</div>
-              <div class='wa-option' onclick='FE.openWAChat(&quot;I need help with menu.&quot;)' style='padding:8px 0; color:var(--fe-text); cursor:pointer'>&#39;&gt;&#10067; Menu Help</div>
-          </div>
-      </div>
-      <div class='wa-bubble' onclick='FE.toggleWA()'>
-          <i class='bi bi-whatsapp'/>
-      </div>
-  </div>
-
-  <!-- MODALS & SIDEBARS -->
-  <div class='side-backdrop js-close-all' id='feSideBackdrop'/>
-  <div class='fe-lightbox' id='feLightbox'><div class='lightbox-close' id='lightboxClose'><i class='bi bi-x-lg'/></div><img class='lightbox-img' id='lightboxImg'/></div>
-
+  <!-- BACKDROP & MODALS WRAPPER -->
+  
   <!-- CART SIDEBAR -->
+  <div class='fe-backdrop' id='feSideBackdrop'/>
   <aside class='fe-sidebar' id='sideCartPanel'>
     <div class='side-head'>
       <h5 class='m-0 fw-bold'>Your Basket</h5>
-      <div class='fe-icon js-close-all fe-clickable' style='color:var(--fe-text)'><i class='bi bi-x-lg'/></div>
+      <div class='fe-icon js-close-all' style='color:var(--text-primary)'><i class='bi bi-x-lg'/></div>
     </div>
     <div class='side-body'>
         <div id='cartSkeleton' style='display:none'>
-            <div class='cart-skeleton-item'><div class='cart-skeleton-img'/><div class='cart-skeleton-line'/></div>
-            <div class='cart-skeleton-item'><div class='cart-skeleton-img'/><div class='cart-skeleton-line'/></div>
+            <div class='d-flex gap-3 mb-3'><div class='fe-skeleton' style='width: 65px; height: 65px'/><div class='flex-grow-1'><div class='fe-skeleton mb-2' style='height:15px; width: 80%'/><div class='fe-skeleton' style='height:15px; width: 40%'/></div></div>
         </div>
 
-        <div class='fe-steps-container' id='checkoutWizard' style='display:none'>
-            <div class='step-indicator'>
-                <div class='step-dot active' id='stepDot1'/>
-                <div class='step-dot' id='stepDot2'/>
-                <div class='step-dot' id='stepDot3'/>
+        <div class='d-flex flex-column h-100' id='checkoutWizard' style='display:none'>
+            <!-- Steps Indicator -->
+            <div class='d-flex gap-1 mb-4' id='stepIndicators'>
+                <div class='step-dot active'/>
+                <div class='step-dot'/>
+                <div class='step-dot'/>
             </div>
 
-            <!-- Step 1: Cart Review -->
-            <div class='fe-step-content active' id='step1'>
+            <!-- Step 1: List -->
+            <div class='flex-grow-1 overflow-auto' id='step1'>
                 <div id='feCartList'/>
-                <div class='checkout-actions'>
-                    <button class='btn btn-primary w-100 py-3 rounded-pill fw-bold fe-clickable' id='btnToStep2' style='background:var(--accent-primary); color:#fff'>Checkout <i class='bi bi-arrow-right'/></button>
+                <button class='btn btn-primary w-100 py-3 rounded-pill fw-bold mt-3' id='btnToStep2' style='background:var(--accent-primary)'>Checkout <i class='bi bi-arrow-right'/></button>
+            </div>
+
+            <!-- Step 2: Form -->
+            <div class='flex-grow-1 d-none flex-column' id='step2'>
+                <div class='mb-3'><label class='small text-uppercase text-muted fw-bold'>Full Name</label><input class='fe-input' id='orderName'/></div>
+                <div class='mb-3'><label class='small text-uppercase text-muted fw-bold'>Phone</label><input class='fe-input' id='orderPhone'/></div>
+                <div class='mb-3'><label class='small text-uppercase text-muted fw-bold'>Address</label><input class='fe-input' id='orderAddress'/></div>
+                <div class='mt-auto d-flex gap-2'>
+                    <button class='btn btn-outline-secondary w-50 rounded-pill' id='btnBackToStep1' style='border-color: var(--border-dimmest); color: var(--text-primary)'>Back</button>
+                    <button class='btn btn-primary w-50 rounded-pill' id='btnToStep3' style='background:var(--accent-primary)'>Review</button>
                 </div>
             </div>
 
-            <!-- Step 2: Info & Social Login -->
-            <div class='fe-step-content' id='step2'>
-                <div class='social-login-group' style='display:flex; gap:10px; margin-bottom:20px'>
-                    <div class='btn-social btn-google' onclick='FE.toast(&quot;Google Auth Hook Triggered&quot;, &quot;info&quot;)' style='flex:1; padding:10px; background:#fff; border-radius:8px; text-align:center; border:1px solid var(--fe-border); cursor:pointer'><i class='bi bi-google'/> Google</div>
-                    <div class='btn-social btn-facebook' onclick='FE.toast(&quot;Facebook Auth Hook Triggered&quot;, &quot;info&quot;)' style='flex:1; padding:10px; background:#fff; border-radius:8px; text-align:center; border:1px solid var(--fe-border); cursor:pointer'><i class='bi bi-facebook'/> Facebook</div>
+            <!-- Step 3: Final -->
+            <div class='flex-grow-1 d-none flex-column' id='step3'>
+                <h5 class='fw-bold'>Order Summary</h5>
+                <div class='flex-grow-1 overflow-auto mb-3' id='feReviewList'/>
+                <div class='border-top pt-3' style='border-color: var(--border-dimmest) !important'>
+                    <div class='d-flex justify-content-between fw-bold fs-5'><span>Total:</span><span id='feFinalTotal'>0 DH</span></div>
                 </div>
-
-                <div class='fe-input-stack'>
-                    <label class='fe-label' for='orderName'>Full Name</label>
-                    <input autocomplete='name' class='fe-input' id='orderName' name='name' placeholder='Your name'/>
-                </div>
-                <div class='fe-input-stack'>
-                    <label class='fe-label' for='orderPhone'>Phone Number</label>
-                    <input autocomplete='tel' class='fe-input' id='orderPhone' name='tel' placeholder='+212 6...'/>
-                    <div class='text-danger small' id='phoneError' style='display:none'>Invalid phone format</div>
-                </div>
-                <div class='fe-input-stack'>
-                    <label class='fe-label' for='orderAddress'>Delivery Address</label>
-                    <input autocomplete='street-address' class='fe-input' id='orderAddress' name='shipping' placeholder='Street, Casablanca'/>
-                </div>
-                <div class='checkout-actions'>
-                    <button class='btn btn-outline-secondary w-100 py-3 rounded-pill' id='btnBackToStep1' style='background:transparent; border:1px solid var(--fe-border); color:var(--fe-text)'>Back</button>
-                    <button class='btn btn-primary w-100 py-3 rounded-pill' id='btnToStep3' style='background:var(--accent-primary); color:#fff'>Review Order</button>
-                </div>
-            </div>
-
-            <!-- Step 3: Final Review & Success -->
-            <div class='fe-step-content' id='step3'>
-                <h4 class='mb-3'>Order Summary</h4>
-                <div id='feReviewList'/>
-                <div class='mt-3 border-top pt-3' style='border-top:1px solid var(--fe-border)'>
-                    <div class='d-flex justify-content-between fw-bold'><span>Total:</span><span id='feFinalTotal'>0 DH</span></div>
-                </div>
-                <div class='checkout-actions'>
-                    <button class='btn btn-success w-100 py-3 rounded-pill fw-bold fe-clickable' id='btnFinalizeWA' style='background:var(--accent-success); color:#fff'><i class='bi bi-whatsapp'/> SEND ORDER</button>
-                </div>
+                <button class='btn btn-success w-100 py-3 rounded-pill fw-bold mt-3' id='btnFinalizeWA'><i class='bi bi-whatsapp'/> SEND ORDER</button>
             </div>
         </div>
     </div>
@@ -629,7 +521,7 @@
   <aside class='fe-sidebar' id='sideWishPanel'>
     <div class='side-head' style='background:var(--accent-danger); color:#fff'>
       <h5 class='m-0 fw-bold'>Saved Items</h5>
-      <div class='fe-icon js-close-all fe-clickable' style='color:#fff'><i class='bi bi-x-lg'/></div>
+      <div class='fe-icon js-close-all'><i class='bi bi-x-lg'/></div>
     </div>
     <div class='side-body' id='feWishList'/>
   </aside>
@@ -637,605 +529,570 @@
   <!-- QUICKVIEW MODAL -->
   <div class='fe-modal-backdrop' id='modalQuickView'>
     <div class='fe-modal-inner'> 
-      <div class='fe-modal-x js-close-all fe-clickable'><i class='bi bi-x-lg'/></div>
+      <div class='js-close-all' style='positionabsolute; top: 20px; right: 20px; width: 40px; height: 40px; background:var(--bg-surface-higher); color:var(--text-primary); border-radius:50%; display:flex; align-items:center; justify-content:center; z-index:10; cursor:pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2)'><i class='bi bi-x-lg'/></div>
       
-      <div class='qv-skeleton-wrap' id='qvSkeleton' style='display:none; width:100%; padding:40px'>
-          <div class='qv-skeleton-left qv-skeleton-anim'/>
-          <div class='qv-skeleton-right qv-skeleton-anim'>
-              <div class='qv-skeleton-title'/>
-              <div class='qv-skeleton-body'/>
-              <div class='qv-skeleton-body'/>
-          </div>
+      <!-- Skeleton -->
+      <div class='d-flex h-100 w-100 align-items-center justify-content-center' id='qvSkeleton' style='display:none; positionabsolute; top:0; left:0; background:var(--bg-surface); z-index: 20'>
+          <div class='spinner-border text-primary' role='status'/>
       </div>
 
-      <div id='qvRealContent' style='display:flex; width:100%; height:100%; flex-direction:row;'>
+      <!-- Content -->
+      <div class='d-flex w-100 h-100' id='qvRealContent'>
         <div class='qv-left'>
-            <div class='qv-media-toggle' id='btnToggleVideo' style='color:#000; background:#fff'>&#9654; Watch Video</div>
-            <div class='qv-main-container position-relative w-100 d-flex justify-content-center'>
-                <div class='qv-nav-btn qv-nav-prev js-qv-nav fe-clickable' data-dir='-1' style='left:10px; background:#fff; color:#000'><i class='bi bi-chevron-left'/></div>
-                <div class='qv-video-container' id='qvVideoBox'><iframe allowfullscreen='true' id='qvVideoIframe' src=''/></div>
-                <img class='qv-main-img' id='feQVImg' src=''/>
-                <div class='qv-nav-btn qv-nav-next js-qv-nav fe-clickable' data-dir='1' style='right:10px; background:#fff; color:#000'><i class='bi bi-chevron-right'/></div>
-            </div>
-            <div class='qv-thumb-grid' id='feQVThumbGrid'/>
+            <img class='qv-main-img' id='feQVImg' src=''/>
         </div>
-        
         <div class='qv-right'>
           <h2 class='fw-bold mb-1' id='feQVTitle'>-</h2>
           <div class='mb-2' id='feQVStock'/>
-          <div class='qv-rating' id='feQVRating'/>
-          <div class='h2 fw-900 mb-3' id='feQVPrice'>-</div>
+          <div class='text-warning mb-3' id='feQVRating'/>
+          <div class='h2 fw-900 mb-3 text-fe-primary' id='feQVPrice'>-</div>
           <p class='text-muted small mb-4' id='feQVDesc'/>
           
           <div id='feQVVariants'/>
 
-          <div class='qv-qty-input d-flex align-items-center bg-light rounded-pill px-4 py-2 gap-4 mb-4' style='width:fit-content; background:var(--fe-mist); border:1px solid var(--fe-border);'>
-            <span class='js-modal-qty fe-clickable' data-op='-' style='cursor:pointer'>&#8722;</span>
+          <div class='d-flex align-items-center gap-3 mb-4' style='background:var(--bg-surface-higher); padding:10px 20px; border-radius:50px; width:fit-content'>
+            <span class='fe-clickable' onclick='FE.adjQV(-1)'><i class='bi bi-dash-circle-fill'/></span>
             <span class='fw-bold h5 m-0' id='feQVQtyVal'>1</span>
-            <span class='js-modal-qty fe-clickable' data-op='+' style='cursor:pointer'>+</span>
-          </div>
-          <div class='d-flex gap-3'>
-             <button class='btn btn-primary py-3 flex-grow-1 rounded-pill fw-bold h5 m-0 fe-clickable' id='btnModalAddToCart' style='background:var(--accent-primary); color:#fff'>Add to Basket</button>
-             <button class='fe-icon js-wish-toggle border fe-clickable' data-id='' id='btnModalWishlist' style='width:60px; height:60px; border-radius:50%; border:1px solid var(--fe-border)'><i class='bi bi-heart-fill'/></button>
+            <span class='fe-clickable' onclick='FE.adjQV(1)'><i class='bi bi-plus-circle-fill'/></span>
           </div>
           
-          <div class='qv-reviews' id='feQVReviews' style='margin-top:20px'>
-              <h6>Customer Reviews</h6>
-              <div class='review-form-area'>
-                  <textarea class='fe-input' id='reviewText' placeholder='Write a review...' rows='2'/>
-                  <div class='review-input-group'>
-                      <input accept='image/*' autocomplete='off' hidden='true' id='reviewImgUpload' onchange='FE.toast(&quot;Image selected!&quot;, &quot;success&quot;)' type='file'/>
-                      <button class='btn btn-outline-primary btn-sm rounded-pill' onclick='document.getElementById(&quot;reviewImgUpload&quot;).click()' style='border:1px solid var(--accent-primary); color:var(--accent-primary)'><i class='bi bi-camera'/></button>
-                      <button class='btn btn-primary btn-sm rounded-pill' onclick='FE.submitReview()' style='background:var(--accent-primary); color:#fff'>Post Review</button>
-                  </div>
-              </div>
+          <div class='d-flex gap-3'>
+             <button class='btn btn-primary py-3 flex-grow-1 rounded-pill fw-bold' id='btnModalAddToCart' style='background:var(--accent-primary)'>Add to Basket</button>
+             <button class='btn btn-outline-secondary rounded-circle js-wish-toggle' id='btnModalWishlist' style='width:60px; height:60px; border-color: var(--border-dimmest)'><i class='bi bi-heart-fill'/></button>
           </div>
-
-          <div class='qv-related' id='feQVRelated'>
-              <div class='qv-related-title'>You Might Also Like</div>
-              <div class='qv-related-scroll' id='feQVRelatedList'/>
+          
+          <div class='mt-4 pt-4 border-top' style='border-color: var(--border-dimmest) !important'>
+              <h6>You Might Also Like</h6>
+              <div class='d-flex gap-3 overflow-auto' id='feQVRelatedList'/>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- STEP: Admin & Marketing Modal -->
-  <div class='fe-admin-modal' id='feAdminModal' style='background:var(--bg-surface-higher); color:var(--accent-primary); border:1px solid var(--accent-primary)'>
-      <div style='display:flex; justify-content:space-between; align-items:center'>
-          <h4 style='color:var(--accent-primary)'>Developer &amp; Marketing</h4>
-          <i class='bi bi-x-lg' onclick='document.getElementById(&quot;feAdminModal&quot;).style.display=&quot;none&quot;' style='color:var(--fe-text); cursor:pointer'/>
+  <!-- ADMIN MODAL -->
+  <div class='fe-admin-modal' id='feAdminModal'>
+      <div class='d-flex justify-content-between align-items-center mb-3'>
+          <span class='fw-bold text-fe-primary'>Admin Config</span>
+          <i class='bi bi-x-lg' onclick='document.getElementById(&quot;feAdminModal&quot;).style.display=&quot;none&quot;' style='cursor:pointer'/>
       </div>
-      <hr style='border-color:var(--fe-border); opacity:0.2'/>
-      
-      <label for='fbPixelId' style='color:var(--fe-text-dimmest); display:block; margin-top:10px'>Facebook Pixel ID:</label>
-      <input autocomplete='off' class='fe-input' id='fbPixelId' placeholder='123456789' style='background:var(--fe-card-bg); border-color:var(--fe-border); color:var(--fe-text)' type='text'/>
-      
-      <label for='gtmId' style='color:var(--fe-text-dimmest); display:block; margin-top:10px'>Google Tag Manager ID:</label>
-      <input autocomplete='off' class='fe-input' id='gtmId' placeholder='GTM-XXXXXX' style='background:var(--fe-card-bg); border-color:var(--fe-border); color:var(--fe-text)' type='text'/>
-      
-      <button class='btn btn-primary fe-admin-btn' onclick='FE.saveMarketingConfig()' style='background:var(--accent-success); color:#fff'>Save &amp; Inject</button>
-      
-      <hr style='border-color:var(--fe-border); opacity:0.2'/>
-      <p style='color:var(--fe-text-dimmest)'>Debug Data (JSON)</p>
-      <textarea id='adminJson' readonly='true' style='background:#000; color:#0f0; border:none'/>
+      <input class='fe-input mb-2' id='adminPixel' placeholder='FB Pixel ID'/>
+      <input class='fe-input mb-2' id='adminGTM' placeholder='GTM ID'/>
+      <button class='btn btn-success w-100 rounded-pill' onclick='FE.saveAdmin()'>Save Config</button>
   </div>
 
-  <!-- TOAST CONTAINER -->
-  <div aria-live='polite' id='feToastContainer' role='status'/>
+  <!-- TOASTS -->
+  <div aria-live='polite' id='feToastContainer'/>
 
-  <b:section id='BloggerLogic' showaddelement='yes'/>
-
-  <!-- MAIN SCRIPT -->
+  <!-- MAIN JAVASCRIPT -->
   <script type='text/javascript'>
   //<![CDATA[
-
-  
-  // FIX: Define FE object globally so HTML onclick handlers can find it immediately
-  window.FE = {
+    const FE = {
         config: { 
             waPhone: "212600000000", 
             storeName: "EVENT SUSHI", 
             hours: { open: 1, close: 23 }, 
             delivery: { minForFree: 200, fee: 20 }, 
             minOrder: 100,
-            rates: { "DH": 1, "USD": 0.1, "EUR": 0.092 },
-            marketing: { fbPixel: "", gtm: "" } 
+            rates: { "DH": 1, "USD": 0.1, "EUR": 0.092 }
         },
         catalog: [
-          { id: "p1", title: "Salmon Lovers Box", price: 120, stock: 15, cat: "Special Rolls", tags: ["spicy", "salmon", "fresh"], popularity: 95, date: "2023-10-01", video: "", imgs: ["https://picsum.photos/seed/sushi1/600/600"], desc: "12 pieces of premium fresh salmon selection.", rating: 4.8, reviews: [{u: "Ahmed", t: "Fresh!", d: "2d"}], views: 14, sold: 42 },
-          { id: "p2", title: "Dragon Platter", price: 155, stock: 5, cat: "Special Rolls", tags: ["unagi", "grilled", "signature"], popularity: 98, date: "2023-09-15", video: "", imgs: ["https://picsum.photos/seed/sushi2/600/600"], desc: "Signature roll topped with grilled unagi.", rating: 5.0, reviews: [{u: "Omar", t: "Best unagi.", d: "1w"}], views: 28, sold: 110 },
-          { id: "p3", title: "Tuna Tataki", price: 90, stock: 8, cat: "Nigiri", tags: ["spicy", "tuna", "seared"], popularity: 80, date: "2023-11-20", video: "", imgs: ["https://picsum.photos/seed/sushi3/600/600"], desc: "Seared tuna with garlic sauce.", rating: 4.2, reviews: [{u: "Youssef", t: "Good.", d: "3d"}], variants: [{name: "Regular", price: 90}, {name: "Large", price: 170}], views: 5, sold: 15 },
-          { id: "p4", title: "Golden Maki", price: 110, stock: 0, cat: "Special Rolls", tags: ["shrimp", "crispy", "fried"], popularity: 60, date: "2023-08-10", video: "", imgs: ["https://picsum.photos/seed/sushi4/600/600"], desc: "Crispy shrimp maki.", rating: 4.6, reviews: [{u: "Mina", t: "Yum.", d: "12h"}], views: 3, sold: 8 },
-          { id: "p5", title: "California Roll", price: 85, stock: 20, cat: "Special Rolls", tags: ["crab", "avocado", "classic"], popularity: 90, date: "2023-10-05", video: "", imgs: ["https://picsum.photos/seed/sushi5/600/600"], desc: "Crab stick, avocado.", rating: 4.5, reviews: [{u: "Karim", t: "Classic.", d: "1d"}], views: 12, sold: 56 },
-          { id: "p6", title: "Miso Soup", price: 25, stock: 50, cat: "Sides", tags: ["hot", "vegan", "soup"], popularity: 40, date: "2023-01-01", video: "", imgs: ["https://picsum.photos/seed/sushi6/600/600"], desc: "Traditional soybean paste.", rating: 4.0, reviews: [{u: "Layla", t: "Warm.", d: "4d"}], views: 2, sold: 5 }
+          { id: "p1", title: "Salmon Lovers Box", price: 120, stock: 15, cat: "Special Rolls", tags: ["spicy", "salmon", "fresh"], popularity: 95, date: "2023-10-01", imgs: ["https://picsum.photos/seed/sushi1/600/600"], desc: "12 pieces of premium fresh salmon selection.", rating: 4.8 },
+          { id: "p2", title: "Dragon Platter", price: 155, stock: 5, cat: "Special Rolls", tags: ["unagi", "grilled", "signature"], popularity: 98, date: "2023-09-15", imgs: ["https://picsum.photos/seed/sushi2/600/600"], desc: "Signature roll topped with grilled unagi.", rating: 5.0 },
+          { id: "p3", title: "Tuna Tataki", price: 90, stock: 8, cat: "Nigiri", tags: ["spicy", "tuna", "seared"], popularity: 80, date: "2023-11-20", imgs: ["https://picsum.photos/seed/sushi3/600/600"], desc: "Seared tuna with garlic sauce.", rating: 4.2, variants: [{name: "Regular", price: 90}, {name: "Large", price: 170}] },
+          { id: "p4", title: "Golden Maki", price: 110, stock: 0, cat: "Special Rolls", tags: ["shrimp", "crispy", "fried"], popularity: 60, date: "2023-08-10", imgs: ["https://picsum.photos/seed/sushi4/600/600"], desc: "Crispy shrimp maki.", rating: 4.6 },
+          { id: "p5", title: "California Roll", price: 85, stock: 20, cat: "Special Rolls", tags: ["crab", "avocado", "classic"], popularity: 90, date: "2023-10-05", imgs: ["https://picsum.photos/seed/sushi5/600/600"], desc: "Crab stick, avocado.", rating: 4.5 },
+          { id: "p6", title: "Miso Soup", price: 25, stock: 50, cat: "Sides", tags: ["hot", "vegan", "soup"], popularity: 40, date: "2023-01-01", imgs: ["https://picsum.photos/seed/sushi6/600/600"], desc: "Traditional soybean paste.", rating: 4.0 }
         ],
-        dictionary: {
-            en: { closed: "Shop Closed", open: "OPEN", search: "Find sushi...", add: "Add", basket: "Basket", name: "Name", phone: "Phone", address: "Address", total: "Total", complete: "COMPLETE", related: "Related", stockIn: "In Stock", stockOut: "Out" },
-            fr: { closed: "Fermé", open: "OUVERT", search: "Trouver...", add: "Ajouter", basket: "Panier", name: "Nom", phone: "Tél", address: "Adresse", total: "Total", complete: "COMMANDE", related: "Similaires", stockIn: "En Stock", stockOut: "Épuisé" },
-            ar: { closed: "مغلق", open: "مفتوح", search: "بحث...", add: "أضف", basket: "السلة", name: "الاسم", phone: "هاتف", address: "عنوان", total: "المجموع", complete: "إتمام", related: "مشابه", stockIn: "متوفر", stockOut: "نفذت" }
-        },
         state: { 
-            filter: "all", sort: "default", cart: JSON.parse(localStorage.getItem("fe_cart") || "[]"), 
-            wish: JSON.parse(localStorage.getItem("fe_wish") || "[]"), qvId: null, qvQty: 1, qvImgIdx: 0, selectedVariant: null, 
-            isOpen: true, searchTerm: "", promo: null, theme: localStorage.getItem("fe_theme") || "system",
-            lang: localStorage.getItem("fe_lang") || "en", currency: localStorage.getItem("fe_curr") || "DH", viewMode: localStorage.getItem("fe_view") || "grid",
+            cart: JSON.parse(localStorage.getItem("fe_cart") || "[]"), 
+            wish: JSON.parse(localStorage.getItem("fe_wish") || "[]"), 
+            qvId: null, qvQty: 1, 
+            isOpen: true, searchTerm: "", 
+            viewMode: "grid",
             history: JSON.parse(localStorage.getItem("fe_hist") || "[]")
-,
-            checkoutStep: 1
         },
         $: id => document.getElementById(id),
         $$: s => document.querySelectorAll(s),
-        t: function(key) { return this.dictionary[this.state.lang][key] || key; },
-        formatPrice: function(amount) {
-            const rate = this.config.rates[this.state.currency];
-            const val = (amount * rate).toFixed(2);
-            return `${val} ${this.state.currency}`;
-        },
-        toast: function(message, type = 'info') {
-            const container = this.$('feToastContainer');
-            const el = document.createElement('div');
-            el.className = `fe-toast toast-${type}`;
-            el.innerHTML = `<i class="bi ${type==='success'?'bi-check-circle-fill':'bi-info-circle-fill'} fs-4"></i><div class="fe-toast-content">${message}</div>`;
-            container.appendChild(el);
-            setTimeout(() => { el.style.animation = 'fadeOutRight 0.4s forwards'; setTimeout(()=>el.remove(),400); }, 3500);
-        },
         
-        saveMarketingConfig: function() {
-            const fb = this.$('fbPixelId').value;
-            const gtm = this.$('gtmId').value;
-            this.config.marketing.fbPixel = fb;
-            this.config.marketing.gtm = gtm;
-            localStorage.setItem('fe_marketing', JSON.stringify(this.config.marketing));
-            this.toast("Marketing IDs saved!", "success");
-            this.injectMarketingScripts();
-        },
-        injectMarketingScripts: function() {
-            const saved = JSON.parse(localStorage.getItem('fe_marketing') || '{}');
-            if(saved.fbPixel) {
-                console.log("Injecting FB Pixel:", saved.fbPixel);
-            }
-            if(saved.gtm) {
-                console.log("Injecting GTM:", saved.gtm);
-            }
-        },
-
-        updateOpenGraph: function(p) {
-            if(!p) return;
-            this.$('ogTitle').content = p.title;
-            this.$('ogDesc').content = p.desc;
-            this.$('ogImage').content = p.imgs[0];
-        },
-
-        checkStoreStatus: function() {
-            const now = new Date();
-            const hour = now.getHours();
-            const isOpen = (hour >= this.config.hours.open && hour < this.config.hours.close);
-            this.state.isOpen = isOpen;
-            const widget = this.$("feStatusWidget");
-            const banner = this.$("feStatusBanner");
-            if(isOpen) {
-                widget.classList.remove("status-closed"); widget.classList.add("status-open");
-                widget.querySelector(".fe-status-text").textContent = this.t("open");
-                banner.style.display = "none";
-                document.body.classList.remove("is-closed");
-            } else {
-                widget.classList.remove("status-open"); widget.classList.add("status-closed");
-                widget.querySelector(".fe-status-text").textContent = this.t("closed");
-                banner.style.display = "flex";
-                document.body.classList.add("is-closed");
-            }
-        },
-        initTheme: function() {
-            const saved = this.state.theme;
-            // Default to Replit Dark (no auto light mode for this style)
-            if(saved === 'light') { 
-                document.body.classList.remove('dark-mode'); 
-            } else { 
-                document.body.classList.add('dark-mode');
-            }
-        },
-        toggleTheme: function() {
-            document.body.classList.toggle('dark-mode');
-            this.state.theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-            localStorage.setItem("fe_theme", this.state.theme);
-        },
-        save: function() { 
-            localStorage.setItem("fe_cart",JSON.stringify(this.state.cart)); 
-            localStorage.setItem("fe_wish",JSON.stringify(this.state.wish)); 
-            localStorage.setItem("fe_theme", this.state.theme);
-            localStorage.setItem("fe_lang", this.state.lang);
-            localStorage.setItem("fe_curr", this.state.currency);
-            localStorage.setItem("fe_view", this.state.viewMode);
-            localStorage.setItem("fe_hist", JSON.stringify(this.state.history));
-        },
-        relocateUI: function() {
-            const ui = ['sideWishPanel', 'sideCartPanel', 'feSideBackdrop', 'modalQuickView', 'feStatusBanner', 'feToastContainer', 'waWidget'];
-            ui.forEach(id => { const el = this.$(id); if(el && el.parentElement !== document.body) document.body.appendChild(el); });
-        },
-        openSidebar: function(id) { 
-            const sidebar = this.$(id); 
-            const backdrop = this.$("feSideBackdrop");
-            sidebar.classList.add("open"); sidebar.style.visibility = "visible"; sidebar.style.right = "0";
-            backdrop.style.display = "block"; setTimeout(() => backdrop.style.opacity = "1", 10);
-            if(id === 'sideCartPanel') {
-                this.$('cartSkeleton').style.display = 'block';
-                this.$('checkoutWizard').style.display = 'none';
-                setTimeout(() => { this.$('cartSkeleton').style.display = 'none'; this.$('checkoutWizard').style.display = 'flex'; this.renderCart(); }, 400);
-            }
-        },
-        closeAll: function() { 
-            this.$$(".fe-sidebar").forEach(s => { s.classList.remove("open"); s.style.right = "-110%"; });
-            this.$$(".fe-modal-backdrop").forEach(m => m.style.display = "none"); 
-            const b = this.$("feSideBackdrop"); b.style.opacity = "0"; setTimeout(() => b.style.display = "none", 300); 
-        },
-        
-        initPopup: function() {
-            const popup = this.$('feNewsletterBackdrop');
-            if(localStorage.getItem('fe_newsletter_subbed')) return;
-
-            if(!localStorage.getItem('fe_newsletter_seen')) {
-                document.addEventListener('mouseleave', e => {
-                    if(e.clientY < 0 && popup.style.display !== 'flex') {
-                        popup.style.display = 'flex';
-                        setTimeout(()=>popup.classList.add('show'), 10);
+        init: function() {
+            this.checkStatus();
+            this.renderMenu();
+            this.renderCart();
+            this.renderWish();
+            this.renderInsta();
+            this.bindEvents();
+            this.loadHistory();
+            
+            // Reveal animations on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
                     }
                 });
-                setTimeout(() => {
-                    if(popup.style.display !== 'flex') {
-                        popup.style.display = 'flex';
-                        setTimeout(()=>popup.classList.add('show'), 10);
-                    }
-                }, 30000);
-            }
-        },
-        closeNewsletter: function() {
-            this.$('feNewsletterBackdrop').classList.remove('show');
-            setTimeout(()=>this.$('feNewsletterBackdrop').style.display='none', 300);
-            localStorage.setItem('fe_newsletter_seen', 'true');
-        },
-        handleNewsletterSubmit: function(e) {
-            e.preventDefault();
-            const email = e.target.email.value;
-            console.log(`[Mailchimp Sync] Subscribing: ${email}`);
-            this.toast("Welcome! Check your email for coupon.", "success");
-            localStorage.setItem('fe_newsletter_subbed', 'true');
-            this.closeNewsletter();
+            });
+            document.querySelectorAll('.fe-card').forEach(el => {
+                el.style.opacity = "0";
+                el.style.transform = "translateY(20px)";
+                el.style.transition = "opacity 0.5s, transform 0.5s";
+                observer.observe(el);
+            });
         },
 
-        getRelatedItems: function(currentProduct) {
-            let scored = this.catalog.map(p => {
-                if(p.id === currentProduct.id) return { ...p, score: -1 };
-                let score = 0;
-                if(p.cat === currentProduct.cat) score +=5;
-                if(p.tags && currentProduct.tags) {
-                    currentProduct.tags.forEach(t => { if(p.tags && p.tags.includes(t)) score += 10; });
-                }
-                return { ...p, score };
-            });
-            return scored.filter(i => i.score > 0).sort((a,b) => b.score - a.score).slice(0,4);
-        },
-        sortItems: function(items) {
-            if(this.state.sort === 'price-asc') return items.sort((a,b) => a.price - b.price);
-            if(this.state.sort === 'price-desc') return items.sort((a,b) => b.price - a.price);
-            if(this.state.sort === 'newest') return items.sort((a,b) => new Date(b.date) - new Date(a.date));
-            if(this.state.sort === 'popular') return items.sort((a,b) => b.popularity - a.popularity);
-            return items;
-        },
-        updateBreadcrumbs: function(cat, productTitle) {
-            const bc = this.$('feBreadcrumbs');
-            let html = `<li class='breadcrumb-item'><a href='#hero' onclick='window.scrollTo(0,0)'>Home</a></li>`;
+        checkStatus: function() {
+            const now = new Date().getHours();
+            const open = now >= this.config.hours.open && now < this.config.hours.close;
+            this.state.isOpen = open;
+            const pulse = this.$("statusPulse");
+            const txt = this.$("statusText");
+            const banner = this.$("feStatusBanner");
             
-            if(cat && cat !== 'all') {
-                const catName = this.catalog.find(p=>p.cat===cat)?.cat || cat;
-                html += `<li class='breadcrumb-item'>${catName}</li>`;
+            if(open) {
+                if(pulse) pulse.style.background = "var(--accent-success)";
+                if(txt) txt.textContent = "OPEN";
+                if(banner) banner.style.display = "none";
+            } else {
+                if(pulse) pulse.style.background = "var(--accent-danger)";
+                if(txt) txt.textContent = "CLOSED";
+                if(banner) banner.style.display = "flex";
             }
-            if(productTitle) html += `<li class='breadcrumb-item active'>${productTitle}</li>`;
-            else if(!cat || cat === 'all') html += `<li class='breadcrumb-item active'>All Menu</li>`;
-            
-            bc.innerHTML = html;
+        },
+
+        formatPrice: function(p) { return p + " DH"; },
+
+        toast: function(msg, type='info') {
+            const el = document.createElement('div');
+            el.className = `fe-toast toast-${type}`;
+            el.innerHTML = `<i class="bi ${type==='success'?'bi-check-circle-fill':'bi-info-circle-fill'} fs-4 text-fe-${type}"></i><div>${msg}</div>`;
+            this.$("feToastContainer").appendChild(el);
+            setTimeout(() => { el.remove(); }, 3000);
+        },
+
+        openSidebar: function(id) {
+            const sidebar = this.$(id);
+            const backdrop = this.$('feSideBackdrop');
+            if(sidebar) sidebar.classList.add('open');
+            if(backdrop) {
+                backdrop.style.display = 'block';
+                setTimeout(() => backdrop.classList.add('show'), 10);
+            }
+        },
+
+        closeAll: function() {
+            this.$$(".fe-sidebar").forEach(el => el.classList.remove('open'));
+            const bd = this.$('feSideBackdrop');
+            if(bd) {
+                bd.classList.remove('show');
+                setTimeout(() => bd.style.display = 'none', 300);
+            }
+            this.$$(".fe-modal-backdrop").forEach(m => m.style.display = 'none');
         },
 
         renderMenu: function() {
-          let items = this.catalog;
-          if (this.state.searchTerm && this.state.searchTerm.length > 0) {
-             const term = this.state.searchTerm.toLowerCase();
-             items = items.filter(p => p.title.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term));
-          } else if (this.state.filter !== "all") {
-             items = items.filter(p => p.cat === this.state.filter);
-          }
-          
-          items = this.sortItems(items);
-          this.updateBreadcrumbs(this.state.filter);
-
-          if (items.length === 0) {
-             this.$("feMenuGrid").innerHTML = `<div class="fe-no-results"><i class="bi bi-emoji-frown"></i><h5>No items found</h5></div>`;
-             return;
-          }
-
-          this.$("feMenuGrid").innerHTML = items.map(p => {
-            const stockHtml = p.stock === 0 ? `<div class="text-danger small fw-bold">${this.t("stockOut")}</div>` : `<div class="text-success small fw-bold">${this.t("stockIn")}</div>`;
-            const isDisabled = p.stock === 0 || !this.state.isOpen;
+            let items = this.catalog;
+            const term = this.state.searchTerm.toLowerCase();
+            if(term) items = items.filter(p => p.title.toLowerCase().includes(term));
+            if(this.state.filter && this.state.filter !== 'all') items = items.filter(p => p.cat === this.state.filter);
             
-            let urgencyHtml = '';
-            if(p.views > 10) urgencyHtml = `<div class="urgency-badge live"><i class="bi bi-eye-fill"></i> ${p.views} viewing</div>`;
-            else if(p.sold > 20) urgencyHtml = `<div class="urgency-badge"><i class="bi bi-bag-check-fill"></i> ${p.sold} sold today</div>`;
-
-            return `
-            <div class="fe-card reveal js-card" data-id="${p.id}" style="${p.stock===0?'opacity:0.6':''}">
-              ${urgencyHtml}
-              <div class="card-img-box"><img src="${p.imgs[0]}" loading="lazy"/><div class="card-actions">
-                  <button class="grid-btn grid-btn-cart js-quick-add ${isDisabled?'btn-closed':''}" data-id="${p.id}">${isDisabled?(p.stock===0?this.t("stockOut"):"Closed"):this.t("add")}</button>
-                  <button class="grid-btn grid-btn-wish js-wish-toggle ${this.state.wish.includes(p.id)?'active':''}" data-id="${p.id}"><i class="bi bi-heart-fill"></i></button>
-              </div></div>
-              <div class="card-body p-3"><h6 class="fw-bold m-0">${p.title}</h6>
-              <div class="mt-2 d-flex justify-content-between align-items-center"><b>${this.formatPrice(p.price)}</b> ${stockHtml}</div>
-              </div>
-            </div>`;
-          }).join('');
+            this.$("feMenuGrid").innerHTML = items.map(p => `
+                <div class="fe-card reveal" data-id="${p.id}" style="${p.stock===0?'opacity:0.6':''}">
+                    <div class="card-img-box">
+                        <img src="${p.imgs[0]}" loading="lazy"/>
+                        <div class="card-actions">
+                            <button class="grid-btn grid-btn-cart js-quick-add" data-id="${p.id}" ${p.stock===0?'disabled':''}>Add</button>
+                            <button class="grid-btn grid-btn-wish js-wish-toggle ${this.state.wish.includes(p.id)?'active':''}" data-id="${p.id}"><i class="bi bi-heart-fill"/></button>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h6 class="fw-bold m-0 text-truncate">${p.title}</h6>
+                        <div class="mt-2 d-flex justify-content-between align-items-center">
+                            <b class="text-fe-primary">${this.formatPrice(p.price)}</b>
+                            <small class="${p.stock>0?'text-success':'text-danger'}">${p.stock>0?'In Stock':'Sold Out'}</small>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         },
-        
-        renderWish: function() {
-          const valid = this.state.wish.filter(id=>this.catalog.find(p=>p.id===id));
-          this.$("feWishList").innerHTML = valid.map(id => {
-            let p=this.catalog.find(x=>x.id===id);
-            return `<div class="row-item"><img src="${p.imgs[0]}"/><div><h6 class="m-0 fw-bold">${p.title}</h6><button class="btn btn-primary btn-sm js-quick-add fe-clickable" data-id="${p.id}" style='background:var(--accent-primary); color:#fff'>+ Basket</button></div><div class="ms-auto js-del-wish fe-clickable" data-id="${id}" style="font-weight:900">X</div></div>`;
-          }).join('');
-          this.$("wishBadge").textContent = valid.length;
-          this.$("wishBadge").style.display = valid.length ? "flex" : "none";
-          this.save();
-        },
-        renderCart: function() {
-          const valid = this.state.cart.filter(i=>this.catalog.find(p=>p.id===i.id));
-          const subtotal = valid.reduce((s,i)=>s+(this.catalog.find(x=>x.id===i.id).price*i.qty),0);
-          let discount = 0;
-          // FIX: Check for null promo before accessing property
-          if(this.state.promo && this.state.promo.percent) discount = subtotal * (this.state.promo.percent / 100);
-          let delivery = (subtotal - discount) >= this.config.delivery.minForFree ? 0 : this.config.delivery.fee;
-          if(valid.length === 0) delivery = 0;
-          const total = Math.max(0, subtotal - discount + delivery);
 
-          this.$("feCartList").innerHTML = valid.map(i => {
-            let p=this.catalog.find(x=>x.id===i.id);
-            return `<div class="row-item"><img src="${p.imgs[0]}"/><div><h6 class="m-0 fw-bold">${p.title}</h6><small>${this.formatPrice(p.price)} x ${i.qty}</small></div><div class="ms-auto js-del-cart fe-clickable text-fe-danger" data-id="${i.id}">DEL</div></div>`;
-          }).join('');
+        openQV: function(id) {
+            const p = this.catalog.find(x => x.id === id);
+            if(!p) return;
+            
+            // Track history
+            if(!this.state.history.includes(id)) {
+                this.state.history.unshift(id);
+                if(this.state.history.length > 5) this.state.history.pop();
+                localStorage.setItem("fe_hist", JSON.stringify(this.state.history));
+                this.loadHistory();
+            }
 
-          this.$("feReviewList").innerHTML = valid.map(i => {
-             let p=this.catalog.find(x=>x.id===i.id);
-             return `<div class="d-flex justify-content-between mb-2"><span>${p.title} (x${i.qty})</span><span>${this.formatPrice(p.price * i.qty)}</span></div>`;
-          }).join('') + (discount>0?`<div class="text-fe-success">Discount: -${this.formatPrice(discount)}</div>`:'') + (delivery>0?`<div>Delivery: ${this.formatPrice(delivery)}</div>`:'<div class="text-fe-success">Free Delivery</div>');
-          
-          this.$("feFinalTotal").textContent = this.formatPrice(total);
-          
-          this.$("cartBadge").textContent = valid.reduce((s,i)=>s+i.qty,0);
-          this.$("cartBadge").style.display = valid.length ? "flex" : "none";
-          this.save();
-        },
-        openQuickView: function(id) {
-            const p = this.catalog.find(x=>x.id===id);
             this.state.qvId = id;
             this.state.qvQty = 1;
-            this.updateBreadcrumbs(p.cat, p.title);
-            this.updateOpenGraph(p);
             
-            this.$('qvSkeleton').style.display = 'flex';
-            this.$('qvRealContent').style.display = 'none';
+            const qvSkeleton = this.$("qvSkeleton");
+            const qvRealContent = this.$("qvRealContent");
+            const modal = this.$("modalQuickView");
+            
+            if(qvSkeleton) qvSkeleton.style.display = 'flex';
+            if(qvRealContent) qvRealContent.style.display = 'none';
+            if(modal) modal.style.display = 'flex';
             
             setTimeout(() => {
-                this.$('qvSkeleton').style.display = 'none';
-                this.$('qvRealContent').style.display = 'flex';
+                if(qvSkeleton) qvSkeleton.style.display = 'none';
+                if(qvRealContent) qvRealContent.style.display = 'flex';
                 
-                this.$("feQVImg").src = p.imgs[0];
-                this.$("feQVTitle").textContent = p.title;
-                this.$("feQVPrice").textContent = this.formatPrice(p.price);
-                this.$("feQVDesc").textContent = p.desc;
-                this.$("feQVStock").innerHTML = p.stock===0?`<span class="text-danger fw-bold">${this.t("stockOut")}</span>`:`<span class="text-success fw-bold">${this.t("stockIn")}</span>`;
+                const img = this.$("feQVImg");
+                const title = this.$("feQVTitle");
+                const price = this.$("feQVPrice");
+                const desc = this.$("feQVDesc");
+                const stock = this.$("feQVStock");
+                const rating = this.$("feQVRating");
+                const qty = this.$("feQVQtyVal");
+                const wishBtn = this.$("btnModalWishlist");
+                const vDiv = this.$("feQVVariants");
+                const relatedList = this.$("feQVRelatedList");
+
+                if(img) img.src = p.imgs[0];
+                if(title) title.textContent = p.title;
+                if(price) price.textContent = this.formatPrice(p.price);
+                if(desc) desc.textContent = p.desc;
+                if(stock) stock.innerHTML = `<span class="badge ${p.stock>0?'bg-success':'bg-danger'}">${p.stock>0?'In Stock':'Out of Stock'}</span>`;
+                if(rating) rating.innerHTML = "★".repeat(Math.floor(p.rating)) + "☆".repeat(5-Math.floor(p.rating));
+                if(qty) qty.textContent = "1";
                 
-                const qvWishBtn = this.$('btnModalWishlist');
-                if(qvWishBtn) qvWishBtn.dataset.id = id; 
-                if(this.state.wish.includes(p.id)){ 
-                    qvWishBtn.style.color = "var(--accent-danger)"; 
-                    qvWishBtn.style.borderColor = "var(--accent-danger)"; 
-                } else { 
-                    qvWishBtn.style.color = ""; 
-                    qvWishBtn.style.borderColor = ""; 
+                // Wish Button State
+                if(wishBtn) {
+                    wishBtn.className = `btn rounded-circle js-wish-toggle ${this.state.wish.includes(id)?'btn-danger text-white':'btn-outline-secondary'}`;
+                }
+                
+                // Variants
+                if(vDiv) {
+                    if(p.variants) {
+                        vDiv.innerHTML = p.variants.map((v,i) => 
+                            `<button class="btn btn-sm btn-outline-primary me-2" onclick='FE.setVariant(${i})'>${v.name} (+${v.price-p.price})</button>`
+                        ).join('');
+                    } else { vDiv.innerHTML = ''; }
                 }
 
-                const vidBox = this.$('qvVideoBox');
-                const vidBtn = this.$('btnToggleVideo');
-                if(p.video) {
-                    vidBtn.style.display = 'block';
-                    vidBtn.onclick = () => {
-                        this.$('feQVImg').style.display = 'none';
-                        vidBox.style.display = 'block';
-                        this.$('qvVideoIframe').src = p.video;
-                    }
-                } else {
-                    vidBtn.style.display = 'none';
-                    vidBox.style.display = 'none';
-                    this.$('feQVImg').style.display = 'block';
+                // Related
+                if(relatedList) {
+                    const related = this.catalog.filter(x => x.cat === p.cat && x.id !== id).slice(0,4);
+                    relatedList.innerHTML = related.map(r => `
+                        <div class="fe-card" style="width:80px; border:none" onclick='FE.openQV("${r.id}")'>
+                            <img src="${r.imgs[0]}" style="border-radius:8px"/>
+                        </div>
+                    `).join('');
                 }
-
-                const related = this.getRelatedItems(p);
-                this.$("feQVRelatedList").innerHTML = related.map(r => `
-                    <div class="qv-related-item js-qv-related" data-id="${r.id}">
-                        <img src="${r.imgs[0]}" alt="${r.title}"/>
-                    </div>
-                `).join('');
-
-                this.$("modalQuickView").style.display="flex";
             }, 300);
         },
-        
-        submitReview: function() {
-            const text = this.$('reviewText').value;
-            if(!text) return;
-            this.toast("Review submitted for moderation!", "success");
-            this.$('reviewText').value = "";
+
+        setVariant: function(idx) {
+            const p = this.catalog.find(x => x.id === this.state.qvId);
+            if(p && p.variants) {
+                const priceEl = this.$("feQVPrice");
+                if(priceEl) priceEl.textContent = this.formatPrice(p.variants[idx].price);
+            }
         },
 
-        toggleWA: function() {
-            const box = this.$('waChatBox');
-            box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
-        },
-        openWAChat: function(msg) {
-            window.open(`https://wa.me/${this.config.waPhone}?text=${encodeURIComponent(msg)}`, '_blank');
-        },
-
-        triggerReferral: function() {
-            const refCode = "SUSHI-" + Math.floor(Math.random()*10000);
-            const link = `https://eventsushi.com?ref=${refCode}`;
-            navigator.clipboard.writeText(link).then(() => {
-                this.toast("Link copied! Share it to earn 10%.", "success");
-            });
+        adjQV: function(n) {
+            this.state.qvQty += n;
+            if(this.state.qvQty < 1) this.state.qvQty = 1;
+            const qtyEl = this.$("feQVQtyVal");
+            if(qtyEl) qtyEl.textContent = this.state.qvQty;
         },
 
-        setCheckoutStep: function(step) {
-            this.state.checkoutStep = step;
-            this.$$(".fe-step-content").forEach(el => el.classList.remove('active'));
-            this.$(`step${step}`).classList.add('active');
-            this.$$(".step-dot").forEach((dot, idx) => { dot.classList.toggle('active', idx < step); });
-            if(step === 3) this.renderCart();
+        addToCart: function(id, qty=1) {
+            const p = this.catalog.find(x => x.id === id);
+            if(p && p.stock > 0) {
+                this.state.cart.push({id, qty});
+                this.save();
+                this.renderCart();
+                this.toast("Added to basket", "success");
+            }
+        },
+
+        renderCart: function() {
+            const listEl = this.$("feCartList");
+            const totalEl = this.$("feFinalTotal");
+            const badge = this.$("cartBadge");
+            
+            const valid = this.state.cart.filter(i => this.catalog.find(p => p.id === i.id));
+            
+            if(listEl) {
+                listEl.innerHTML = valid.map(i => {
+                    const p = this.catalog.find(x => x.id === i.id);
+                    return `<div class="d-flex gap-3 mb-3 align-items-center">
+                        <img src="${p.imgs[0]}" style="width:50px; height:50px; border-radius:8px; object-fit:cover"/>
+                        <div class="flex-grow-1"><h6 class="m-0 small fw-bold">${p.title}</h6><small class="text-muted">${i.qty} x ${p.price}</small></div>
+                        <i class="bi bi-trash text-danger fe-clickable js-del-cart" data-id="${i.id}"/>
+                    </div>`;
+                }).join('');
+            }
+            
+            const total = valid.reduce((s,i) => s + (this.catalog.find(x=>x.id===i.id).price * i.qty), 0);
+            if(totalEl) totalEl.textContent = this.formatPrice(total);
+            
+            if(badge) {
+                badge.textContent = valid.reduce((s,i)=>s+i.qty,0);
+                badge.style.display = valid.length ? 'flex' : 'none';
+            }
+        },
+
+        renderWish: function() {
+            const listEl = this.$("feWishList");
+            const badge = this.$("wishBadge");
+            
+            const valid = this.state.wish.filter(id => this.catalog.find(p => p.id === id));
+            
+            if(listEl) {
+                listEl.innerHTML = valid.map(id => {
+                    const p = this.catalog.find(x => x.id === id);
+                    return `<div class="d-flex gap-3 mb-3 align-items-center">
+                        <img src="${p.imgs[0]}" style="width:50px; height:50px; border-radius:8px; object-fit:cover"/>
+                        <div class="flex-grow-1"><h6 class="m-0 small fw-bold">${p.title}</h6></div>
+                        <button class="btn btn-sm btn-primary js-quick-add" data-id="${id}">Add</button>
+                        <i class="bi bi-trash text-danger fe-clickable js-del-wish" data-id="${id}"/>
+                    </div>`;
+                }).join('');
+            }
+            
+            if(badge) {
+                badge.textContent = valid.length;
+                badge.style.display = valid.length ? 'flex' : 'none';
+            }
+        },
+
+        setStep: function(n) {
+            this.$$(".step-dot").forEach((d, i) => d.classList.toggle('active', i < n));
+            this.$("#step1").classList.toggle('d-none', n !== 1);
+            this.$("#step1").classList.toggle('d-flex', n === 1);
+            this.$("#step2").classList.toggle('d-none', n !== 2);
+            this.$("#step2").classList.toggle('d-flex', n === 2);
+            this.$("#step3").classList.toggle('d-none', n !== 3);
+            this.$("#step3").classList.toggle('d-flex', n === 3);
+            
+            if(n === 3) {
+                const reviewList = this.$("feReviewList");
+                if(reviewList) reviewList.innerHTML = this.$("feCartList").innerHTML;
+            }
+        },
+
+        loadHistory: function() {
+            if(this.state.history.length > 0) {
+                const section = this.$("feHistorySection");
+                const grid = this.$("feHistoryGrid");
+                if(section) section.style.display = "block";
+                if(grid) {
+                    grid.innerHTML = this.state.history.map(id => {
+                        const p = this.catalog.find(x => x.id === id);
+                        if(!p) return '';
+                        return `<div class="fe-card" onclick='FE.openQV("${id}")'>
+                            <img src="${p.imgs[0]}" style="width:100px; object-fit:cover"/>
+                            <div class="p-2"><h6>${p.title}</h6><b>${p.price} DH</b></div>
+                        </div>`
+                    }).join('');
+                }
+            }
+        },
+
+        save: function() {
+            localStorage.setItem("fe_cart", JSON.stringify(this.state.cart));
+            localStorage.setItem("fe_wish", JSON.stringify(this.state.wish));
         },
 
         renderInsta: function() {
-            const grid = this.$('feInstaGrid');
-            let html = '';
-            for(let i=0; i<6; i++) {
-                const isLive = i===0; 
-                html += `
-                <div class='insta-card'>
-                    <img src='https://picsum.photos/seed/insta${i}/300/300' loading='lazy'/>
-                    ${isLive ? '<div class="insta-live-badge">LIVE</div>' : ''}
-                    <div class='insta-overlay'>
-                        <span><i class='bi bi-heart-fill'></i> ${Math.floor(Math.random()*100)}</span>
-                        <span><i class='bi bi-chat-fill'></i> ${Math.floor(Math.random()*20)}</span>
-                    </div>
-                </div>`;
+            const grid = this.$("feInstaGrid");
+            if(grid) {
+                let html = "";
+                for(let i=0; i<4; i++) {
+                    html += `<div class="col-3 col-md-2"><div class="insta-card"><img src="https://picsum.photos/seed/insta${i}/300/300"/></div></div>`;
+                }
+                grid.innerHTML = html;
             }
-            grid.innerHTML = html;
+        },
+
+        closeNewsletter: function() {
+            const modal = this.$("feNewsletterModal");
+            if(modal) modal.style.display = "none";
+        },
+
+        triggerReferral: function() {
+            this.toast("Referral link copied!", "success");
+        },
+
+        saveAdmin: function() {
+            this.toast("Configuration Saved", "success");
+            const modal = this.$("feAdminModal");
+            if(modal) modal.style.display = "none";
         },
 
         bindEvents: function() {
-          const self = this;
-          
-          document.addEventListener("click", e => {
-            const t = e.target;
-            if(t.closest("#feThemeToggle")) { self.toggleTheme(); return; }
-            if(t.closest("#cartToggle") || t.closest("#mobCart")) { self.openSidebar("sideCartPanel"); return; }
-            if(t.closest("#wishToggle") || t.closest("#mobWish")) { self.openSidebar("sideWishPanel"); return; }
-            if(t.closest("#mobSearch")) { window.scrollTo(0,0); self.$("feSearchInputMobile").focus(); return; }
-            if(t.closest(".js-close-all")) { self.closeAll(); return; }
-            if (t.id === "modalQuickView" && !t.closest(".fe-modal-inner")) { self.closeAll(); return; }
-            if (t.id === "feSideBackdrop" && !t.closest(".fe-sidebar")) { self.closeAll(); return; }
+            const self = this;
             
-            if(t.closest(".cat-item")) {
-                self.$$(".cat-item").forEach(c => c.classList.remove("active"));
-                t.closest(".cat-item").classList.add("active");
-                self.state.filter = t.closest(".cat-item").dataset.cat;
-                self.renderMenu(); return;
-            }
-
-            if(t.closest(".js-quick-add")) {
-                const p = self.catalog.find(x=>x.id===t.closest(".js-quick-add").dataset.id);
-                if(p.stock > 0 && self.state.isOpen) {
-                    self.state.cart.push({id:p.id, qty:1, price:p.price}); 
-                    self.toast("Added!", "success"); self.renderCart(); 
+            // Delegate document clicks
+            document.addEventListener('click', e => {
+                const t = e.target;
+                
+                if(t.closest(".js-close-all")) { self.closeAll(); return; }
+                if(t.closest("#cartToggle") || t.closest("#mobCart")) { self.openSidebar("sideCartPanel"); return; }
+                if(t.closest("#wishToggle") || t.closest("#mobWish")) { self.openSidebar("sideWishPanel"); return; }
+                
+                // Card click (open QV)
+                const card = t.closest(".fe-card");
+                if(card && !t.closest(".grid-btn")) {
+                    self.openQV(card.dataset.id);
                 }
-                return;
-            }
-            if(t.closest(".js-del-cart")) {
-                self.state.cart = self.state.cart.filter(x => x.id !== t.closest(".js-del-cart").dataset.id);
-                self.renderCart(); return;
-            }
-            if(t.closest(".js-del-wish")) {
-                self.state.wish = self.state.wish.filter(x => x !== t.closest(".js-del-wish").dataset.id);
-                self.renderWish(); return;
-            }
-            if(t.closest(".js-qv-related")) {
-                self.openQuickView(t.closest(".js-qv-related").dataset.id);
-                return;
-            }
-            if(t.closest("#btnCloseNewsletter")) { self.closeNewsletter(); return; }
-            if(t.closest("#feDevMode")) {
-                const dump = JSON.stringify({config:self.config, catalog:self.catalog, state:self.state}, null, 2);
-                prompt("Copy this JSON:", dump);
-                return;
-            }
 
-            if(t.closest(".js-wish-toggle")) {
-                const btn = t.closest(".js-wish-toggle");
-                if(btn && btn.dataset.id) {
-                    const id = btn.dataset.id;
-                    const index = self.state.wish.indexOf(id);
-                    if (index === -1) { 
-                        self.state.wish.push(id); 
-                        self.toast("Added to favorites", "success");
-                    } else { 
-                        self.state.wish.splice(index, 1); 
-                        self.toast("Removed from favorites", "info");
+                // Add to Cart
+                const addBtn = t.closest(".js-quick-add");
+                if(addBtn) { self.addToCart(addBtn.dataset.id); self.closeAll(); return; }
+
+                // Wish Toggle
+                const wishBtn = t.closest(".js-wish-toggle");
+                if(wishBtn) {
+                    const id = wishBtn.dataset.id;
+                    if(self.state.wish.includes(id)) {
+                        self.state.wish = self.state.wish.filter(x => x !== id);
+                        self.toast("Removed from Saved");
+                    } else {
+                        self.state.wish.push(id);
+                        self.toast("Saved to Favorites", "success");
                     }
                     self.save(); self.renderWish(); self.renderMenu();
-                    const qvBtn = self.$('btnModalWishlist');
-                    if(qvBtn && self.state.qvId === id) {
-                        if(self.state.wish.includes(id)) { 
-                            qvBtn.style.color = "var(--accent-danger)"; 
-                            qvBtn.style.borderColor = "var(--accent-danger)"; 
-                        } else { 
-                            qvBtn.style.color = ""; 
-                            qvBtn.style.borderColor = ""; 
+                }
+
+                // Delete Cart
+                if(t.closest(".js-del-cart")) {
+                    const id = t.closest(".js-del-cart").dataset.id;
+                    self.state.cart = self.state.cart.filter(x => x.id !== id);
+                    self.save(); self.renderCart();
+                }
+
+                // Delete Wish
+                if(t.closest(".js-del-wish")) {
+                    const id = t.closest(".js-del-wish").dataset.id;
+                    self.state.wish = self.state.wish.filter(x => x !== id);
+                    self.save(); self.renderWish(); self.renderMenu();
+                }
+
+                // Category Filter
+                if(t.closest(".cat-item")) {
+                    self.$$(".cat-item").forEach(c => c.classList.remove("active"));
+                    t.closest(".cat-item").classList.add("active");
+                    self.state.filter = t.closest(".cat-item").dataset.cat;
+                    self.renderMenu();
+                }
+            });
+
+            // Inputs - Added defensive null checks
+            const searchInput = this.$("feSearchInput");
+            if(searchInput) {
+                searchInput.addEventListener("input", e => {
+                    self.state.searchTerm = e.target.value;
+                    self.renderMenu();
+                });
+            }
+
+            const searchInputMobile = this.$("feSearchInputMobile");
+            if(searchInputMobile) {
+                searchInputMobile.addEventListener("input", e => {
+                    self.state.searchTerm = e.target.value;
+                    self.renderMenu();
+                });
+            }
+            
+            const viewToggle = this.$("viewToggle");
+            if(viewToggle) {
+                viewToggle.addEventListener("click", () => {
+                    const grid = self.$("feMenuGrid");
+                    if(grid) {
+                        if(self.state.viewMode === "grid") {
+                            grid.classList.add("list-view");
+                            self.state.viewMode = "list";
+                            viewToggle.innerHTML = '<i class="bi bi-grid-3x3"/>';
+                        } else {
+                            grid.classList.remove("list-view");
+                            self.state.viewMode = "grid";
+                            viewToggle.innerHTML = '<i class="bi bi-list-ul"/>';
                         }
                     }
+                });
+            }
+
+            const sortSelect = this.$("feSortSelect");
+            if(sortSelect) {
+                sortSelect.addEventListener("change", e => {
+                    self.state.sort = e.target.value;
+                    self.renderMenu();
+                });
+            }
+
+            // Checkout Steps
+            const btnToStep2 = this.$("btnToStep2");
+            if(btnToStep2) btnToStep2.onclick = () => self.setStep(2);
+            
+            const btnBackToStep1 = this.$("btnBackToStep1");
+            if(btnBackToStep1) btnBackToStep1.onclick = () => self.setStep(1);
+            
+            const btnToStep3 = this.$("btnToStep3");
+            if(btnToStep3) btnToStep3.onclick = () => self.setStep(3);
+            
+            const btnFinalizeWA = this.$("btnFinalizeWA");
+            if(btnFinalizeWA) {
+                btnFinalizeWA.onclick = () => {
+                    self.toast("Order Sent to WhatsApp!", "success");
+                    self.state.cart = []; self.save(); self.renderCart(); self.setStep(1); self.closeAll();
+                };
+            }
+
+            // Scroll Back to Top Logic
+            window.addEventListener("scroll", () => {
+                const btn = self.$("feBackToTop");
+                if(btn) {
+                    if(window.scrollY > 300) btn.classList.add("visible");
+                    else btn.classList.remove("visible");
                 }
-                return;
+            });
+
+            // Admin trigger (secret triple click on logo)
+            const logo = self.$(".fe-logo");
+            if(logo) {
+                let logoClicks = 0;
+                logo.addEventListener("click", () => {
+                    logoClicks++;
+                    if(logoClicks > 2) {
+                        const modal = self.$("feAdminModal");
+                        if(modal) modal.style.display = "block";
+                        logoClicks = 0;
+                    }
+                });
             }
 
-            const card = t.closest(".fe-card");
-            if (card && !t.closest(".card-actions")) {
-                const id = card.dataset.id;
-                if(id) {
-                    const p = self.catalog.find(x=>x.id===id);
-                    if(p) self.openQuickView(p.id);
+            // Modal Add Button
+            const btnModalAddToCart = this.$("btnModalAddToCart");
+            if(btnModalAddToCart) {
+                btnModalAddToCart.onclick = () => {
+                    self.addToCart(self.state.qvId, self.state.qvQty);
+                    self.closeAll();
+                };
+            }
+            
+            // Popup trigger
+            setTimeout(() => {
+                if(!localStorage.getItem("fe_newsletter")) {
+                    const modal = self.$("feNewsletterModal");
+                    if(modal) {
+                        modal.style.display = "block";
+                        localStorage.setItem("fe_newsletter", "1");
+                    }
                 }
-                return;
-            }
-
-            if(t.id === "btnToStep2") { self.setCheckoutStep(2); return; }
-            if(t.id === "btnBackToStep1") { self.setCheckoutStep(1); return; }
-            if(t.id === "btnToStep3") { self.setCheckoutStep(3); return; }
-            if(t.id === "btnFinalizeWA") {
-                const name = self.$("orderName").value;
-                const phone = self.$("orderPhone").value;
-                const address = self.$("orderAddress").value;
-                if(!name || !phone || !address) { self.toast("Fill all fields", "error"); return; }
-                const msg = `New Order: ${name}, ${phone}, ${address}. Total: ${self.$("feFinalTotal").textContent}`;
-                window.open(`https://wa.me/${self.config.waPhone}?text=${encodeURIComponent(msg)}`, '_blank');
-                return;
-            }
-          });
-
-          self.$("feSearchInput")?.addEventListener("input", e => { self.state.searchTerm = e.target.value; self.renderMenu(); });
-          self.$("feSearchInputMobile")?.addEventListener("input", e => { self.state.searchTerm = e.target.value; self.renderMenu(); });
-          self.$("feSortSelect").addEventListener("change", e => { self.state.sort = e.target.value; self.renderMenu(); });
-          
-          // Init
-          self.initPopup();
-          self.relocateUI();
-          self.checkStoreStatus();
-          self.initTheme();
-          self.renderMenu();
-          self.renderCart();
-          self.renderWish(); 
-          self.setCheckoutStep(1);
-          self.injectMarketingScripts();
-          self.renderInsta();
+            }, 5000);
         }
-  };
-  
-  document.addEventListener("DOMContentLoaded", function() {
-    // FIX: Call bindEvents inside DOMContentLoaded to ensure elements exist
-    window.FE.bindEvents();
-  });
+    };
+
+    document.addEventListener("DOMContentLoaded", () => FE.init());
   //]]>
   </script>
 </body>
