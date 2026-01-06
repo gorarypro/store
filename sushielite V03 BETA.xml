@@ -1,0 +1,1656 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.0.0' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1' name='viewport'/>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+    <title><data:blog.pageTitle/></title>
+    
+    <meta content='#ce1212' name='theme-color'/>
+    <meta content='SushiElite Monolith v68.2 - Enterprise &amp; PWA Ready' name='description'/>
+    <link expr:href='&quot;https://www.google.com/s2/favicons?domain=&quot; + data:blog.url + &quot;&amp;sz=32&quot;' id='favicon' rel='icon' type='image/x-icon'/>
+
+    <!-- Typography & Icons -->
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Amatic+SC:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css' rel='stylesheet'/>
+    <link href='https://unpkg.com/aos@2.3.1/dist/aos.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' rel='stylesheet'/>
+
+    <b:skin><![CDATA[
+    
+    /* 
+    ---------------------------------------------------------------------------------------
+    TITAN CORE DESIGN SYSTEM v68.2 
+    Features: Glassmorphism, Fluid Typography, Skeletons, LQIP
+    ---------------------------------------------------------------------------------------
+    */
+        :root {
+            --primary: #ce1212; --primary-dark: #a00d0d;
+            --secondary: #37373f; --accent: #ffc107;
+            --bg-body: #f8f9fa; --bg-card: #ffffff;
+            --text-main: #1d1d1f; --text-muted: #86868b;
+            --font-main: "Inter", sans-serif; --font-accent: "Amatic SC", sans-serif;
+            --font-mono: "JetBrains Mono", monospace;
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --z-navbar: 1030; --z-mobile-nav: 1050; --z-toast: 9999; --z-fly: 10000;
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
+            --radius-xl: 24px;
+        }
+
+        [data-theme='dark'] { 
+            --bg-body: #0a0a0c; --bg-card: #1c1c1e; 
+            --text-main: #f5f5f7; --text-muted: #a1a1a6;
+            --glass-bg: rgba(28, 28, 30, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* [FLUID TYPOGRAPHY] */
+        h1, .display-1 { font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.1; font-weight: 800; letter-spacing: -1.5px; }
+        h2, .display-2 { font-size: clamp(1.8rem, 5vw, 3.2rem); font-weight: 700; }
+        h4, .product-card h4 { font-size: clamp(1.05rem, 2.5vw, 1.25rem)
+ !important; line-height: 1.4; font-weight: 700; }
+        .lead { font-size: clamp(0.95rem, 2vw, 1.15rem); line-height: 1.6; }
+
+        body { font-family: var(--font-main); background: var(--bg-body); color: var(--text-main); padding-top: 85px; padding-bottom: 95px; transition: background 0.3s; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        body.rtl { direction: rtl; text-align: right; }
+        
+        #scroll-fill { position: fixed; top: 0; left: 0; height: 4px; background: var(--primary); z-index: 9999; width: 0%; transition: width 0.1s; box-shadow: 0 0 15px var(--primary); }
+
+        /* [GLASSMORPHISM] */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* [FILTER UI] */
+        .filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; -ms-overflow-style: none; }
+        .filter-scroll::-webkit-scrollbar { display: none; }
+        .filter-chip { white-space: nowrap; padding: 8px 20px; border-radius: 50px; background: var(--bg-card); border: 1px solid rgba(0,0,0,0.05); color: var(--text-muted); font-weight: 600; cursor: pointer; transition: 0.3s; user-select: none; }
+        .filter-chip:hover, .filter-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+
+        /* [SKELETON LOADERS] */
+        .skeleton { background: #e0e0e0; border-radius: 4px; animation: shimmer 1.5s infinite linear; background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%); background-size: 1000px 100%; }
+        @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+        .sk-img { height: 200px; width: 100%; border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+        .sk-text { height: 20px; width: 80%; margin: 15px auto; }
+        .sk-chip { height: 36px; width: 100px; border-radius: 50px; display: inline-block; margin-right: 10px; }
+
+        /* [GRID ARCHITECTURE] */
+        .product-card { border: none; border-radius: var(--radius-xl); background: var(--bg-card); box-shadow: var(--shadow-sm); position: relative; display: flex; flex-direction: column; height: 100%; overflow: hidden; transition: var(--transition); border: 1px solid rgba(0,0,0,0.02); }
+        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+        
+        .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #eee; }
+        .product-img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: 0.5s ease; opacity: 0; }
+        .product-img.loaded { opacity: 1; }
+        .product-lqip { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(10px); transition: opacity 0.5s; z-index: 0; }
+        .product-img.loaded + .product-lqip { opacity: 0; }
+
+        /* [UI ACTIONS] */
+        .wish-btn { position: absolute !important; top: 15px; right: 15px; z-index: 45; background: rgba(255,255,255,0.95); border: none; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #888; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; cursor: pointer; }
+        .wish-btn.active { color: var(--primary); transform: scale(1.1); background: #fff; }
+        .stock-badge { position: absolute; top: 15px; left: 15px; z-index: 44; background: #000; color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+        .stock-low { background: #e67e22; }
+        .stock-out { background: #c0392b; }
+
+        /* [QUANTITY & UX] */
+        .qty-box { display: flex; align-items: center; gap: 12px; background: rgba(0,0,0,0.05); padding: 10px 20px; border-radius: 50px; }
+        .qty-btn { cursor: pointer; font-weight: 800; color: var(--primary); font-size: 1.4rem; user-select: none; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: 0.2s; border: none; background: none; }
+
+        /* HEADER & TOOLBAR */
+        .header { background: rgba(255,255,255,0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); height: 90px; z-index: var(--z-navbar); border-bottom: 1px solid rgba(0,0,0,0.05); transition: background 0.3s; }
+        [data-theme='dark'] .header { background: rgba(28,28,30,0.85); }
+        .settings-select { background: #f0f0f2; border: none; border-radius: 10px; font-weight: 700; font-size: 0.85rem; padding: 8px 15px; cursor: pointer; color: var(--text-main); transition: 0.2s; -webkit-appearance: none; }
+        [data-theme='dark'] .settings-select { background: #2c2c2e; color: #fff; }
+
+        .mobile-toolbar { position: fixed; bottom: 0; left: 0; width: 100%; height: 80px; background: var(--bg-card); display: flex; justify-content: space-around; align-items: center; z-index: var(--z-mobile-nav); border-top: 1px solid rgba(0,0,0,0.1); padding-bottom: env(safe-area-inset-bottom); }
+        .mobile-toolbar a, .mobile-toolbar button { color: var(--text-main); font-size: 1.8rem; background:none; border:none; transition: 0.3s; position: relative; }
+
+        /* MODULE VISIBILITY ENGINE */
+        .module-section { display: none !important; padding: 20px 0; min-height: 90vh; width: 100%; opacity: 0; animation: fadeIn 0.5s forwards; }
+        .module-section.active { display: block !important; opacity: 1; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .hidden { display: none !important; }
+        
+        /* Cart Item */
+        .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .btn-trash { background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; transition: 0.2s; padding: 10px; }
+        .btn-trash:hover { transform: scale(1.2); color: var(--primary); }
+
+        /* Swatches */
+        .swatch-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .swatch-item { padding: 8px 16px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; background: #eee; font-size: 0.9rem; font-weight: 600; color: #555; transition: 0.2s; }
+        .swatch-item.active { border-color: var(--primary); background: var(--primary); color: #fff; transform: scale(1.05); }
+
+        /* Fly to Cart Animation */
+        .fly-img { position: fixed; z-index: var(--z-fly); transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); border-radius: 50%; width: 100px; height: 100px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.3); pointer-events: none; }
+
+        /* Quickview Gallery */
+        .qv-gallery-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; cursor: pointer; opacity: 0.6; transition: 0.2s; margin-right: 10px; border: 2px solid transparent; }
+        .qv-gallery-thumb:hover, .qv-gallery-thumb.active { opacity: 1; border-color: var(--primary); }
+
+        /* History Table */
+        .history-table th { font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); }
+    ]]></b:skin>
+</head>
+<body data-bs-spy='scroll'>
+
+    <div id='scroll-fill'/>
+
+    <!-- [LOADER] -->
+    <div id='maint-overlay' style='position:fixed; inset:0; background:var(--bg-card); z-index:10000; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; transition: opacity 0.5s;'>
+        <div class='spinner-border text-primary mb-4' role='status' style='width: 4.5rem; height: 4.5rem;'/>
+        <h1 class='display-2 fw-bold' style='font-family: var(--font-accent)'>Sushi Elite</h1>
+        <p class='fs-3 text-muted fw-light'>Enterprise Monolith Loading...</p>
+    </div>
+
+    <!-- [HEADER] -->
+    <header class='header fixed-top d-flex align-items-center' role='banner'>
+        <div class='container d-flex align-items-center justify-content-between'>
+            <a class='logo text-decoration-none' href='#home'>
+                <h1 class='m-0 fw-bold' style='color:var(--text-main); font-size:clamp(1.4rem, 5vw, 2.2rem); letter-spacing:-1.8px'>SushiElite<span style='color:var(--primary)'>.</span></h1>
+            </a>
+            
+            <div class='header-tools d-flex align-items-center gap-3'>
+                <select class='settings-select shadow-sm' id='currency-selector' onchange='App.Cart.changeCurrency(this.value)'>
+                    <option value='DH'>DH</option><option value='USD'>$</option><option value='EUR'>&#8364;</option>
+                </select>
+                <select class='settings-select shadow-sm' id='lang-selector' onchange='App.Localization.setLanguage(this.value)'>
+                    <option value='en'>EN</option><option value='fr'>FR</option><option value='ar'>عربي</option>
+                </select>
+                <!-- Corrected onclick path -->
+                <button class='btn p-1 d-none d-lg-block' onclick='App.UI.toggleTheme()'><i class='bi bi-moon-stars-fill fs-4' id='theme-icon'/></button>
+                <a class='btn p-1 position-relative d-none d-lg-block' href='#wishlist'>
+                    <i class='bi bi-heart-fill fs-4'/><span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary' id='wish-count' style='font-size:10px'>0</span>
+                </a>
+                <a class='btn p-1 position-relative' href='#cart' id='nav-cart-icon'>
+                    <i class='bi bi-bag-check-fill fs-3' style='color:var(--text-main)'/><span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger' id='cart-count' style='font-size:10px'>0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bootstrap Toast Container -->
+    <div class='toast-container position-fixed top-0 end-0 p-3' id='toast-container' style='z-index: var(--z-toast)'>
+
+    </div>
+
+    <div class='mobile-toolbar d-lg-none'>
+        <a href='#home'><i class='bi bi-house-door-fill'/></a>
+        <a href='#catalog'><i class='bi bi-grid-fill'/></a>
+        <a class='position-relative' href='#wishlist'>
+            <i class='bi bi-heart-fill'/>
+            <span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary' id='wish-count-mob' style='font-size:10px'>0</span>
+        </a>
+        <!-- Corrected onclick path -->
+        <button onclick='App.UI.toggleTheme()'><i class='bi bi-moon-stars-fill' id='theme-icon-mob'/></button>
+    </div>
+
+    <!-- Corrected onclick path -->
+    <a class='fab-support' href='javascript:void(0)' onclick='App.Support.trigger()'><i class='bi bi-whatsapp'/></a>
+
+    <!-- [HOME MODULE] -->
+    <section class='module-section active' id='home-module'>
+        <div class='container py-5 text-center'>
+            <h1 class='display-1 fw-bold mb-4' data-aos='zoom-out' style='font-family: var(--font-accent); letter-spacing:4px'>Sushi Elite 2026</h1>
+            <p class='lead mb-5 text-muted max-width-900 mx-auto fw-light' data-i18n='hero_subtitle'>Experience the next generation of food ordering. PWA Enabled, SEO Optimized, Instant.</p>
+            <div class='d-flex gap-4 justify-content-center mt-5' data-aos='fade-up' data-aos-delay='200'>
+                <a class='btn btn-danger rounded-pill px-5 py-4 fs-3 shadow-lg fw-bold transition-all hover-up' data-i18n='btn_explore' href='#catalog'>Enter Menu</a>
+                <button class='btn btn-outline-dark rounded-pill px-5 py-4 fs-3 fw-bold' onclick='window.location.hash=&quot;#profile&quot;'>My Profile</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- [CATALOG MODULE] -->
+    <section class='module-section' id='catalog-module'>
+        <div class='container'>
+            <div class='d-flex align-items-center justify-content-between mb-3'>
+                <h2 class='fw-bold m-0' data-i18n='nav_menu'>Premium Selection</h2>
+                <!-- Corrected onchange path -->
+                <select class='settings-select' onchange='App.Catalog.sort(this.value)'>
+                    <option value='default'>Sort by: Recommended</option>
+                    <option value='price-asc'>Price: Low to High</option>
+                    <option value='price-desc'>Price: High to Low</option>
+                </select>
+            </div>
+            <div class='d-flex gap-2 mb-4' id='filter-skeleton'>
+                <div class='skeleton sk-chip'/><div class='skeleton sk-chip'/><div class='skeleton sk-chip'/>
+            </div>
+            <div class='filter-scroll' id='category-filters'>
+                <!-- Categories injected via JS -->
+            </div>
+
+            <div class='row gy-5 mt-2' id='product-grid-root'>
+                <!-- Products injected via JS (Lazy Rendered) -->
+            </div>
+            
+            <!-- Virtual Scroll Sentinel -->
+            <div class='py-5 text-center w-100' id='scroll-sentinel'/>
+        </div>
+    </section>
+
+    <!-- [WISHLIST MODULE] -->
+    <section class='module-section' id='wishlist-module'>
+        <div class='container'>
+            <div class='d-flex justify-content-between align-items-center mb-5'>
+                <h1 class='fw-bold m-0 d-flex align-items-center gap-3'><i class='bi bi-heart-fill text-danger fs-1'/>Registry Saves</h1>
+                <!-- Corrected onclick path -->
+                <button class='btn btn-outline-danger btn-sm rounded-pill px-4' onclick='App.Wishlist.clearAll()'>Empty List</button>
+            </div>
+            <div class='row gy-5' id='wishlist-grid-root'/>
+        </div>
+    </section>
+
+    <!-- [CART MODULE] -->
+    <section class='module-section' id='cart-module'>
+        <div class='container'>
+            <div class='d-flex justify-content-between align-items-center mb-5'>
+                <h2 class='fw-bold mb-0 text-danger d-flex align-items-center gap-3'><i class='bi bi-receipt-cutoff fs-1'/>Verification Hub</h2>
+                <!-- Corrected onclick path -->
+                <button class='btn btn-outline-secondary btn-sm rounded-pill px-4' onclick='App.Cart.clearAll()'>Empty Cart</button>
+            </div>
+            <div class='row justify-content-center'>
+                <div class='col-lg-9'>
+                    <div class='card glass-panel border-0 shadow-2xl rounded-5 p-4 p-md-5'>
+                        <div id='cart-items-list'/>
+                        <div class='checkout-form mt-5 pt-5 border-top'>
+                            <div class='mb-4'>
+                                <label class='small fw-bold mb-2 ms-3 text-uppercase opacity-50'>Delivery or Pickup Time</label>
+                                <input class='form-control rounded-pill bg-light' id='delivery-time' placeholder='Select date and time' readonly='true' type='text'/>
+                            </div>
+                            
+                            <div class='row g-4 mb-5'>
+                                <div class='col-md-6'><label class='small fw-bold mb-2 ms-3 text-uppercase opacity-50'>Full Name *</label><input class='form-control' id='cust-name' placeholder='Name' type='text'/></div>
+                                <div class='col-md-6'><label class='small fw-bold mb-2 ms-3 text-uppercase opacity-50'>Phone Number *</label><input class='form-control' id='cust-phone' placeholder='Phone' type='tel'/></div>
+                            </div>
+
+                            <div class='glass-panel p-5 rounded-5 shadow-lg bg-white'>
+                                <div class='d-flex justify-content-between mb-4 fs-4'><span class='text-muted fw-light'>Registry Subtotal</span><span class='fw-bold' id='cart-sub-raw'>0.00 DH</span></div>
+                                <div class='d-flex justify-content-between mb-4 fs-4 text-muted'><span class='fw-light'>VAT (20%)</span><span class='fw-bold' id='cart-tax'>0.00 DH</span></div>
+                                <hr class='my-5'/>
+                                <div class='d-flex justify-content-between fw-bold display-4 text-dark'>
+                                    <span style='letter-spacing:-1.5px'>Final Amount:</span><span class='text-danger' id='cart-total-display'>0.00 DH</span>
+                                </div>
+                            </div>
+                            <div class='d-flex gap-4 mt-5 pt-4'>
+                                <!-- Corrected onclick path -->
+                                <button class='btn btn-danger flex-grow-1 py-5 rounded-pill fw-bold shadow-2xl display-6 transition-all hover-up' onclick='App.Cart.finalizeOrder()'>Checkout WhatsApp</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [PROFILE / HISTORY MODULE] -->
+    <section class='module-section' id='profile-module'>
+        <div class='container'>
+            <h2 class='fw-bold mb-4'>Order History</h2>
+            <div class='card glass-panel border-0 shadow-sm rounded-4 overflow-hidden'>
+                <div class='table-responsive'>
+                    <table class='table table-hover align-middle mb-0 history-table'>
+                        <thead class='bg-light'>
+                            <tr><th>Date</th><th>Total</th><th>Items</th><th>Status</th></tr>
+                        </thead>
+                        <tbody id='order-history-body'>
+                            <!-- History injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class='text-center py-5 text-muted' id='history-empty'>No past orders found.</div>
+        </div>
+    </section>
+
+    <!-- [QUICKVIEW MODAL] -->
+    <div aria-modal='true' class='modal fade' id='quickViewModal' role='dialog' tabindex='-1'>
+        <div class='modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable'>
+            <div class='modal-content border-0 rounded-5 overflow-hidden shadow-2xl'>
+                <div class='modal-header border-0 p-4' style='position:absolute; right:0; z-index:50; width:100%; display:flex; justify-content:flex-end'>
+                    <button class='btn-close bg-white shadow-lg p-3 rounded-circle' data-bs-dismiss='modal' type='button'/>
+                </div>
+                <div class='modal-body p-0' id='quickview-content'/>
+            </div>
+        </div>
+    </div>
+
+    <div class='hidden'>
+        <b:section id='monolithic-logic-v68' maxwidgets='1' showaddelement='no'>
+          <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+              <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='showShareButtons'>false</b:widget-setting>
+              <b:widget-setting name='showCommentLink'>false</b:widget-setting>
+              <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='showAuthor'>false</b:widget-setting>
+              <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+              <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='reactionsLabel'/>
+              <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+              <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+              <b:widget-setting name='showLabels'>true</b:widget-setting>
+              <b:widget-setting name='showLocation'>false</b:widget-setting>
+              <b:widget-setting name='showTimestamp'>false</b:widget-setting>
+              <b:widget-setting name='postsPerAd'>1</b:widget-setting>
+              <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+              <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+              <b:widget-setting name='showReactions'>false</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'/>
+            <b:includable id='aboutPostAuthor'>
+  <div class='author-name'>
+    <a class='g-profile' expr:href='data:post.author.profileUrl' rel='author' title='author profile'>
+      <span>
+        <data:post.author.name/>
+      </span>
+    </a>
+  </div>
+  <div>
+    <span class='author-desc'>
+      <data:post.author.aboutMe/>
+    </span>
+  </div>
+</b:includable>
+            <b:includable id='addComments'>
+  <a expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:message name='messages.postAComment'/>
+  </a>
+</b:includable>
+            <b:includable id='blogThisShare'>
+  <b:with value='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=270,width=475\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+            <b:includable id='bylineByName' var='byline'>
+  <b:switch var='data:byline.name'>
+  <b:case value='share'/>
+    <b:include cond='data:post.shareUrl' name='postShareButtons'/>
+  <b:case value='comments'/>
+    <b:include cond='data:post.allowComments' name='postCommentsLink'/>
+  <b:case value='location'/>
+    <b:include cond='data:post.location' name='postLocation'/>
+  <b:case value='timestamp'/>
+    <b:include cond='not data:view.isPage' name='postTimestamp'/>
+  <b:case value='author'/>
+    <b:include name='postAuthor'/>
+  <b:case value='labels'/>
+    <b:include cond='data:post.labels' name='postLabels'/>
+  <b:case value='icons'/>
+    <b:include cond='data:post.emailPostUrl' name='emailPostIcon'/>
+  </b:switch>
+</b:includable>
+            <b:includable id='bylineRegion' var='regionItems'>
+  <b:loop values='data:regionItems' var='byline'>
+    <b:include data='byline' name='bylineByName'/>
+  </b:loop>
+</b:includable>
+            <b:includable id='commentAuthorAvatar'>
+  <div class='avatar-image-container'>
+    <img class='author-avatar' expr:src='data:comment.authorAvatarSrc' height='35' width='35'/>
+  </div>
+</b:includable>
+            <b:includable id='commentDeleteIcon' var='comment'>
+  <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+    <b:if cond='data:showCmtPopup'>
+      <div class='goog-toggle-button'>
+        <div class='goog-inline-block comment-action-icon'/>
+      </div>
+    <b:else/>
+      <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:messages.deleteComment'>
+        <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+            <b:includable id='commentForm' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+    <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+      <p><data:this.messages.blogComment/></p>
+    </b:if>
+    <b:include data='post' name='commentFormIframeSrc'/>
+    <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+            <b:includable id='commentFormIframeSrc' var='post'>
+  <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+</b:includable>
+            <b:includable id='commentItem' var='comment'>
+  <div class='comment' expr:id='&quot;c&quot; + data:comment.id'>
+    <b:include cond='data:blog.enabledCommentProfileImages' name='commentAuthorAvatar'/>
+
+    <div class='comment-block'>
+      <div class='comment-author'>
+        <b:if cond='data:comment.authorUrl'>
+          <b:message name='messages.authorSaidWithLink'>
+            <b:param expr:value='data:comment.author' name='authorName'/>
+            <b:param expr:value='data:comment.authorUrl' name='authorUrl'/>
+          </b:message>
+        <b:else/>
+          <b:message name='messages.authorSaid'>
+            <b:param expr:value='data:comment.author' name='authorName'/>
+          </b:message>
+        </b:if>
+      </div>
+      <div expr:class='&quot;comment-body&quot; + (data:comment.isDeleted ? &quot; deleted&quot; : &quot;&quot;)'>
+        <data:comment.body/>
+      </div>
+      <div class='comment-footer'>
+        <span class='comment-timestamp'>
+          <a expr:href='data:comment.url' title='comment permalink'>
+            <data:comment.timestamp/>
+          </a>
+          <b:include data='comment' name='commentDeleteIcon'/>
+        </span>
+      </div>
+    </div>
+  </div>
+</b:includable>
+            <b:includable id='commentList' var='comments'>
+  <div id='comments-block'>
+    <b:loop values='data:comments' var='comment'>
+      <b:include data='comment' name='commentItem'/>
+    </b:loop>
+  </div>
+</b:includable>
+            <b:includable id='commentPicker' var='post'>
+  <b:if cond='data:post.showThreadedComments'>
+    <b:include data='post' name='threadedComments'/>
+  <b:else/>
+    <b:include data='post' name='comments'/>
+  </b:if>
+</b:includable>
+            <b:includable id='comments' var='post'>
+  <section expr:class='&quot;comments&quot; + (data:post.embedCommentForm ? &quot; embed&quot; : &quot;&quot;)' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
+
+      <b:include name='commentsTitle'/>
+
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <b:include cond='data:post.comments' data='post.comments' name='commentList'/>
+      </div>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <div class='paging-control-container'>
+          <b:if cond='data:post.hasOlderLinks'>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+              <data:messages.oldest/>
+            </a>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+              <data:messages.older/>
+            </a>
+          </b:if>
+
+          <span class='comment-range-text'>
+            <data:post.commentRangeText/>
+          </span>
+
+          <b:if cond='data:post.hasNewerLinks'>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerUrl'>
+              <data:messages.newer/>
+            </a>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+              <data:messages.newest/>
+            </a>
+          </b:if>
+        </div>
+      </b:if>
+
+      <div class='footer'>
+        <b:if cond='data:post.embedCommentForm'>
+          <b:if cond='data:post.allowNewComments'>
+            <b:include data='post' name='commentForm'/>
+          <b:else/>
+            <data:post.noNewCommentsText/>
+          </b:if>
+        <b:else/>
+          <b:if cond='data:post.allowComments'>
+            <b:include data='post' name='addComments'/>
+          </b:if>
+        </b:if>
+      </div>
+    </b:if>
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
+</b:includable>
+            <b:includable id='commentsLink'>
+  <a class='comment-link' expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:if cond='data:post.numberOfComments &gt; 0'>
+      <b:message name='messages.numberOfComments'>
+        <b:param expr:value='data:post.numberOfComments' name='numComments'/>
+      </b:message>
+    <b:else/>
+      <data:messages.postAComment/>
+    </b:if>
+  </a>
+</b:includable>
+            <b:includable id='commentsLinkIframe'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='commentsTitle'>
+  <h3 class='title'><data:messages.comments/></h3>
+</b:includable>
+            <b:includable id='defaultAdUnit'>
+  <ins class='adsbygoogle' data-ad-format='auto' expr:data-ad-client='data:adClientId ?: data:blog.adsenseClientId' expr:data-ad-host='data:blog.adsenseHostId' expr:style='data:style ?: &quot;display: block;&quot;'>
+    <b:attr cond='not data:blog.analytics4' expr:value='data:blog.analyticsAccountNumber' name='data-analytics-uacct'/>
+  </ins>
+  <script>
+   (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</b:includable>
+            <b:includable id='emailPostIcon'>
+  <span class='byline post-icons'>
+    <!-- email post links -->
+    <span class='item-action'>
+      <a expr:href='data:post.emailPostUrl' expr:title='data:messages.emailPost'>
+        <b:include data='{ iconClass: &quot;touch-icon sharing-icon&quot; }' name='emailIcon'/>
+      </a>
+    </span>
+  </span>
+</b:includable>
+            <b:includable id='facebookShare'>
+  <b:with value='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+            <b:includable id='feedLinks'>
+  <b:if cond='!data:view.isPost'> <!-- Blog feed links -->
+    <b:if cond='data:feedLinks'>
+      <div class='blog-feeds'>
+        <b:include data='feedLinks' name='feedLinksBody'/>
+      </div>
+    </b:if>
+  <b:else/> <!--Post feed links -->
+    <div class='post-feeds'>
+      <b:loop values='data:posts' var='post'>
+        <b:if cond='data:post.allowComments and data:post.feedLinks'>
+          <b:include data='post.feedLinks' name='feedLinksBody'/>
+        </b:if>
+      </b:loop>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='feedLinksBody' var='links'>
+  <div class='feed-links'>
+  <data:messages.subscribeTo/>
+  <b:loop values='data:links' var='f'>
+     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
+  </b:loop>
+  </div>
+</b:includable>
+            <b:includable id='footerBylines'>
+  <b:if cond='data:widgets.Blog.first.footerBylines'>
+    <b:loop index='i' values='data:widgets.Blog.first.footerBylines' var='region'>
+      <b:if cond='not data:region.items.empty'>
+        <div expr:class='&quot;post-footer-line post-footer-line-&quot; + (data:i + 1)'>
+          <b:with value='&quot;footer-&quot; + (data:i + 1)' var='regionName'>
+            <b:include data='region.items' name='bylineRegion'/>
+          </b:with>
+        </div>
+      </b:if>
+    </b:loop>
+  </b:if>
+</b:includable>
+            <b:includable id='googlePlusShare'>
+</b:includable>
+            <b:includable id='headerByline'>
+  <b:if cond='data:widgets.Blog.first.headerByline'>
+    <div class='post-header'>
+      <div class='post-header-line-1'>
+        <b:with value='&quot;header-1&quot;' var='regionName'>
+          <b:include data='data:widgets.Blog.first.headerByline.items' name='bylineRegion'/>
+        </b:with>
+      </div>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='homePageLink'>
+  <a class='home-link' expr:href='data:blog.homepageUrl'>
+    <data:messages.home/>
+  </a>
+</b:includable>
+            <b:includable id='iframeComments' var='post'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='inlineAd' var='post'>
+  <b:if cond='!data:view.isPreview'>
+    <b:if cond='data:this.adCode or data:this.adClientId or data:blog.adsenseClientId'>
+      <!-- Ad -->
+      <div class='inline-ad'>
+        <b:if cond='data:this.adCode != &quot;&quot;'>
+          <data:this.adCode/>
+        <b:else/>
+          <b:include cond='data:this.adClientId or data:blog.adsenseClientId' name='defaultAdUnit'/>
+        </b:if>
+      </div>
+    </b:if>
+  <b:else/>
+    <div class='inline-ad'>
+      <div class='inline-ad-placeholder'>
+        <span><b:message name='messages.adsGoHere'/></span>
+      </div>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='linkShare'>
+  <b:with value='&quot;window.prompt(\&quot;Copy to clipboard: Ctrl+C, Enter\&quot;, \&quot;&quot; + data:originalUrl + &quot;\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+            <b:includable id='nextPageLink'>
+  <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:messages.olderPosts'>
+    <data:messages.olderPosts/>
+  </a>
+</b:includable>
+            <b:includable id='otherSharingButton'>
+  <span class='sharing-platform-button sharing-element-other' expr:aria-label='data:messages.shareToOtherApps.escaped' expr:data-url='data:originalUrl' expr:title='data:messages.shareToOtherApps.escaped' role='menuitem' tabindex='-1'>
+    <b:with value='{key: &quot;sharingOther&quot;}' var='platform'>
+      <b:include name='sharingPlatformIcon'/>
+    </b:with>
+    <span class='platform-sharing-text'><data:messages.shareOtherApps.escaped/></span>
+  </span>
+</b:includable>
+            <b:includable id='platformShare'>
+  <a expr:class='&quot;goog-inline-block sharing-&quot; + data:platform.key' expr:data-url='data:originalUrl' expr:href='data:shareUrl + &quot;&amp;target=&quot; + data:platform.target' expr:onclick='data:onclick ? data:onclick : &quot;&quot;' expr:title='data:platform.shareMessage' target='_blank'>
+    <span class='share-button-link-text'>
+      <data:platform.shareMessage/>
+    </span>
+  </a>
+</b:includable>
+            <b:includable id='post' var='post'>
+  <div class='post'>
+    <b:include data='post' name='postMeta'/>
+    <b:include data='post' name='postTitle'/>
+    <b:include name='headerByline'/>
+    <b:if cond='data:view.isSingleItem'>
+      <b:include data='post' name='postBody'/>
+    <b:else/>
+      <b:include data='post' name='postBodySnippet'/>
+      <b:include data='post' name='postJumpLink'/>
+    </b:if>
+    <b:include data='post' name='postFooter'/>
+  </div>
+</b:includable>
+            <b:includable id='postAuthor'>
+  <span class='byline post-author vcard'>
+    <span class='post-author-label'>
+      <data:byline.label/>
+    </span>
+    <span class='fn'>
+      <b:if cond='data:post.author.profileUrl'>
+        <meta expr:content='data:post.author.profileUrl'/>
+        <a class='g-profile' expr:href='data:post.author.profileUrl' rel='author' title='author profile'>
+          <span><data:post.author.name/></span>
+        </a>
+      <b:else/>
+        <span><data:post.author.name/></span>
+      </b:if>
+    </span>
+  </span>
+</b:includable>
+            <b:includable id='postBody' var='post'>
+  <!-- If metaDescription is empty, use the post body as the schema.org description too, for G+/FB snippeting. -->
+  <div class='post-body entry-content float-container' expr:id='&quot;post-body-&quot; + data:post.id'>
+    <data:post.body/>
+  </div>
+</b:includable>
+            <b:includable id='postBodySnippet' var='post'>
+  <b:include data='post' name='postBody'/>
+</b:includable>
+            <b:includable id='postCommentsAndAd' var='post'>
+  <article class='post-outer-container'>
+    <!-- Post title and body -->
+    <div class='post-outer'>
+      <b:include data='post' name='post'/>
+    </div>
+
+    <!-- Comments -->
+    <b:include cond='data:view.isSingleItem' data='post' name='commentPicker'/>
+
+    <!-- Show ad inside post container, after comments, if single item. -->
+    <b:include cond='data:view.isSingleItem and data:post.includeAd' data='post' name='inlineAd'/>
+  </article>
+
+  <!-- Show ad outside post container (between posts) for feed pages. -->
+  <b:include cond='data:view.isMultipleItems and data:post.includeAd' data='post' name='inlineAd'/>
+</b:includable>
+            <b:includable id='postCommentsLink'>
+  <b:if cond='data:view.isMultipleItems'>
+    <span class='byline post-comment-link container'>
+      <b:include cond='data:post.commentSource != 1' name='commentsLink'/>
+    </span>
+  </b:if>
+</b:includable>
+            <b:includable id='postFooter' var='post'>
+  <div class='post-footer'>
+    <b:include name='footerBylines'/>
+    <b:include data='post' name='postFooterAuthorProfile'/>
+  </div>
+</b:includable>
+            <b:includable id='postFooterAuthorProfile' var='post'>
+  <b:if cond='data:post.author.aboutMe and data:view.isPost'>
+    <div class='author-profile'>
+      <b:if cond='data:post.author.authorPhoto.url'>
+        <img class='author-image' expr:src='data:post.author.authorPhoto.url' width='50px'/>
+        <div class='author-about'>
+          <b:include data='post' name='aboutPostAuthor'/>
+        </div>
+      <b:else/>
+        <b:include data='post' name='aboutPostAuthor'/>
+      </b:if>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='postHeader' var='post'>
+  <b:include name='headerByline'/>
+</b:includable>
+            <b:includable id='postJumpLink' var='post'>
+  <div class='jump-link flat-button'>
+    <a expr:href='data:post.url fragment &quot;more&quot;' expr:title='data:post.title'>
+      <b:eval expr='data:blog.jumpLinkMessage'/>
+    </a>
+  </div>
+</b:includable>
+            <b:includable id='postLabels'>
+  <span class='byline post-labels'>
+    <span class='byline-label'><data:byline.label/></span>
+    <b:loop index='i' values='data:post.labels' var='label'>
+      <a expr:href='data:label.url' rel='tag'>
+        <data:label.name/>
+      </a>
+    </b:loop>
+  </span>
+</b:includable>
+            <b:includable id='postLocation'>
+  <span class='byline post-location'>
+    <data:byline.label/>
+    <a expr:href='data:post.location.mapsUrl' target='_blank'><data:post.location.name/></a>
+  </span>
+</b:includable>
+            <b:includable id='postMeta' var='post'>
+  <b:include data='post' name='postMetadataJSON'/>
+</b:includable>
+            <b:includable id='postMetadataJSONImage'>
+  &quot;image&quot;: {
+    &quot;@type&quot;: &quot;ImageObject&quot;,
+    <b:if cond='data:post.featuredImage.isResizable'>
+    &quot;url&quot;: &quot;<b:eval expr='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)'/>&quot;,
+    &quot;height&quot;: 630,
+    &quot;width&quot;: 1200
+    <b:else/>
+    &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/w1200/&quot;,
+    &quot;height&quot;: 348,
+    &quot;width&quot;: 1200
+    </b:if>
+  },
+</b:includable>
+            <b:includable id='postMetadataJSONPublisher'>
+ &quot;publisher&quot;: {
+    &quot;@type&quot;: &quot;Organization&quot;,
+    &quot;name&quot;: &quot;Blogger&quot;,
+    &quot;logo&quot;: {
+      &quot;@type&quot;: &quot;ImageObject&quot;,
+      &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/h60/&quot;,
+      &quot;width&quot;: 206,
+      &quot;height&quot;: 60
+    }
+  },
+</b:includable>
+            <b:includable id='postPagination'>
+  <div class='blog-pager container' id='blog-pager'>
+    <b:include cond='data:newerPageUrl' name='previousPageLink'/>
+    <b:include cond='data:olderPageUrl' name='nextPageLink'/>
+    <b:include cond='data:view.url != data:blog.homepageUrl' name='homePageLink'/>
+  </div>
+</b:includable>
+            <b:includable id='postReactions'>
+  <!-- Reaction feature no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='postShareButtons'>
+  <div class='byline post-share-buttons goog-inline-block'>
+    <b:with value='data:sharingId ?: ((data:widget.instanceId ?: &quot;sharing&quot;) + &quot;-&quot; + (data:regionName ?: &quot;byline&quot;) + &quot;-&quot; + data:post.id)' var='sharingId'>
+      <!-- Note: 'sharingButtons' includable is from the default Sharing widget markup. -->
+      <b:include data='{                                                sharingId: data:sharingId,                                                originalUrl: data:post.url,                                                platforms: data:this.sharing.platforms,                                                shareUrl: data:post.shareUrl,                                                shareTitle: data:post.title,                                              }' name='sharingButtons'/>
+    </b:with>
+  </div>
+</b:includable>
+            <b:includable id='postTimestamp'>
+  <span class='byline post-timestamp'>
+    <data:byline.label/>
+    <b:if cond='data:post.url'>
+      <meta expr:content='data:post.url.canonical'/>
+      <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'>
+        <time class='published' expr:datetime='data:post.date.iso8601' expr:title='data:post.date.iso8601'>
+          <data:post.date/>
+        </time>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+            <b:includable id='postTitle' var='post'>
+  <a expr:name='data:post.id'/>
+  <b:if cond='data:post.title != &quot;&quot;'>
+    <h3 class='post-title entry-title'>
+      <b:if cond='data:post.link or (data:post.url and data:view.url != data:post.url)'>
+        <a expr:href='data:post.link ?: data:post.url'><data:post.title/></a>
+      <b:else/>
+        <data:post.title/>
+      </b:if>
+    </h3>
+  </b:if>
+</b:includable>
+            <b:includable id='previousPageLink'>
+  <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:messages.newerPosts'>
+    <data:messages.newerPosts/>
+  </a>
+</b:includable>
+            <b:includable id='sharingButton'>
+  <span expr:aria-label='data:platform.shareMessage' expr:class='&quot;sharing-platform-button sharing-element-&quot; + data:platform.key' expr:data-href='data:shareUrl + &quot;&amp;target=&quot; + data:platform.target' expr:data-url='data:originalUrl' expr:title='data:platform.shareMessage' role='menuitem' tabindex='-1'>
+    <b:include name='sharingPlatformIcon'/>
+    <span class='platform-sharing-text'><data:platform.name/></span>
+  </span>
+</b:includable>
+            <b:includable id='sharingButtonContent'>
+  <div class='flat-icon-button ripple'>
+    <b:include name='shareIcon'/>
+  </div>
+</b:includable>
+            <b:includable id='sharingButtons'>
+  <div class='sharing' expr:aria-owns='&quot;sharing-popup-&quot; + data:sharingId' expr:data-title='data:shareTitle'>
+    <button class='sharing-button touch-icon-button' expr:aria-controls='&quot;sharing-popup-&quot; + data:sharingId' expr:aria-label='data:messages.share.escaped' expr:id='&quot;sharing-button-&quot; + data:sharingId' role='button'>
+      <b:include name='sharingButtonContent'/>
+    </button>
+    <b:include name='sharingButtonsMenu'/>
+  </div>
+</b:includable>
+            <b:includable id='sharingButtonsMenu'>
+  <div class='share-buttons-container'>
+    <ul aria-hidden='true' class='share-buttons hidden' expr:aria-label='data:messages.share.escaped' expr:id='&quot;sharing-popup-&quot; + data:sharingId' role='menu'>
+      <b:loop values='(data:platforms ?: data:blog.sharing.platforms) filter (p =&gt; p.key not in {&quot;blogThis&quot;})' var='platform'>
+        <li>
+          <b:include name='sharingButton'/>
+        </li>
+      </b:loop>
+      <li aria-hidden='true' class='hidden'>
+        <b:include name='otherSharingButton'/>
+      </li>
+    </ul>
+  </div>
+</b:includable>
+            <b:includable id='sharingPlatformIcon'>
+  <b:include data='{ iconClass: (&quot;touch-icon sharing-&quot; + data:platform.key) }' expr:name='data:platform.key + &quot;Icon&quot;'/>
+</b:includable>
+            <b:includable id='threadedCommentForm' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+    <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+      <p><data:this.messages.blogComment/></p>
+    </b:if>
+    <b:include data='post' name='commentFormIframeSrc'/>
+    <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+            <b:includable id='threadedCommentJs' var='post'>
+  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+  <b:template-script inline='true' name='threaded_comments'/>
+  <script type='text/javascript'>
+    blogger.widgets.blog.initThreadedComments(
+        <data:post.commentJso/>,
+        <data:post.commentMsgs/>,
+        <data:post.commentConfig/>);
+  </script>
+</b:includable>
+            <b:includable id='threadedComments' var='post'>
+  <section class='comments threaded' expr:data-embed='data:post.embedCommentForm' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+
+    <b:include name='commentsTitle'/>
+
+    <div class='comments-content'>
+      <b:if cond='data:post.embedCommentForm'>
+        <b:include data='post' name='threadedCommentJs'/>
+      </b:if>
+      <div id='comment-holder'>
+         <data:post.commentHtml/>
+      </div>
+    </div>
+
+    <p class='comment-footer'>
+      <b:if cond='data:post.allowNewComments'>
+        <b:include data='post' name='threadedCommentForm'/>
+      <b:else/>
+        <data:post.noNewCommentsText/>
+      </b:if>
+      <b:if cond='data:post.showManageComments'>
+        <b:include data='post' name='manageComments'/>
+      </b:if>
+    </p>
+
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
+</b:includable>
+            <b:includable id='tooltipCss'>
+  <!-- LINT.IfChange -->
+  <style>
+    .post-body a.b-tooltip-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .post-body a.b-tooltip-container .b-tooltip {
+      display: block !important;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-20%, 1px);
+      visibility: hidden;
+      opacity: 0;
+      z-index: 1;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .post-body a.b-tooltip-container .b-tooltip iframe {
+      width: 200px;
+      height: 198px;
+      max-width: none;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (hover: hover) {
+      .post-body a.b-tooltip-container:hover .b-tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  </style>
+  <!-- LINT.ThenChange(//depot/google3/java/com/google/blogger/b2/layouts/widgets/v2-style.css) -->
+</b:includable>
+          </b:widget>
+        </b:section>
+    </div>
+
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'/>
+    <script src='https://unpkg.com/aos@2.3.1/dist/aos.js'/>
+    <script src='https://cdn.jsdelivr.net/npm/flatpickr'/>
+
+    <script>
+    //<![CDATA[
+    /**
+     * SUSHI ELITE MONOLITH v68.2
+     * @description Enterprise-grade Blogger template with SPA architecture.
+     * @author Elgourari Project
+     * @modules State, API, UI, Cart, Catalog, Actions
+     */
+
+    // --- [GLOBAL APP NAMESPACE] ---
+    const App = {
+        State: {
+            catalog: [],
+            filteredCatalog: [],
+            cart: JSON.parse(localStorage.getItem('sushi_cart')) || [],
+            wishlist: JSON.parse(localStorage.getItem('sushi_wishlist')) || [],
+            orderHistory: JSON.parse(localStorage.getItem('sushi_order_history'))
+ || [],
+            currency: localStorage.getItem('sushi_currency') || 'DH',
+            lang: localStorage.getItem('sushi_lang') || 'en',
+            activeCategory: 'All',
+            rates: { 'DH': 1, 'USD': 0.10, 'EUR': 0.09 },
+            settings: { vat: 0.20 },
+            quickViewQty: 1,
+            currentProduct: null,
+            observer: null
+        },
+
+        Translations: {
+            en: { nav_home: "Home", nav_menu: "Menu", hero_subtitle: "Order Sushi Online.", btn_explore: "Order Now", stock_out: "Sold Out", stock_low: "Low Stock" },
+            fr: { nav_home: "Accueil", nav_menu: "Menu", hero_subtitle: "Commandez vos sushis.", btn_explore: "Commander", stock_out: "Épuisé", stock_low: "Stock Faible" },
+            ar: { nav_home: "الرئيسية", nav_menu: "القائمة", hero_subtitle: "اطلب أونلاين.", btn_explore: "اطلب الآن", stock_out: "نفذت الكمية", stock_low: "كمية قليلة" }
+        },
+
+        // --- [MODULE: UTILS]
+        Utils: {
+            formatPrice: (val) => {
+                const r = Number(val) * App.State.rates[App.State.currency];
+                return isNaN(r) ? "0.00 " + App.State.currency : `${r.toFixed(2)} ${App.State.currency}`;
+            },
+            generateId: () => Math.random().toString(36).substr(2, 9),
+            debounce: (func, wait) => {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => { clearTimeout(timeout); func(...args); };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+        },
+
+        // --- [MODULE: UI & ANIMATIONS]
+        UI: {
+            toast: (message, type = 'primary') => {
+                const container = document.getElementById('toast-container');
+                const el = document.createElement('div');
+                el.className = `toast align-items-center text-white bg-${type} border-0 shadow-lg mb-2`;
+                el.setAttribute('role', 'alert');
+                el.innerHTML = `
+                    <div class="d-flex">
+                        <div class="toast-body fw-bold">${message}</div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                    </div>`;
+                container.appendChild(el);
+                const bsToast = new bootstrap.Toast(el, { delay: 3000 });
+                bsToast.show();
+                el.addEventListener('hidden.bs.toast', () => el.remove());
+            },
+
+            updateCounters: () => {
+                const cCount = App.State.cart.reduce((a, b) => a + Number(b.qty), 0);
+                const wCount = App.State.wishlist.length;
+                
+                ['cart-count', 'wish-count', 'wish-count-mob'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) el.innerText = id.startsWith('cart') ? cCount : wCount;
+                });
+            },
+
+            flyToCart: (sourceImg) => {
+                const cartIcon = document.getElementById('nav-cart-icon');
+                const rectImg = sourceImg.getBoundingClientRect();
+                const rectCart = cartIcon.getBoundingClientRect();
+
+                const clone = sourceImg.cloneNode();
+                clone.classList.add('fly-img');
+                clone.style.top = `${rectImg.top}px`;
+                clone.style.left = `${rectImg.left}px`;
+                clone.style.width = `${rectImg.width}px`;
+                clone.style.height = `${rectImg.height}px`;
+                
+                document.body.appendChild(clone);
+
+                requestAnimationFrame(() => {
+                    clone.style.top = `${rectCart.top}px`;
+                    clone.style.left = `${rectCart.left}px`;
+                    clone.style.width = '50px';
+                    clone.style.height = '50px';
+                    clone.style.opacity = '0.5';
+                });
+
+                setTimeout(() => clone.remove(), 800);
+            },
+
+            toggleTheme: () => {
+                const body = document.body;
+                const isDark = body.getAttribute('data-theme') === 'dark';
+                body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+                localStorage.setItem('sushi_theme', isDark ? 'light' : 'dark');
+                
+                const iconClass = isDark ? 'bi-moon-stars-fill' : 'bi-sun-fill';
+                document.getElementById('theme-icon').className = `bi ${iconClass} fs-4`;
+                const mobIcon = document.getElementById('theme-icon-mob');
+                if(mobIcon) mobIcon.className = `bi ${iconClass}`;
+            }
+        },
+
+        // --- [MODULE: LOCALIZATION]
+        Localization: {
+            setLanguage: (lang) => {
+                App.State.lang = lang;
+                localStorage.setItem('sushi_lang', lang);
+                document.body.className = lang === 'ar' ? 'rtl' : '';
+                
+                const t = App.Translations[lang] || App.Translations['en'];
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (t[key]) el.innerText = t[key];
+                });
+
+                App.Catalog.renderGrid();
+                App.UI.toast(`Language set to ${lang.toUpperCase()}`, 'info');
+            }
+        },
+
+        // --- [MODULE: CATALOG]
+        Catalog: {
+            activeCategory: 'All',
+
+            renderFilters: () => {
+                const categories = new Set(['All']);
+                App.State.catalog.forEach(p => p.tags.forEach(t => {
+                    if(t.startsWith('cat-')) categories.add(t.replace('cat-', ''));
+                }));
+
+                const container = document.getElementById('category-filters');
+                container.innerHTML = Array.from(categories).map(cat => `
+                    <button class="filter-chip ${App.Catalog.activeCategory === cat ? 'active' : ''}" 
+                            onclick="App.Catalog.filter('${cat}')">
+                        ${cat}
+                    </button>
+                `).join('');
+                
+                document.getElementById('filter-skeleton').classList.add('hidden');
+            },
+
+            filter: (cat) => {
+                App.Catalog.activeCategory = cat;
+                App.Catalog.renderFilters();
+                App.Catalog.renderGrid();
+            },
+
+            sort: (criteria) => {
+                if (criteria === 'price-asc') App.State.filteredCatalog.sort((a, b) => a.price - b.price);
+                if (criteria === 'price-desc') App.State.filteredCatalog.sort((a, b) => b.price - a.price);
+                App.Catalog.renderGrid();
+                App.UI.toast('Catalog sorted', 'info');
+            },
+
+            renderGrid: () => {
+                const container = document.getElementById('product-grid-root');
+                container.innerHTML = ''; 
+
+                let items = App.State.catalog;
+                if (App.Catalog.activeCategory !== 'All') {
+                    items = items.filter(i => i.tags.includes('cat-' + App.Catalog.activeCategory));
+                }
+                App.State.filteredCatalog = items;
+
+                if (items.length === 0) {
+                    container.innerHTML = `<div class="col-12 text-center py-5 text-muted">No items found.</div>`;
+                    return;
+                }
+
+                const initialBatch = items.slice(0, 12);
+                initialBatch.forEach(item => container.appendChild(App.Catalog.createCard(item)));
+
+                if (App.State.observer) App.State.observer.disconnect();
+                App.State.observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        const currentCount = container.children.length;
+                        const nextBatch = items.slice(currentCount, currentCount + 12);
+                        if (nextBatch.length > 0) {
+                            nextBatch.forEach(item => container.appendChild(App.Catalog.createCard(item)));
+                        } else {
+                            App.State.observer.disconnect();
+                        }
+                    }
+                }, { rootMargin: '200px' });
+
+                const sentinel = document.getElementById('scroll-sentinel');
+                if(sentinel) App.State.observer.observe(sentinel);
+            },
+
+            createCard: (item) => {
+                const t = App.Translations[App.State.lang] || App.Translations['en'];
+                const isFav = App.State.wishlist.some(w => w.id === item.id);
+                const stockStatus = item.stock === 0 ? 'stock-out' : (item.stock < 5 ? 'stock-low' : '');
+                const stockText = item.stock === 0 ? t.stock_out : (item.stock < 5 ? t.stock_low : '');
+                const btnDisabled = item.stock === 0 ? 'disabled' : '';
+
+                const div = document.createElement('div');
+                div.className = 'col-lg-4 col-12 product-grid-item mb-1';
+                div.innerHTML = `
+                    <div class="product-card shadow-sm border-0">
+                        ${stockText ? `<div class="stock-badge ${stockStatus}">${stockText}</div>` : ''}
+                        <button class="wish-btn ${isFav ? 'active' : ''}" onclick="App.Wishlist.toggle('${item.id}')"><i class="bi bi-heart-fill"></i></button>
+                        <div class="product-img-wrapper" onclick="App.QuickView.open('${item.id}')">
+                            <img src="${item.lqip}" class="product-lqip" />
+                            <img src="${item.img}" class="product-img" loading="lazy" onload="this.classList.add('loaded')" />
+                        </div>
+                        <div class="p-4 text-center">
+                            <h4 class="fw-bold text-truncate m-0 mb-2">${item.title}</h4>
+                            <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
+                                <span class="text-danger fw-bold fs-5">${App.Utils.formatPrice(item.price)}</span>
+                            </div>
+                            <button class="btn btn-danger w-100 rounded-pill py-2 fw-bold shadow-sm transition-all hover-up" 
+                                    ${btnDisabled}
+                                    onclick="App.Cart.add('${item.id}', this)">
+                                ${item.stock === 0 ? 'Sold Out' : 'Add to Order'}
+                            </button>
+                        </div>
+                    </div>`;
+                return div;
+            }
+        },
+
+        // --- [MODULE: QUICK VIEW]
+        QuickView: {
+            open: (id) => {
+                const p = App.State.catalog.find(i => i.id === id);
+                if (!p) return;
+
+                App.State.currentProduct = p;
+                App.State.quickViewQty = 1;
+
+                const variants = [
+                    { name: 'Regular', mod: 0 },
+                    { name: 'Spicy (+10)', mod: 10 },
+                    { name: 'Large (+20)', mod: 20 }
+                ];
+
+                const modalContent = document.getElementById('quickview-content');
+                modalContent.innerHTML = `
+                    <div class="row g-0">
+                        <div class="col-md-6 position-relative">
+                            <img src="${p.img}" class="img-fluid h-100" style="object-fit:cover; min-height:400px" id="qv-main-img" />
+                        </div>
+                        <div class="col-md-6 p-4 p-md-5 d-flex flex-col flex-column justify-content-center">
+                            <h2 class="fw-bold mb-2 display-6">${p.title}</h2>
+                            <div class="text-danger display-6 fw-bold mb-4" id="qv-price">${App.Utils.formatPrice(p.price)}</div>
+                            
+                            <div class="mb-4">
+                                <p class="small fw-bold text-uppercase opacity-50 mb-2">Size / Type</p>
+                                <div class="swatch-group">
+                                    ${variants.map((v, i) => `
+                                        <div class="swatch-item ${i===0?'active':''}" 
+                                             onclick="App.QuickView.setVariant(${v.mod}, this)">
+                                            ${v.name}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center gap-4 mb-4">
+                                <div class="qty-box">
+                                    <button class="qty-btn" onclick='App.QuickView.changeQty(-1)'>-</button>
+                                    <span class="fw-bold px-3 fs-4" id="qv-qty">1</span>
+                                    <button class="qty-btn" onclick='App.QuickView.changeQty(1)'>+</button>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-danger w-100 py-3 rounded-pill fw-bold fs-4 shadow-lg" 
+                                    onclick="App.Cart.addFromQV()">
+                                Add to Order
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                new bootstrap.Modal(document.getElementById('quickViewModal')).show();
+            },
+
+            variantMod: 0,
+            changeQty: (d) => {
+                App.State.quickViewQty = Math.max(1, App.State.quickViewQty + d);
+                document.getElementById('qv-qty').innerText = App.State.quickViewQty;
+            },
+            setVariant: (mod, el) => {
+                App.QuickView.variantMod = mod;
+                document.querySelectorAll('.swatch-item').forEach(e => e.classList.remove('active'));
+                el.classList.add('active');
+                document.getElementById('qv-price').innerText = App.Utils.formatPrice(App.State.currentProduct.price + mod);
+            }
+        },
+
+        // --- [MODULE: CART]
+        Cart: {
+            add: (id, btn) => {
+                const p = App.State.catalog.find(i => i.id === id);
+                if (!p || p.stock <= 0) return;
+
+                const existing = App.State.cart.find(i => i.id === id);
+                if (existing) {
+                    existing.qty++;
+                } else {
+                    App.State.cart.push({ ...p, qty: 1 });
+                }
+
+                App.Cart.save();
+                App.UI.updateCounters();
+
+                const img = btn.closest('.product-card').querySelector('.product-img');
+                if (img) App.UI.flyToCart(img);
+                
+                App.UI.toast(`Added ${p.title} to bag`, 'success');
+            },
+
+            addFromQV: () => {
+                const p = App.State.currentProduct;
+                const existing = App.State.cart.find(i => i.id === p.id && i.variantMod === App.QuickView.variantMod);
+                
+                if (existing) {
+                    existing.qty += App.State.quickViewQty;
+                } else {
+                    App.State.cart.push({ 
+                        ...p, 
+                        qty: App.State.quickViewQty, 
+                        finalPrice: p.price + App.QuickView.variantMod,
+                        variantMod: App.QuickView.variantMod
+                    });
+                }
+
+                App.Cart.save();
+                App.UI.updateCounters();
+                bootstrap.Modal.getInstance(document.getElementById('quickViewModal')).hide();
+                App.UI.toast('Added to bag', 'success');
+            },
+
+            remove: (index) => {
+                App.State.cart.splice(index, 1);
+                App.Cart.save();
+                App.Cart.render();
+                App.UI.updateCounters();
+                App.UI.toast('Item removed', 'secondary');
+            },
+
+            updateQty: (index, change) => {
+                const item = App.State.cart[index];
+                item.qty += change;
+                if (item.qty <= 0) App.Cart.remove(index);
+                else {
+                    App.Cart.save();
+                    App.Cart.render();
+                    App.UI.updateCounters();
+                }
+            },
+
+            clearAll: () => {
+                if(confirm("Are you sure you want to empty your cart?")) {
+                    App.State.cart = [];
+                    App.Cart.save();
+                    App.Cart.render();
+                    App.UI.updateCounters();
+                    App.UI.toast('Cart cleared', 'warning');
+                }
+            },
+
+            save: () => {
+                localStorage.setItem('sushi_cart', JSON.stringify(App.State.cart));
+            },
+
+            render: () => {
+                const list = document.getElementById('cart-items-list');
+                if (!list) return;
+
+                if (App.State.cart.length === 0) {
+                    list.innerHTML = `<div class="text-center py-5 text-muted">Your cart is empty.</div>`;
+                    App.Cart.updateTotals(0);
+                    return;
+                }
+
+                list.innerHTML = App.State.cart.map((item, idx) => `
+                    <div class="cart-item-row">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="${item.img}" class="rounded-3" style="width:60px; height:60px; object-fit:cover" />
+                            <div>
+                                <div class="fw-bold">${item.title}</div>
+                                <small class="text-muted">${App.Utils.formatPrice(item.finalPrice || item.price)}</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="qty-box bg-white border">
+                                <button class="qty-btn" onclick="App.Cart.updateQty(${idx}, -1)">-</button>
+                                <span class="fw-bold px-2">${item.qty}</span>
+                                <button class="qty-btn" onclick="App.Cart.updateQty(${idx}, 1)">+</button>
+                            </div>
+                            <button class="btn-trash" onclick="App.Cart.remove(${idx})"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+
+                const sub = App.State.cart.reduce((sum, item) => sum + ((item.finalPrice || item.price) * item.qty), 0);
+                App.Cart.updateTotals(sub);
+            },
+
+            updateTotals: (subtotal) => {
+                const tax = subtotal * App.State.settings.vat;
+                const total = subtotal + tax;
+                
+                document.getElementById('cart-sub-raw').innerText = App.Utils.formatPrice(subtotal);
+                document.getElementById('cart-tax').innerText = App.Utils.formatPrice(tax);
+                document.getElementById('cart-total-display').innerText = App.Utils.formatPrice(total);
+            },
+
+            changeCurrency: (curr) => {
+                App.State.currency = curr;
+                localStorage.setItem('sushi_currency', curr);
+                App.Catalog.renderGrid();
+                App.Cart.render();
+                App.UI.toast(`Currency switched to ${curr}`, 'info');
+            },
+
+            finalizeOrder: () => {
+                if (App.State.cart.length === 0) return App.UI.toast('Cart is empty!', 'danger');
+                
+                const name = document.getElementById('cust-name').value;
+                if(!name) return App.UI.toast('Please enter your name', 'warning');
+
+                const total = document.getElementById('cart-total-display').innerText;
+                const itemsList = App.State.cart.map(i => `- ${i.title} x${i.qty}`).join('%0A');
+                
+                const message = `*New Order*%0A%0ACustomer: ${name}%0A%0A${itemsList}%0A%0ATotal: ${total}`;
+                window.open(`https://wa.me/212666000000?text=${message}`, '_blank');
+
+                const order = {
+                    id: App.Utils.generateId(),
+                    date: new Date().toLocaleDateString(),
+                    total: total,
+                    count: App.State.cart.length
+                };
+                App.State.orderHistory.unshift(order);
+                localStorage.setItem('sushi_order_history', JSON.stringify(App.State.orderHistory));
+                
+                App.State.cart = [];
+                App.Cart.save();
+                App.Cart.render();
+                App.UI.updateCounters();
+                App.Profile.renderHistory();
+            }
+        },
+
+        // --- [MODULE: WISHLIST]
+        Wishlist: {
+            toggle: (id) => {
+                const idx = App.State.wishlist.findIndex(i => i.id === id);
+                if (idx > -1) {
+                    App.State.wishlist.splice(idx, 1);
+                    App.UI.toast('Removed from favorites', 'secondary');
+                } else {
+                    const p = App.State.catalog.find(i => i.id === id);
+                    if(p) {
+                        App.State.wishlist.push(p);
+                        App.UI.toast('Saved to favorites', 'danger');
+                    }
+                }
+                localStorage.setItem('sushi_wishlist', JSON.stringify(App.State.wishlist));
+                App.UI.updateCounters();
+                App.Catalog.renderGrid();
+            },
+
+            clearAll: () => {
+                if(confirm("Empty your wishlist?")) {
+                    App.State.wishlist = [];
+                    localStorage.setItem('sushi_wishlist', JSON.stringify(App.State.wishlist));
+                    App.UI.updateCounters();
+                    App.Catalog.renderGrid();
+                    document.getElementById('wishlist-grid-root').innerHTML = '';
+                    App.UI.toast('Wishlist cleared', 'warning');
+                }
+            }
+        },
+
+        // --- [MODULE: PROFILE & HISTORY]
+        Profile: {
+            renderHistory: () => {
+                const tbody = document.getElementById('order-history-body');
+                const emptyMsg = document.getElementById('history-empty');
+                
+                if (!tbody) return;
+                
+                if (App.State.orderHistory.length === 0) {
+                    tbody.innerHTML = '';
+                    if(emptyMsg) emptyMsg.style.display = 'block';
+                    return;
+                }
+                
+                if(emptyMsg) emptyMsg.style.display = 'none';
+                tbody.innerHTML = App.State.orderHistory.map(o => `
+                    <tr>
+                        <td>${o.date}</td>
+                        <td class="fw-bold text-danger">${o.total}</td>
+                        <td>${o.count} Items</td>
+                        <td><span class="badge bg-success">Paid</span></td>
+                    </tr>
+                `).join('');
+            }
+        },
+
+        // --- [MODULE: SUPPORT]
+        Support: {
+            trigger: () => {
+                window.open('https://wa.me/212666000000', '_blank');
+            }
+        },
+
+        // --- [BOOTSTRAPPER]
+        init: () => {
+            const savedTheme = localStorage.getItem('sushi_theme');
+            if (savedTheme) document.body.setAttribute('data-theme', savedTheme);
+            
+            App.setupRouter();
+            
+            API.init();
+
+            if(document.getElementById('delivery-time')) {
+                flatpickr("#delivery-time", { enableTime: true, dateFormat: "Y-m-d H:i", minDate: "today" });
+            }
+        },
+
+        setupRouter: () => {
+            const handleHash = () => {
+                const hash = window.location.hash.replace('#', '') || 'home';
+                document.querySelectorAll('.module-section').forEach(el => el.classList.remove('active'));
+                const target = document.getElementById(`${hash}-module`);
+                if (target) {
+                    target.classList.add('active');
+                    if(hash === 'cart') App.Cart.render();
+                    if(hash === 'wishlist') {
+                         const wContainer = document.getElementById('wishlist-grid-root');
+                         wContainer.innerHTML = App.State.wishlist.map(i => App.Catalog.createCard(i).outerHTML).join('');
+                    }
+                    if(hash === 'profile') App.Profile.renderHistory();
+                }
+                window.scrollTo(0, 0);
+            };
+            
+            window.addEventListener('hashchange', handleHash);
+            handleHash();
+        }
+    };
+
+    // --- [GLOBAL API MODULE FOR BLOGGER CALLBACK] ---
+    const API = {
+        getFallbackData: () => [
+            { title: "Dragon Roll", price: 80, sku: "SUSHI-001", img: "https://picsum.photos/seed/sushi1/400/300.jpg", lqip: "https://picsum.photos/seed/sushi1/72/72.jpg", stock: 10, tags: ["cat-sushi"], id: "fb1" },
+            { title: "California Roll", price: 60, sku: "SUSHI-002", img: "https://picsum.photos/seed/sushi2/400/300.jpg", lqip: "https://picsum.photos/seed/sushi2/72/72.jpg", stock: 5, tags: ["cat-sushi"], id: "fb2" },
+            { title: "Miso Soup", price: 20, sku: "DRINK-001", img: "https://picsum.photos/seed/soup/400/300.jpg", lqip: "https://picsum.photos/seed/soup/72/72.jpg", stock: 50, tags: ["cat-drinks"], id: "fb3" },
+            { title: "Green Tea", price: 15, sku: "DRINK-002", img: "https://picsum.photos/seed/tea/400/300.jpg", lqip: "https://picsum.photos/seed/tea/72/72.jpg", stock: 0, tags: ["cat-drinks"], id: "fb4" }
+        ],
+
+        init: () => {
+            const script = document.createElement('script');
+            const BLOG_URL = 'https://eventsushi.blogspot.com';
+            script.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&callback=API.parseCatalog&max-results=999`;
+            
+            const timeout = setTimeout(() => {
+                console.warn("API Timeout: Loading Fallback Data");
+                API.processData(API.getFallbackData());
+            }, 5000); 
+
+            window.APIParseTimeout = timeout;
+            document.body.appendChild(script);
+        },
+
+        parseCatalog: (data) => {
+            clearTimeout(window.APIParseTimeout);
+            if (!data || !data.feed || !data.feed.entry) {
+                API.processData(API.getFallbackData());
+                return;
+            }
+
+            const products = (data.feed.entry || []).map(p => {
+                const tags = p.category ? p.category.map(c => c.term) : [];
+                const priceTag = tags.find(t => t.startsWith('price-'));
+                const stockTag = tags.find(t => t.startsWith('stock-'));
+                
+                return {
+                    title: p.title.$t,
+                    img: p.media$thumbnail ? p.media$thumbnail.url.replace(/\/s[0-9]+(-c)?\//, '/w1000-h800-c/') : 'https://picsum.photos/400/300',
+                    lqip: p.media$thumbnail ? p.media$thumbnail.url.replace(/\/s[0-9]+(-c)?\//, '/s72-c/') : 'https://picsum.photos/72/72',
+                    price: priceTag ? parseFloat(priceTag.split('-')[1]) : 0,
+                    stock: stockTag ? parseInt(stockTag.split('-')[1]) : 999,
+                    tags: tags,
+                    sku: tags.find(t => t.startsWith('sku-'))?.split('-')[1] || App.Utils.generateId(),
+                    id: p.id.$t
+                };
+            });
+
+            API.processData(products);
+        },
+
+        processData: (products) => {
+            App.State.catalog = products;
+            App.State.filteredCatalog = products;
+            
+            const overlay = document.getElementById('maint-overlay');
+            if(overlay) {
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.style.display = 'none', 500);
+            }
+
+            App.Catalog.renderFilters();
+            App.Catalog.renderGrid();
+            App.UI.updateCounters();
+            App.Profile.renderHistory();
+        }
+    };
+
+    // Expose global namespaces
+    window.App = App;
+    window.API = API;
+
+    // DOM Ready
+    document.addEventListener('DOMContentLoaded', App.init);
+    
+    // Scroll Progress
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scroll-fill").style.width = scrolled + "%";
+    });
+
+    //]]>
+    </script>
+</body>
+</html>
