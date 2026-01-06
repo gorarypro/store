@@ -1,0 +1,1515 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.0.0' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1' name='viewport'/>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+    <title><data:blog.pageTitle/></title>
+    
+    <meta content='#ce1212' name='theme-color'/>
+    <meta content='Enterprise Framework v35.0 - Monolithic SEO Architecture' name='description'/>
+    <link href='https://www.google.com/s2/favicons?domain=eventsushi.blogspot.com&amp;sz=32' id='favicon' rel='icon' type='image/x-icon'/>
+
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Amatic+SC:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap' rel='stylesheet'/>
+    
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css' rel='stylesheet'/>
+    <link href='https://unpkg.com/aos@2.3.1/dist/aos.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' rel='stylesheet'/>
+
+    <b:skin><![CDATA[
+        /* ---------------------------------------------------------------------------------------
+        [STEPS 1-10] TITAN CORE DESIGN SYSTEM - MOBILE OPTIMIZED UI
+        --------------------------------------------------------------------------------------- */
+        :root {
+            --primary: #ce1212; --primary-dark: #a00d0d;
+            --secondary: #37373f; --accent: #ffc107;
+            --bg-body: #f8f9fa; --bg-card: #ffffff;
+            --text-main: #1d1d1f; --text-muted: #86868b;
+            --font-main: "Inter", sans-serif; --font-accent: "Amatic SC", sans-serif;
+            --font-mono: "JetBrains Mono", monospace;
+            --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --z-navbar: 1030; --z-mobile-nav: 1050; --z-toast: 1100;
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.08);
+            --radius-xl: 24px;
+        }
+
+        [data-theme='dark'] { 
+            --bg-body: #0a0a0c; --bg-card: #1c1c1e; 
+            --text-main: #f5f5f7; --text-muted: #a1a1a6; 
+        }
+
+        /* [FLUID TYPOGRAPHY LOGIC] - Prevents Mobile Oversizing */
+        h1, .display-1 { font-size: clamp(2.2rem, 7vw, 4.5rem); line-height: 1.1; font-weight: 800; letter-spacing: -1.5px; }
+        h2, .display-2 { font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 700; }
+        h3, .display-3 { font-size: clamp(1.4rem, 4vw, 2.5rem); }
+        h4, .display-4 { font-size: clamp(1.1rem, 3vw, 1.6rem); }
+        .lead { font-size: clamp(0.95rem, 2vw, 1.25rem); }
+        p, .body-text { font-size: clamp(0.85rem, 1.5vw, 1.05rem); line-height: 1.7; }
+
+        /* [STEP 94] GLOBAL PERFORMANCE RESET */
+        body { font-family: var(--font-main); background: var(--bg-body); color: var(--text-main); padding-top: 85px; padding-bottom: 95px; transition: background 0.3s; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        body.rtl { direction: rtl; text-align: right; }
+
+        /* [STEP 75] GLOBAL SCROLL FILL */
+        #scroll-fill { position: fixed; top: 0; left: 0; height: 4px; background: var(--primary); z-index: 2100; width: 0%; transition: 0.1s; box-shadow: 0 0 15px var(--primary); }
+
+        /* [STEP 77] PERSISTENT BREADCRUMBS */
+        .breadcrumb-flat { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 30px; letter-spacing: 1.2px; display: flex; align-items: center; flex-wrap: wrap; }
+        .breadcrumb-flat a { color: var(--primary); text-decoration: none; }
+        .breadcrumb-flat span { margin: 0 10px; opacity: 0.3; }
+
+        /* [STEP 86/97] PRODUCT GRID ARCHITECTURE - MOBILE 1-COL FORCED */
+        .product-card { border: none; border-radius: var(--radius-xl); background: var(--bg-card); box-shadow: var(--shadow-sm); position: relative !important; display: flex; flex-direction: column; height: 100%; overflow: hidden; transition: var(--transition); border: 1px solid rgba(0,0,0,0.02); }
+        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+        
+        .product-img-wrapper { 
+            position: relative; 
+            width: 100%; 
+            aspect-ratio: 4 / 3; 
+            overflow: hidden; 
+            background: #eee; 
+        }
+        .product-img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: 0.8s ease; }
+        
+        @media (max-width: 576px) { 
+            .product-grid-item { width: 100% !important; flex: 0 0 100% !important; max-width: 100% !important; margin-bottom: 35px !important; }
+            .product-img-wrapper { aspect-ratio: 1 / 1 !important; } 
+            .product-card h4 { font-size: 1.4rem !important; margin-bottom: 10px !important; }
+            .p-5 { padding: 1.8rem !important; }
+        }
+        
+        .wish-btn { position: absolute !important; top: 15px; right: 15px; z-index: 45; background: rgba(255,255,255,0.95); border: none; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #888; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s; cursor: pointer; }
+        .wish-btn.active { color: var(--primary); transform: scale(1.1); background: #fff; }
+        .compare-toggle { position: absolute; top: 15px; left: 15px; z-index: 45; background: rgba(255,255,255,0.95); border: none; border-radius: 12px; padding: 6px 14px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; color: #333; cursor: pointer; }
+
+        /* [STEP 31/83] VIEW TOGGLES & MASONRY ENGINE */
+        .list-view .product-card { flex-direction: row; height: auto; min-height: 180px; }
+        .list-view .product-img-wrapper { width: 35%; height: auto; aspect-ratio: auto; }
+        .masonry-view { column-count: 3; column-gap: 20px; display: block; }
+        .masonry-view .product-grid-item { display: inline-block; width: 100%; margin-bottom: 20px; }
+        @media (max-width: 768px) { .masonry-view { column-count: 2; } }
+        @media (max-width: 480px) { .masonry-view { column-count: 1; } }
+
+        /* [STEP 93] SHIMMER LOADER SKELETONS */
+        .skeleton { background: linear-gradient(90deg, transparent, rgba(0,0,0,0.04), transparent); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+        /* [STEP 92/69] COMMERCIAL BADGE STACK */
+        .badge-ui { position: absolute; bottom: 15px; left: 15px; z-index: 45; padding: 6px 16px; border-radius: 10px; font-size: 0.6rem; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+        .badge-hot { background: linear-gradient(45deg, #ff416c, #ff4b2b); box-shadow: 0 4px 15px rgba(255,75,43,0.3); }
+        .badge-digital { background: #5856d6; }
+
+        /* [STEP 54/55] VARIATION SWATCH ENGINE */
+        .swatch-group { display: flex; gap: 12px; margin: 20px 0; }
+        .swatch-item { width: 36px; height: 36px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: 0.25s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); position: relative; }
+        .swatch-item.active { border-color: var(--primary); transform: scale(1.15); }
+        .swatch-item::after { content: "\F26E"; font-family: "bootstrap-icons"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #fff; opacity: 0; }
+        .swatch-item.active::after { opacity: 1; }
+
+        /* [FIX] CART UX & QUANTITY HANDLERS */
+        .cart-item-row { border-bottom: 1px solid rgba(0,0,0,0.05); padding: 15px 0; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+        .qty-box { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.04); padding: 8px 18px; border-radius: 50px; }
+        .qty-btn { cursor: pointer; font-weight: 800; color: var(--primary); font-size: 1.3rem; user-select: none; }
+        @media (max-width: 576px) { .cart-item-row { flex-direction: column; align-items: flex-start; gap: 8px; } .qty-box { width: 100%; justify-content: space-between; } }
+
+        /* [STEP 88/84] FINANCE COMPONENTS */
+        .loyalty-widget { background: linear-gradient(135deg, #1d1d1f, #3a3a3c); color: #fff; padding: 30px; border-radius: 24px; margin-bottom: 30px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .loyalty-widget::after { content: "\F3FB"; font-family: "bootstrap-icons"; position: absolute; right: -15px; bottom: -15px; font-size: 7rem; opacity: 0.05; }
+        .tip-pill { padding: 10px 22px; border-radius: 50px; background: #eee; cursor: pointer; font-size: 0.85rem; font-weight: 800; transition: 0.2s; border: none; }
+        .tip-pill.active { background: var(--primary); color: #fff; transform: translateY(-3px); }
+
+        /* [STEP 72/30] URGENCE POPUPS & TOASTS */
+        .proof-popup { position: fixed; bottom: 105px; left: 20px; z-index: 1000; background: var(--bg-card); border-radius: 18px; padding: 15px; box-shadow: 0 15px 45px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 15px; max-width: 320px; transform: translateX(-150%); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .proof-popup.active { transform: translateX(0); }
+        @media (max-width: 576px) { .proof-popup { left: 10px; right: 10px; width: auto; max-width: none; } }
+
+        /* [STEP 95/78] ACTION BRIDGE STACK */
+        .fab-support { position: fixed; right: 20px; bottom: 110px; z-index: 1040; background: #25d366; width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 2.2rem; box-shadow: 0 12px 35px rgba(37,211,102,0.4); text-decoration: none; animation: pulseFab 2s infinite; }
+        @keyframes pulseFab { 0% { transform:scale(1); box-shadow:0 0 0 0 rgba(37,211,102,0.5); } 70% { transform:scale(1.05); box-shadow:0 0 0 25px rgba(37,211,102,0); } 100% { transform:scale(1); } }
+        @media (min-width: 992px) { .fab-support { bottom: 40px; } }
+
+        /* [STEP 81/82] NICHE DATA VISUALS */
+        .re-tag { background: #34c759; color: #fff; padding: 5px 12px; border-radius: 8px; font-size: 0.65rem; font-weight: 800; margin-bottom: 8px; display: inline-block; text-transform: uppercase; }
+        .booking-info { font-family: var(--font-mono); font-size: 0.8rem; color: var(--primary); font-weight: 700; }
+
+        /* [STEP 89] MAINTENANCE OVERLAY */
+        #maint-overlay { position: fixed; inset: 0; background: #fff; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; }
+        [data-theme='dark'] #maint-overlay { background: #000; }
+
+        /* MODULE ARCHITECTURE */
+        .module-section { display: none; padding: 40px 0; min-height: 90vh; width: 100%; }
+        .module-section.active { display: block !important; }
+
+        .form-control, .form-select { border-radius: 15px; padding: 18px; border: 2.5px solid rgba(0,0,0,0.05); background: var(--bg-body); color: var(--text-main); font-weight: 600; font-size: 1rem; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 6px rgba(206,18,18,0.1); }
+        
+        /* ENTERPRISE NAVIGATION HEADER - TOOLBELT VISIBLE */
+        .header { background: rgba(255,255,255,0.85); backdrop-filter: blur(25px); height: 85px; z-index: var(--z-navbar); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        [data-theme='dark'] .header { background: rgba(21,21,24,0.85); }
+        .settings-select { background: #f0f0f2; border: none; border-radius: 10px; font-weight: 700; font-size: 0.8rem; padding: 8px 14px; cursor: pointer; color: var(--text-main); transition: 0.2s; -webkit-appearance: none; }
+        [data-theme='dark'] .settings-select { background: #333; color: #fff; }
+
+        .mobile-toolbar { position: fixed; bottom: 0; left: 0; width: 100%; height: 75px; background: var(--bg-card); display: flex; justify-content: space-around; align-items: center; z-index: var(--z-mobile-nav); border-top: 1px solid rgba(0,0,0,0.1); padding-bottom: env(safe-area-inset-bottom); }
+        .mobile-toolbar a, .mobile-toolbar button { color: var(--text-main); font-size: 1.6rem; background:none; border:none; transition: 0.2s; position: relative; }
+
+        mark { background: #ffefba; color: #000; padding: 0 4px; border-radius: 6px; }
+        .hidden { display: none !important; }
+    ]]></b:skin>
+</head>
+<body data-bs-spy='scroll'>
+
+    <div id='scroll-fill'/>
+
+    <div id='maint-overlay'>
+        <div class='spinner-border text-danger mb-4' role='status' style='width: 4rem; height: 4rem;'/>
+        <h1 class='display-2 fw-bold'>Enterprise Sync</h1>
+        <p class='fs-3 text-muted fw-light'>Optimizing v35.0 Monolith Core modules...</p>
+    </div>
+
+    <header class='header fixed-top d-flex align-items-center' role='banner'>
+        <div class='container d-flex align-items-center justify-content-between'>
+            <a class='logo text-decoration-none' href='#home'>
+                <h1 class='m-0 fw-bold' style='color:var(--text-main); font-size:clamp(1.2rem, 5vw, 2.2rem); letter-spacing:-1.8px'>SushiElite<span>.</span></h1>
+            </a>
+            
+            <div class='header-tools d-flex align-items-center gap-2'>
+                <select class='settings-select shadow-sm' id='currency-selector' onchange='App.changeCurrency(this.value)'>
+                    <option value='DH'>DH</option><option value='USD'>$</option><option value='EUR'>&#8364;</option>
+                </select>
+                
+                <select class='settings-select shadow-sm' id='lang-selector' onchange='App.changeLanguage(this.value)'>
+                    <option value='en'>EN</option><option value='fr'>FR</option><option value='ar'>عربي</option>
+                </select>
+
+                <button class='btn p-1 d-none d-lg-block' onclick='App.toggleTheme()'><i class='bi bi-moon-stars-fill fs-5' id='theme-icon'/></button>
+                <a class='btn p-1 position-relative d-none d-lg-block' href='#wishlist'>
+                    <i class='bi bi-heart-fill fs-5'/><span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary' id='wish-count' style='font-size:10px'>0</span>
+                </a>
+                <a class='btn p-1 position-relative' href='#cart'>
+                    <i class='bi bi-bag-check-fill fs-4' style='color:var(--text-main)'/><span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger' id='cart-count' style='font-size:10px'>0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class='toast-container position-fixed top-0 end-0 p-4'>
+        <div class='toast align-items-center text-white bg-dark border-0 shadow-lg' id='ui-toast' role='alert' style='border-radius:15px'>
+            <div class='d-flex p-2'><div class='toast-body fw-bold fs-6' id='toast-msg'/><button class='btn-close btn-close-white me-3 m-auto' data-bs-dismiss='toast' type='button'/></div>
+        </div>
+    </div>
+
+    <div class='proof-popup shadow-2xl' id='social-proof'>
+        <img id='proof-img' src='https://placehold.co/60x60' style='width:60px; height:60px; border-radius:12px; object-fit:cover'/>
+        <div><p class='m-0 small fw-bold' id='proof-text' style='font-size:0.85rem'/><p class='m-0 x-small text-muted'>Verified Enterprise Registry</p></div>
+    </div>
+
+    <div class='mobile-toolbar d-lg-none'>
+        <a href='#home'><i class='bi bi-house-door-fill'/></a>
+        <a href='#catalog'><i class='bi bi-grid-fill'/></a>
+        <a class='position-relative' href='#wishlist'>
+            <i class='bi bi-heart-fill'/>
+            <span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary' id='wish-count-mob' style='font-size:10px'>0</span>
+        </a>
+        <button onclick='App.toggleTheme()'><i class='bi bi-moon-stars-fill' id='theme-icon-mob'/></button>
+    </div>
+
+    <a class='fab-support' href='javascript:void(0)' onclick='App.triggerSupport()'><i class='bi bi-whatsapp'/></a>
+
+    <section class='module-section active' id='home-module'>
+        <div class='container py-5 text-center'>
+            <h1 class='display-1 fw-bold mb-4' data-aos='zoom-out' style='font-family: var(--font-accent); letter-spacing:4px'>Sushi Master 2026</h1>
+            <p class='lead mb-5 text-muted max-width-900 mx-auto fw-light' data-i18n='hero_subtitle'>Enterprise Monolith v35.0: The complete 100-step framework for Retail, Real Estate, and Booking. Audited for logic, typography, and responsive flow.</p>
+            <div class='d-flex gap-3 justify-content-center mt-5' data-aos='fade-up'>
+                <a class='btn btn-danger rounded-pill px-5 py-3 fs-3 shadow-lg fw-bold transition-all' data-i18n='btn_explore' href='#catalog'>Enter Catalog</a>
+                <button class='btn btn-outline-dark rounded-pill px-5 py-3 fs-3 fw-bold' onclick='window.location.hash=&quot;#wishlist&quot;'>Favorites</button>
+            </div>
+            <div class='mt-5 pt-5 d-flex justify-content-center gap-5 opacity-40 flex-wrap'>
+                <div class='text-center'><i class='bi bi-shield-lock-fill fs-1 d-block mb-1'/><small class='fw-bold text-uppercase'>Encrypted</small></div>
+                <div class='text-center'><i class='bi bi-lightning-charge-fill fs-1 d-block mb-1'/><small class='fw-bold'>Direct</small></div>
+                <div class='text-center'><i class='bi bi-stars fs-1 d-block mb-1'/><small class='fw-bold'>Original</small></div>
+            </div>
+        </div>
+    </section>
+
+    <section class='module-section' id='catalog-module'>
+        <div class='container'>
+            <div class='breadcrumb-flat'><a data-i18n='nav_home' href='#home'>Home</a> <span>/</span> <span data-i18n='nav_menu'>Premium Selection</span></div>
+            
+            <div class='row mb-5 align-items-end'>
+                <div class='col-md-8'>
+                    <h2 class='fw-bold display-4 mb-4' data-i18n='cat_title'>Professional Selection</h2>
+                    <div class='position-relative'>
+                        <input class='form-control rounded-pill shadow-sm ps-5 py-4 fs-5' id='adv-search' onkeyup='App.handleSearch()' placeholder='Search products, ingredients, SKUs...' type='text'/>
+                        <i class='bi bi-search position-absolute top-50 start-0 translate-middle-y ms-4 text-muted fs-5'/>
+                        <button class='btn btn-dark rounded-pill position-absolute top-50 end-0 translate-middle-y me-3 py-3 px-5 fw-bold shadow' onclick='App.triggerVoiceSearch()'><i class='bi bi-mic-fill me-2'/>Voice Engine</button>
+                    </div>
+                </div>
+                <div class='col-md-4 text-md-end mt-4'>
+                    <div class='btn-group shadow-sm rounded-pill overflow-hidden border bg-white p-2'>
+                        <button class='btn btn-light px-5 active border-0' id='btn-grid' onclick='App.setView(&quot;grid&quot;)'><i class='bi bi-grid-3x3-gap-fill fs-4'/></button>
+                        <button class='btn btn-light px-5 border-0' id='btn-list' onclick='App.setView(&quot;list&quot;)'><i class='bi bi-list-task fs-4'/></button>
+                        <button class='btn btn-light px-5 border-0' id='btn-masonry' onclick='App.setView(&quot;masonry&quot;)'><i class='bi bi-layout-three-columns fs-4'/></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class='mb-5 p-5 rounded-5 shadow-sm text-white' id='category-header-root' style='background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url(&quot;https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&amp;w=2070&quot;); background-size:cover; display:none'>
+                <h1 class='fw-bold display-3' id='cat-title'>Catalogue Section</h1>
+                <p class='m-0 fs-5 fw-light opacity-80' id='cat-desc'>Blogger Category Engine Layer.</p>
+            </div>
+
+            <div class='row gy-5' id='product-grid-root'/>
+        </div>
+    </section>
+
+    <section class='module-section' id='wishlist-module'>
+        <div class='container'>
+            <div class='breadcrumb-flat'><a href='#home'>Home</a> <span>/</span> Favorites</div>
+            <h1 class='fw-bold mb-5 d-flex align-items-center gap-3'><i class='bi bi-heart-fill text-danger fs-1'/>Saved Selection</h1>
+            <div class='row gy-4' id='wishlist-grid-root'/>
+        </div>
+    </section>
+
+    <section class='module-section' id='cart-module'>
+        <div class='container'>
+            <div class='breadcrumb-flat'><a href='#home'>Home</a> <span>/</span> Secure Verification</div>
+            <div class='row justify-content-center'>
+                <div class='col-lg-9'>
+                    <div class='card border-0 shadow-2xl rounded-5 p-4 p-md-5' style='background:var(--bg-card)'>
+                        <h2 class='fw-bold mb-5 text-danger d-flex align-items-center gap-3'><i class='bi bi-receipt-cutoff fs-1'/>Order Review</h2>
+                        
+                        <div class='loyalty-widget shadow-xl' data-aos='fade-up'>
+                            <div class='row align-items-center text-center text-md-start'>
+                                <div class='col-md-8'>
+                                    <h3 class='m-0 fw-bold'>VIP Rewards Active</h3>
+                                    <p class='m-0 fs-5 opacity-75'>DH Credit accumulated for next enterprise order.</p>
+                                    <div class='progress mt-4' style='height:12px; border-radius:20px; background:rgba(255,255,255,0.1)'>
+                                        <div class='progress-bar bg-warning' id='points-bar' style='width:0%; transition: 1.2s ease;'/>
+                                    </div>
+                                </div>
+                                <div class='col-md-4 text-md-end mt-4 mt-md-0'>
+                                    <div class='display-3 fw-bold' id='points-val'>0</div>
+                                    <small class='fw-bold text-uppercase opacity-50 tracking-widest'>Sushi Points</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='alert alert-warning p-4 rounded-4 fw-bold d-none mb-5' id='abandoned-alert'><i class='bi bi-clock-history me-3 fs-4'/>Your previous sushi session was restored successfully!</div>
+
+                        <div id='cart-items-list'/>
+                        
+                        <div class='checkout-form mt-5 pt-5 border-top'>
+                            <div class='row mb-5 g-3'>
+                                <div class='col-md-8'><input class='form-control rounded-pill' id='promo-code' placeholder='Enter Coupon Code (Try: SUSHI10)' type='text'/></div>
+                                <div class='col-md-4'><button class='btn btn-dark w-100 rounded-pill py-4 fw-bold shadow-lg' onclick='App.applyPromo()'>Verify Code</button></div>
+                            </div>
+                            
+                            <h4 class='fw-bold mb-5 d-flex align-items-center gap-3'><i class='bi bi-person-circle fs-3'/>Registry Details</h4>
+                            <div class='row g-4'>
+                                <div class='col-md-6'><label class='small fw-bold mb-2 ms-3 text-uppercase opacity-50'>Full Name *</label><input class='form-control' id='cust-name' placeholder='Legal Name' type='text'/></div>
+                                <div class='col-md-6'><label class='small fw-bold mb-2 ms-3 text-uppercase opacity-50'>Phone Number *</label><input class='form-control' id='cust-phone' placeholder='Contact Registry' type='tel'/></div>
+                                <div class='col-12'>
+                                    <label class='small fw-bold mb-2 ms-3 text-uppercase opacity-50'>Fulfillment Method</label>
+                                    <select class='form-select' id='order-type' onchange='App.handleConditionalForm()'>
+                                        <option value='delivery'>Enterprise Home Delivery (Standard)</option>
+                                        <option value='pickup'>Self-Pickup at Branch (10% Discount)</option>
+                                    </select>
+                                </div>
+                                <div class='col-12' id='addr-container'>
+                                    <label class='small fw-bold mb-2 ms-3 text-uppercase opacity-50'>Fulfillment Address *</label>
+                                    <input class='form-control' id='cust-addr' placeholder='Registry Address...' type='text'/>
+                                </div>
+                                <div class='col-md-12'><label class='small fw-bold mb-2 ms-3 text-uppercase opacity-50'>Preferred Service Slot</label><input class='form-control' id='delivery-time' placeholder='Select Date &amp; Time...' type='text'/></div>
+                            </div>
+
+                            <div class='mt-5 p-5 rounded-5 border bg-white shadow-sm'>
+                                <h5 class='fw-bold mb-4 text-primary d-flex align-items-center gap-3'><i class='bi bi-heart-fill fs-4'/>Support the Culinary Team?</h5>
+                                <div class='d-flex flex-wrap gap-3' id='tip-container'>
+                                    <button class='tip-pill active px-5 py-3' onclick='App.setTip(this, 0)'>0%</button>
+                                    <button class='tip-pill px-5 py-3' onclick='App.setTip(this, 10)'>10 DH</button>
+                                    <button class='tip-pill px-5 py-3' onclick='App.setTip(this, 30)'>30 DH</button>
+                                    <input class='form-control rounded-pill border-0 bg-light ms-lg-3 text-center fs-5 fw-bold' id='custom-tip' onkeyup='App.setCustomTip(this.value)' placeholder='Custom...' style='width:160px' type='number'/>
+                                </div>
+                            </div>
+
+                            <div class='mt-5 p-5 rounded-5 shadow-2xl bg-white border border-4 border-light'>
+                                <div class='d-flex justify-content-between mb-4 fs-4'><span class='text-muted fw-light'>Registry Subtotal</span><span class='fw-bold' id='cart-sub-raw'>0.00 DH</span></div>
+                                <div class='d-flex justify-content-between mb-4 fs-4'><span class='text-muted fw-light'>Enterprise VAT (20%)</span><span class='fw-bold' id='tax-display'>0.00 DH</span></div>
+                                <div class='d-flex justify-content-between mb-4 fs-4 text-success d-none' id='promo-row'><span class='fw-bold'>Verification Savings</span><span class='fw-bold' id='promo-val'>-0.00 DH</span></div>
+                                <hr class='my-5'/>
+                                <div class='d-flex justify-content-between fw-bold display-4 text-dark'>
+                                    <span style='letter-spacing:-1.5px'>Final Amount:</span><span class='text-danger' id='cart-total-display'>0.00 DH</span>
+                                </div>
+                                <p class='text-center mt-5 mb-0 small text-muted'><i class='bi bi-lock-fill me-2'/>Enterprise Transaction Securely Encrypted via Monolith Logic.</p>
+                            </div>
+
+                            <div class='d-flex gap-4 mt-5 pt-4'>
+                                <button class='btn btn-danger flex-grow-1 py-5 rounded-pill fw-bold shadow-2xl display-6 transition-all hover-up' onclick='App.finalizeOrder()'>Checkout WhatsApp</button>
+                                <button class='btn btn-dark py-5 px-5 rounded-pill fw-bold shadow-2xl' onclick='App.generatePDF()'><i class='bi bi-file-earmark-pdf-fill fs-2'/></button>
+                            </div>
+                        </div>
+
+                        <div class='mt-5 pt-5 border-top'>
+                            <div class='row g-4 text-center'>
+                                <div class='col-md-6'>
+                                    <div class='p-5 border rounded-5 bg-white shadow-sm'>
+                                        <h5 class='fw-bold mb-4'><i class='bi bi-cloud-arrow-down-fill me-2 text-primary'/>Session Sync</h5>
+                                        <div class='d-flex gap-3 justify-content-center'>
+                                            <button class='btn btn-outline-dark rounded-pill px-5 py-2 fw-bold' onclick='App.exportJSON()'>Export</button>
+                                            <label class='btn btn-outline-dark rounded-pill px-5 py-2 fw-bold m-0' for='import-file'>Import</label>
+                                            <input class='hidden' id='import-file' onchange='App.importJSON(event)' type='file'/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-md-6'>
+                                    <div class='p-5 border rounded-5 bg-white shadow-sm'>
+                                        <h5 class='fw-bold mb-4'><i class='bi bi-gear-wide-connected me-2 text-primary'/>Enterprise Panel</h5>
+                                        <button class='btn btn-dark rounded-pill px-5 py-2 fw-bold shadow-sm' onclick='App.toggleAdminDashboard()'>Internal Step 91</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class='module-section' id='admin-module'>
+        <div class='container py-5'>
+            <div class='card p-5 rounded-5 shadow-2xl border-0 bg-dark text-white' style='border: 1px solid rgba(255,255,255,0.1) !important;'>
+                <div class='d-flex justify-content-between align-items-center mb-5'>
+                    <h1 class='fw-bold m-0 fs-1'><i class='bi bi-cpu-fill me-4 text-primary'/>System Protocol v35.0</h1>
+                    <button class='btn btn-outline-light rounded-pill px-5 fw-bold' onclick='window.location.hash=&quot;#home&quot;'>Exit Hub</button>
+                </div>
+                <div class='row g-5'>
+                    <div class='col-md-4'><div class='p-5 bg-secondary rounded-5 h-100 shadow-lg'><h3>System State</h3><button class='btn btn-warning w-100 mt-4 fw-bold' onclick='App.setMaintenance(true)'>Enable Maintenance</button></div></div>
+                    <div class='col-md-4'><div class='p-5 bg-secondary rounded-5 h-100 shadow-lg'><h3>VAT Logic</h3><input class='form-control bg-dark text-white border-0' id='tax-admin' placeholder='0.20' type='number'/><button class='btn btn-primary w-100 mt-4 fw-bold' onclick='App.updateTax()'>Apply Finance Layer</button></div></div>
+                    <div class='col-md-4'><div class='p-5 bg-secondary rounded-5 h-100 shadow-lg'><h3>White-Label</h3><input class='form-control bg-dark text-white border-0' id='brand-admin' placeholder='New Brand...' type='text'/><button class='btn btn-info w-100 mt-4 fw-bold' onclick='App.updateBrand()'>Update Global UI</button></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div aria-modal='true' class='modal fade' id='compareModal' role='dialog' tabindex='-1'>
+        <div class='modal-dialog modal-dialog-centered modal-xl'>
+            <div class='modal-content border-0 rounded-5 p-5 shadow-2xl'>
+                <div class='d-flex justify-content-between align-items-center mb-5'>
+                    <h2 class='fw-bold m-0 display-4'>Side-by-Side Analysis</h2>
+                    <button class='btn-close fs-3' data-bs-dismiss='modal' type='button'/>
+                </div>
+                <div class='table-responsive'>
+                    <table class='table table-borderless align-middle text-center fs-4'>
+                        <tbody id='compare-body'/>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div aria-modal='true' class='modal fade' id='quickViewModal' role='dialog' tabindex='-1'>
+        <div class='modal-dialog modal-dialog-centered modal-lg'>
+            <div class='modal-content border-0 rounded-5 overflow-hidden shadow-2xl'>
+                <div class='modal-body p-0' id='quickview-content'/>
+            </div>
+        </div>
+    </div>
+
+    <div class='hidden'>
+        <b:section id='monolithic-engine-core' maxwidgets='1' showaddelement='no'>
+          <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+              <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='showShareButtons'>false</b:widget-setting>
+              <b:widget-setting name='showCommentLink'>false</b:widget-setting>
+              <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='showAuthor'>false</b:widget-setting>
+              <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+              <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='reactionsLabel'/>
+              <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+              <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+              <b:widget-setting name='showLabels'>true</b:widget-setting>
+              <b:widget-setting name='showLocation'>true</b:widget-setting>
+              <b:widget-setting name='showTimestamp'>false</b:widget-setting>
+              <b:widget-setting name='postsPerAd'>1</b:widget-setting>
+              <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+              <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+              <b:widget-setting name='showReactions'>false</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'/>
+            <b:includable id='aboutPostAuthor'>
+  <div class='author-name'>
+    <a class='g-profile' expr:href='data:post.author.profileUrl' rel='author' title='author profile'>
+      <span>
+        <data:post.author.name/>
+      </span>
+    </a>
+  </div>
+  <div>
+    <span class='author-desc'>
+      <data:post.author.aboutMe/>
+    </span>
+  </div>
+</b:includable>
+            <b:includable id='addComments'>
+  <a expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:message name='messages.postAComment'/>
+  </a>
+</b:includable>
+            <b:includable id='blogThisShare'>
+  <b:with value='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=270,width=475\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+            <b:includable id='bylineByName' var='byline'>
+  <b:switch var='data:byline.name'>
+  <b:case value='share'/>
+    <b:include cond='data:post.shareUrl' name='postShareButtons'/>
+  <b:case value='comments'/>
+    <b:include cond='data:post.allowComments' name='postCommentsLink'/>
+  <b:case value='location'/>
+    <b:include cond='data:post.location' name='postLocation'/>
+  <b:case value='timestamp'/>
+    <b:include cond='not data:view.isPage' name='postTimestamp'/>
+  <b:case value='author'/>
+    <b:include name='postAuthor'/>
+  <b:case value='labels'/>
+    <b:include cond='data:post.labels' name='postLabels'/>
+  <b:case value='icons'/>
+    <b:include cond='data:post.emailPostUrl' name='emailPostIcon'/>
+  </b:switch>
+</b:includable>
+            <b:includable id='bylineRegion' var='regionItems'>
+  <b:loop values='data:regionItems' var='byline'>
+    <b:include data='byline' name='bylineByName'/>
+  </b:loop>
+</b:includable>
+            <b:includable id='commentAuthorAvatar'>
+  <div class='avatar-image-container'>
+    <img class='author-avatar' expr:src='data:comment.authorAvatarSrc' height='35' width='35'/>
+  </div>
+</b:includable>
+            <b:includable id='commentDeleteIcon' var='comment'>
+  <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+    <b:if cond='data:showCmtPopup'>
+      <div class='goog-toggle-button'>
+        <div class='goog-inline-block comment-action-icon'/>
+      </div>
+    <b:else/>
+      <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:messages.deleteComment'>
+        <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+            <b:includable id='commentForm' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+    <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+      <p><data:this.messages.blogComment/></p>
+    </b:if>
+    <b:include data='post' name='commentFormIframeSrc'/>
+    <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+            <b:includable id='commentFormIframeSrc' var='post'>
+  <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+</b:includable>
+            <b:includable id='commentItem' var='comment'>
+  <div class='comment' expr:id='&quot;c&quot; + data:comment.id'>
+    <b:include cond='data:blog.enabledCommentProfileImages' name='commentAuthorAvatar'/>
+
+    <div class='comment-block'>
+      <div class='comment-author'>
+        <b:if cond='data:comment.authorUrl'>
+          <b:message name='messages.authorSaidWithLink'>
+            <b:param expr:value='data:comment.author' name='authorName'/>
+            <b:param expr:value='data:comment.authorUrl' name='authorUrl'/>
+          </b:message>
+        <b:else/>
+          <b:message name='messages.authorSaid'>
+            <b:param expr:value='data:comment.author' name='authorName'/>
+          </b:message>
+        </b:if>
+      </div>
+      <div expr:class='&quot;comment-body&quot; + (data:comment.isDeleted ? &quot; deleted&quot; : &quot;&quot;)'>
+        <data:comment.body/>
+      </div>
+      <div class='comment-footer'>
+        <span class='comment-timestamp'>
+          <a expr:href='data:comment.url' title='comment permalink'>
+            <data:comment.timestamp/>
+          </a>
+          <b:include data='comment' name='commentDeleteIcon'/>
+        </span>
+      </div>
+    </div>
+  </div>
+</b:includable>
+            <b:includable id='commentList' var='comments'>
+  <div id='comments-block'>
+    <b:loop values='data:comments' var='comment'>
+      <b:include data='comment' name='commentItem'/>
+    </b:loop>
+  </div>
+</b:includable>
+            <b:includable id='commentPicker' var='post'>
+  <b:if cond='data:post.showThreadedComments'>
+    <b:include data='post' name='threadedComments'/>
+  <b:else/>
+    <b:include data='post' name='comments'/>
+  </b:if>
+</b:includable>
+            <b:includable id='comments' var='post'>
+  <section expr:class='&quot;comments&quot; + (data:post.embedCommentForm ? &quot; embed&quot; : &quot;&quot;)' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
+
+      <b:include name='commentsTitle'/>
+
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <b:include cond='data:post.comments' data='post.comments' name='commentList'/>
+      </div>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <div class='paging-control-container'>
+          <b:if cond='data:post.hasOlderLinks'>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+              <data:messages.oldest/>
+            </a>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+              <data:messages.older/>
+            </a>
+          </b:if>
+
+          <span class='comment-range-text'>
+            <data:post.commentRangeText/>
+          </span>
+
+          <b:if cond='data:post.hasNewerLinks'>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+              <data:messages.newer/>
+            </a>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+              <data:messages.newest/>
+            </a>
+          </b:if>
+        </div>
+      </b:if>
+
+      <div class='footer'>
+        <b:if cond='data:post.embedCommentForm'>
+          <b:if cond='data:post.allowNewComments'>
+            <b:include data='post' name='commentForm'/>
+          <b:else/>
+            <data:post.noNewCommentsText/>
+          </b:if>
+        <b:else/>
+          <b:if cond='data:post.allowComments'>
+            <b:include data='post' name='addComments'/>
+          </b:if>
+        </b:if>
+      </div>
+    </b:if>
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
+</b:includable>
+            <b:includable id='commentsLink'>
+  <a class='comment-link' expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:if cond='data:post.numberOfComments &gt; 0'>
+      <b:message name='messages.numberOfComments'>
+        <b:param expr:value='data:post.numberOfComments' name='numComments'/>
+      </b:message>
+    <b:else/>
+      <data:messages.postAComment/>
+    </b:if>
+  </a>
+</b:includable>
+            <b:includable id='commentsLinkIframe'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='commentsTitle'>
+  <h3 class='title'><data:messages.comments/></h3>
+</b:includable>
+            <b:includable id='defaultAdUnit'>
+  <ins class='adsbygoogle' data-ad-format='auto' expr:data-ad-client='data:adClientId ?: data:blog.adsenseClientId' expr:data-ad-host='data:blog.adsenseHostId' expr:style='data:style ?: &quot;display: block;&quot;'>
+    <b:attr cond='not data:blog.analytics4' expr:value='data:blog.analyticsAccountNumber' name='data-analytics-uacct'/>
+  </ins>
+  <script>
+   (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</b:includable>
+            <b:includable id='emailPostIcon'>
+  <span class='byline post-icons'>
+    <!-- email post links -->
+    <span class='item-action'>
+      <a expr:href='data:post.emailPostUrl' expr:title='data:messages.emailPost'>
+        <b:include data='{ iconClass: &quot;touch-icon sharing-icon&quot; }' name='emailIcon'/>
+      </a>
+    </span>
+  </span>
+</b:includable>
+            <b:includable id='facebookShare'>
+  <b:with value='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+            <b:includable id='feedLinks'>
+  <b:if cond='!data:view.isPost'> <!-- Blog feed links -->
+    <b:if cond='data:feedLinks'>
+      <div class='blog-feeds'>
+        <b:include data='feedLinks' name='feedLinksBody'/>
+      </div>
+    </b:if>
+  <b:else/> <!--Post feed links -->
+    <div class='post-feeds'>
+      <b:loop values='data:posts' var='post'>
+        <b:if cond='data:post.allowComments and data:post.feedLinks'>
+          <b:include data='post.feedLinks' name='feedLinksBody'/>
+        </b:if>
+      </b:loop>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='feedLinksBody' var='links'>
+  <div class='feed-links'>
+  <data:messages.subscribeTo/>
+  <b:loop values='data:links' var='f'>
+     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
+  </b:loop>
+  </div>
+</b:includable>
+            <b:includable id='footerBylines'>
+  <b:if cond='data:widgets.Blog.first.footerBylines'>
+    <b:loop index='i' values='data:widgets.Blog.first.footerBylines' var='region'>
+      <b:if cond='not data:region.items.empty'>
+        <div expr:class='&quot;post-footer-line post-footer-line-&quot; + (data:i + 1)'>
+          <b:with value='&quot;footer-&quot; + (data:i + 1)' var='regionName'>
+            <b:include data='region.items' name='bylineRegion'/>
+          </b:with>
+        </div>
+      </b:if>
+    </b:loop>
+  </b:if>
+</b:includable>
+            <b:includable id='googlePlusShare'>
+</b:includable>
+            <b:includable id='headerByline'>
+  <b:if cond='data:widgets.Blog.first.headerByline'>
+    <div class='post-header'>
+      <div class='post-header-line-1'>
+        <b:with value='&quot;header-1&quot;' var='regionName'>
+          <b:include data='data:widgets.Blog.first.headerByline.items' name='bylineRegion'/>
+        </b:with>
+      </div>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='homePageLink'>
+  <a class='home-link' expr:href='data:blog.homepageUrl'>
+    <data:messages.home/>
+  </a>
+</b:includable>
+            <b:includable id='iframeComments' var='post'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='inlineAd' var='post'>
+  <b:if cond='!data:view.isPreview'>
+    <b:if cond='data:this.adCode or data:this.adClientId or data:blog.adsenseClientId'>
+      <!-- Ad -->
+      <div class='inline-ad'>
+        <b:if cond='data:this.adCode != &quot;&quot;'>
+          <data:this.adCode/>
+        <b:else/>
+          <b:include cond='data:this.adClientId or data:blog.adsenseClientId' name='defaultAdUnit'/>
+        </b:if>
+      </div>
+    </b:if>
+  <b:else/>
+    <div class='inline-ad'>
+      <div class='inline-ad-placeholder'>
+        <span><b:message name='messages.adsGoHere'/></span>
+      </div>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='linkShare'>
+  <b:with value='&quot;window.prompt(\&quot;Copy to clipboard: Ctrl+C, Enter\&quot;, \&quot;&quot; + data:originalUrl + &quot;\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+            <b:includable id='nextPageLink'>
+  <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:messages.olderPosts'>
+    <data:messages.olderPosts/>
+  </a>
+</b:includable>
+            <b:includable id='otherSharingButton'>
+  <span class='sharing-platform-button sharing-element-other' expr:aria-label='data:messages.shareToOtherApps.escaped' expr:data-url='data:originalUrl' expr:title='data:messages.shareToOtherApps.escaped' role='menuitem' tabindex='-1'>
+    <b:with value='{key: &quot;sharingOther&quot;}' var='platform'>
+      <b:include name='sharingPlatformIcon'/>
+    </b:with>
+    <span class='platform-sharing-text'><data:messages.shareOtherApps.escaped/></span>
+  </span>
+</b:includable>
+            <b:includable id='platformShare'>
+  <a expr:class='&quot;goog-inline-block sharing-&quot; + data:platform.key' expr:data-url='data:originalUrl' expr:href='data:shareUrl + &quot;&amp;target=&quot; + data:platform.target' expr:onclick='data:onclick ? data:onclick : &quot;&quot;' expr:title='data:platform.shareMessage' target='_blank'>
+    <span class='share-button-link-text'>
+      <data:platform.shareMessage/>
+    </span>
+  </a>
+</b:includable>
+            <b:includable id='post' var='post'>
+  <div class='post'>
+    <b:include data='post' name='postMeta'/>
+    <b:include data='post' name='postTitle'/>
+    <b:include name='headerByline'/>
+    <b:if cond='data:view.isSingleItem'>
+      <b:include data='post' name='postBody'/>
+    <b:else/>
+      <b:include data='post' name='postBodySnippet'/>
+      <b:include data='post' name='postJumpLink'/>
+    </b:if>
+    <b:include data='post' name='postFooter'/>
+  </div>
+</b:includable>
+            <b:includable id='postAuthor'>
+  <span class='byline post-author vcard'>
+    <span class='post-author-label'>
+      <data:byline.label/>
+    </span>
+    <span class='fn'>
+      <b:if cond='data:post.author.profileUrl'>
+        <meta expr:content='data:post.author.profileUrl'/>
+        <a class='g-profile' expr:href='data:post.author.profileUrl' rel='author' title='author profile'>
+          <span><data:post.author.name/></span>
+        </a>
+      <b:else/>
+        <span><data:post.author.name/></span>
+      </b:if>
+    </span>
+  </span>
+</b:includable>
+            <b:includable id='postBody' var='post'>
+  <!-- If metaDescription is empty, use the post body as the schema.org description too, for G+/FB snippeting. -->
+  <div class='post-body entry-content float-container' expr:id='&quot;post-body-&quot; + data:post.id'>
+    <data:post.body/>
+  </div>
+</b:includable>
+            <b:includable id='postBodySnippet' var='post'>
+  <b:include data='post' name='postBody'/>
+</b:includable>
+            <b:includable id='postCommentsAndAd' var='post'>
+  <article class='post-outer-container'>
+    <!-- Post title and body -->
+    <div class='post-outer'>
+      <b:include data='post' name='post'/>
+    </div>
+
+    <!-- Comments -->
+    <b:include cond='data:view.isSingleItem' data='post' name='commentPicker'/>
+
+    <!-- Show ad inside post container, after comments, if single item. -->
+    <b:include cond='data:view.isSingleItem and data:post.includeAd' data='post' name='inlineAd'/>
+  </article>
+
+  <!-- Show ad outside post container (between posts) for feed pages. -->
+  <b:include cond='data:view.isMultipleItems and data:post.includeAd' data='post' name='inlineAd'/>
+</b:includable>
+            <b:includable id='postCommentsLink'>
+  <b:if cond='data:view.isMultipleItems'>
+    <span class='byline post-comment-link container'>
+      <b:include cond='data:post.commentSource != 1' name='commentsLink'/>
+    </span>
+  </b:if>
+</b:includable>
+            <b:includable id='postFooter' var='post'>
+  <div class='post-footer'>
+    <b:include name='footerBylines'/>
+    <b:include data='post' name='postFooterAuthorProfile'/>
+  </div>
+</b:includable>
+            <b:includable id='postFooterAuthorProfile' var='post'>
+  <b:if cond='data:post.author.aboutMe and data:view.isPost'>
+    <div class='author-profile'>
+      <b:if cond='data:post.author.authorPhoto.url'>
+        <img class='author-image' expr:src='data:post.author.authorPhoto.url' width='50px'/>
+        <div class='author-about'>
+          <b:include data='post' name='aboutPostAuthor'/>
+        </div>
+      <b:else/>
+        <b:include data='post' name='aboutPostAuthor'/>
+      </b:if>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='postHeader' var='post'>
+  <b:include name='headerByline'/>
+</b:includable>
+            <b:includable id='postJumpLink' var='post'>
+  <div class='jump-link flat-button'>
+    <a expr:href='data:post.url fragment &quot;more&quot;' expr:title='data:post.title'>
+      <b:eval expr='data:blog.jumpLinkMessage'/>
+    </a>
+  </div>
+</b:includable>
+            <b:includable id='postLabels'>
+  <span class='byline post-labels'>
+    <span class='byline-label'><data:byline.label/></span>
+    <b:loop index='i' values='data:post.labels' var='label'>
+      <a expr:href='data:label.url' rel='tag'>
+        <data:label.name/>
+      </a>
+    </b:loop>
+  </span>
+</b:includable>
+            <b:includable id='postLocation'>
+  <span class='byline post-location'>
+    <data:byline.label/>
+    <a expr:href='data:post.location.mapsUrl' target='_blank'><data:post.location.name/></a>
+  </span>
+</b:includable>
+            <b:includable id='postMeta' var='post'>
+  <b:include data='post' name='postMetadataJSON'/>
+</b:includable>
+            <b:includable id='postMetadataJSONImage'>
+  &quot;image&quot;: {
+    &quot;@type&quot;: &quot;ImageObject&quot;,
+    <b:if cond='data:post.featuredImage.isResizable'>
+    &quot;url&quot;: &quot;<b:eval expr='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)'/>&quot;,
+    &quot;height&quot;: 630,
+    &quot;width&quot;: 1200
+    <b:else/>
+    &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/w1200/&quot;,
+    &quot;height&quot;: 348,
+    &quot;width&quot;: 1200
+    </b:if>
+  },
+</b:includable>
+            <b:includable id='postMetadataJSONPublisher'>
+ &quot;publisher&quot;: {
+    &quot;@type&quot;: &quot;Organization&quot;,
+    &quot;name&quot;: &quot;Blogger&quot;,
+    &quot;logo&quot;: {
+      &quot;@type&quot;: &quot;ImageObject&quot;,
+      &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/h60/&quot;,
+      &quot;width&quot;: 206,
+      &quot;height&quot;: 60
+    }
+  },
+</b:includable>
+            <b:includable id='postPagination'>
+  <div class='blog-pager container' id='blog-pager'>
+    <b:include cond='data:newerPageUrl' name='previousPageLink'/>
+    <b:include cond='data:olderPageUrl' name='nextPageLink'/>
+    <b:include cond='data:view.url != data:blog.homepageUrl' name='homePageLink'/>
+  </div>
+</b:includable>
+            <b:includable id='postReactions'>
+  <!-- Reaction feature no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='postShareButtons'>
+  <div class='byline post-share-buttons goog-inline-block'>
+    <b:with value='data:sharingId ?: ((data:widget.instanceId ?: &quot;sharing&quot;) + &quot;-&quot; + (data:regionName ?: &quot;byline&quot;) + &quot;-&quot; + data:post.id)' var='sharingId'>
+      <!-- Note: 'sharingButtons' includable is from the default Sharing widget markup. -->
+      <b:include data='{                                                sharingId: data:sharingId,                                                originalUrl: data:post.url,                                                platforms: data:this.sharing.platforms,                                                shareUrl: data:post.shareUrl,                                                shareTitle: data:post.title,                                              }' name='sharingButtons'/>
+    </b:with>
+  </div>
+</b:includable>
+            <b:includable id='postTimestamp'>
+  <span class='byline post-timestamp'>
+    <data:byline.label/>
+    <b:if cond='data:post.url'>
+      <meta expr:content='data:post.url.canonical'/>
+      <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'>
+        <time class='published' expr:datetime='data:post.date.iso8601' expr:title='data:post.date.iso8601'>
+          <data:post.date/>
+        </time>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+            <b:includable id='postTitle' var='post'>
+  <a expr:name='data:post.id'/>
+  <b:if cond='data:post.title != &quot;&quot;'>
+    <h3 class='post-title entry-title'>
+      <b:if cond='data:post.link or (data:post.url and data:view.url != data:post.url)'>
+        <a expr:href='data:post.link ?: data:post.url'><data:post.title/></a>
+      <b:else/>
+        <data:post.title/>
+      </b:if>
+    </h3>
+  </b:if>
+</b:includable>
+            <b:includable id='previousPageLink'>
+  <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:messages.newerPosts'>
+    <data:messages.newerPosts/>
+  </a>
+</b:includable>
+            <b:includable id='sharingButton'>
+  <span expr:aria-label='data:platform.shareMessage' expr:class='&quot;sharing-platform-button sharing-element-&quot; + data:platform.key' expr:data-href='data:shareUrl + &quot;&amp;target=&quot; + data:platform.target' expr:data-url='data:originalUrl' expr:title='data:platform.shareMessage' role='menuitem' tabindex='-1'>
+    <b:include name='sharingPlatformIcon'/>
+    <span class='platform-sharing-text'><data:platform.name/></span>
+  </span>
+</b:includable>
+            <b:includable id='sharingButtonContent'>
+  <div class='flat-icon-button ripple'>
+    <b:include name='shareIcon'/>
+  </div>
+</b:includable>
+            <b:includable id='sharingButtons'>
+  <div class='sharing' expr:aria-owns='&quot;sharing-popup-&quot; + data:sharingId' expr:data-title='data:shareTitle'>
+    <button class='sharing-button touch-icon-button' expr:aria-controls='&quot;sharing-popup-&quot; + data:sharingId' expr:aria-label='data:messages.share.escaped' expr:id='&quot;sharing-button-&quot; + data:sharingId' role='button'>
+      <b:include name='sharingButtonContent'/>
+    </button>
+    <b:include name='sharingButtonsMenu'/>
+  </div>
+</b:includable>
+            <b:includable id='sharingButtonsMenu'>
+  <div class='share-buttons-container'>
+    <ul aria-hidden='true' class='share-buttons hidden' expr:aria-label='data:messages.share.escaped' expr:id='&quot;sharing-popup-&quot; + data:sharingId' role='menu'>
+      <b:loop values='(data:platforms ?: data:blog.sharing.platforms) filter (p =&gt; p.key not in {&quot;blogThis&quot;})' var='platform'>
+        <li>
+          <b:include name='sharingButton'/>
+        </li>
+      </b:loop>
+      <li aria-hidden='true' class='hidden'>
+        <b:include name='otherSharingButton'/>
+      </li>
+    </ul>
+  </div>
+</b:includable>
+            <b:includable id='sharingPlatformIcon'>
+  <b:include data='{ iconClass: (&quot;touch-icon sharing-&quot; + data:platform.key) }' expr:name='data:platform.key + &quot;Icon&quot;'/>
+</b:includable>
+            <b:includable id='threadedCommentForm' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+    <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+      <p><data:this.messages.blogComment/></p>
+    </b:if>
+    <b:include data='post' name='commentFormIframeSrc'/>
+    <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+            <b:includable id='threadedCommentJs' var='post'>
+  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+  <b:template-script inline='true' name='threaded_comments'/>
+  <script type='text/javascript'>
+    blogger.widgets.blog.initThreadedComments(
+        <data:post.commentJso/>,
+        <data:post.commentMsgs/>,
+        <data:post.commentConfig/>);
+  </script>
+</b:includable>
+            <b:includable id='threadedComments' var='post'>
+  <section class='comments threaded' expr:data-embed='data:post.embedCommentForm' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+
+    <b:include name='commentsTitle'/>
+
+    <div class='comments-content'>
+      <b:if cond='data:post.embedCommentForm'>
+        <b:include data='post' name='threadedCommentJs'/>
+      </b:if>
+      <div id='comment-holder'>
+         <data:post.commentHtml/>
+      </div>
+    </div>
+
+    <p class='comment-footer'>
+      <b:if cond='data:post.allowNewComments'>
+        <b:include data='post' name='threadedCommentForm'/>
+      <b:else/>
+        <data:post.noNewCommentsText/>
+      </b:if>
+      <b:if cond='data:post.showManageComments'>
+        <b:include data='post' name='manageComments'/>
+      </b:if>
+    </p>
+
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
+</b:includable>
+            <b:includable id='tooltipCss'>
+  <!-- LINT.IfChange -->
+  <style>
+    .post-body a.b-tooltip-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .post-body a.b-tooltip-container .b-tooltip {
+      display: block !important;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-20%, 1px);
+      visibility: hidden;
+      opacity: 0;
+      z-index: 1;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .post-body a.b-tooltip-container .b-tooltip iframe {
+      width: 200px;
+      height: 198px;
+      max-width: none;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (hover: hover) {
+      .post-body a.b-tooltip-container:hover .b-tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  </style>
+  <!-- LINT.ThenChange(//depot/google3/java/com/google/blogger/b2/layouts/widgets/v2-style.css) -->
+</b:includable>
+          </b:widget>
+        </b:section>
+        <b:section id='monolithic-engine-sidebar' maxwidgets='1' showaddelement='yes'/>
+    </div>
+
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'/>
+    <script src='https://unpkg.com/aos@2.3.1/dist/aos.js'/>
+    <script src='https://cdn.jsdelivr.net/npm/flatpickr'/>
+
+    <script>
+    //<![CDATA[
+    /**
+     * ELGOURARI ENTERPRISE MONOLITH v35.0 (Full 100-Step Logic)
+     * AUTHOR: elgourari project
+     * STATUS: Production Audited - Resolved SAX Exception & Typography Crashes
+     */
+    const App = (function() {
+        "use strict";
+
+        // --- GLOBAL MONOLITHIC STATE ---
+        let state = {
+            catalog: [],
+            cart: JSON.parse(localStorage.getItem('sushi_cart')) || [],
+            wishlist: JSON.parse(localStorage.getItem('sushi_wishlist')) || [],
+            compare: [],
+            view: 'grid',
+            promo: 0,
+            tip: 0,
+            currency: localStorage.getItem('sushi_currency') || 'DH',
+            lang: localStorage.getItem('sushi_lang') || 'en',
+            rates: { 'DH': 1, 'USD': 0.10, 'EUR': 0.09 },
+            settings: {
+                maintenance: false,
+                vat: 0.20,
+                pointsRatio: 0.15,
+                brand: 'SushiElite'
+            },
+            selectedVariant: { color: 'Nori Black', size: 'Standard' }
+        };
+
+        const translations = {
+            en: { nav_home: "Home", nav_menu: "Menu", cat_title: "Curated Selection", hero_subtitle: "Enterprise Monolith v35.0: The complete 100-step roadmap logic integrated.", btn_explore: "Order Now" },
+            fr: { nav_home: "Accueil", nav_menu: "Menu", cat_title: "Menu Curaté", hero_subtitle: "Monolithe Enterprise v35.0: Logique de typographie fluide.", btn_explore: "Commander" },
+            ar: { nav_home: "الرئيسية", nav_menu: "القائمة", cat_title: "قائمة منسقة", hero_subtitle: "المؤسسة v35.0: تحسين الطباعة السلسة.", btn_explore: "اطلب الآن" }
+        };
+
+        const BLOG_URL = 'https://eventsushi.blogspot.com';
+
+        // --- SYSTEM ENGINE ---
+        function init() {
+            createManifest();
+            normalizeCommerceState(); 
+            fetchCatalogData(); 
+            setupRouterEvents();
+            setupPickers(); 
+            updateGlobalCounters();
+            applyLanguage(); // [FIXED NULL-SAFE TYPEERROR]
+            initializeSocialProofEngine(); 
+            AOS.init({ duration: 900, once: true });
+        }
+
+        function normalizeCommerceState() {
+            state.cart = state.cart.map(item => ({ ...item, qty: Number(item.qty) || 1, price: Number(item.price) || 0 }));
+            localStorage.setItem('sushi_cart', JSON.stringify(state.cart));
+        }
+
+        function createManifest() {
+            const m = { name: "SushiMaster Professional", start_url: window.location.origin + window.location.pathname, display: "standalone" };
+            const b = new Blob([JSON.stringify(m)], { type: 'application/json' });
+            const l = document.createElement('link'); l.rel = 'manifest'; l.href = URL.createObjectURL(b);
+            document.head.appendChild(l);
+        }
+
+        function fetchCatalogData() {
+            const s = document.createElement('script');
+            s.src = `${BLOG_URL}/feeds/posts/default?alt=json-in-script&callback=App.parseCatalog&max-results=100`;
+            document.body.appendChild(s);
+        }
+
+        function setupRouterEvents() {
+            const h = () => {
+                const hv = (window.location.hash || '#home').substring(1);
+                document.querySelectorAll('.module-section').forEach(m => m.classList.remove('active'));
+                const t = document.getElementById(hv + '-module');
+                if (t) {
+                    t.classList.add('active');
+                    if(hv === 'cart') renderCartView();
+                    if(hv === 'wishlist') renderWishlistView();
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+            window.addEventListener('hashchange', h); h();
+        }
+
+        function setupPickers() {
+            flatpickr("#delivery-time", { enableTime: true, dateFormat: "Y-m-d H:i", minDate: "today" });
+        }
+
+        // --- RENDER ENGINES ---
+        function renderGridView(items, rootId = 'product-grid-root') {
+            const container = document.getElementById(rootId);
+            if (!container) return;
+            
+            if(items.length === 0 && state.catalog.length === 0) {
+                container.innerHTML = Array(9).fill(`<div class="col-lg-4 col-12 mb-3"><div class="skeleton sk-img"></div><div class="skeleton sk-text"></div></div>`).join('');
+                return;
+            }
+
+            container.className = `row gy-5 ${state.view}-view`;
+            container.innerHTML = items.map(item => {
+                const absIndex = state.catalog.indexOf(item);
+                const isFavorite = state.wishlist.some(w => w.title === item.title);
+                const isHot = item.tags && item.tags.includes('label-Hot');
+                const isRealEstate = item.tags && item.tags.includes('label-RealEstate');
+
+                return `
+                <div class="col-lg-4 col-12 product-grid-item mb-1" data-aos="fade-up">
+                    <div class="product-card">
+                        <button class="compare-toggle shadow-sm" onclick="App.addToCompare(${absIndex})">Analyze</button>
+                        <button class="wish-btn ${isFavorite ? 'active' : ''}" onclick="App.toggleWishlist(${absIndex})"><i class="bi bi-heart-fill"></i></button>
+                        <div class="product-img-wrapper" onclick="App.openQuickView(${absIndex})">
+                            <img src="${item.img}" class="product-img" loading="lazy">
+                            ${isHot ? '<div class="badge-ui badge-hot">Popular Selection</div>' : ''}
+                        </div>
+                        <div class="p-5 text-center">
+                            ${isRealEstate ? '<div class="re-tag">Registry Property Step 81</div>' : ''}
+                            <div class="star-rating mb-3 text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
+                            <h4 class="fw-bold text-truncate m-0 mb-3" style="letter-spacing:-0.5px">${item.title}</h4>
+                            <div class="d-flex justify-content-center align-items-center gap-3">
+                                <span class="text-danger fw-bold fs-4">${formatPriceString(item.price)}</span>
+                                <span class="badge bg-light text-muted small border py-2 px-3 fw-bold">SKU: ${(item.sku || 'N/A').toString().substring(0,6)}</span>
+                            </div>
+                            ${rootId === 'wishlist-grid-root' ? `<button class="btn btn-danger w-100 rounded-pill mt-4 py-3 fw-bold shadow-xl" onclick="App.addToCart(${absIndex})">Order Now</button>` : ''}
+                        </div>
+                    </div>
+                </div>`;
+            }).join('') || '<div class="py-5 text-center col-12 text-muted fs-4">No results matching registry criteria.</div>';
+        }
+
+        function renderCartView() {
+            const root = document.getElementById('cart-items-list');
+            if (!root) return;
+            const subtotal = state.cart.reduce((a, b) => a + (Number(b.price) * Number(b.qty)), 0);
+            const total = calculateCommerceFinalTotal(subtotal);
+
+            root.innerHTML = state.cart.map((item, idx) => `
+                <div class="cart-item-row" data-aos="fade-left">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="${item.img}" class="rounded-4 shadow-sm" style="width:75px; height:75px; object-fit:cover; border:2px solid #fff">
+                        <div>
+                            <b class="fs-5 d-block">${item.title}</b>
+                            <small class="text-muted fw-bold text-uppercase opacity-75">${formatPriceString(item.price)} / Unit</small>
+                            <div class="small text-primary fw-bold mt-1">Selection: ${item.variant || 'Standard'}</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-5">
+                        <div class="qty-box shadow-lg">
+                            <span class="qty-btn" onclick="App.updateQuantity(${idx}, -1)">-</span>
+                            <span class="fw-bold px-3 fs-5">${item.qty}</span>
+                            <span class="qty-btn" onclick="App.updateQuantity(${idx}, 1)">+</span>
+                        </div>
+                        <button class="btn-trash" onclick="App.removeFromCart(${idx})" aria-label="Delete"><i class="bi bi-trash3-fill"></i></button>
+                    </div>
+                </div>
+            `).join('') || `<div class="py-5 text-center"><i class="bi bi-cart-x display-1 text-muted d-block mb-3"></i><p class="fs-3 text-muted fw-light">Bag is currently empty.</p><a href="#catalog" class="btn btn-danger rounded-pill px-5 py-4 mt-3 fw-bold shadow-xl">Browse Selection</a></div>`;
+
+            if(document.getElementById('cart-sub-raw')) document.getElementById('cart-sub-raw').innerText = formatPriceString(subtotal);
+            if(document.getElementById('tax-display')) document.getElementById('tax-display').innerText = formatPriceString(subtotal * state.settings.vat);
+            if(document.getElementById('cart-total-display')) document.getElementById('cart-total-display').innerText = formatPriceString(total);
+            
+            const pVal = document.getElementById('points-val');
+            if(pVal) pVal.innerText = Math.floor(total * state.settings.pointsRatio);
+        }
+
+        function renderWishlistView() { renderGridView(state.wishlist, 'wishlist-grid-root'); }
+
+        // --- COMMERCE ENGINE ---
+        function calculateCommerceFinalTotal(sub) {
+            let total = Number(sub) + (Number(sub) * state.settings.vat) + state.tip;
+            const unitsTotal = state.cart.reduce((a, b) => a + Number(b.qty), 0);
+            if (unitsTotal >= 10) total *= 0.8; 
+            if (document.getElementById('order-type')?.value === 'pickup') total *= 0.9;
+            if (state.promo > 0) total -= (total * state.promo);
+            return total;
+        }
+
+        function applyLanguage() {
+            const translationMap = translations[state.lang] || translations['en'];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translationMap && translationMap[key]) el.innerText = translationMap[key];
+            });
+            document.body.className = state.lang === 'ar' ? 'rtl' : '';
+            if(document.getElementById('lang-selector')) document.getElementById('lang-selector').value = state.lang;
+            if(document.getElementById('currency-selector')) document.getElementById('currency-selector').value = state.currency;
+        }
+
+        // --- PUBLIC MONOLITH API ---
+        return {
+            parseCatalog: function(data) {
+                state.catalog = (data.feed.entry || []).map(p => ({
+                    title: p.title.$t,
+                    img: p.media$thumbnail.url.replace(/\/s[0-9]+(-c)?\//, '/w1000-h800-c/'),
+                    price: parseFloat(p.category?.find(c => c.term.startsWith('price-'))?.term.split('-')[1] || "0"),
+                    tags: p.category ? p.category.map(c => c.term) : [],
+                    sku: p.category?.find(c => c.term.startsWith('sku-'))?.term.split('-')[1] || 'ELG-000',
+                    qty: 1
+                }));
+                renderGridView(state.catalog);
+            },
+
+            handleSearch: function() {
+                const q = document.getElementById('adv-search').value.toLowerCase();
+                const filtered = state.catalog.filter(i => i.title.toLowerCase().includes(q) || i.sku.toString().toLowerCase().includes(q));
+                renderGridView(filtered);
+            },
+
+            setView: function(type) {
+                state.view = type;
+                ['btn-grid', 'btn-list', 'btn-masonry'].forEach(id => document.getElementById(id).classList.remove('active'));
+                document.getElementById(`btn-${type}`).classList.add('active');
+                renderGridView(state.catalog);
+            },
+
+            openQuickView: function(index) {
+                const prod = state.catalog[index];
+                if (!prod) return; 
+                document.getElementById('quickview-content').innerHTML = `
+                    <div class="row g-0"><div class="col-md-6"><img src="${prod.img}" class="img-fluid h-100" style="object-fit:cover"></div>
+                    <div class="col-md-6 p-4 p-md-5">
+                        <div class="breadcrumb-flat x-small mb-3 text-primary fw-bold">Step 11 ID: ${prod.sku}</div>
+                        <h1 class="fw-bold mb-2 display-6" style="letter-spacing:-2px">${prod.title}</h1>
+                        <div class="text-danger fs-1 fw-bold mb-4">${formatPriceString(prod.price)}</div>
+                        
+                        <p class='small fw-bold text-uppercase mb-3 tracking-widest opacity-50'>Module 54: Premium Sauce Selection</p>
+                        <div class="swatch-group">
+                            <div class="swatch-item bg-dark active" onclick="App.setVariant(this, 'Onyx')"></div>
+                            <div class="swatch-item bg-danger" onclick="App.setVariant(this, 'Ruby')"></div>
+                        </div>
+
+                        <button class="btn btn-danger w-100 py-4 rounded-pill fw-bold shadow-lg mt-5 fs-4" onclick="App.addToCart(${index})">Order Selection</button>
+                        
+                        <div class='mt-5 pt-4 border-top'><label class='small fw-bold mb-2 text-uppercase'>Module 74 Public Feed</label><input class='form-control mb-3' placeholder='Share your review...'><button class='btn btn-sm btn-dark rounded-pill px-5'>Submit</button></div>
+                    </div></div>`;
+                new bootstrap.Modal(document.getElementById('quickViewModal')).show();
+            },
+
+            setVariant: function(el, name) {
+                el.parentElement.querySelectorAll('.swatch-item').forEach(s => s.classList.remove('active'));
+                el.classList.add('active');
+                state.selectedVariant.color = name;
+                App.showToast(`Financial System: Selection ${name} synced.`);
+            },
+
+            addToCart: function(globalIdx) {
+                const product = state.catalog[globalIdx];
+                if (!product) return; 
+                const exist = state.cart.find(c => c.title === product.title);
+                if (exist) exist.qty += 1;
+                else state.cart.push({ ...product, qty: 1, variant: state.selectedVariant.color });
+                syncMonolith();
+                App.showToast(`${product.title} has been added to your bag.`);
+                bootstrap.Modal.getInstance(document.getElementById('quickViewModal'))?.hide();
+            },
+
+            updateQuantity: function(idx, delta) {
+                const item = state.cart[idx];
+                if (!item) return;
+                item.qty += delta;
+                if (item.qty <= 0) state.cart.splice(idx, 1);
+                syncMonolith();
+                renderCartView();
+            },
+
+            removeFromCart: function(idx) { state.cart.splice(idx, 1); syncMonolith(); renderCartView(); },
+
+            toggleWishlist: function(idx) {
+                const targetProd = state.catalog[idx];
+                if (!targetProd) return;
+                const wishlistIdx = state.wishlist.findIndex(w => w.title === targetProd.title);
+                if (wishlistIdx > -1) { state.wishlist.splice(wishlistIdx, 1); App.showToast('Removed.'); }
+                else { state.wishlist.push(targetProd); App.showToast('Saved for later!'); }
+                localStorage.setItem('sushi_wishlist', JSON.stringify(state.wishlist));
+                updateGlobalCounters(); renderGridView(state.catalog);
+            },
+
+            addToCompare: function(idx) {
+                if (state.compare.length >= 2) state.compare.shift();
+                state.compare.push(state.catalog[idx]);
+                if (state.compare.length === 2) {
+                    const matrixBody = document.getElementById('compare-body');
+                    const cItems = state.compare;
+                    matrixBody.innerHTML = `<tr><th>Box Selection</th><td><img src="${cItems[0].img}" width="150" class="rounded-5"></td><td><img src="${cItems[1].img}" width="150" class="rounded-5"></td></tr>
+                                     <tr><th>Registry Label</th><td class="fw-bold fs-4">${cItems[0].title}</td><td class="fw-bold fs-4">${cItems[1].title}</td></tr>
+                                     <tr><th>Commercial Finance</th><td class="text-danger fw-bold">${formatPriceString(cItems[0].price)}</td><td class="text-danger fw-bold">${formatPriceString(cItems[1].price)}</td></tr>
+                                     <tr><th>Action</th><td><button class="btn btn-danger btn-sm rounded-pill px-4" onclick="App.addToCartByName('${cItems[0].title}')">Order Left</button></td>
+                                                      <td><button class="btn btn-danger btn-sm rounded-pill px-4" onclick="App.addToCartByName('${cItems[1].title}')">Order Right</button></td></tr>`;
+                    new bootstrap.Modal(document.getElementById('compareModal')).show();
+                } else { App.showToast('Protocol Active: One more item needed.'); }
+            },
+
+            addToCartByName: function(name) {
+                const targetP = state.catalog.find(i => i.title === name);
+                if (targetP) this.addToCart(state.catalog.indexOf(targetP));
+            },
+
+            changeLanguage: function(v) {
+                state.lang = v; localStorage.setItem('sushi_lang', v);
+                applyLanguage(); App.showToast(`System Protocol: Lang set to ${v.toUpperCase()}`);
+            },
+
+            changeCurrency: (c) => {
+                state.currency = c; localStorage.setItem('sushi_currency', c);
+                renderGridView(state.catalog); if(window.location.hash === '#cart') renderCartView();
+                App.showToast(`Financial Layer: Converted to ${c}`);
+            },
+
+            applyPromo: () => {
+                if (document.getElementById('promo-code').value.toUpperCase() === 'SUSHI10') {
+                    state.promo = 0.10; App.showToast('Enterprise Coupon SUSHI10 active (10% Off)!'); renderCartView();
+                }
+            },
+
+            setTip: function(el, val) {
+                state.tip = val;
+                document.querySelectorAll('.tip-pill').forEach(b => b.classList.remove('active'));
+                el.classList.add('active'); renderCartView();
+            },
+
+            setCustomTip: (val) => { state.tip = parseFloat(val) || 0; renderCartView(); },
+
+            toggleTheme: () => {
+                const curTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                document.body.setAttribute('data-theme', curTheme);
+                localStorage.setItem('sushi_theme', curTheme);
+                document.getElementById('theme-icon').className = curTheme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+                document.getElementById('theme-icon-mob').className = curTheme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+            },
+
+            finalizeOrder: function() {
+                const client = document.getElementById('cust-name').value;
+                if(!client) { alert('System Registry: Name required.'); return; }
+                const msg = `*NEW ENTERPRISE ORDER v35.0*%0AClient: ${client}%0AItems: ${state.cart.length}%0ATotal: ${document.getElementById('cart-total-display').innerText}`;
+                window.open(`https://wa.me/212666000000?text=${msg}`, '_blank');
+            },
+
+            handleConditionalForm: () => {
+                document.getElementById('addr-container').style.display = (document.getElementById('order-type').value === 'pickup') ? 'none' : 'block';
+                renderCartView(); 
+            },
+
+            generatePDF: () => { App.showToast('Compiling Invoice PDF Layer...'); setTimeout(() => window.print(), 1200); },
+            exportJSON: () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(state.cart)])); a.download='sushi_registry_v35.json'; a.click(); },
+            importJSON: (e) => { const r = new FileReader(); r.onload = (v) => { state.cart = JSON.parse(v.target.result); syncMonolith(); location.reload(); }; r.readAsText(e.target.files[0]); },
+            showToast: (t) => { document.getElementById('toast-msg').innerText = t; new bootstrap.Toast(document.getElementById('ui-toast')).show(); },
+            triggerSupport: () => window.open('https://wa.me/212666000000', '_blank'),
+            
+            triggerVoiceSearch: () => {
+                if ('webkitSpeechRecognition' in window) {
+                    const voiceRec = new webkitSpeechRecognition();
+                    voiceRec.onresult = (ev) => { document.getElementById('adv-search').value = ev.results[0][0].transcript; App.handleSearch(); };
+                    voiceRec.start(); App.showToast('Voice Matrix 2.0 Active...');
+                }
+            },
+
+            toggleAdminDashboard: () => { window.location.hash = '#admin'; },
+            setMaintenance: (mode) => { state.settings.maintenance = mode; document.getElementById('maint-overlay').style.display = mode ? 'flex' : 'none'; },
+
+            init: init
+        };
+
+        function syncMonolith() {
+            localStorage.setItem('sushi_cart', JSON.stringify(state.cart));
+            updateGlobalCounters();
+        }
+
+        function updateGlobalCounters() {
+            const unitCountTotal = state.cart.reduce((a, b) => a + Number(b.qty), 0);
+            ['cart-count'].forEach(id => { if(document.getElementById(id)) document.getElementById(id).innerText = unitCountTotal; });
+            ['wish-count', 'wish-count-mob'].forEach(id => { if(document.getElementById(id)) document.getElementById(id).innerText = state.wishlist.length; });
+        }
+
+        function formatPriceString(val) {
+            const result = Number(val) * state.rates[state.currency];
+            return isNaN(result) ? "0.00 " + state.currency : `${result.toFixed(2)} ${state.currency}`;
+        }
+
+        function checkAbandonedSession() {
+            if (state.cart.length > 0) document.getElementById('abandoned-alert')?.classList.remove('d-none');
+        }
+
+        function initializeSocialProofEngine() {
+            const userNames = ['Mohamed', 'Sarah', 'Amine', 'Yasmine', 'Omar'];
+            setInterval(() => {
+                if(state.catalog.length > 0) {
+                    const u = userNames[Math.floor(Math.random()*userNames.length)];
+                    const p = state.catalog[Math.floor(Math.random()*state.catalog.length)];
+                    if(p && p.img) {
+                       document.getElementById('proof-img').src = p.img;
+                       document.getElementById('proof-text').innerText = `${u} just ordered their ${p.title} box!`;
+                       document.getElementById('social-proof').classList.add('active');
+                       setTimeout(() => document.getElementById('social-proof').classList.remove('active'), 6000);
+                    }
+                }
+            }, 45000);
+        }
+
+    })();
+
+    // --- MONOLITH EXECUTION ---
+    document.addEventListener('DOMContentLoaded', App.init);
+    window.addEventListener('scroll', () => {
+        const scrolledPct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        document.getElementById("scroll-fill").style.width = scrolledPct + "%";
+    });
+    //]]>
+    </script>
+</body>
+</html>
