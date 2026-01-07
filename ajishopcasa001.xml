@@ -1,0 +1,1523 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=5' name='viewport'/>
+    <title>Aji Shop Casa | High-End Fashion Store</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+    
+    <!-- Dependencies -->
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css' rel='stylesheet'/>
+    <link href='https://unpkg.com/aos@2.3.1/dist/aos.css' rel='stylesheet'/>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;family=JetBrains+Mono:wght@400&amp;display=swap' rel='stylesheet'/>
+    <script src='https://unpkg.com/aos@2.3.1/dist/aos.js'/>
+    
+    <!-- REQUIRED BLOGGER SKIN (ONE SKIN ONLY) -->
+    <b:skin><![CDATA[
+        /* --- SOLID UI & VARIABLES --- */
+        :root {
+            --bg-body: #f8f9fa;
+            --bg-card: #ffffff;
+            --bg-header: #ffffff;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --accent: #222222;
+            --accent-hover: #000000;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --success: #198754;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body { background: var(--bg-body); font-family: var(--font-main); color: var(--text-main); padding-top: 80px; }
+        
+        /* NO BLUR POLICY */
+        header, .modal-content, .offcanvas { background: var(--bg-card) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+        
+        /* Layout */
+        .navbar { background: var(--bg-header); border-bottom: 1px solid #eee; padding: 1rem 0; position: fixed; top: 0; width: 100%; z-index: 1000; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        
+        /* Cards */
+        .card-product { border: 1px solid #eee; transition: transform 0.2s; position: relative; background: var(--bg-card); overflow: hidden; }
+        .card-product:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .card-img-wrapper { position: relative; padding-top: 125%; /* 4:5 Aspect Ratio for Fashion */ overflow: hidden; background: #f0f0f0; }
+        .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease; }
+        .card-actions { position: absolute; bottom: -50px; left: 0; width: 100%; display: flex; justify-content: center; gap: 10px; padding: 10px; background: rgba(255,255,255,0.9); transition: bottom 0.3s; }
+        .card-product:hover .card-actions { bottom: 0; }
+        
+        /* Badges */
+        .badge-stock { position: absolute; top: 10px; left: 10px; z-index: 2; font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; font-weight: 600; }
+        .bg-low-stock { background-color: var(--warning); color: #000; }
+        .bg-sold-out { background-color: var(--danger); color: #fff; }
+
+        /* Skeletons */
+        .skeleton { background: #e0e0e0; border-radius: 4px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+        
+        /* Fly-to-Cart Element */
+        .fly-img { position: fixed; z-index: 9999; transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); border-radius: 50%; pointer-events: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        /* Utilities */
+        .cursor-pointer { cursor: pointer; }
+        .text-truncate-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .hide { display: none !important; }
+        
+        /* Scroll Sentinel */
+        #scroll-sentinel { height: 50px; display: flex; align-items: center; justify-content: center; margin: 20px 0; }
+
+        /* Toast Container */
+        .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 1060; }
+    ]]></b:skin>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class='container d-flex align-items-center justify-content-between'>
+            <a class='navbar-brand fw-bold fs-4' href='#'>AJI SHOP CASA</a>
+            
+            <div class='d-flex align-items-center gap-3'>
+                <button class='btn btn-link text-dark position-relative' onclick='App.Router.go(&quot;wishlist&quot;)'>
+                    <i class='bi bi-heart fs-5'/>
+                    <span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger' id='header-wish-count'>0</span>
+                </button>
+                <button class='btn btn-link text-dark position-relative' onclick='App.UI.toggleCart()'>
+                    <i class='bi bi-bag fs-5'/>
+                    <span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark' id='header-cart-count'>0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class='container py-4'>
+        
+        <!-- FILTERS (Skeleton initially) -->
+        <div class='mb-4' id='filter-container'>
+            <div class='d-flex gap-2 overflow-auto pb-2 skeleton' style='height: 40px; width: 100%;'/>
+        </div>
+
+        <!-- CATALOG GRID -->
+        <div class='product-grid' id='catalog-grid'>
+            <!-- Products injected here -->
+        </div>
+        
+        <!-- SCROLL SENTINEL -->
+        <div id='scroll-sentinel'>
+            <div class='spinner-border text-secondary' role='status'/>
+        </div>
+
+    </main>
+
+    <!-- CART OFFCANVAS -->
+    <div class='offcanvas offcanvas-end' id='cartOffcanvas' tabindex='-1'>
+        <div class='offcanvas-header border-bottom'>
+            <h5 class='offcanvas-title'>Shopping Cart</h5>
+            <button class='btn-close' data-bs-dismiss='offcanvas' type='button'/>
+        </div>
+        <div class='offcanvas-body d-flex flex-column'>
+            <div class='flex-grow-1 overflow-auto' id='cart-items-container'>
+                <!-- Cart Items -->
+                <div class='text-center text-muted mt-5'>Your cart is empty.</div>
+            </div>
+            <div class='border-top pt-3 mt-3'>
+                <div class='d-flex justify-content-between fw-bold fs-5 mb-3 skeleton' id='cart-total-display'>
+                    <span>Total</span>
+                    <span>$0.00</span>
+                </div>
+                <button class='btn btn-dark w-100 py-3'>CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUICKVIEW MODAL -->
+    <!-- Removed static aria-hidden to fix focus warning -->
+    <div class='modal fade' id='quickViewModal' tabindex='-1'>
+        <div class='modal-dialog modal-lg modal-dialog-centered'>
+            <div class='modal-content'>
+                <div class='modal-body p-0'>
+                    <button class='btn-close position-absolute top-0 end-0 m-3 z-3' data-bs-dismiss='modal' type='button'/>
+                    <div class='row g-0'>
+                        <div class='col-md-6 bg-light d-flex align-items-center justify-content-center p-4'>
+                            <img alt='Product' class='img-fluid rounded skeleton' id='qv-img' src=''/>
+                        </div>
+                        <div class='col-md-6 p-4 d-flex flex-column'>
+                            <span class='text-uppercase text-muted small fw-bold ls-1 mb-2 skeleton' id='qv-cat'>Category</span>
+                            <h2 class='fw-bold mb-2 skeleton' id='qv-title'>Product Title</h2>
+                            <h3 class='h4 mb-3 skeleton' id='qv-price'>$0.00</h3>
+                            
+                            <div class='text-muted small mb-4 skeleton' id='qv-desc'>Description goes here.</div>
+                            
+                            <!-- Variants -->
+                            <div class='mb-3'>
+                                <label class='form-label small fw-bold'>SELECT SIZE</label>
+                                <div class='d-flex gap-2' id='qv-variants'>
+                                    <!-- Buttons injected via JS -->
+                                </div>
+                            </div>
+                            
+                            <!-- Actions -->
+                            <div class='d-flex gap-2 mb-4'>
+                                <input class='form-control' id='qv-qty' min='1' style='max-width: 60px;' type='number' value='1'/>
+                                <button class='btn btn-dark flex-grow-1' id='qv-add-btn'>ADD TO CART</button>
+                            </div>
+                            
+                            <!-- Stock Status -->
+                            <div class='small mb-4' id='qv-stock-msg'/>
+
+                            <!-- Related Products -->
+                            <div class='mt-auto'>
+                                <label class='form-label small fw-bold text-muted'>YOU MIGHT LIKE</label>
+                                <div class='d-flex gap-2' id='qv-related'/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WISHLIST / PROFILE PAGE (Initially Hidden) -->
+    <section class='container py-4 hide' id='page-profile'>
+        <h2 class='mb-4'>My Profile</h2>
+        <ul class='nav nav-tabs mb-4' id='profileTabs' role='tablist'>
+            <li class='nav-item'><button class='nav-link active' data-bs-target='#tab-history' data-bs-toggle='tab'>Order History</button></li>
+            <li class='nav-item'><button class='nav-link' data-bs-target='#tab-wishlist' data-bs-toggle='tab'>Wishlist</button></li>
+        </ul>
+        <div class='tab-content'>
+            <div class='tab-pane fade show active' id='tab-history'>
+                <table class='table table-borderless'>
+                    <thead><tr><th>Date</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+                    <tbody id='history-table-body'>
+                        <!-- Skeleton Rows -->
+                        <tr><td class='py-4' colspan='4'><div class='skeleton w-100' style='height: 40px;'/></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class='tab-pane fade' id='tab-wishlist'>
+                <div class='d-flex justify-content-between mb-3'>
+                    <h5>Saved Items</h5>
+                    <button class='btn btn-sm btn-outline-danger' onclick='App.Wishlist.clearAll()'>Empty All</button>
+                </div>
+                <div class='product-grid' id='wishlist-grid'/>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class='bg-dark text-white py-5 mt-5'>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-4'>
+                    <h5 class='fw-bold mb-3'>AJI SHOP CASA</h5>
+                    <p class='text-white-50 small'>High-end fashion, powered by Blogger XML v3.</p>
+                </div>
+                <div class='col-md-4'>
+                    <h6 class='text-uppercase small fw-bold ls-1 mb-3'>Customer Care</h6>
+                    <ul class='list-unstyled text-white-50 small'>
+                        <li><a class='text-white-50 text-decoration-none' href='#'>Shipping &amp; Returns</a></li>
+                        <li><a class='text-white-50 text-decoration-none' href='#'>Size Guide</a></li>
+                        <li><a class='text-white-50 text-decoration-none' href='#'>Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class='col-md-4'>
+                    <h6 class='text-uppercase small fw-bold ls-1 mb-3'>Newsletter</h6>
+                    <div class='input-group mb-3'>
+                        <input class='form-control' placeholder='Email Address' type='text'/>
+                        <button class='btn btn-light' type='button'>JOIN</button>
+                    </div>
+                </div>
+            </div>
+            <div class='border-top border-secondary mt-4 pt-4 text-center text-white-50 small'>
+                &amp;copy; 2026 Aji Shop Casa. Built with Blogger XML v3.
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOAST CONTAINER -->
+    <div class='toast-container' id='toast-container'/>
+
+    <!-- HIDDEN BLOGGER WIDGET (Required for API) -->
+    <b:section id='hidden-api-section' showaddelement='no'>
+      <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
+        <b:widget-settings>
+          <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+          <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
+          <b:widget-setting name='showShareButtons'>true</b:widget-setting>
+          <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+          <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
+          <b:widget-setting name='showAuthor'>false</b:widget-setting>
+          <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
+          <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+          <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+          <b:widget-setting name='timestampLabel'/>
+          <b:widget-setting name='reactionsLabel'/>
+          <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+          <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+          <b:widget-setting name='showLabels'>true</b:widget-setting>
+          <b:widget-setting name='showLocation'>true</b:widget-setting>
+          <b:widget-setting name='postLabelsLabel'/>
+          <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+          <b:widget-setting name='postsPerAd'>3</b:widget-setting>
+          <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+          <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+          <b:widget-setting name='showInlineAds'>true</b:widget-setting>
+          <b:widget-setting name='showReactions'>false</b:widget-setting>
+        </b:widget-settings>
+        <b:includable id='main'>
+                <!-- Content is handled by JS API callback -->
+            </b:includable>
+        <b:includable id='aboutPostAuthor'>
+  <div class='author-name'>
+    <a class='g-profile' expr:href='data:post.author.profileUrl' rel='author' title='author profile'>
+      <span>
+        <data:post.author.name/>
+      </span>
+    </a>
+  </div>
+  <div>
+    <span class='author-desc'>
+      <data:post.author.aboutMe/>
+    </span>
+  </div>
+</b:includable>
+        <b:includable id='addComments'>
+  <a expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:message name='messages.postAComment'/>
+  </a>
+</b:includable>
+        <b:includable id='blogThisShare'>
+  <b:with value='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=270,width=475\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+        <b:includable id='bylineByName' var='byline'>
+  <b:switch var='data:byline.name'>
+  <b:case value='share'/>
+    <b:include cond='data:post.shareUrl' name='postShareButtons'/>
+  <b:case value='comments'/>
+    <b:include cond='data:post.allowComments' name='postCommentsLink'/>
+  <b:case value='location'/>
+    <b:include cond='data:post.location' name='postLocation'/>
+  <b:case value='timestamp'/>
+    <b:include cond='not data:view.isPage' name='postTimestamp'/>
+  <b:case value='author'/>
+    <b:include name='postAuthor'/>
+  <b:case value='labels'/>
+    <b:include cond='data:post.labels' name='postLabels'/>
+  <b:case value='icons'/>
+    <b:include cond='data:post.emailPostUrl' name='emailPostIcon'/>
+  </b:switch>
+</b:includable>
+        <b:includable id='bylineRegion' var='regionItems'>
+  <b:loop values='data:regionItems' var='byline'>
+    <b:include data='byline' name='bylineByName'/>
+  </b:loop>
+</b:includable>
+        <b:includable id='commentAuthorAvatar'>
+  <div class='avatar-image-container'>
+    <img class='author-avatar' expr:src='data:comment.authorAvatarSrc' height='35' width='35'/>
+  </div>
+</b:includable>
+        <b:includable id='commentDeleteIcon' var='comment'>
+  <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+    <b:if cond='data:showCmtPopup'>
+      <div class='goog-toggle-button'>
+        <div class='goog-inline-block comment-action-icon'/>
+      </div>
+    <b:else/>
+      <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:messages.deleteComment'>
+        <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+        <b:includable id='commentForm' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+    <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+      <p><data:this.messages.blogComment/></p>
+    </b:if>
+    <b:include data='post' name='commentFormIframeSrc'/>
+    <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+        <b:includable id='commentFormIframeSrc' var='post'>
+  <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+</b:includable>
+        <b:includable id='commentItem' var='comment'>
+  <div class='comment' expr:id='&quot;c&quot; + data:comment.id'>
+    <b:include cond='data:blog.enabledCommentProfileImages' name='commentAuthorAvatar'/>
+
+    <div class='comment-block'>
+      <div class='comment-author'>
+        <b:if cond='data:comment.authorUrl'>
+          <b:message name='messages.authorSaidWithLink'>
+            <b:param expr:value='data:comment.author' name='authorName'/>
+            <b:param expr:value='data:comment.authorUrl' name='authorUrl'/>
+          </b:message>
+        <b:else/>
+          <b:message name='messages.authorSaid'>
+            <b:param expr:value='data:comment.author' name='authorName'/>
+          </b:message>
+        </b:if>
+      </div>
+      <div expr:class='&quot;comment-body&quot; + (data:comment.isDeleted ? &quot; deleted&quot; : &quot;&quot;)'>
+        <data:comment.body/>
+      </div>
+      <div class='comment-footer'>
+        <span class='comment-timestamp'>
+          <a expr:href='data:comment.url' title='comment permalink'>
+            <data:comment.timestamp/>
+          </a>
+          <b:include data='comment' name='commentDeleteIcon'/>
+        </span>
+      </div>
+    </div>
+  </div>
+</b:includable>
+        <b:includable id='commentList' var='comments'>
+  <div id='comments-block'>
+    <b:loop values='data:comments' var='comment'>
+      <b:include data='comment' name='commentItem'/>
+    </b:loop>
+  </div>
+</b:includable>
+        <b:includable id='commentPicker' var='post'>
+  <b:if cond='data:post.showThreadedComments'>
+    <b:include data='post' name='threadedComments'/>
+  <b:else/>
+    <b:include data='post' name='comments'/>
+  </b:if>
+</b:includable>
+        <b:includable id='comments' var='post'>
+  <section expr:class='&quot;comments&quot; + (data:post.embedCommentForm ? &quot; embed&quot; : &quot;&quot;)' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
+
+      <b:include name='commentsTitle'/>
+
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <b:include cond='data:post.comments' data='post.comments' name='commentList'/>
+      </div>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <div class='paging-control-container'>
+          <b:if cond='data:post.hasOlderLinks'>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+              <data:messages.oldest/>
+            </a>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+              <data:messages.older/>
+            </a>
+          </b:if>
+
+          <span class='comment-range-text'>
+            <data:post.commentRangeText/>
+          </span>
+
+          <b:if cond='data:post.hasNewerLinks'>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+              <data:messages.newer/>
+            </a>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+              <data:messages.newest/>
+            </a>
+          </b:if>
+        </div>
+      </b:if>
+
+      <div class='footer'>
+        <b:if cond='data:post.embedCommentForm'>
+          <b:if cond='data:post.allowNewComments'>
+            <b:include data='post' name='commentForm'/>
+          <b:else/>
+            <data:post.noNewCommentsText/>
+          </b:if>
+        <b:else/>
+          <b:if cond='data:post.allowComments'>
+            <b:include data='post' name='addComments'/>
+          </b:if>
+        </b:if>
+      </div>
+    </b:if>
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
+</b:includable>
+        <b:includable id='commentsLink'>
+  <a class='comment-link' expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:if cond='data:post.numberOfComments &gt; 0'>
+      <b:message name='messages.numberOfComments'>
+        <b:param expr:value='data:post.numberOfComments' name='numComments'/>
+      </b:message>
+    <b:else/>
+      <data:messages.postAComment/>
+    </b:if>
+  </a>
+</b:includable>
+        <b:includable id='commentsLinkIframe'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+        <b:includable id='commentsTitle'>
+  <h3 class='title'><data:messages.comments/></h3>
+</b:includable>
+        <b:includable id='defaultAdUnit'>
+  <ins class='adsbygoogle' data-ad-format='auto' expr:data-ad-client='data:adClientId ?: data:blog.adsenseClientId' expr:data-ad-host='data:blog.adsenseHostId' expr:style='data:style ?: &quot;display: block;&quot;'>
+    <b:attr cond='not data:blog.analytics4' expr:value='data:blog.analyticsAccountNumber' name='data-analytics-uacct'/>
+  </ins>
+  <script>
+   (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</b:includable>
+        <b:includable id='emailPostIcon'>
+  <span class='byline post-icons'>
+    <!-- email post links -->
+    <span class='item-action'>
+      <a expr:href='data:post.emailPostUrl' expr:title='data:messages.emailPost'>
+        <b:include data='{ iconClass: &quot;touch-icon sharing-icon&quot; }' name='emailIcon'/>
+      </a>
+    </span>
+  </span>
+</b:includable>
+        <b:includable id='facebookShare'>
+  <b:with value='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+        <b:includable id='feedLinks'>
+  <b:if cond='!data:view.isPost'> <!-- Blog feed links -->
+    <b:if cond='data:feedLinks'>
+      <div class='blog-feeds'>
+        <b:include data='feedLinks' name='feedLinksBody'/>
+      </div>
+    </b:if>
+  <b:else/> <!--Post feed links -->
+    <div class='post-feeds'>
+      <b:loop values='data:posts' var='post'>
+        <b:if cond='data:post.allowComments and data:post.feedLinks'>
+          <b:include data='post.feedLinks' name='feedLinksBody'/>
+        </b:if>
+      </b:loop>
+    </div>
+  </b:if>
+</b:includable>
+        <b:includable id='feedLinksBody' var='links'>
+  <div class='feed-links'>
+  <data:messages.subscribeTo/>
+  <b:loop values='data:links' var='f'>
+     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
+  </b:loop>
+  </div>
+</b:includable>
+        <b:includable id='footerBylines'>
+  <b:if cond='data:widgets.Blog.first.footerBylines'>
+    <b:loop index='i' values='data:widgets.Blog.first.footerBylines' var='region'>
+      <b:if cond='not data:region.items.empty'>
+        <div expr:class='&quot;post-footer-line post-footer-line-&quot; + (data:i + 1)'>
+          <b:with value='&quot;footer-&quot; + (data:i + 1)' var='regionName'>
+            <b:include data='region.items' name='bylineRegion'/>
+          </b:with>
+        </div>
+      </b:if>
+    </b:loop>
+  </b:if>
+</b:includable>
+        <b:includable id='googlePlusShare'>
+</b:includable>
+        <b:includable id='headerByline'>
+  <b:if cond='data:widgets.Blog.first.headerByline'>
+    <div class='post-header'>
+      <div class='post-header-line-1'>
+        <b:with value='&quot;header-1&quot;' var='regionName'>
+          <b:include data='data:widgets.Blog.first.headerByline.items' name='bylineRegion'/>
+        </b:with>
+      </div>
+    </div>
+  </b:if>
+</b:includable>
+        <b:includable id='homePageLink'>
+  <a class='home-link' expr:href='data:blog.homepageUrl'>
+    <data:messages.home/>
+  </a>
+</b:includable>
+        <b:includable id='iframeComments' var='post'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+        <b:includable id='inlineAd' var='post'>
+  <b:if cond='!data:view.isPreview'>
+    <b:if cond='data:this.adCode or data:this.adClientId or data:blog.adsenseClientId'>
+      <!-- Ad -->
+      <div class='inline-ad'>
+        <b:if cond='data:this.adCode != &quot;&quot;'>
+          <data:this.adCode/>
+        <b:else/>
+          <b:include cond='data:this.adClientId or data:blog.adsenseClientId' name='defaultAdUnit'/>
+        </b:if>
+      </div>
+    </b:if>
+  <b:else/>
+    <div class='inline-ad'>
+      <div class='inline-ad-placeholder'>
+        <span><b:message name='messages.adsGoHere'/></span>
+      </div>
+    </div>
+  </b:if>
+</b:includable>
+        <b:includable id='linkShare'>
+  <b:with value='&quot;window.prompt(\&quot;Copy to clipboard: Ctrl+C, Enter\&quot;, \&quot;&quot; + data:originalUrl + &quot;\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+        <b:includable id='nextPageLink'>
+  <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:messages.olderPosts'>
+    <data:messages.olderPosts/>
+  </a>
+</b:includable>
+        <b:includable id='otherSharingButton'>
+  <span class='sharing-platform-button sharing-element-other' expr:aria-label='data:messages.shareToOtherApps.escaped' expr:data-url='data:originalUrl' expr:title='data:messages.shareToOtherApps.escaped' role='menuitem' tabindex='-1'>
+    <b:with value='{key: &quot;sharingOther&quot;}' var='platform'>
+      <b:include name='sharingPlatformIcon'/>
+    </b:with>
+    <span class='platform-sharing-text'><data:messages.shareOtherApps.escaped/></span>
+  </span>
+</b:includable>
+        <b:includable id='platformShare'>
+  <a expr:class='&quot;goog-inline-block sharing-&quot; + data:platform.key' expr:data-url='data:originalUrl' expr:href='data:shareUrl + &quot;&amp;target=&quot; + data:platform.target' expr:onclick='data:onclick ? data:onclick : &quot;&quot;' expr:title='data:platform.shareMessage' target='_blank'>
+    <span class='share-button-link-text'>
+      <data:platform.shareMessage/>
+    </span>
+  </a>
+</b:includable>
+        <b:includable id='post' var='post'>
+  <div class='post'>
+    <b:include data='post' name='postMeta'/>
+    <b:include data='post' name='postTitle'/>
+    <b:include name='headerByline'/>
+    <b:if cond='data:view.isSingleItem'>
+      <b:include data='post' name='postBody'/>
+    <b:else/>
+      <b:include data='post' name='postBodySnippet'/>
+      <b:include data='post' name='postJumpLink'/>
+    </b:if>
+    <b:include data='post' name='postFooter'/>
+  </div>
+</b:includable>
+        <b:includable id='postAuthor'>
+  <span class='byline post-author vcard'>
+    <span class='post-author-label'>
+      <data:byline.label/>
+    </span>
+    <span class='fn'>
+      <b:if cond='data:post.author.profileUrl'>
+        <meta expr:content='data:post.author.profileUrl'/>
+        <a class='g-profile' expr:href='data:post.author.profileUrl' rel='author' title='author profile'>
+          <span><data:post.author.name/></span>
+        </a>
+      <b:else/>
+        <span><data:post.author.name/></span>
+      </b:if>
+    </span>
+  </span>
+</b:includable>
+        <b:includable id='postBody' var='post'>
+  <!-- If metaDescription is empty, use the post body as the schema.org description too, for G+/FB snippeting. -->
+  <div class='post-body entry-content float-container' expr:id='&quot;post-body-&quot; + data:post.id'>
+    <data:post.body/>
+  </div>
+</b:includable>
+        <b:includable id='postBodySnippet' var='post'>
+  <b:include data='post' name='postBody'/>
+</b:includable>
+        <b:includable id='postCommentsAndAd' var='post'>
+  <article class='post-outer-container'>
+    <!-- Post title and body -->
+    <div class='post-outer'>
+      <b:include data='post' name='post'/>
+    </div>
+
+    <!-- Comments -->
+    <b:include cond='data:view.isSingleItem' data='post' name='commentPicker'/>
+
+    <!-- Show ad inside post container, after comments, if single item. -->
+    <b:include cond='data:view.isSingleItem and data:post.includeAd' data='post' name='inlineAd'/>
+  </article>
+
+  <!-- Show ad outside post container (between posts) for feed pages. -->
+  <b:include cond='data:view.isMultipleItems and data:post.includeAd' data='post' name='inlineAd'/>
+</b:includable>
+        <b:includable id='postCommentsLink'>
+  <b:if cond='data:view.isMultipleItems'>
+    <span class='byline post-comment-link container'>
+      <b:include cond='data:post.commentSource != 1' name='commentsLink'/>
+    </span>
+  </b:if>
+</b:includable>
+        <b:includable id='postFooter' var='post'>
+  <div class='post-footer'>
+    <b:include name='footerBylines'/>
+    <b:include data='post' name='postFooterAuthorProfile'/>
+  </div>
+</b:includable>
+        <b:includable id='postFooterAuthorProfile' var='post'>
+  <b:if cond='data:post.author.aboutMe and data:view.isPost'>
+    <div class='author-profile'>
+      <b:if cond='data:post.author.authorPhoto.url'>
+        <img class='author-image' expr:src='data:post.author.authorPhoto.url' width='50px'/>
+        <div class='author-about'>
+          <b:include data='post' name='aboutPostAuthor'/>
+        </div>
+      <b:else/>
+        <b:include data='post' name='aboutPostAuthor'/>
+      </b:if>
+    </div>
+  </b:if>
+</b:includable>
+        <b:includable id='postHeader' var='post'>
+  <b:include name='headerByline'/>
+</b:includable>
+        <b:includable id='postJumpLink' var='post'>
+  <div class='jump-link flat-button'>
+    <a expr:href='data:post.url fragment &quot;more&quot;' expr:title='data:post.title'>
+      <b:eval expr='data:blog.jumpLinkMessage'/>
+    </a>
+  </div>
+</b:includable>
+        <b:includable id='postLabels'>
+  <span class='byline post-labels'>
+    <span class='byline-label'><data:byline.label/></span>
+    <b:loop index='i' values='data:post.labels' var='label'>
+      <a expr:href='data:label.url' rel='tag'>
+        <data:label.name/>
+      </a>
+    </b:loop>
+  </span>
+</b:includable>
+        <b:includable id='postLocation'>
+  <span class='byline post-location'>
+    <data:byline.label/>
+    <a expr:href='data:post.location.mapsUrl' target='_blank'><data:post.location.name/></a>
+  </span>
+</b:includable>
+        <b:includable id='postMeta' var='post'>
+  <b:include data='post' name='postMetadataJSON'/>
+</b:includable>
+        <b:includable id='postMetadataJSONImage'>
+  &quot;image&quot;: {
+    &quot;@type&quot;: &quot;ImageObject&quot;,
+    <b:if cond='data:post.featuredImage.isResizable'>
+    &quot;url&quot;: &quot;<b:eval expr='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)'/>&quot;,
+    &quot;height&quot;: 630,
+    &quot;width&quot;: 1200
+    <b:else/>
+    &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/w1200/&quot;,
+    &quot;height&quot;: 348,
+    &quot;width&quot;: 1200
+    </b:if>
+  },
+</b:includable>
+        <b:includable id='postMetadataJSONPublisher'>
+ &quot;publisher&quot;: {
+    &quot;@type&quot;: &quot;Organization&quot;,
+    &quot;name&quot;: &quot;Blogger&quot;,
+    &quot;logo&quot;: {
+      &quot;@type&quot;: &quot;ImageObject&quot;,
+      &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/h60/&quot;,
+      &quot;width&quot;: 206,
+      &quot;height&quot;: 60
+    }
+  },
+</b:includable>
+        <b:includable id='postPagination'>
+  <div class='blog-pager container' id='blog-pager'>
+    <b:include cond='data:newerPageUrl' name='previousPageLink'/>
+    <b:include cond='data:olderPageUrl' name='nextPageLink'/>
+    <b:include cond='data:view.url != data:blog.homepageUrl' name='homePageLink'/>
+  </div>
+</b:includable>
+        <b:includable id='postReactions'>
+  <!-- Reaction feature no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+        <b:includable id='postShareButtons'>
+  <div class='byline post-share-buttons goog-inline-block'>
+    <b:with value='data:sharingId ?: ((data:widget.instanceId ?: &quot;sharing&quot;) + &quot;-&quot; + (data:regionName ?: &quot;byline&quot;) + &quot;-&quot; + data:post.id)' var='sharingId'>
+      <!-- Note: 'sharingButtons' includable is from the default Sharing widget markup. -->
+      <b:include data='{                                                sharingId: data:sharingId,                                                originalUrl: data:post.url,                                                platforms: data:this.sharing.platforms,                                                shareUrl: data:post.shareUrl,                                                shareTitle: data:post.title,                                              }' name='sharingButtons'/>
+    </b:with>
+  </div>
+</b:includable>
+        <b:includable id='postTimestamp'>
+  <span class='byline post-timestamp'>
+    <data:byline.label/>
+    <b:if cond='data:post.url'>
+      <meta expr:content='data:post.url.canonical'/>
+      <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'>
+        <time class='published' expr:datetime='data:post.date.iso8601' expr:title='data:post.date.iso8601'>
+          <data:post.date/>
+        </time>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+        <b:includable id='postTitle' var='post'>
+  <a expr:name='data:post.id'/>
+  <b:if cond='data:post.title != &quot;&quot;'>
+    <h3 class='post-title entry-title'>
+      <b:if cond='data:post.link or (data:post.url and data:view.url != data:post.url)'>
+        <a expr:href='data:post.link ?: data:post.url'><data:post.title/></a>
+      <b:else/>
+        <data:post.title/>
+      </b:if>
+    </h3>
+  </b:if>
+</b:includable>
+        <b:includable id='previousPageLink'>
+  <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:messages.newerPosts'>
+    <data:messages.newerPosts/>
+  </a>
+</b:includable>
+        <b:includable id='sharingButton'>
+  <span expr:aria-label='data:platform.shareMessage' expr:class='&quot;sharing-platform-button sharing-element-&quot; + data:platform.key' expr:data-href='data:shareUrl + &quot;&amp;target=&quot; + data:platform.target' expr:data-url='data:originalUrl' expr:title='data:platform.shareMessage' role='menuitem' tabindex='-1'>
+    <b:include name='sharingPlatformIcon'/>
+    <span class='platform-sharing-text'><data:platform.name/></span>
+  </span>
+</b:includable>
+        <b:includable id='sharingButtonContent'>
+  <div class='flat-icon-button ripple'>
+    <b:include name='shareIcon'/>
+  </div>
+</b:includable>
+        <b:includable id='sharingButtons'>
+  <div class='sharing' expr:aria-owns='&quot;sharing-popup-&quot; + data:sharingId' expr:data-title='data:shareTitle'>
+    <button class='sharing-button touch-icon-button' expr:aria-controls='&quot;sharing-popup-&quot; + data:sharingId' expr:aria-label='data:messages.share.escaped' expr:id='&quot;sharing-button-&quot; + data:sharingId' role='button'>
+      <b:include name='sharingButtonContent'/>
+    </button>
+    <b:include name='sharingButtonsMenu'/>
+  </div>
+</b:includable>
+        <b:includable id='sharingButtonsMenu'>
+  <div class='share-buttons-container'>
+    <ul aria-hidden='true' class='share-buttons hidden' expr:aria-label='data:messages.share.escaped' expr:id='&quot;sharing-popup-&quot; + data:sharingId' role='menu'>
+      <b:loop values='(data:platforms ?: data:blog.sharing.platforms) filter (p =&gt; p.key not in {&quot;blogThis&quot;})' var='platform'>
+        <li>
+          <b:include name='sharingButton'/>
+        </li>
+      </b:loop>
+      <li aria-hidden='true' class='hidden'>
+        <b:include name='otherSharingButton'/>
+      </li>
+    </ul>
+  </div>
+</b:includable>
+        <b:includable id='sharingPlatformIcon'>
+  <b:include data='{ iconClass: (&quot;touch-icon sharing-&quot; + data:platform.key) }' expr:name='data:platform.key + &quot;Icon&quot;'/>
+</b:includable>
+        <b:includable id='threadedCommentForm' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+    <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+      <p><data:this.messages.blogComment/></p>
+    </b:if>
+    <b:include data='post' name='commentFormIframeSrc'/>
+    <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+        <b:includable id='threadedCommentJs' var='post'>
+  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+  <b:template-script inline='true' name='threaded_comments'/>
+  <script type='text/javascript'>
+    blogger.widgets.blog.initThreadedComments(
+        <data:post.commentJso/>,
+        <data:post.commentMsgs/>,
+        <data:post.commentConfig/>);
+  </script>
+</b:includable>
+        <b:includable id='threadedComments' var='post'>
+  <section class='comments threaded' expr:data-embed='data:post.embedCommentForm' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+
+    <b:include name='commentsTitle'/>
+
+    <div class='comments-content'>
+      <b:if cond='data:post.embedCommentForm'>
+        <b:include data='post' name='threadedCommentJs'/>
+      </b:if>
+      <div id='comment-holder'>
+         <data:post.commentHtml/>
+      </div>
+    </div>
+
+    <p class='comment-footer'>
+      <b:if cond='data:post.allowNewComments'>
+        <b:include data='post' name='threadedCommentForm'/>
+      <b:else/>
+        <data:post.noNewCommentsText/>
+      </b:if>
+      <b:if cond='data:post.showManageComments'>
+        <b:include data='post' name='manageComments'/>
+      </b:if>
+    </p>
+
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
+</b:includable>
+        <b:includable id='tooltipCss'>
+  <!-- LINT.IfChange -->
+  <style>
+    .post-body a.b-tooltip-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .post-body a.b-tooltip-container .b-tooltip {
+      display: block !important;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-20%, 1px);
+      visibility: hidden;
+      opacity: 0;
+      z-index: 1;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .post-body a.b-tooltip-container .b-tooltip iframe {
+      width: 200px;
+      height: 198px;
+      max-width: none;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (hover: hover) {
+      .post-body a.b-tooltip-container:hover .b-tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  </style>
+  <!-- LINT.ThenChange(//depot/google3/java/com/google/blogger/b2/layouts/widgets/v2-style.css) -->
+</b:includable>
+      </b:widget>
+    </b:section>
+
+    <!-- JAVASCRIPT MODULES -->
+    <script>
+    //<![CDATA[
+    
+    /**
+     * @namespace App
+     * @description Main Application Module for Aji Shop Casa
+     */
+    const App = {
+        State: {
+            products: [],     // All fetched products
+            displayed: 0,     // How many items are currently in DOM
+            batchSize: 20,    // Virtual scroll batch size
+            cart: [],         // Cart items
+            wishlist: [],     // Wishlist indices
+            currency: '$',
+            currentProduct: null // For QuickView
+        },
+
+        /**
+         * @namespace App.Utils
+         * @description Utility functions for sanitization and formatting
+         */
+        Utils: {
+            /**
+             * @description Escapes quotes and backticks to prevent HTML injection
+             * @param {string} str - Input string
+             * @returns {string} Sanitized string
+             */
+            safeStr: (str) => {
+                if (!str) return '';
+                return str.toString().replace(/`/g, '&#96;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+            },
+
+            /**
+             * @description Formats currency
+             * @param {number} num - Price
+             * @returns {string} Formatted string
+             */
+            formatCurrency: (num) => {
+                return App.State.currency + parseFloat(num).toFixed(2);
+            },
+
+            /**
+             * @description Generates a consistent random image based on seed
+             * @param {string} seed - Unique ID
+             * @param {number} w - Width
+             * @param {number} h - Height
+             * @returns {string} URL
+             */
+            getPlaceholder: (seed, w, h) => `https://picsum.photos/seed/${seed}/${w}/${h}.jpg`
+        },
+
+        /**
+         * @namespace App.Seo
+         * @description Handles Schema.org injection
+         */
+        Seo: {
+            /**
+             * @description Injects JSON-LD schema for a product
+             * @param {Object} product - Product object
+             */
+            injectSchema: (product) => {
+                const schema = {
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": product.title,
+                    "image": product.image,
+                    "description": product.description,
+                    "offers": {
+                        "@type": "Offer",
+                        "priceCurrency": "USD",
+                        "price": product.price,
+                        "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+                    }
+                };
+                
+                // Remove old schema if exists
+                const oldSchema = document.getElementById('product-schema');
+                if (oldSchema) oldSchema.remove();
+
+                const script = document.createElement('script');
+                script.type = 'application/ld+json';
+                script.id = 'product-schema';
+                script.text = JSON.stringify(schema);
+                document.head.appendChild(script);
+            }
+        },
+
+        /**
+         * @namespace App.UI
+         * @description Handles UI interactions, Toasts, and DOM updates
+         */
+        UI: {
+            toast: (msg, type = 'success') => {
+                const bgClass = type === 'success' ? 'text-bg-success' : 'text-bg-danger';
+                const html = `
+                    <div class="toast align-items-center ${bgClass} border-0 show" role="alert">
+                        <div class="d-flex">
+                            <div class="toast-body">${msg}</div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                        </div>
+                    </div>`;
+                const container = document.getElementById('toast-container');
+                const el = document.createElement('div');
+                el.innerHTML = html;
+                container.appendChild(el.firstElementChild);
+                setTimeout(() => { container.innerHTML = ''; }, 3000);
+            },
+
+            toggleCart: () => {
+                const el = document.getElementById('cartOffcanvas');
+                const bsOffcanvas = new bootstrap.Offcanvas(el);
+                bsOffcanvas.toggle();
+            },
+
+            /**
+             * @description Triggers Fly-to-Cart animation
+             * @param {HTMLElement} sourceImg - The image element clicked
+             */
+            flyToCart: (sourceImg) => {
+                const cartIcon = document.querySelector('.bi-bag');
+                const rect = sourceImg.getBoundingClientRect();
+                const cartRect = cartIcon.getBoundingClientRect();
+                
+                const flyImg = sourceImg.cloneNode();
+                flyImg.classList.add('fly-img');
+                flyImg.style.width = rect.width + 'px';
+                flyImg.style.height = rect.height + 'px';
+                flyImg.style.top = rect.top + 'px';
+                flyImg.style.left = rect.left + 'px';
+                
+                document.body.appendChild(flyImg);
+                
+                // Force reflow
+                void flyImg.offsetWidth; 
+                
+                flyImg.style.top = cartRect.top + 'px';
+                flyImg.style.left = cartRect.left + 'px';
+                flyImg.style.width = '20px';
+                flyImg.style.height = '20px';
+                flyImg.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    flyImg.remove();
+                    App.UI.updateCartCount();
+                }, 800);
+            },
+            
+            updateCartCount: () => {
+                const count = App.State.cart.reduce((acc, item) => acc + item.qty, 0);
+                document.getElementById('header-cart-count').innerText = count;
+            }
+        },
+
+        /**
+         * @namespace App.Catalog
+         * @description Handles Product Rendering and Virtual Scrolling
+         */
+        Catalog: {
+            init: () => {
+                App.Catalog.observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        App.Catalog.renderBatch();
+                    }
+                }, { rootMargin: '100px' });
+                
+                App.Catalog.observer.observe(document.getElementById('scroll-sentinel'));
+            },
+
+            renderBatch: () => {
+                const nextBatch = App.State.products.slice(App.State.displayed, App.State.displayed + App.State.batchSize);
+                if (nextBatch.length === 0) {
+                    document.getElementById('scroll-sentinel').classList.add('hide');
+                    return;
+                }
+
+                const grid = document.getElementById('catalog-grid');
+                
+                nextBatch.forEach((product, idxOffset) => {
+                    const globalIndex = App.State.displayed + idxOffset;
+                    const altImg = product.altUrl ? `data-alt-src="${product.altUrl}"` : '';
+                    const stockBadge = product.stock === 0 
+                        ? `<span class="badge bg-sold-out badge-stock">SOLD OUT</span>` 
+                        : (product.stock < 5 ? `<span class="badge bg-low-stock badge-stock">LOW STOCK</span>` : '');
+                        
+                    const card = document.createElement('div');
+                    card.className = 'card-product';
+                    card.innerHTML = `
+                        ${stockBadge}
+                        <div class="card-img-wrapper cursor-pointer" onclick="App.QuickView.open(${globalIndex})">
+                            <img src="${product.image}" ${altImg} alt="${App.Utils.safeStr(product.title)}" data-index="${globalIndex}" />
+                        </div>
+                        <div class="p-3">
+                            <div class="text-uppercase small text-muted mb-1">${App.Utils.safeStr(product.category)}</div>
+                            <h5 class="fw-bold mb-2 text-truncate-2 cursor-pointer" onclick="App.QuickView.open(${globalIndex})">${App.Utils.safeStr(product.title)}</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">${App.Utils.formatCurrency(product.price)}</span>
+                                <div class="card-actions d-flex" style="position:relative; bottom:auto; padding:0; background:none;">
+                                    <button class="btn btn-sm btn-outline-dark border-0" onclick="App.Wishlist.toggle(${globalIndex}, this)">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-dark btn-add-cart" ${product.stock === 0 ? 'disabled' : ''} onclick="App.Cart.add(${globalIndex}, this)">
+                                        ADD
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                    
+                    // Attach Image Swap Event
+                    const img = card.querySelector('img');
+                    if (product.altUrl) {
+                        img.parentElement.addEventListener('mouseenter', () => img.src = product.altUrl);
+                        img.parentElement.addEventListener('mouseleave', () => img.src = product.image);
+                    }
+                });
+
+                App.State.displayed += nextBatch.length;
+            }
+        },
+
+        /**
+         * @namespace App.Cart
+         * @description Cart Logic
+         */
+        Cart: {
+            add: (index, btnElement) => {
+                const product = App.State.products[index];
+                
+                // Check stock
+                const inCart = App.State.cart.find(i => i.id === product.id);
+                const currentQty = inCart ? inCart.qty : 0;
+                
+                if (currentQty >= product.stock) {
+                    App.UI.toast('Sorry, max stock reached.', 'error');
+                    return;
+                }
+
+                // Animation
+                const img = document.querySelector(`img[data-index="${index}"]`);
+                App.UI.flyToCart(img);
+
+                // Logic
+                if (inCart) {
+                    inCart.qty++;
+                } else {
+                    App.State.cart.push({ ...product, qty: 1, variant: 'S' }); // Default variant
+                }
+                
+                App.Cart.render();
+                App.UI.toast(`Added ${product.title} to cart`);
+            },
+
+            remove: (idx) => {
+                App.State.cart.splice(idx, 1);
+                App.Cart.render();
+            },
+
+            clear: () => {
+                App.State.cart = [];
+                App.Cart.render();
+            },
+
+            render: () => {
+                const container = document.getElementById('cart-items-container');
+                const totalEl = document.getElementById('cart-total-display');
+                
+                if (App.State.cart.length === 0) {
+                    container.innerHTML = '<div class="text-center text-muted mt-5">Your cart is empty.</div>';
+                    totalEl.innerHTML = '<span>Total</span><span>$0.00</span>';
+                    return;
+                }
+
+                let html = '';
+                let total = 0;
+
+                App.State.cart.forEach((item, idx) => {
+                    const itemTotal = item.price * item.qty;
+                    total += itemTotal;
+                    html += `
+                        <div class="d-flex gap-3 mb-3 align-items-center">
+                            <img src="${item.image}" style="width: 60px; height: 80px; object-fit: cover;" />
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0 small fw-bold text-truncate">${App.Utils.safeStr(item.title)}</h6>
+                                <div class="small text-muted">${item.variant} | ${App.Utils.formatCurrency(item.price)}</div>
+                            </div>
+                            <div class="d-flex flex-column align-items-end gap-1">
+                                <button class="btn btn-sm text-danger p-0" onclick="App.Cart.remove(${idx})"><i class="bi bi-trash"></i></button>
+                                <span class="small fw-bold">x${item.qty}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+                totalEl.innerHTML = `<span>Total</span><span>${App.Utils.formatCurrency(total)}</span>`;
+            }
+        },
+
+        /**
+         * @namespace App.QuickView
+         * @description Quick View Modal Logic
+         */
+        QuickView: {
+            modal: null,
+
+            open: (index) => {
+                const product = App.State.products[index];
+                App.State.currentProduct = product;
+                
+                if (!App.QuickView.modal) App.QuickView.modal = new bootstrap.Modal(document.getElementById('quickViewModal'));
+                
+                // Populate UI
+                document.getElementById('qv-img').src = product.image;
+                document.getElementById('qv-cat').innerText = product.category;
+                document.getElementById('qv-title').innerText = product.title;
+                document.getElementById('qv-price').innerText = App.Utils.formatCurrency(product.price);
+                document.getElementById('qv-desc').innerText = product.description || "Premium fashion item from the Aji Shop Casa collection.";
+                
+                // Variants (Size Multipliers)
+                const variants = [
+                    { name: 'S', mult: 1.0 },
+                    { name: 'M', mult: 1.0 },
+                    { name: 'L', mult: 1.1 }, // Clothes Logic: Larger sizes often cost more
+                    { name: 'XL', mult: 1.2 }
+                ];
+                
+                const vContainer = document.getElementById('qv-variants');
+                vContainer.innerHTML = variants.map((v, i) => 
+                    `<button class="btn btn-sm btn-outline-secondary ${i===0?'active':''}" onclick="App.QuickView.selectVariant(this, ${v.mult}, '${v.name}')">${v.name}</button>`
+                ).join('');
+
+                // Stock Logic
+                const stockMsg = document.getElementById('qv-stock-msg');
+                const addBtn = document.getElementById('qv-add-btn');
+                if (product.stock === 0) {
+                    stockMsg.innerHTML = '<span class="text-danger">Sold Out</span>';
+                    addBtn.disabled = true;
+                } else if (product.stock < 5) {
+                    stockMsg.innerHTML = `<span class="text-warning">Only ${product.stock} left!</span>`;
+                    addBtn.disabled = false;
+                } else {
+                    stockMsg.innerHTML = '<span class="text-success">In Stock</span>';
+                    addBtn.disabled = false;
+                }
+
+                // Related Products (Simple category match)
+                const related = App.State.products
+                    .filter(p => p.category === product.category && p.id !== product.id)
+                    .slice(0, 2);
+                
+                const rContainer = document.getElementById('qv-related');
+                rContainer.innerHTML = related.map(p => `
+                    <div class="cursor-pointer" onclick="App.QuickView.open(${App.State.products.indexOf(p)})">
+                        <img src="${p.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
+                    </div>
+                `).join('');
+
+                // Inject SEO
+                App.Seo.injectSchema(product);
+                
+                App.QuickView.modal.show();
+            },
+
+            selectVariant: (btn, multiplier, name) => {
+                document.querySelectorAll('#qv-variants .btn').forEach(b => b.classList.remove('active', 'btn-dark'));
+                document.querySelectorAll('#qv-variants .btn').forEach(b => b.classList.add('btn-outline-secondary'));
+                
+                btn.classList.remove('btn-outline-secondary');
+                btn.classList.add('active', 'btn-dark');
+                
+                const newPrice = App.State.currentProduct.price * multiplier;
+                document.getElementById('qv-price').innerText = App.Utils.formatCurrency(newPrice);
+                App.State.currentProduct.selectedVariant = name;
+                App.State.currentProduct.finalPrice = newPrice;
+            }
+        },
+
+        /**
+         * @namespace App.Wishlist
+         * @description Wishlist Logic
+         */
+        Wishlist: {
+            toggle: (index, btn) => {
+                const pos = App.State.wishlist.indexOf(index);
+                const icon = btn.querySelector('i');
+                
+                if (pos === -1) {
+                    App.State.wishlist.push(index);
+                    icon.classList.add('text-danger', 'bi-heart-fill');
+                    icon.classList.remove('bi-heart');
+                    App.UI.toast('Added to wishlist');
+                } else {
+                    App.State.wishlist.splice(pos, 1);
+                    icon.classList.remove('text-danger', 'bi-heart-fill');
+                    icon.classList.add('bi-heart');
+                }
+                document.getElementById('header-wish-count').innerText = App.State.wishlist.length;
+            },
+            
+            clearAll: () => {
+                App.State.wishlist = [];
+                App.Wishlist.render();
+                App.UI.toast('Wishlist cleared', 'error');
+            },
+            
+            render: () => {
+                const grid = document.getElementById('wishlist-grid');
+                if(App.State.wishlist.length === 0) {
+                    grid.innerHTML = '<p class="text-muted">Wishlist is empty.</p>';
+                    return;
+                }
+                
+                grid.innerHTML = App.State.wishlist.map(index => {
+                    const p = App.State.products[index];
+                    if(!p) return '';
+                    return `
+                        <div class="card-product">
+                             <div class="card-img-wrapper">
+                                <img src="${p.image}" />
+                            </div>
+                            <div class="p-3">
+                                <h6 class="fw-bold text-truncate">${p.title}</h6>
+                                <button class="btn btn-sm btn-dark w-100 mt-2" onclick="App.Cart.add(${index}, this)">ADD TO CART</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        },
+
+        /**
+         * @namespace App.Router
+         * @description Simple View Switching
+         */
+        Router: {
+            go: (page) => {
+                const main = document.querySelector('main');
+                const profile = document.getElementById('page-profile');
+                
+                if (page === 'wishlist' || page === 'profile') {
+                    main.classList.add('hide');
+                    profile.classList.remove('hide');
+                    App.Wishlist.render();
+                    // Trigger tab
+                    const triggerEl = document.querySelector('button[data-bs-target="#tab-wishlist"]');
+                    bootstrap.Tab.getInstance(triggerEl)?.show() || new bootstrap.Tab(triggerEl).show();
+                } else {
+                    main.classList.remove('hide');
+                    profile.classList.add('hide');
+                }
+                window.scrollTo(0,0);
+            }
+        },
+
+        /**
+         * @namespace API
+         * @description Blogger Data Fetching from ajishopcasa.blogspot.com
+         */
+        API: {
+            /**
+             * @description Fallback data if Blogger API fails
+             */
+            getFallbackData: () => {
+                const cats = ['Dresses', 'Jackets', 'T-Shirts', 'Jeans'];
+                const data = [];
+                for(let i=1; i<=5; i++) {
+                    data.push({
+                        id: i,
+                        title: `Aji Shop Casa Design ${i}`,
+                        description: 'A versatile piece for any wardrobe.',
+                        image: `https://picsum.photos/seed/ajishop${i}/500/625.jpg`,
+                        altUrl: `https://picsum.photos/seed/ajishop${i}alt/500/625.jpg`,
+                        category: cats[i % cats.length],
+                        price: (Math.random() * 100 + 20).toFixed(2),
+                        stock: i === 1 ? 0 : i
+                    });
+                }
+                return data;
+            },
+
+            /**
+             * @description Parse Blogger JSON Feed with Defensive Checks
+             */
+            parseCatalog: (json) => {
+                try {
+                    if (!json.feed || !json.feed.entry) throw new Error("No entries");
+                    
+                    const products = json.feed.entry.map((entry) => {
+                        // Defensive Checks for Title
+                        const title = (entry.title && entry.title.$t) ? entry.title.$t : "Untitled Product";
+                        
+                        // Defensive Checks for Content/Summary
+                        let content = "";
+                        if (entry.content && entry.content.$t) {
+                            content = entry.content.$t;
+                        } else if (entry.summary && entry.summary.$t) {
+                            content = entry.summary.$t;
+                        }
+
+                        // Defensive Checks for Labels
+                        const labels = (entry.category && Array.isArray(entry.category)) ? entry.category.map(c => c.term) : [];
+                        
+                        // Defensive Image Extraction
+                        // 1. Try to find img src in content
+                        const imgMatch = content.match(/src="([^"]+)"/);
+                        let img = imgMatch ? imgMatch[1] : null;
+                        
+                        // 2. Fallback to media$thumbnail (Blogger default)
+                        if (!img && entry.media$thumbnail) {
+                            img = entry.media$thumbnail.url;
+                        }
+                        
+                        // 3. Fallback to Placeholder
+                        if (!img) {
+                            img = App.Utils.getPlaceholder(entry.id.$t, 500, 625);
+                        }
+
+                        // Parsing Category & Alt Images
+                        const category = labels.find(l => l.startsWith('cat-'))?.replace('cat-', '') || 'General';
+                        const altUrl = labels.find(l => l.startsWith('img-alt-url-'))?.replace('img-alt-url-', '');
+                        
+                        // Stock parsing
+                        const stockLabel = labels.find(l => l.startsWith('stock-'));
+                        const stock = stockLabel ? parseInt(stockLabel.replace('stock-', '')) : 100;
+
+                        return {
+                            id: entry.id.$t,
+                            title: title,
+                            image: img,
+                            altUrl: altUrl || null,
+                            category: category,
+                            description: content.replace(/<[^>]*>?/gm, '').substring(0, 100), // Strip HTML for desc
+                            price: 49.99, // Base price
+                            stock: stock
+                        };
+                    });
+
+                    App.State.products = products;
+                    App.Catalog.renderBatch();
+                    
+                    // Remove skeletons from filter bar
+                    const uniqueCats = [...new Set(products.map(p => p.category))];
+                    document.getElementById('filter-container').innerHTML = `
+                        <div class="d-flex gap-2 overflow-auto pb-2">
+                            <button class="btn btn-sm btn-dark rounded-pill px-3">All</button>
+                            ${uniqueCats.map(c => 
+                                `<button class="btn btn-sm btn-outline-secondary rounded-pill px-3">${c}</button>`
+                            ).join('')}
+                        </div>
+                    `;
+
+                } catch (e) {
+                    console.warn("Blogger API Error, using fallback", e);
+                    App.State.products = App.API.getFallbackData();
+                    App.Catalog.renderBatch();
+                }
+            }
+        },
+
+        /**
+         * @description Initialization
+         */
+        init: () => {
+            AOS.init();
+            App.Catalog.init();
+            
+            // Load feed from ajishopcasa.blogspot.com
+            const script = document.createElement('script');
+            script.src = 'https://ajishopcasa.blogspot.com/feeds/posts/default?alt=json-in-script&callback=App.API.parseCatalog&max-results=500';
+            
+            script.onerror = () => {
+                App.API.parseCatalog({ feed: { entry: [] } });
+            };
+            
+            // Fallback in case feed never loads or fails
+            setTimeout(() => {
+                if(App.State.products.length === 0) {
+                     App.API.parseCatalog({ feed: { entry: [] } });
+                }
+            }, 3000);
+
+            document.body.appendChild(script);
+        }
+    };
+
+    // Start App
+    document.addEventListener('DOMContentLoaded', App.init);
+
+    //]]>
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'/>
+</body>
+</html>
