@@ -1,0 +1,1991 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.0.0' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+    <title><data:blog.pageTitle/></title>
+    
+    <meta content='#ce1212' name='theme-color'/>
+    <meta content='yes' name='mobile-web-app-capable'/>
+    <meta content='yes' name='apple-mobile-web-app-capable'/>
+    <meta content='black-translucent' name='apple-mobile-web-app-status-bar-style'/>
+    <meta content='Sushi Elite' name='apple-mobile-web-app-title'/>
+    
+    <link href='https://cdn-icons-png.flaticon.com/512/2252/2252076.png' rel='icon' type='image/png'/>
+    <link href='https://cdn-icons-png.flaticon.com/512/2252/2252076.png' rel='apple-touch-icon'/>
+
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Amatic+SC:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css' rel='stylesheet'/>
+    <link href='https://unpkg.com/aos@2.3.1/dist/aos.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' rel='stylesheet'/>
+
+    <b:skin><![CDATA[
+    /* ---------------------------------------------------------------------------------------
+    SUSHI ELITE v86.1 [HOTFIX]
+    ---------------------------------------------------------------------------------------
+    */
+        :root {
+            --primary: #ce1212; --primary-dark: #a00d0d;
+            --secondary: #37373f; --accent: #ffc107;
+            --bg-body: #f8f9fa; --bg-card: #ffffff;
+            --text-main: #1d1d1f; --text-muted: #86868b;
+            --font-main: "Inter", sans-serif; --font-accent: "Amatic SC", sans-serif;
+            --transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
+            --radius-xl: 24px;
+            --z-marquee: 1040; --z-navbar: 1030; --z-sticky: 1020; --z-toast: 1060; --z-bottom-bar: 1050;
+        }
+
+        [data-theme='dark'] { 
+            --bg-body: #0a0a0c; --bg-card: #1c1c1e; 
+            --text-main: #f5f5f7; --text-muted: #a1a1a6;
+        }
+
+        body { font-family: var(--font-main); background: var(--bg-body); color: var(--text-main); padding-top: 115px; padding-bottom: 95px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        
+        /* [MARQUEE ANNOUNCEMENT] */
+        .marquee-bar { position: fixed; top: 0; left: 0; width: 100%; height: 30px; background: #000; color: #fff; z-index: var(--z-marquee); overflow: hidden; display: flex; align-items: center; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
+        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        .header { background: var(--bg-card); height: 85px; z-index: var(--z-navbar); border-bottom: 1px solid rgba(0,0,0,0.05); top: 30px; }
+        .card, .product-card, .glass-panel { background: var(--bg-card) !important; border: 1px solid rgba(0,0,0,0.05); }
+
+        h1, .display-1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 800; letter-spacing: -1.5px; }
+        h2, .display-2 { font-size: clamp(1.8rem, 5vw, 3.2rem); font-weight: 700; }
+        .lead { font-size: clamp(0.95rem, 2vw, 1.15rem); line-height: 1.6; }
+
+        #scroll-fill { position: fixed; top: 30px; left: 0; height: 4px; background: var(--primary); z-index: 9999; width: 0%; transition: width 0.1s; }
+        #scroll-sentinel { height: 100px; width: 100%; display: flex; justify-content: center; align-items: center; }
+        
+        .sticky-tools { position: sticky; top: 115px; z-index: var(--z-sticky); background: var(--bg-body); padding-top: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(0,0,0,0.05); transition: background 0.3s; }
+        [data-theme='dark'] .sticky-tools { background: var(--bg-body); }
+        
+        .search-input { width: 100%; border-radius: 50px; border: 1px solid rgba(0,0,0,0.1); padding: 12px 50px 12px 20px; background: var(--bg-card); color: var(--text-main); transition: 0.3s; box-shadow: var(--shadow-sm); }
+        .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(206,18,18,0.1); }
+        .search-icon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.1rem; pointer-events: none; }
+        
+        .filter-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .filter-scroll::-webkit-scrollbar { display: none; }
+        .filter-chip { white-space: nowrap; padding: 8px 20px; border-radius: 50px; background: var(--bg-card); border: 1px solid rgba(0,0,0,0.1); color: var(--text-muted); font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .filter-chip:hover, .filter-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        .product-card { border-radius: var(--radius-xl); overflow: hidden; height: 100%; transition: var(--transition); position: relative; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #f0f0f0; cursor: pointer; }
+        .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease, opacity 0.3s; }
+        .product-card:hover .product-img { transform: scale(1.1); }
+        
+        .wish-btn { position: absolute; top: 15px; right: 15px; z-index: 10; background: #fff; border: none; border-radius: 50%; width: 40px; height: 40px; color: #ccc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s; }
+        .wish-btn.active { color: var(--primary); transform: scale(1.1); background: #fff; }
+        
+        /* [BADGES] */
+        .stock-badge { position: absolute; top: 15px; left: 15px; z-index: 10; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; color: #fff; text-transform: uppercase; }
+        .stock-low { background: #e67e22; animation: pulse 2s infinite; }
+        .stock-out { background: #c0392b; }
+        
+        .hot-badge { position: absolute; top: 15px; left: 15px; z-index: 10; background: linear-gradient(45deg, #ff0000, #ff8800); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 800; font-size: 0.8rem; box-shadow: 0 4px 10px rgba(255,0,0,0.4); }
+        .discount-badge { position: absolute; top: 45px; left: 15px; z-index: 9; background: #000; color: #fff; padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+        .old-price { text-decoration: line-through; color: #999; font-size: 0.9rem; margin-right: 5px; }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+
+        .toast-container { bottom: 90px; right: 20px; top: auto !important; z-index: var(--z-toast); }
+        .glass-toast { background: rgba(30, 30, 30, 0.85) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #fff; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 10px; }
+        .glass-toast .btn-close { filter: invert(1); }
+
+        .hero-slide { height: 350px; object-fit: cover; border-radius: 24px; filter: brightness(0.8); }
+        .carousel-caption { bottom: 40px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+
+        .fly-img { position: fixed; z-index: 10000; transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1); border-radius: 50%; width: 100px; height: 100px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.3); pointer-events: none; }
+        .skeleton { background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%); background-size: 1000px 100%; animation: shimmer 1.5s infinite linear; }
+        @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+        .module-section { display: none !important; opacity: 0; animation: fadeIn 0.4s forwards; }
+        .module-section.active { display: block !important; opacity: 1; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .swatch-item { padding: 8px 16px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; background: #eee; font-size: 0.9rem; font-weight: 600; color: #555; transition: 0.2s; margin-right:8px; margin-bottom:8px; display:inline-block; }
+        .swatch-item.active { border-color: var(--primary); background: var(--primary); color: #fff; }
+        .btn-trash { border: none; background: transparent; color: #999; transition: 0.2s; }
+        .btn-trash:hover { color: var(--primary); transform: scale(1.2); }
+        
+        .mobile-toolbar { position: fixed; bottom: 0; left: 0; width: 100%; height: 80px; background: var(--bg-card); display: flex; justify-content: space-around; align-items: center; z-index: 1050; border-top: 1px solid rgba(0,0,0,0.1); }
+        .mobile-toolbar a { color: var(--text-main); font-size: 1.5rem; }
+
+        .btn-scroll-top { position: fixed; bottom: 100px; right: 20px; width: 50px; height: 50px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 1040; opacity: 0; pointer-events: none; transition: 0.3s; border:none; }
+        .btn-scroll-top.visible { opacity: 1; pointer-events: all; }
+        
+        .captcha-box { background: #f8f9fa; border: 1px solid #eee; border-radius: 12px; padding: 15px; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+        .captcha-question { font-weight: 800; font-size: 1.2rem; letter-spacing: 1px; color: var(--primary); }
+        .captcha-input { width: 80px; text-align: center; font-weight: bold; border-radius: 8px; border: 2px solid #eee; }
+        .captcha-input:focus { border-color: var(--primary); outline: none; }
+        .is-invalid { border-color: #dc3545 !important; animation: shake 0.3s; }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
+        @keyframes bump { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+        .bump-anim { animation: bump 0.3s ease; }
+
+        .bottom-cart-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--text-main); color: #fff; padding: 15px 20px; z-index: var(--z-bottom-bar); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -5px 20px rgba(0,0,0,0.2); transform: translateY(100%); transition: transform 0.3s ease; padding-bottom: max(15px, env(safe-area-inset-bottom)); }
+        .bottom-cart-bar.active { transform: translateY(0); }
+        .bottom-cart-bar.has-nav { bottom: 80px; } 
+        .btn-view-cart { background: #fff; color: var(--text-main); font-weight: 800; border-radius: 50px; padding: 8px 20px; text-decoration: none; display:flex; align-items:center; gap:8px; }
+        
+        .card-qty-ctrl { display: flex; align-items: center; background: var(--primary); border-radius: 50px; overflow: hidden; height: 38px; width: 100%; }
+        .card-qty-btn { border: none; background: transparent; color: #fff; width: 30%; height: 100%; font-weight: 800; font-size: 1.2rem; }
+        .card-qty-val { color: #fff; font-weight: 800; width: 40%; text-align: center; }
+        
+        .extras-list .form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+        .order-type-switch .btn-check:checked + .btn { background-color: var(--text-main); color: #fff; border-color: var(--text-main); }
+        
+        /* [COUPON UI] */
+        .coupon-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        .coupon-input { text-transform: uppercase; font-weight: bold; border-style: dashed; }
+
+        /* [SERVICE BANNER] */
+        .service-banner { font-size: 0.75rem; white-space: nowrap; overflow-x: auto; padding: 8px 0; background: #f8f9fa; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .service-banner::-webkit-scrollbar { display: none; }
+        .service-item { display: inline-flex; align-items: center; gap: 5px; margin-right: 20px; color: var(--text-muted); font-weight: 500; }
+        .service-item i { color: var(--primary); }
+    ]]></b:skin>
+</head>
+<body>
+
+    <div class='marquee-bar'>
+        <div class='marquee-content'>
+            &#9889; FLASH SALE: FREE DELIVERY ON ORDERS OVER 150 DH! 🍣 FRESH SUSHI EVERY DAY 🍜 ORDER NOW FOR LUNCH! &#9889;
+        </div>
+    </div>
+
+    <div id='scroll-fill'/>
+    
+    <div id='maint-overlay' style='position:fixed; inset:0; background:var(--bg-card); z-index:10000; display:flex; flex-direction:column; align-items:center; justify-content:center;'>
+        <div class='spinner-border text-primary mb-4' role='status'/>
+        <h2 class='fw-bold'>Sushi Elite v86.1</h2>
+        <p class='text-muted small'>Optimizing Experience...</p>
+    </div>
+
+    <header class='header fixed-top' style='height:auto'>
+        <div class='service-banner container-fluid d-flex'>
+            <span class='service-item'><i class='bi bi-lightning-fill'/> Fast Delivery</span>
+            <span class='service-item'><i class='bi bi-shield-check'/> Fresh Guaranteed</span>
+            <span class='service-item'><i class='bi bi-cash-coin'/> Cash on Delivery</span>
+            <span class='service-item'><i class='bi bi-headset'/> 24/7 Support</span>
+        </div>
+
+        <div class='container d-flex align-items-center justify-content-between py-3'>
+            <a class='text-decoration-none' href='#home'>
+                <h1 class='m-0 fw-bold' style='color:var(--text-main); font-size:1.8rem'>SushiElite<span class='text-primary'>.</span></h1>
+            </a>
+            
+            <div class='d-none d-md-block badge bg-light text-dark border' id='store-status'>checking...</div>
+
+            <div class='d-flex align-items-center gap-3'>
+                <select class='form-select form-select-sm shadow-sm' id='currency-selector' name='currency' onchange='App.Cart.changeCurrency(this.value)' style='width:auto;'>
+                    <option value='DH'>DH</option><option value='USD'>$</option><option value='EUR'>&#8364;</option>
+                </select>
+                <a class='btn position-relative' href='#cart' id='nav-cart-wrapper'>
+                    <i class='bi bi-bag-check-fill fs-4' id='nav-cart-icon' style='color:var(--text-main)'/>
+                    <span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger' id='cart-count'>0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class='bottom-cart-bar' id='bottom-cart-bar'>
+        <div>
+            <div class='small opacity-75'><span id='bar-count'>0</span> Items</div>
+            <div class='fw-bold fs-5' id='bar-total'>0.00 DH</div>
+        </div>
+        <a class='btn-view-cart' href='#cart'>View Basket <i class='bi bi-arrow-right'/></a>
+    </div>
+
+    <div class='toast-container position-fixed bottom-0 end-0 p-3' id='toast-container'/>
+
+    <button class='btn-scroll-top' id='scrollTopBtn' onclick='window.scrollTo({top: 0, behavior: &quot;smooth&quot;})'>
+        <i class='bi bi-arrow-up'/>
+    </button>
+
+    <section class='module-section active' id='home-module' style='padding-top: 110px;'>
+        <div class='container py-4'>
+            
+            <div class='alert alert-warning border-0 shadow-sm d-flex align-items-center gap-2 mb-4' role='alert'>
+                <i class='bi bi-stopwatch-fill fs-4'/>
+                <div>
+                    <strong>Lunch Deal!</strong> Order within <span class='fw-bold' id='countdown-timer'>00:00</span> for priority delivery.
+                </div>
+            </div>
+
+            <div class='carousel slide shadow-lg mb-5 rounded-4 overflow-hidden' data-bs-ride='carousel' id='heroCarousel'>
+                <div class='carousel-inner'>
+                    <div class='carousel-item active'>
+                        <img alt='Offer 1' class='d-block w-100 hero-slide' src='https://picsum.photos/seed/sushihero1/800/400'/>
+                        <div class='carousel-caption d-md-block'>
+                            <h2 class='fw-bold display-4' style='font-family: var(--font-accent)'>Fresh Arrivals</h2>
+                            <p class='fs-5'>Taste the ocean&#39;s finest selection.</p>
+                            <a class='btn btn-danger rounded-pill fw-bold mt-2' href='#catalog'>Order Now</a>
+                        </div>
+                    </div>
+                    <div class='carousel-item'>
+                        <img alt='Offer 2' class='d-block w-100 hero-slide' src='https://picsum.photos/seed/sushihero2/800/400'/>
+                        <div class='carousel-caption d-md-block'>
+                            <h2 class='fw-bold display-4' style='font-family: var(--font-accent)'>Party Platters</h2>
+                            <p class='fs-5'>Perfect for events and gatherings.</p>
+                            <a class='btn btn-primary rounded-pill fw-bold mt-2' href='#catalog'>View Menu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class='text-center'>
+                <div class='d-inline-block mb-3 d-md-none' id='store-status-mobile'><span class='badge bg-light text-dark border'>checking...</span></div>
+                <h3 class='fw-bold mb-3'>Categories</h3>
+                <div class='d-flex justify-content-center gap-3 flex-wrap'>
+                    <button class='btn btn-outline-dark rounded-pill px-4' onclick='App.Catalog.filter(&apos;Sushi&apos;); window.location.hash=&apos;#catalog&apos;'>🍣 Sushi</button>
+                    <button class='btn btn-outline-dark rounded-pill px-4' onclick='App.Catalog.filter(&apos;Soup&apos;); window.location.hash=&apos;#catalog&apos;'>🍜 Soup</button>
+                    <button class='btn btn-outline-dark rounded-pill px-4' onclick='window.location.hash=&apos;#catalog&apos;'>View All</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class='module-section' id='catalog-module' style='padding-top: 110px;'>
+        <div class='container'>
+            <div class='sticky-tools' style='top: 125px;'> <div class='d-flex justify-content-center mb-3 order-type-switch'>
+                    <div class='btn-group' role='group'>
+                        <input autocomplete='off' checked='checked' class='btn-check' id='ot-delivery' name='orderType' onclick='App.Cart.setOrderType(&apos;delivery&apos;)' type='radio'/>
+                        <label class='btn btn-outline-dark rounded-start-pill px-4' for='ot-delivery'>🛵 Delivery</label>
+
+                        <input autocomplete='off' class='btn-check' id='ot-pickup' name='orderType' onclick='App.Cart.setOrderType(&apos;pickup&apos;)' type='radio'/>
+                        <label class='btn btn-outline-dark rounded-end-pill px-4' for='ot-pickup'>🛍&#65039; Takeaway</label>
+                    </div>
+                </div>
+
+                <div class='row justify-content-center'>
+                    <div class='col-md-8 col-12'>
+                         <div class='search-wrapper'>
+                            <i class='bi bi-search search-icon'/>
+                            <input class='search-input' id='search-box' name='q' onkeyup='App.Catalog.search(this.value)' placeholder='Search sushi, rolls, drinks...' type='text'/>
+                        </div>
+                    </div>
+                </div>
+                <div class='d-flex gap-2 mb-2' id='filter-skeleton'>
+                    <div class='skeleton sk-chip'/><div class='skeleton sk-chip'/><div class='skeleton sk-chip'/>
+                </div>
+                <div class='filter-scroll' id='category-filters'/>
+            </div>
+            
+            <div class='row gy-4 mt-2' id='product-grid-root'/>
+            <div id='scroll-sentinel'>
+                <div class='spinner-grow text-danger hidden' id='loader-sentinel' role='status'/>
+            </div>
+        </div>
+    </section>
+
+    <section class='module-section' id='cart-module' style='padding-top: 110px;'>
+        <div class='container'>
+            <div class='d-flex justify-content-between align-items-center mb-4'>
+                <h2 class='fw-bold m-0'>Your Order</h2>
+                <button class='btn btn-sm btn-outline-secondary' onclick='App.Cart.clearAll()'>Empty</button>
+            </div>
+            <div class='row justify-content-center'>
+                <div class='col-lg-8'>
+                    <div class='card p-4 rounded-4 shadow-sm border-0'>
+                        <div class='mb-4 d-none' id='delivery-progress-container'>
+                            <div class='d-flex justify-content-between small mb-1 fw-bold'>
+                                <span id='delivery-msg-text'>Add more for FREE delivery!</span>
+                                <span id='delivery-amount-text'/>
+                            </div>
+                            <div class='progress' style='height: 10px; border-radius: 5px;'>
+                                <div class='progress-bar bg-success progress-bar-striped progress-bar-animated' id='delivery-bar' role='progressbar' style='width: 0%'/>
+                            </div>
+                        </div>
+
+                        <div id='cart-items-list'/>
+                        
+                        <div class='mt-4 pt-4 border-top' id='checkout-form-area'>
+                            
+                            <div class='coupon-box'>
+                                <input class='form-control coupon-input' id='coupon-code' placeholder='PROMO CODE' type='text'/>
+                                <button class='btn btn-dark' onclick='App.Cart.applyCoupon()'>APPLY</button>
+                            </div>
+                            <div class='small mb-3 fw-bold' id='coupon-msg'/>
+
+                            <h5 class='fw-bold mb-3'>Order Details</h5>
+                            <div class='row g-3 mb-4'>
+                                <div class='col-md-6'>
+                                    <input class='form-control' id='cust-name' name='customer_name' placeholder='Your Name *' type='text'/>
+                                </div>
+                                <div class='col-md-6'>
+                                    <input class='form-control' id='cust-phone' name='customer_phone' placeholder='Phone Number *' type='tel'/>
+                                </div>
+                                <div class='col-12' id='address-field-group'>
+                                    <input class='form-control' id='cust-address' name='customer_address' placeholder='Address / Location *' type='text'/>
+                                </div>
+                                <div class='col-md-6'>
+                                    <input class='form-control' id='delivery-time' name='delivery_time' placeholder='Time' type='text'/>
+                                </div>
+                                <div class='col-12'>
+                                    <select class='form-select' id='payment-method'>
+                                        <option value='Cash'>💵 Cash</option>
+                                        <option value='Card'>💳 Card (TPE)</option>
+                                    </select>
+                                </div>
+                                <div class='col-12'>
+                                    <textarea class='form-control' id='cust-notes' name='customer_notes' placeholder='Notes...' rows='2'/>
+                                </div>
+                            </div>
+                            
+                            <div class='captcha-box'>
+                                <div>
+                                    <span class='text-muted small d-block'>Human Check:</span>
+                                    <span class='captcha-question' id='captcha-question'>...</span>
+                                </div>
+                                <input class='form-control captcha-input' id='captcha-input' placeholder='?' type='number'/>
+                                <button class='btn btn-light btn-sm rounded-circle border' onclick='App.Utils.initCaptcha()'><i class='bi bi-arrow-clockwise'/></button>
+                            </div>
+
+                            <div class='d-flex justify-content-between fs-5 mb-2 text-muted'>
+                                <span>Subtotal:</span>
+                                <span id='cart-subtotal'>0.00 DH</span>
+                            </div>
+                            <div class='d-flex justify-content-between fs-5 mb-2 text-muted' id='fee-row'>
+                                <span>Delivery Fee:</span>
+                                <span id='cart-delivery-fee'>0.00 DH</span>
+                            </div>
+                             <div class='d-flex justify-content-between fs-5 mb-2 text-success fw-bold d-none' id='discount-row'>
+                                <span>Discount:</span>
+                                <span id='cart-discount-val'>-0.00 DH</span>
+                            </div>
+                            <hr/>
+                            <div class='d-flex justify-content-between fs-3 fw-bold my-3'>
+                                <span>Total:</span>
+                                <span class='text-danger' id='cart-total-display'>0.00 DH</span>
+                            </div>
+                            
+                            <button class='btn btn-danger w-100 py-3 rounded-pill fw-bold shadow-lg' onclick='App.Cart.finalizeOrder()'>Checkout via WhatsApp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class='module-section' id='wishlist-module' style='padding-top: 110px;'>
+        <div class='container'>
+            <div class='d-flex justify-content-between mb-4'>
+                <h2 class='fw-bold'>Favorites</h2>
+                <button class='btn btn-sm btn-outline-secondary' onclick='App.Wishlist.clearAll()'>Clear</button>
+            </div>
+            <div class='row gy-4' id='wishlist-grid-root'/>
+        </div>
+    </section>
+
+    <section class='module-section' id='profile-module' style='padding-top: 110px;'>
+        <div class='container'>
+            <h2 class='fw-bold mb-4'>Order History</h2>
+            <div class='card border-0 shadow-sm rounded-4 overflow-hidden'>
+                <div class='table-responsive'>
+                    <table class='table align-middle mb-0'>
+                        <thead class='bg-light'><tr><th>Date</th><th>Total</th><th>Status</th></tr></thead>
+                        <tbody id='order-history-body'/>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div aria-hidden='true' class='modal fade' id='confirmModal' tabindex='-1'>
+        <div class='modal-dialog modal-dialog-centered'>
+            <div class='modal-content rounded-4 border-0 shadow'>
+                <div class='modal-body text-center p-4'>
+                    <h4 class='fw-bold mb-3' id='conf-title'>Confirm</h4>
+                    <p class='text-muted mb-4' id='conf-msg'>Are you sure?</p>
+                    <div class='d-flex gap-2 justify-content-center'>
+                        <button class='btn btn-light rounded-pill px-4' data-bs-dismiss='modal' type='button'>Cancel</button>
+                        <button class='btn btn-danger rounded-pill px-4' id='conf-yes' type='button'>Yes, Proceed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div aria-modal='true' class='modal fade' id='quickViewModal' role='dialog' tabindex='-1'>
+        <div class='modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable'>
+            <div class='modal-content border-0 rounded-4 shadow-lg'>
+                <div class='modal-header border-0'>
+                    <button class='btn-close' data-bs-dismiss='modal' type='button'/>
+                </div>
+                <div class='modal-body p-0' id='quickview-content'/>
+            </div>
+        </div>
+    </div>
+
+    <div class='mobile-toolbar d-lg-none'>
+        <a href='#home'><i class='bi bi-house-door-fill'/></a>
+        <a href='#catalog'><i class='bi bi-grid-fill'/></a>
+        <a href='#wishlist'><i class='bi bi-heart-fill'/></a>
+        <a href='#profile'><i class='bi bi-person-circle'/></a>
+    </div>
+
+    <div style='display:none'>
+        <b:section id='main' maxwidgets='1' showaddelement='no'>
+          <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+              <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='showShareButtons'>false</b:widget-setting>
+              <b:widget-setting name='showCommentLink'>false</b:widget-setting>
+              <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='showAuthor'>false</b:widget-setting>
+              <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+              <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='timestampLabel'/>
+              <b:widget-setting name='reactionsLabel'/>
+              <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+              <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+              <b:widget-setting name='showLabels'>true</b:widget-setting>
+              <b:widget-setting name='showLocation'>false</b:widget-setting>
+              <b:widget-setting name='postLabelsLabel'/>
+              <b:widget-setting name='showTimestamp'>false</b:widget-setting>
+              <b:widget-setting name='postsPerAd'>1</b:widget-setting>
+              <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+              <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+              <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+              <b:widget-setting name='showReactions'>false</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'><b:loop values='data:posts' var='post'><b:include data='post' name='post'/></b:loop></b:includable>
+            <b:includable id='aboutPostAuthor'>
+  <div class='author-name'>
+    <a class='g-profile' expr:href='data:post.author.profileUrl' rel='author' title='author profile'>
+      <span>
+        <data:post.author.name/>
+      </span>
+    </a>
+  </div>
+  <div>
+    <span class='author-desc'>
+      <data:post.author.aboutMe/>
+    </span>
+  </div>
+</b:includable>
+            <b:includable id='addComments'>
+  <a expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:message name='messages.postAComment'/>
+  </a>
+</b:includable>
+            <b:includable id='blogThisShare'>
+  <b:with value='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=270,width=475\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+            <b:includable id='bylineByName' var='byline'>
+  <b:switch var='data:byline.name'>
+  <b:case value='share'/>
+    <b:include cond='data:post.shareUrl' name='postShareButtons'/>
+  <b:case value='comments'/>
+    <b:include cond='data:post.allowComments' name='postCommentsLink'/>
+  <b:case value='location'/>
+    <b:include cond='data:post.location' name='postLocation'/>
+  <b:case value='timestamp'/>
+    <b:include cond='not data:view.isPage' name='postTimestamp'/>
+  <b:case value='author'/>
+    <b:include name='postAuthor'/>
+  <b:case value='labels'/>
+    <b:include cond='data:post.labels' name='postLabels'/>
+  <b:case value='icons'/>
+    <b:include cond='data:post.emailPostUrl' name='emailPostIcon'/>
+  </b:switch>
+</b:includable>
+            <b:includable id='bylineRegion' var='regionItems'>
+  <b:loop values='data:regionItems' var='byline'>
+    <b:include data='byline' name='bylineByName'/>
+  </b:loop>
+</b:includable>
+            <b:includable id='commentAuthorAvatar'>
+  <div class='avatar-image-container'>
+    <img class='author-avatar' expr:src='data:comment.authorAvatarSrc' height='35' width='35'/>
+  </div>
+</b:includable>
+            <b:includable id='commentDeleteIcon' var='comment'>
+  <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+    <b:if cond='data:showCmtPopup'>
+      <div class='goog-toggle-button'>
+        <div class='goog-inline-block comment-action-icon'/>
+      </div>
+    <b:else/>
+      <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:messages.deleteComment'>
+        <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+            <b:includable id='commentForm' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+    <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+      <p><data:this.messages.blogComment/></p>
+    </b:if>
+    <b:include data='post' name='commentFormIframeSrc'/>
+    <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+            <b:includable id='commentFormIframeSrc' var='post'>
+  <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+</b:includable>
+            <b:includable id='commentItem' var='comment'>
+  <div class='comment' expr:id='&quot;c&quot; + data:comment.id'>
+    <b:include cond='data:blog.enabledCommentProfileImages' name='commentAuthorAvatar'/>
+
+    <div class='comment-block'>
+      <div class='comment-author'>
+        <b:if cond='data:comment.authorUrl'>
+          <b:message name='messages.authorSaidWithLink'>
+            <b:param expr:value='data:comment.author' name='authorName'/>
+            <b:param expr:value='data:comment.authorUrl' name='authorUrl'/>
+          </b:message>
+        <b:else/>
+          <b:message name='messages.authorSaid'>
+            <b:param expr:value='data:comment.author' name='authorName'/>
+          </b:message>
+        </b:if>
+      </div>
+      <div expr:class='&quot;comment-body&quot; + (data:comment.isDeleted ? &quot; deleted&quot; : &quot;&quot;)'>
+        <data:comment.body/>
+      </div>
+      <div class='comment-footer'>
+        <span class='comment-timestamp'>
+          <a expr:href='data:comment.url' title='comment permalink'>
+            <data:comment.timestamp/>
+          </a>
+          <b:include data='comment' name='commentDeleteIcon'/>
+        </span>
+      </div>
+    </div>
+  </div>
+</b:includable>
+            <b:includable id='commentList' var='comments'>
+  <div id='comments-block'>
+    <b:loop values='data:comments' var='comment'>
+      <b:include data='comment' name='commentItem'/>
+    </b:loop>
+  </div>
+</b:includable>
+            <b:includable id='commentPicker' var='post'>
+  <b:if cond='data:post.showThreadedComments'>
+    <b:include data='post' name='threadedComments'/>
+  <b:else/>
+    <b:include data='post' name='comments'/>
+  </b:if>
+</b:includable>
+            <b:includable id='comments' var='post'>
+  <section expr:class='&quot;comments&quot; + (data:post.embedCommentForm ? &quot; embed&quot; : &quot;&quot;)' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
+
+      <b:include name='commentsTitle'/>
+
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <b:include cond='data:post.comments' data='post.comments' name='commentList'/>
+      </div>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <div class='paging-control-container'>
+          <b:if cond='data:post.hasOlderLinks'>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+              <data:messages.oldest/>
+            </a>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+              <data:messages.older/>
+            </a>
+          </b:if>
+
+          <span class='comment-range-text'>
+            <data:post.commentRangeText/>
+          </span>
+
+          <b:if cond='data:post.hasNewerLinks'>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+              <data:messages.newer/>
+            </a>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+              <data:messages.newest/>
+            </a>
+          </b:if>
+        </div>
+      </b:if>
+
+      <div class='footer'>
+        <b:if cond='data:post.embedCommentForm'>
+          <b:if cond='data:post.allowNewComments'>
+            <b:include data='post' name='commentForm'/>
+          <b:else/>
+            <data:post.noNewCommentsText/>
+          </b:if>
+        <b:else/>
+          <b:if cond='data:post.allowComments'>
+            <b:include data='post' name='addComments'/>
+          </b:if>
+        </b:if>
+      </div>
+    </b:if>
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
+</b:includable>
+            <b:includable id='commentsLink'>
+  <a class='comment-link' expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:if cond='data:post.numberOfComments &gt; 0'>
+      <b:message name='messages.numberOfComments'>
+        <b:param expr:value='data:post.numberOfComments' name='numComments'/>
+      </b:message>
+    <b:else/>
+      <data:messages.postAComment/>
+    </b:if>
+  </a>
+</b:includable>
+            <b:includable id='commentsLinkIframe'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='commentsTitle'>
+  <h3 class='title'><data:messages.comments/></h3>
+</b:includable>
+            <b:includable id='defaultAdUnit'>
+  <ins class='adsbygoogle' data-ad-format='auto' expr:data-ad-client='data:adClientId ?: data:blog.adsenseClientId' expr:data-ad-host='data:blog.adsenseHostId' expr:style='data:style ?: &quot;display: block;&quot;'>
+    <b:attr cond='not data:blog.analytics4' expr:value='data:blog.analyticsAccountNumber' name='data-analytics-uacct'/>
+  </ins>
+  <script>
+   (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</b:includable>
+            <b:includable id='emailPostIcon'>
+  <span class='byline post-icons'>
+    <!-- email post links -->
+    <span class='item-action'>
+      <a expr:href='data:post.emailPostUrl' expr:title='data:messages.emailPost'>
+        <b:include data='{ iconClass: &quot;touch-icon sharing-icon&quot; }' name='emailIcon'/>
+      </a>
+    </span>
+  </span>
+</b:includable>
+            <b:includable id='facebookShare'>
+  <b:with value='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+            <b:includable id='feedLinks'>
+  <b:if cond='!data:view.isPost'> <!-- Blog feed links -->
+    <b:if cond='data:feedLinks'>
+      <div class='blog-feeds'>
+        <b:include data='feedLinks' name='feedLinksBody'/>
+      </div>
+    </b:if>
+  <b:else/> <!--Post feed links -->
+    <div class='post-feeds'>
+      <b:loop values='data:posts' var='post'>
+        <b:if cond='data:post.allowComments and data:post.feedLinks'>
+          <b:include data='post.feedLinks' name='feedLinksBody'/>
+        </b:if>
+      </b:loop>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='feedLinksBody' var='links'>
+  <div class='feed-links'>
+  <data:messages.subscribeTo/>
+  <b:loop values='data:links' var='f'>
+     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
+  </b:loop>
+  </div>
+</b:includable>
+            <b:includable id='footerBylines'>
+  <b:if cond='data:widgets.Blog.first.footerBylines'>
+    <b:loop index='i' values='data:widgets.Blog.first.footerBylines' var='region'>
+      <b:if cond='not data:region.items.empty'>
+        <div expr:class='&quot;post-footer-line post-footer-line-&quot; + (data:i + 1)'>
+          <b:with value='&quot;footer-&quot; + (data:i + 1)' var='regionName'>
+            <b:include data='region.items' name='bylineRegion'/>
+          </b:with>
+        </div>
+      </b:if>
+    </b:loop>
+  </b:if>
+</b:includable>
+            <b:includable id='googlePlusShare'>
+</b:includable>
+            <b:includable id='headerByline'>
+  <b:if cond='data:widgets.Blog.first.headerByline'>
+    <div class='post-header'>
+      <div class='post-header-line-1'>
+        <b:with value='&quot;header-1&quot;' var='regionName'>
+          <b:include data='data:widgets.Blog.first.headerByline.items' name='bylineRegion'/>
+        </b:with>
+      </div>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='homePageLink'>
+  <a class='home-link' expr:href='data:blog.homepageUrl'>
+    <data:messages.home/>
+  </a>
+</b:includable>
+            <b:includable id='iframeComments' var='post'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='inlineAd' var='post'>
+  <b:if cond='!data:view.isPreview'>
+    <b:if cond='data:this.adCode or data:this.adClientId or data:blog.adsenseClientId'>
+      <!-- Ad -->
+      <div class='inline-ad'>
+        <b:if cond='data:this.adCode != &quot;&quot;'>
+          <data:this.adCode/>
+        <b:else/>
+          <b:include cond='data:this.adClientId or data:blog.adsenseClientId' name='defaultAdUnit'/>
+        </b:if>
+      </div>
+    </b:if>
+  <b:else/>
+    <div class='inline-ad'>
+      <div class='inline-ad-placeholder'>
+        <span><b:message name='messages.adsGoHere'/></span>
+      </div>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='linkShare'>
+  <b:with value='&quot;window.prompt(\&quot;Copy to clipboard: Ctrl+C, Enter\&quot;, \&quot;&quot; + data:originalUrl + &quot;\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+            <b:includable id='nextPageLink'>
+  <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:messages.olderPosts'>
+    <data:messages.olderPosts/>
+  </a>
+</b:includable>
+            <b:includable id='otherSharingButton'>
+  <span class='sharing-platform-button sharing-element-other' expr:aria-label='data:messages.shareToOtherApps.escaped' expr:data-url='data:originalUrl' expr:title='data:messages.shareToOtherApps.escaped' role='menuitem' tabindex='-1'>
+    <b:with value='{key: &quot;sharingOther&quot;}' var='platform'>
+      <b:include name='sharingPlatformIcon'/>
+    </b:with>
+    <span class='platform-sharing-text'><data:messages.shareOtherApps.escaped/></span>
+  </span>
+</b:includable>
+            <b:includable id='platformShare'>
+  <a expr:class='&quot;goog-inline-block sharing-&quot; + data:platform.key' expr:data-url='data:originalUrl' expr:href='data:shareUrl + &quot;&amp;target=&quot; + data:platform.target' expr:onclick='data:onclick ? data:onclick : &quot;&quot;' expr:title='data:platform.shareMessage' target='_blank'>
+    <span class='share-button-link-text'>
+      <data:platform.shareMessage/>
+    </span>
+  </a>
+</b:includable>
+            <b:includable id='post' var='post'><div class='post-body'><data:post.body/></div></b:includable>
+            <b:includable id='postAuthor'>
+  <span class='byline post-author vcard'>
+    <span class='post-author-label'>
+      <data:byline.label/>
+    </span>
+    <span class='fn'>
+      <b:if cond='data:post.author.profileUrl'>
+        <meta expr:content='data:post.author.profileUrl'/>
+        <a class='g-profile' expr:href='data:post.author.profileUrl' rel='author' title='author profile'>
+          <span><data:post.author.name/></span>
+        </a>
+      <b:else/>
+        <span><data:post.author.name/></span>
+      </b:if>
+    </span>
+  </span>
+</b:includable>
+            <b:includable id='postBody' var='post'>
+  <!-- If metaDescription is empty, use the post body as the schema.org description too, for G+/FB snippeting. -->
+  <div class='post-body entry-content float-container' expr:id='&quot;post-body-&quot; + data:post.id'>
+    <data:post.body/>
+  </div>
+</b:includable>
+            <b:includable id='postBodySnippet' var='post'>
+  <b:include data='post' name='postBody'/>
+</b:includable>
+            <b:includable id='postCommentsAndAd' var='post'>
+  <article class='post-outer-container'>
+    <!-- Post title and body -->
+    <div class='post-outer'>
+      <b:include data='post' name='post'/>
+    </div>
+
+    <!-- Comments -->
+    <b:include cond='data:view.isSingleItem' data='post' name='commentPicker'/>
+
+    <!-- Show ad inside post container, after comments, if single item. -->
+    <b:include cond='data:view.isSingleItem and data:post.includeAd' data='post' name='inlineAd'/>
+  </article>
+
+  <!-- Show ad outside post container (between posts) for feed pages. -->
+  <b:include cond='data:view.isMultipleItems and data:post.includeAd' data='post' name='inlineAd'/>
+</b:includable>
+            <b:includable id='postCommentsLink'>
+  <b:if cond='data:view.isMultipleItems'>
+    <span class='byline post-comment-link container'>
+      <b:include cond='data:post.commentSource != 1' name='commentsLink'/>
+    </span>
+  </b:if>
+</b:includable>
+            <b:includable id='postFooter' var='post'>
+  <div class='post-footer'>
+    <b:include name='footerBylines'/>
+    <b:include data='post' name='postFooterAuthorProfile'/>
+  </div>
+</b:includable>
+            <b:includable id='postFooterAuthorProfile' var='post'>
+  <b:if cond='data:post.author.aboutMe and data:view.isPost'>
+    <div class='author-profile'>
+      <b:if cond='data:post.author.authorPhoto.url'>
+        <img class='author-image' expr:src='data:post.author.authorPhoto.url' width='50px'/>
+        <div class='author-about'>
+          <b:include data='post' name='aboutPostAuthor'/>
+        </div>
+      <b:else/>
+        <b:include data='post' name='aboutPostAuthor'/>
+      </b:if>
+    </div>
+  </b:if>
+</b:includable>
+            <b:includable id='postHeader' var='post'>
+  <b:include name='headerByline'/>
+</b:includable>
+            <b:includable id='postJumpLink' var='post'>
+  <div class='jump-link flat-button'>
+    <a expr:href='data:post.url fragment &quot;more&quot;' expr:title='data:post.title'>
+      <b:eval expr='data:blog.jumpLinkMessage'/>
+    </a>
+  </div>
+</b:includable>
+            <b:includable id='postLabels'>
+  <span class='byline post-labels'>
+    <span class='byline-label'><data:byline.label/></span>
+    <b:loop index='i' values='data:post.labels' var='label'>
+      <a expr:href='data:label.url' rel='tag'>
+        <data:label.name/>
+      </a>
+    </b:loop>
+  </span>
+</b:includable>
+            <b:includable id='postLocation'>
+  <span class='byline post-location'>
+    <data:byline.label/>
+    <a expr:href='data:post.location.mapsUrl' target='_blank'><data:post.location.name/></a>
+  </span>
+</b:includable>
+            <b:includable id='postMeta' var='post'>
+  <b:include data='post' name='postMetadataJSON'/>
+</b:includable>
+            <b:includable id='postMetadataJSONImage'>
+  &quot;image&quot;: {
+    &quot;@type&quot;: &quot;ImageObject&quot;,
+    <b:if cond='data:post.featuredImage.isResizable'>
+    &quot;url&quot;: &quot;<b:eval expr='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)'/>&quot;,
+    &quot;height&quot;: 630,
+    &quot;width&quot;: 1200
+    <b:else/>
+    &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/w1200/&quot;,
+    &quot;height&quot;: 348,
+    &quot;width&quot;: 1200
+    </b:if>
+  },
+</b:includable>
+            <b:includable id='postMetadataJSONPublisher'>
+ &quot;publisher&quot;: {
+    &quot;@type&quot;: &quot;Organization&quot;,
+    &quot;name&quot;: &quot;Blogger&quot;,
+    &quot;logo&quot;: {
+      &quot;@type&quot;: &quot;ImageObject&quot;,
+      &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/h60/&quot;,
+      &quot;width&quot;: 206,
+      &quot;height&quot;: 60
+    }
+  },
+</b:includable>
+            <b:includable id='postPagination'>
+  <div class='blog-pager container' id='blog-pager'>
+    <b:include cond='data:newerPageUrl' name='previousPageLink'/>
+    <b:include cond='data:olderPageUrl' name='nextPageLink'/>
+    <b:include cond='data:view.url != data:blog.homepageUrl' name='homePageLink'/>
+  </div>
+</b:includable>
+            <b:includable id='postReactions'>
+  <!-- Reaction feature no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+            <b:includable id='postShareButtons'>
+  <div class='byline post-share-buttons goog-inline-block'>
+    <b:with value='data:sharingId ?: ((data:widget.instanceId ?: &quot;sharing&quot;) + &quot;-&quot; + (data:regionName ?: &quot;byline&quot;) + &quot;-&quot; + data:post.id)' var='sharingId'>
+      <!-- Note: 'sharingButtons' includable is from the default Sharing widget markup. -->
+      <b:include data='{                                                sharingId: data:sharingId,                                                originalUrl: data:post.url,                                                platforms: data:this.sharing.platforms,                                                shareUrl: data:post.shareUrl,                                                shareTitle: data:post.title,                                              }' name='sharingButtons'/>
+    </b:with>
+  </div>
+</b:includable>
+            <b:includable id='postTimestamp'>
+  <span class='byline post-timestamp'>
+    <data:byline.label/>
+    <b:if cond='data:post.url'>
+      <meta expr:content='data:post.url.canonical'/>
+      <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'>
+        <time class='published' expr:datetime='data:post.date.iso8601' expr:title='data:post.date.iso8601'>
+          <data:post.date/>
+        </time>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+            <b:includable id='postTitle' var='post'>
+  <a expr:name='data:post.id'/>
+  <b:if cond='data:post.title != &quot;&quot;'>
+    <h3 class='post-title entry-title'>
+      <b:if cond='data:post.link or (data:post.url and data:view.url != data:post.url)'>
+        <a expr:href='data:post.link ?: data:post.url'><data:post.title/></a>
+      <b:else/>
+        <data:post.title/>
+      </b:if>
+    </h3>
+  </b:if>
+</b:includable>
+            <b:includable id='previousPageLink'>
+  <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:messages.newerPosts'>
+    <data:messages.newerPosts/>
+  </a>
+</b:includable>
+            <b:includable id='sharingButton'>
+  <span expr:aria-label='data:platform.shareMessage' expr:class='&quot;sharing-platform-button sharing-element-&quot; + data:platform.key' expr:data-href='data:shareUrl + &quot;&amp;target=&quot; + data:platform.target' expr:data-url='data:originalUrl' expr:title='data:platform.shareMessage' role='menuitem' tabindex='-1'>
+    <b:include name='sharingPlatformIcon'/>
+    <span class='platform-sharing-text'><data:platform.name/></span>
+  </span>
+</b:includable>
+            <b:includable id='sharingButtonContent'>
+  <div class='flat-icon-button ripple'>
+    <b:include name='shareIcon'/>
+  </div>
+</b:includable>
+            <b:includable id='sharingButtons'>
+  <div class='sharing' expr:aria-owns='&quot;sharing-popup-&quot; + data:sharingId' expr:data-title='data:shareTitle'>
+    <button class='sharing-button touch-icon-button' expr:aria-controls='&quot;sharing-popup-&quot; + data:sharingId' expr:aria-label='data:messages.share.escaped' expr:id='&quot;sharing-button-&quot; + data:sharingId' role='button'>
+      <b:include name='sharingButtonContent'/>
+    </button>
+    <b:include name='sharingButtonsMenu'/>
+  </div>
+</b:includable>
+            <b:includable id='sharingButtonsMenu'>
+  <div class='share-buttons-container'>
+    <ul aria-hidden='true' class='share-buttons hidden' expr:aria-label='data:messages.share.escaped' expr:id='&quot;sharing-popup-&quot; + data:sharingId' role='menu'>
+      <b:loop values='(data:platforms ?: data:blog.sharing.platforms) filter (p =&gt; p.key not in {&quot;blogThis&quot;})' var='platform'>
+        <li>
+          <b:include name='sharingButton'/>
+        </li>
+      </b:loop>
+      <li aria-hidden='true' class='hidden'>
+        <b:include name='otherSharingButton'/>
+      </li>
+    </ul>
+  </div>
+</b:includable>
+            <b:includable id='sharingPlatformIcon'>
+  <b:include data='{ iconClass: (&quot;touch-icon sharing-&quot; + data:platform.key) }' expr:name='data:platform.key + &quot;Icon&quot;'/>
+</b:includable>
+            <b:includable id='threadedCommentForm' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+    <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+      <p><data:this.messages.blogComment/></p>
+    </b:if>
+    <b:include data='post' name='commentFormIframeSrc'/>
+    <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+            <b:includable id='threadedCommentJs' var='post'>
+  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+  <b:template-script inline='true' name='threaded_comments'/>
+  <script type='text/javascript'>
+    blogger.widgets.blog.initThreadedComments(
+        <data:post.commentJso/>,
+        <data:post.commentMsgs/>,
+        <data:post.commentConfig/>);
+  </script>
+</b:includable>
+            <b:includable id='threadedComments' var='post'>
+  <section class='comments threaded' expr:data-embed='data:post.embedCommentForm' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+
+    <b:include name='commentsTitle'/>
+
+    <div class='comments-content'>
+      <b:if cond='data:post.embedCommentForm'>
+        <b:include data='post' name='threadedCommentJs'/>
+      </b:if>
+      <div id='comment-holder'>
+         <data:post.commentHtml/>
+      </div>
+    </div>
+
+    <p class='comment-footer'>
+      <b:if cond='data:post.allowNewComments'>
+        <b:include data='post' name='threadedCommentForm'/>
+      <b:else/>
+        <data:post.noNewCommentsText/>
+      </b:if>
+      <b:if cond='data:post.showManageComments'>
+        <b:include data='post' name='manageComments'/>
+      </b:if>
+    </p>
+
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
+</b:includable>
+            <b:includable id='tooltipCss'>
+  <!-- LINT.IfChange -->
+  <style>
+    .post-body a.b-tooltip-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .post-body a.b-tooltip-container .b-tooltip {
+      display: block !important;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-20%, 1px);
+      visibility: hidden;
+      opacity: 0;
+      z-index: 1;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .post-body a.b-tooltip-container .b-tooltip iframe {
+      width: 200px;
+      height: 198px;
+      max-width: none;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (hover: hover) {
+      .post-body a.b-tooltip-container:hover .b-tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  </style>
+  <!-- LINT.ThenChange(//depot/google3/java/com/google/blogger/b2/layouts/widgets/v2-style.css) -->
+</b:includable>
+          </b:widget>
+        </b:section>
+    </div>
+
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'/>
+    <script src='https://unpkg.com/aos@2.3.1/dist/aos.js'/>
+    <script src='https://cdn.jsdelivr.net/npm/flatpickr'/>
+
+    <script>
+    //<![CDATA[
+    /**
+     * SUSHI ELITE MONOLITH v86.1 (Hotfix)
+     */
+
+    const ERROR_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23cccccc'/%3E%3C/svg%3E";
+    const PLACEHOLDER_IMG = "https://placehold.co/600x400/ce1212/ffffff?text=Sushi+Elite";
+    
+    const DELIVERY_THRESHOLD = 150; 
+    const DELIVERY_COST = 15;
+    
+    // COUPON CONFIG
+    const COUPONS = {
+        'SUSHI10': { type: 'percent', val: 0.10 },
+        'FREESHIP': { type: 'free_ship', val: 0 }
+    };
+
+    const App = {
+        State: {
+            catalog: [], filteredCatalog: [], cart: [], wishlist: [], history: [],
+            currency: 'DH', renderCount: 0, batchSize: 20, activeCategory: 'All', searchQuery: '',
+            rates: { 'DH': 1, 'USD': 0.10, 'EUR': 0.09 },
+            qvProduct: null, qvQty: 1, qvMultiplier: 1.0,
+            captchaAnswer: 0, orderType: 'delivery',
+            qvExtras: [], discount: 0, activeCoupon: ''
+        },
+
+        Utils: {
+            safeStr: (str) => str ? str.replace(/['"`]/g, '') : '',
+            formatPrice: (val) => {
+                if(!val && val !== 0) return "0.00 " + App.State.currency;
+                const r = Number(val) * App.State.rates[App.State.currency];
+                return `${r.toFixed(2)} ${App.State.currency}`;
+            },
+            generateId: () => Math.random().toString(36).substr(2, 9),
+            checkStatus: () => {
+                const hour = new Date().getHours();
+                const isOpen = hour >= 9 || hour < 6;
+                const html = isOpen 
+                    ? `<i class="bi bi-circle-fill text-success" style="font-size:8px; vertical-align:middle"></i> Open Now`
+                    : `<i class="bi bi-circle-fill text-danger" style="font-size:8px; vertical-align:middle"></i> Closed (Opens 9AM)`;
+                document.getElementById('store-status').innerHTML = html;
+                const mob = document.getElementById('store-status-mobile');
+                if(mob) mob.innerHTML = `<span class='badge bg-light text-dark border'>${html}</span>`;
+            },
+            getEmoji: (cat) => {
+                const c = cat.toLowerCase();
+                if(c.includes('sushi')) return '🍣';
+                if(c.includes('soup') || c.includes('ramen')) return '🍜';
+                if(c.includes('drink') || c.includes('juice')) return '🥤';
+                if(c.includes('dessert') || c.includes('cake')) return '🍰';
+                return '🍽️';
+            },
+            debounce: (func, wait) => {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            },
+            initCaptcha: () => {
+                const n1 = Math.floor(Math.random() * 9) + 1;
+                const n2 = Math.floor(Math.random() * 9) + 1;
+                App.State.captchaAnswer = n1 + n2;
+                const el = document.getElementById('captcha-question');
+                if(el) el.innerText = `${n1} + ${n2} = ?`;
+                const input = document.getElementById('captcha-input');
+                if(input) input.value = '';
+            },
+            // HOTFIX: Restore Countdown
+            startCountdown: () => {
+                let time = 20 * 60; // 20 minutes
+                const el = document.getElementById('countdown-timer');
+                if(!el) return;
+                setInterval(() => {
+                    const m = Math.floor(time / 60);
+                    const s = time % 60;
+                    el.innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+                    if(time > 0) time--;
+                }, 1000);
+            },
+            animateValue: (obj, start, end, duration) => {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = App.Utils.formatPrice(Math.floor(progress * (end - start) + start));
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    } else {
+                        obj.innerHTML = App.Utils.formatPrice(end);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+        },
+
+        UI: {
+            toast: (msg, type='light') => {
+                const c = document.getElementById('toast-container');
+                const el = document.createElement('div');
+                const icon = type === 'success' ? 'check-circle-fill text-success' : (type === 'danger' ? 'exclamation-circle-fill text-danger' : 'info-circle-fill text-info');
+                el.className = `toast glass-toast show fade`;
+                el.innerHTML = `<div class="d-flex align-items-center p-3"><i class="bi bi-${icon} fs-4 me-3"></i><div class="fw-bold">${msg}</div><button type="button" class="btn-close ms-auto me-2" data-bs-dismiss="toast"></button></div>`;
+                c.appendChild(el);
+                setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 300); }, 3500);
+            },
+
+            confirm: (title, msg, onConfirm) => {
+                document.getElementById('conf-title').innerText = title;
+                document.getElementById('conf-msg').innerText = msg;
+                const btn = document.getElementById('conf-yes');
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                newBtn.addEventListener('click', () => {
+                    onConfirm();
+                    bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide();
+                });
+                new bootstrap.Modal(document.getElementById('confirmModal')).show();
+            },
+
+            flyToCart: (img) => {
+                if(!img || !img.src) return;
+                const cart = document.getElementById('nav-cart-wrapper');
+                if(!cart) return;
+                const clone = img.cloneNode();
+                const rect = img.getBoundingClientRect();
+                const tRect = cart.getBoundingClientRect();
+                clone.classList.add('fly-img');
+                clone.style.top = `${rect.top}px`;
+                clone.style.left = `${rect.left}px`;
+                clone.style.width = `${rect.width}px`;
+                clone.style.height = `${rect.height}px`;
+                document.body.appendChild(clone);
+                requestAnimationFrame(() => {
+                    clone.style.top = `${tRect.top}px`;
+                    clone.style.left = `${tRect.left}px`;
+                    clone.style.width = '20px';
+                    clone.style.height = '20px';
+                    clone.style.opacity = '0';
+                });
+                setTimeout(() => {
+                    clone.remove();
+                    cart.classList.add('bump-anim');
+                    setTimeout(() => cart.classList.remove('bump-anim'), 300);
+                }, 800);
+            },
+
+            updateBadge: () => {
+                const total = App.State.cart.reduce((a, b) => a + b.qty, 0);
+                document.getElementById('cart-count').innerText = total;
+                const bar = document.getElementById('bottom-cart-bar');
+                if(bar) {
+                    if(total > 0) {
+                        bar.classList.add('active');
+                        if(window.innerWidth < 992) bar.classList.add('has-nav');
+                        document.getElementById('bar-count').innerText = total;
+                        const totalAmount = App.State.cart.reduce((sum, item) => sum + (item.finalPrice * item.qty), 0);
+                        document.getElementById('bar-total').innerText = App.Utils.formatPrice(totalAmount);
+                    } else {
+                        bar.classList.remove('active');
+                    }
+                }
+            }
+        },
+
+        Catalog: {
+            init: () => {
+                App.State.observer = new IntersectionObserver((entries) => {
+                    if(entries[0].isIntersecting) {
+                        App.Catalog.renderBatch();
+                    }
+                }, { rootMargin: '100px' });
+            },
+
+            processTags: (tags) => {
+                const meta = { tags: tags, price: 50, stock: 99, cat: 'Uncategorized', altImg: null, sku: App.Utils.generateId(), oldPrice: null, isHot: false };
+                tags.forEach(t => {
+                    if(t.startsWith('price-')) meta.price = parseFloat(t.split('-')[1]);
+                    if(t.startsWith('old-')) meta.oldPrice = parseFloat(t.split('-')[1]);
+                    if(t.startsWith('stock-')) meta.stock = parseInt(t.split('-')[1]);
+                    if(t.startsWith('cat-')) meta.cat = t.replace('cat-', '');
+                    if(t.startsWith('img-alt-url')) meta.altImg = t.replace('img-alt-url-', 'https'); 
+                    if(t.startsWith('sku-')) meta.sku = t.split('-')[1];
+                    if(t === 'hot') meta.isHot = true;
+                });
+                if(meta.sku.includes('F')) meta.isHot = Math.random() > 0.7; 
+                return meta;
+            },
+
+            renderBatch: () => {
+                const { filteredCatalog, renderCount, batchSize } = App.State;
+                const container = document.getElementById('product-grid-root');
+                const sentinel = document.getElementById('scroll-sentinel');
+                const loader = document.getElementById('loader-sentinel');
+
+                if (renderCount >= filteredCatalog.length) {
+                    if(loader) loader.classList.add('hidden');
+                    return;
+                }
+
+                if(loader) loader.classList.remove('hidden');
+
+                const nextBatch = filteredCatalog.slice(renderCount, renderCount + batchSize);
+                
+                nextBatch.forEach(item => {
+                    container.appendChild(App.Catalog.createCard(item));
+                });
+
+                App.State.renderCount += nextBatch.length;
+
+                if (App.State.renderCount < filteredCatalog.length) {
+                    App.State.observer.observe(sentinel);
+                } else {
+                    if(loader) loader.classList.add('hidden');
+                }
+            },
+
+            resetGrid: () => {
+                document.getElementById('product-grid-root').innerHTML = '';
+                App.State.renderCount = 0;
+                App.Catalog.renderBatch();
+            },
+
+            search: (query) => {
+                if(!App.Catalog._debouncedSearch) {
+                    App.Catalog._debouncedSearch = App.Utils.debounce((q) => {
+                        App.State.searchQuery = q.toLowerCase();
+                        App.Catalog.applyFilters();
+                    }, 300);
+                }
+                App.Catalog._debouncedSearch(query);
+            },
+
+            filter: (cat) => {
+                App.State.activeCategory = cat;
+                document.querySelectorAll('.filter-chip').forEach(el => {
+                    el.classList.toggle('active', el.innerText.includes(cat));
+                });
+                App.Catalog.applyFilters();
+                const grid = document.getElementById('catalog-module');
+                if(grid) {
+                    const y = grid.getBoundingClientRect().top + window.pageYOffset - 180;
+                    window.scrollTo({top: y, behavior: 'smooth'});
+                }
+            },
+            
+            applyFilters: () => {
+                const { activeCategory, searchQuery, catalog } = App.State;
+                let results = catalog;
+                if(activeCategory !== 'All') results = results.filter(i => i.cat === activeCategory);
+                if(searchQuery.length > 0) results = results.filter(i => i.title.toLowerCase().includes(searchQuery) || i.cat.toLowerCase().includes(searchQuery));
+                App.State.filteredCatalog = results;
+                App.Catalog.resetGrid();
+            },
+
+            createCard: (item) => {
+                if (!item || typeof item.id === 'undefined') return document.createElement('div'); 
+                const col = document.createElement('div');
+                col.className = 'col-lg-4 col-md-6 col-12';
+                
+                const safeImg = item.img || PLACEHOLDER_IMG;
+                const isOut = item.stock === 0;
+                const isLow = item.stock < 5 && !isOut;
+                
+                let badge = '';
+                if(isOut) badge = `<div class="stock-badge stock-out">Sold Out</div>`;
+                else if(isLow) badge = `<div class="stock-badge stock-low">Low Stock</div>`;
+                else if(item.isHot) badge = `<div class="hot-badge">🔥 HOT</div>`;
+                else if(item.oldPrice && item.oldPrice > item.price) {
+                    const off = Math.round(((item.oldPrice - item.price) / item.oldPrice) * 100);
+                    badge = `<div class="discount-badge">SAVE ${off}%</div>`;
+                }
+
+                const safeId = String(item.id).replace(/'/g, "\\'");
+                const isFav = App.State.wishlist.some(w => String(w.id) === String(item.id));
+                const heartClass = isFav ? 'active' : '';
+                
+                const cartItem = App.State.cart.find(c => String(c.id) === String(item.id));
+                let actionBtn = '';
+                
+                if(cartItem && !isOut) {
+                    actionBtn = `
+                        <div class="card-qty-ctrl">
+                            <button class="card-qty-btn" onclick="App.Cart.updateFromGrid('${safeId}', -1)">-</button>
+                            <span class="card-qty-val">${cartItem.qty}</span>
+                            <button class="card-qty-btn" onclick="App.Cart.updateFromGrid('${safeId}', 1)">+</button>
+                        </div>
+                    `;
+                } else {
+                    const btnState = isOut ? 'disabled="disabled"' : '';
+                    const btnText = isOut ? 'Out of Stock' : 'Add <i class="bi bi-plus"></i>';
+                    actionBtn = `
+                        <button class="btn btn-sm btn-outline-danger rounded-pill w-100" 
+                            ${btnState} 
+                            onclick="App.Cart.addDirect('${safeId}', this)">
+                            ${btnText}
+                        </button>
+                    `;
+                }
+                
+                const priceHtml = item.oldPrice && item.oldPrice > item.price 
+                    ? `<span class="old-price">${App.Utils.formatPrice(item.oldPrice)}</span> <span class="fw-bold text-danger fs-5 text-nowrap">${App.Utils.formatPrice(item.price)}</span>`
+                    : `<span class="fw-bold text-danger fs-5 text-nowrap">${App.Utils.formatPrice(item.price)}</span>`;
+
+                col.innerHTML = `
+                    <div class="product-card shadow-sm">
+                        ${badge}
+                        <button class="wish-btn ${heartClass}" onclick="App.Wishlist.toggle('${safeId}')"><i class="bi bi-heart-fill"></i></button>
+                        <div class="product-img-wrapper" onclick="App.QuickView.open('${safeId}')">
+                            <img src="${safeImg}" class="product-img" loading="lazy" onerror="this.onerror=null;this.src='${ERROR_IMG}'"/>
+                        </div>
+                        <div class="p-4">
+                            <h5 class="fw-bold text-truncate">${item.title}</h5>
+                            <div class="d-flex justify-content-between align-items-center mt-3 gap-2">
+                                <div>${priceHtml}</div>
+                                <div class="flex-grow-1" style="max-width: 140px">
+                                    ${actionBtn}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return col;
+            }
+        },
+
+        QuickView: {
+            open: (id) => {
+                const item = App.State.catalog.find(i => String(i.id) === String(id));
+                if(!item) return;
+
+                App.State.qvProduct = item;
+                App.State.qvQty = 1;
+                App.State.qvMultiplier = 1.0;
+                App.State.qvExtras = []; 
+                
+                const safeImg = item.img || PLACEHOLDER_IMG;
+                const modalBody = document.getElementById('quickview-content');
+                modalBody.innerHTML = `
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <img src="${safeImg}" class="w-100 h-100" style="object-fit:cover; min-height:300px;" onerror="this.src='${ERROR_IMG}'"/>
+                        </div>
+                        <div class="col-md-6 p-4 d-flex flex-column justify-content-center">
+                            <h2 class="fw-bold">${item.title}</h2>
+                            <h3 class="text-danger fw-bold my-3" id="qv-price-display">${App.Utils.formatPrice(item.price)}</h3>
+                            
+                            <p class="small text-muted fw-bold text-uppercase">Size</p>
+                            <div class="mb-4 variant-radio-group">
+                                <input type="radio" class="btn-check" name="qv_size" id="size1" autocomplete="off" checked="checked" onclick="App.QuickView.setMult(1.0)"/>
+                                <label class="btn btn-outline-danger me-2 mb-2" for="size1">Regular</label>
+
+                                <input type="radio" class="btn-check" name="qv_size" id="size2" autocomplete="off" onclick="App.QuickView.setMult(1.2)"/>
+                                <label class="btn btn-outline-danger me-2 mb-2" for="size2">Box (1.2x)</label>
+
+                                <input type="radio" class="btn-check" name="qv_size" id="size3" autocomplete="off" onclick="App.QuickView.setMult(1.5)"/>
+                                <label class="btn btn-outline-danger me-2 mb-2" for="size3">Party (1.5x)</label>
+                            </div>
+
+                            <p class="small text-muted fw-bold text-uppercase">Extras</p>
+                            <div class="mb-4 extras-list">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="ex-ginger" onchange="App.QuickView.toggleExtra('Ginger', 0)"/>
+                                    <label class="form-check-label" for="ex-ginger">Ginger (Free)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="ex-wasabi" onchange="App.QuickView.toggleExtra('Wasabi', 0)"/>
+                                    <label class="form-check-label" for="ex-wasabi">Wasabi (Free)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="ex-sweet" onchange="App.QuickView.toggleExtra('Sweet Sauce', 2)"/>
+                                    <label class="form-check-label" for="ex-sweet">Sweet Sauce (+2 DH)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="ex-salty" onchange="App.QuickView.toggleExtra('Salty Sauce', 2)"/>
+                                    <label class="form-check-label" for="ex-salty">Salty Sauce (+2 DH)</label>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-3 mb-4">
+                                <input type="number" class="form-control" value="1" min="1" style="width:70px" onchange="App.State.qvQty = parseInt(this.value)"/>
+                                <button class="btn btn-danger flex-grow-1 rounded-pill fw-bold" onclick="App.QuickView.addToCart()">Add to Order</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                new bootstrap.Modal(document.getElementById('quickViewModal')).show();
+            },
+
+            setMult: (m) => {
+                App.State.qvMultiplier = m;
+                const base = App.State.qvProduct.price;
+                document.getElementById('qv-price-display').innerText = App.Utils.formatPrice(base * m);
+            },
+
+            toggleExtra: (name, price) => {
+                const idx = App.State.qvExtras.findIndex(e => e.name === name);
+                if(idx > -1) {
+                    App.State.qvExtras.splice(idx, 1);
+                } else {
+                    App.State.qvExtras.push({name, price});
+                }
+            },
+
+            addToCart: () => {
+                const p = App.State.qvProduct;
+                const extraCost = App.State.qvExtras.reduce((sum, e) => sum + e.price, 0);
+                const finalPrice = (p.price * App.State.qvMultiplier) + extraCost;
+                
+                App.Cart.pushItem({
+                    id: p.id,
+                    title: p.title,
+                    img: p.img,
+                    basePrice: p.price,
+                    finalPrice: finalPrice,
+                    qty: App.State.qvQty,
+                    multiplier: App.State.qvMultiplier,
+                    extras: [...App.State.qvExtras]
+                });
+                bootstrap.Modal.getInstance(document.getElementById('quickViewModal')).hide();
+                App.UI.toast('Added to cart', 'success');
+                App.Catalog.resetGrid();
+            }
+        },
+
+        Cart: {
+            setOrderType: (type) => {
+                App.State.orderType = type;
+                App.Cart.render(); 
+            },
+
+            addDirect: (id, btn) => {
+                const p = App.State.catalog.find(i => String(i.id) === String(id));
+                if (!p) return App.UI.toast('Error adding item.', 'danger');
+                App.Cart.pushItem({
+                    id: p.id, title: p.title, img: p.img,
+                    basePrice: p.price, finalPrice: p.price,
+                    qty: 1, multiplier: 1.0, extras: []
+                });
+                // Find image for animation
+                const img = btn.closest('.product-card').querySelector('img');
+                App.UI.flyToCart(img);
+                App.UI.toast('Added to cart', 'success');
+                App.Catalog.resetGrid();
+            },
+
+            // Grid Updater
+            updateFromGrid: (id, delta) => {
+                const idx = App.State.cart.findIndex(i => String(i.id) === String(id));
+                if(idx > -1) {
+                    App.State.cart[idx].qty += delta;
+                    if(App.State.cart[idx].qty <= 0) {
+                        App.State.cart.splice(idx, 1);
+                        App.UI.toast('Item removed', 'light');
+                    }
+                    App.Cart.save();
+                    App.UI.updateBadge();
+                    App.Catalog.resetGrid(); 
+                }
+            },
+            
+            // Apply Coupon
+            applyCoupon: () => {
+                const code = document.getElementById('coupon-code').value.toUpperCase();
+                const msg = document.getElementById('coupon-msg');
+                const coup = COUPONS[code];
+                
+                if(coup) {
+                    App.State.activeCoupon = code;
+                    App.State.discount = coup;
+                    msg.innerHTML = `<span class="text-success"><i class="bi bi-check-circle"></i> Applied!</span>`;
+                    App.Cart.render();
+                } else {
+                    App.State.activeCoupon = '';
+                    App.State.discount = 0;
+                    msg.innerHTML = `<span class="text-danger"><i class="bi bi-x-circle"></i> Invalid Code</span>`;
+                    App.Cart.render();
+                }
+            },
+
+            pushItem: (newItem) => {
+                const exist = App.State.cart.find(i => String(i.id) === String(newItem.id) && i.multiplier === newItem.multiplier && JSON.stringify(i.extras) === JSON.stringify(newItem.extras));
+                if(exist) { exist.qty += newItem.qty; } else { App.State.cart.push(newItem); }
+                App.Cart.save();
+                App.UI.updateBadge();
+            },
+
+            remove: (idx) => {
+                App.State.cart.splice(idx, 1);
+                App.Cart.save();
+                App.Cart.render();
+                App.UI.updateBadge();
+                App.Catalog.resetGrid(); 
+            },
+
+            clearAll: () => {
+                if(App.State.cart.length === 0) return;
+                App.UI.confirm('Empty Cart', 'Are you sure you want to remove all items?', () => {
+                    App.State.cart = [];
+                    App.Cart.save();
+                    App.Cart.render();
+                    App.UI.updateBadge();
+                    App.Catalog.resetGrid();
+                });
+            },
+
+            save: () => localStorage.setItem('se_cart', JSON.stringify(App.State.cart)),
+
+            render: () => {
+                const list = document.getElementById('cart-items-list');
+                const checkoutArea = document.getElementById('checkout-form-area');
+                const progressBar = document.getElementById('delivery-progress-container');
+                
+                App.Utils.initCaptcha();
+
+                if(App.State.cart.length === 0) {
+                    list.innerHTML = `
+                        <div class="text-center py-5">
+                            <i class="bi bi-basket3 text-muted" style="font-size: 4rem;"></i>
+                            <h5 class="mt-3 text-muted">Your cart is empty</h5>
+                            <button class="btn btn-outline-danger mt-3 rounded-pill px-4" onclick="window.location.hash='#catalog'">Start Shopping</button>
+                        </div>
+                    `;
+                    checkoutArea.classList.add('d-none');
+                    progressBar.classList.add('d-none');
+                    document.getElementById('cart-total-display').innerText = App.Utils.formatPrice(0);
+                    return;
+                }
+
+                checkoutArea.classList.remove('d-none');
+                
+                if(App.State.orderType === 'delivery') {
+                    progressBar.classList.remove('d-none');
+                    document.getElementById('address-field-group').style.display = 'block';
+                } else {
+                    progressBar.classList.add('d-none');
+                    document.getElementById('address-field-group').style.display = 'none';
+                }
+
+                let subtotal = 0;
+                list.innerHTML = App.State.cart.map((item, idx) => {
+                    const lineTotal = item.finalPrice * item.qty;
+                    subtotal += lineTotal;
+                    const variantLabel = item.multiplier === 1.2 ? 'Box' : (item.multiplier === 1.5 ? 'Party' : 'Regular');
+                    const safeExtras = item.extras || [];
+                    const exLabel = safeExtras.length ? `<div class="small text-muted">+ ${safeExtras.map(e => e.name).join(', ')}</div>` : '';
+                    const safeImg = item.img || PLACEHOLDER_IMG;
+
+                    return `
+                        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="${safeImg}" width="50" height="50" class="rounded object-fit-cover" onerror="this.src='${ERROR_IMG}'"/>
+                                <div>
+                                    <h6 class="m-0 fw-bold">${item.title}</h6>
+                                    <small class="text-muted">${variantLabel} x ${item.qty}</small>
+                                    ${exLabel}
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="fw-bold">${App.Utils.formatPrice(lineTotal)}</span>
+                                <button class="btn-trash" onclick="App.Cart.remove(${idx})"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                // CALCULATE FEES & DISCOUNTS
+                let fee = 0;
+                if(App.State.orderType === 'delivery') {
+                    const isFree = subtotal >= DELIVERY_THRESHOLD || (App.State.discount && App.State.discount.type === 'free_ship');
+                    fee = isFree ? 0 : DELIVERY_COST;
+                    
+                    const percent = Math.min((subtotal / DELIVERY_THRESHOLD) * 100, 100);
+                    document.getElementById('delivery-bar').style.width = `${percent}%`;
+                    
+                    if (isFree) {
+                        document.getElementById('delivery-msg-text').innerHTML = `<i class="bi bi-check-circle-fill text-success"></i> Free Delivery Unlocked!`;
+                        document.getElementById('delivery-amount-text').innerText = "";
+                    } else {
+                        const diff = DELIVERY_THRESHOLD - subtotal;
+                        document.getElementById('delivery-msg-text').innerText = "Add more for FREE delivery!";
+                        document.getElementById('delivery-amount-text').innerText = `${App.Utils.formatPrice(diff)} left`;
+                    }
+                    document.getElementById('fee-row').style.display = 'flex';
+                } else {
+                    document.getElementById('fee-row').style.display = 'none';
+                }
+                
+                // PERCENT DISCOUNT
+                let discAmount = 0;
+                if(App.State.discount && App.State.discount.type === 'percent') {
+                     discAmount = subtotal * App.State.discount.val;
+                     document.getElementById('discount-row').classList.remove('d-none');
+                     document.getElementById('cart-discount-val').innerText = `-${App.Utils.formatPrice(discAmount)}`;
+                } else {
+                     document.getElementById('discount-row').classList.add('d-none');
+                }
+
+                const total = subtotal + fee - discAmount;
+
+                document.getElementById('cart-subtotal').innerText = App.Utils.formatPrice(subtotal);
+                document.getElementById('cart-delivery-fee').innerText = fee === 0 ? "FREE" : App.Utils.formatPrice(fee);
+                document.getElementById('cart-total-display').innerText = App.Utils.formatPrice(total);
+                
+                App.UI.updateBadge();
+            },
+
+            finalizeOrder: () => {
+                const nameIn = document.getElementById('cust-name');
+                const phoneIn = document.getElementById('cust-phone');
+                const addrIn = document.getElementById('cust-address');
+                const captIn = document.getElementById('captcha-input');
+                
+                [nameIn, phoneIn, addrIn, captIn].forEach(el => el.classList.remove('is-invalid'));
+                
+                let isValid = true;
+                if(!nameIn.value) { nameIn.classList.add('is-invalid'); isValid = false; }
+                if(!phoneIn.value) { phoneIn.classList.add('is-invalid'); isValid = false; }
+                
+                if(App.State.orderType === 'delivery' && !addrIn.value) { addrIn.classList.add('is-invalid'); isValid = false; }
+                
+                if(parseInt(captIn.value) !== App.State.captchaAnswer) {
+                    captIn.classList.add('is-invalid');
+                    App.UI.toast('Math incorrect. Try again.', 'danger');
+                    isValid = false;
+                }
+
+                if(!isValid) {
+                    App.UI.toast('Please check highlighted fields.', 'warning');
+                    return;
+                }
+                
+                const pay = document.getElementById('payment-method').value;
+                const notes = document.getElementById('cust-notes').value;
+                const order = { 
+                    id: App.Utils.generateId(),
+                    date: new Date().toLocaleDateString(), 
+                    total: document.getElementById('cart-total-display').innerText,
+                    timestamp: Date.now()
+                };
+                
+                App.State.history.unshift(order);
+                localStorage.setItem('se_hist', JSON.stringify(App.State.history));
+                
+                let text = `*ORDER #${order.id.toUpperCase()}* %0A`;
+                text += `TYPE: ${App.State.orderType === 'delivery' ? '🛵 DELIVERY' : '🛍️ TAKEAWAY'} %0A`;
+                text += `👤 ${nameIn.value} %0A`;
+                text += `📞 ${phoneIn.value} %0A`;
+                if(App.State.orderType === 'delivery') text += `📍 ${addrIn.value} %0A`;
+                text += `💳 ${pay} %0A`;
+                if(notes) text += `📝 ${notes} %0A`;
+                if(App.State.activeCoupon) text += `🎟️ CODE: ${App.State.activeCoupon} %0A`;
+                text += `--------------------------------%0A`;
+                
+                App.State.cart.forEach(i => {
+                    const varLabel = i.multiplier > 1 ? `(${i.multiplier === 1.2 ? 'Box' : 'Party'})` : '';
+                    const exLabel = (i.extras && i.extras.length) ? `[+${i.extras.map(e=>e.name).join(',')}]` : '';
+                    text += `• *${i.qty}x* ${i.title} ${varLabel} ${exLabel} %0A`;
+                });
+                
+                text += `--------------------------------%0A`;
+                text += `*TOTAL: ${order.total}*`;
+
+                window.open(`https://wa.me/212666000000?text=${text}`);
+                
+                App.Cart.clearAll();
+            },
+            
+            changeCurrency: (c) => {
+                App.State.currency = c;
+                localStorage.setItem('se_curr', c);
+                App.Catalog.resetGrid();
+                App.Cart.render();
+            }
+        },
+
+        // --- WISHLIST MODULE ---
+        Wishlist: {
+            toggle: (id) => {
+                const idx = App.State.wishlist.findIndex(i => String(i.id) === String(id));
+                if(idx > -1) {
+                    App.State.wishlist.splice(idx, 1);
+                    App.UI.toast('Removed from favorites', 'light');
+                } else {
+                    const p = App.State.catalog.find(i => String(i.id) === String(id));
+                    if(p) {
+                        App.State.wishlist.push(p);
+                        App.UI.toast('Added to favorites', 'success');
+                    }
+                }
+                localStorage.setItem('se_wish', JSON.stringify(App.State.wishlist));
+                if(window.location.hash === '#wishlist') App.Wishlist.render();
+                App.Catalog.resetGrid();
+            },
+            
+            clearAll: () => {
+                if(App.State.wishlist.length === 0) return;
+                App.UI.confirm('Clear Favorites', 'Remove all items?', () => {
+                    App.State.wishlist = [];
+                    localStorage.setItem('se_wish', JSON.stringify([]));
+                    App.Wishlist.render();
+                });
+            },
+            
+            render: () => {
+                const root = document.getElementById('wishlist-grid-root');
+                root.innerHTML = '';
+                if(App.State.wishlist.length === 0) {
+                     root.innerHTML = `
+                        <div class="text-center py-5 w-100">
+                            <i class="bi bi-heart text-muted" style="font-size: 3rem;"></i>
+                            <h5 class="mt-3 text-muted">No favorites yet</h5>
+                        </div>
+                    `;
+                    return;
+                }
+                App.State.wishlist.forEach(item => {
+                    App.Catalog.createCard(item) ? root.appendChild(App.Catalog.createCard(item)) : null;
+                });
+            }
+        },
+
+        // --- PROFILE MODULE ---
+        Profile: {
+            renderHistory: () => {
+                const tbody = document.getElementById('order-history-body');
+                if(!tbody) return;
+                
+                if (App.State.history.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="3" class="text-center text-muted">No orders yet.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = App.State.history.map(o => {
+                    const diff = (Date.now() - (o.timestamp || Date.now())) / 60000;
+                    let status = '<span class="badge bg-secondary">Pending</span>';
+                    
+                    if (diff > 2 && diff <= 15) status = '<span class="badge bg-warning text-dark">Preparing</span>';
+                    else if (diff > 15 && diff <= 45) status = '<span class="badge bg-info text-white">Delivering</span>';
+                    else if (diff > 45) status = '<span class="badge bg-success">Completed</span>';
+
+                    return `
+                        <tr>
+                            <td>
+                                <div class="fw-bold">${o.date}</div>
+                                <small class="text-muted">#${o.id ? o.id.toUpperCase() : '---'}</small>
+                            </td>
+                            <td class="fw-bold">${o.total}</td>
+                            <td>${status}</td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+        },
+
+        init: () => {
+            AOS.init();
+            
+            try {
+                let c = JSON.parse(localStorage.getItem('se_cart')) || [];
+                let w = JSON.parse(localStorage.getItem('se_wish')) || [];
+                let h = JSON.parse(localStorage.getItem('se_hist')) || [];
+                let curr = localStorage.getItem('se_curr') || 'DH';
+                
+                c = c.filter(i => i && typeof i.id !== 'undefined');
+                w = w.filter(i => i && typeof i.id !== 'undefined');
+                
+                App.State.cart = c;
+                App.State.wishlist = w;
+                App.State.history = h;
+                App.State.currency = curr;
+            } catch(e) {
+                console.warn("Storage reset");
+                App.State.cart = []; App.State.wishlist = [];
+            }
+
+            API.fetch();
+            App.Catalog.init();
+            App.UI.updateBadge();
+            App.Utils.checkStatus();
+            App.Utils.startCountdown();
+            
+            // Safety Valve
+            setTimeout(() => {
+                const overlay = document.getElementById('maint-overlay');
+                if(overlay && overlay.style.display !== 'none') {
+                    overlay.style.display = 'none';
+                }
+            }, 4000);
+            
+            const route = () => {
+                const hash = window.location.hash || '#home';
+                document.querySelectorAll('.module-section').forEach(m => m.classList.remove('active'));
+                const target = document.querySelector(hash + '-module');
+                if(target) target.classList.add('active');
+                
+                if(hash === '#cart') App.Cart.render();
+                if(hash === '#wishlist') App.Wishlist.render();
+                if(hash === '#profile') App.Profile.renderHistory();
+                window.scrollTo(0,0);
+            };
+            window.addEventListener('hashchange', route);
+            route();
+            
+            window.addEventListener('scroll', () => {
+                const btn = document.getElementById('scrollTopBtn');
+                if(window.scrollY > 300) btn.classList.add('visible');
+                else btn.classList.remove('visible');
+            });
+            
+            if(document.getElementById('delivery-time')) flatpickr("#delivery-time", { enableTime: true });
+        }
+    };
+
+    const API = {
+        fetch: () => {
+            const s = document.createElement('script');
+            s.src = 'https://eventsushi.blogspot.com/feeds/posts/default?alt=json-in-script&callback=API.parse&max-results=500';
+            s.onerror = () => API.loadFallback();
+            document.body.appendChild(s);
+        },
+
+        parse: (json) => {
+            try {
+                if(!json || !json.feed || !json.feed.entry || json.feed.entry.length === 0) {
+                    API.loadFallback();
+                    return;
+                }
+                
+                const cats = new Set(['All']);
+                App.State.catalog = json.feed.entry.map(e => {
+                    const tags = e.category ? e.category.map(c => c.term) : [];
+                    const meta = App.Catalog.processTags(tags);
+                    if(meta.cat) cats.add(meta.cat);
+                    return {
+                        id: e.id.$t,
+                        title: e.title.$t,
+                        img: e.media$thumbnail ? e.media$thumbnail.url.replace(/\/s[0-9]+.*?\//, '/w600-h600-c/') : PLACEHOLDER_IMG,
+                        price: meta.price,
+                        stock: meta.stock,
+                        cat: meta.cat,
+                        altImg: meta.altImg,
+                        sku: meta.sku,
+                        oldPrice: meta.oldPrice,
+                        isHot: meta.isHot
+                    };
+                });
+                API.finalize(cats);
+            } catch(e) {
+                console.error("Parse Error:", e);
+                API.loadFallback();
+            }
+        },
+
+        loadFallback: () => {
+            console.log('Using Resilient Demo Data');
+            const dummy = [
+                {id:'1', title:'Dragon Roll', price: 80, stock:10, cat:'Sushi', img:'https://placehold.co/600x400/ce1212/ffffff?text=Dragon+Roll', sku:'F1', oldPrice: 100},
+                {id:'2', title:'Miso Soup', price: 25, stock:50, cat:'Soup', img:'https://placehold.co/600x400/37373f/ffffff?text=Miso+Soup', sku:'F2'},
+                {id:'3', title:'Spicy Tuna', price: 90, stock:2, cat:'Sushi', img:'https://placehold.co/600x400/ffc107/333333?text=Spicy+Tuna', sku:'F3', oldPrice: 120},
+                {id:'4', title:'Sold Out Item', price: 100, stock:0, cat:'Sushi', img:'https://placehold.co/600x400/cccccc/000000?text=Sold+Out', sku:'F4'}
+            ];
+            App.State.catalog = dummy;
+            API.finalize(new Set(['All', 'Sushi', 'Soup']));
+        },
+
+        finalize: (cats) => {
+            const fContainer = document.getElementById('category-filters');
+            fContainer.innerHTML = Array.from(cats).map(c => 
+                `<button class="filter-chip ${c==='All'?'active':''}" onclick="App.Catalog.filter('${c}')">${App.Utils.getEmoji(c)} ${c} <span class="badge bg-secondary ms-1" style="font-size:0.7em">${App.State.catalog.filter(i=>i.cat===c).length}</span></button>`
+            ).join('');
+            
+            document.getElementById('filter-skeleton').classList.add('d-none');
+            App.State.filteredCatalog = App.State.catalog;
+            App.Catalog.renderBatch();
+            document.getElementById('maint-overlay').style.display = 'none';
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', App.init);
+    //]]>
+    </script>
+</body>
+</html>
