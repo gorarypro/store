@@ -10,7 +10,7 @@
     <meta content='yes' name='mobile-web-app-capable'/>
     <meta content='yes' name='apple-mobile-web-app-capable'/>
     <meta content='black-translucent' name='apple-mobile-web-app-status-bar-style'/>
-    <meta content='Sushi Elite v70.12' name='apple-mobile-web-app-title'/>
+    <meta content='Sushi Elite v70.13' name='apple-mobile-web-app-title'/>
     
     <link href='https://cdn-icons-png.flaticon.com/512/2252/2252076.png' rel='icon' type='image/png'/>
     <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Amatic+SC:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap' rel='stylesheet'/>
@@ -21,7 +21,7 @@
     <link href='https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' rel='stylesheet'/>
 
     <b:skin><![CDATA[
-    /* SUSHI ELITE v70.12 [FIXED XML] */
+    /* SUSHI ELITE v70.13 [SYNC FIX] */
     :root {
         --primary: #ce1212; --primary-dark: #a00d0d;
         --secondary: #37373f; --accent: #ffc107;
@@ -1057,8 +1057,7 @@
     <script>
     //<![CDATA[
     /**
-     * SUSHI ELITE v70.12 [NAV & SAFETY]
-     * Included: Breadcrumbs, Confirmation Modal, Full Features, Fixed XML
+     * SUSHI ELITE v70.13 [SYNC FIX]
      */
 
     const CFG = {
@@ -1083,7 +1082,7 @@
             qvItem: null, qvMult: 1.0, qvQty: 1,
             orderType: 'delivery', 
             tip: 0,
-            version: '70.12'
+            version: '70.13'
         },
 
         Utils: {
@@ -1600,17 +1599,17 @@
             document.querySelectorAll('.module-section').forEach(e => e.classList.remove('active'));
             const t = document.querySelector(hash + '-module'); if(t) t.classList.add('active');
             
-            // Hide floating cart on cart page
-            if(hash === '#cart') document.getElementById('floating-cart').classList.remove('active');
-            else App.Cart.render(); // Update floating cart visibility
-            
-            if(hash === '#wishlist') App.Wishlist.render();
-            window.scrollTo(0,0);
-            
             // Breadcrumbs Logic
             const bread = document.getElementById('breadcrumbs');
             const pageName = hash.replace('#', '') || 'Home';
             bread.innerHTML = `<a href="#home">🏠 Home</a> <span class="breadcrumb-sep">></span> <span class="breadcrumb-item active">${pageName.charAt(0).toUpperCase() + pageName.slice(1)}</span>`;
+
+            // Hide floating cart on cart page
+            if(hash === '#cart') document.getElementById('floating-cart').classList.remove('active');
+            else App.Cart.render(); // Ensure background update
+            
+            if(hash === '#wishlist') App.Wishlist.render();
+            window.scrollTo(0,0);
         }
     };
 
@@ -1633,10 +1632,16 @@
         else App.State.cart = App.Utils.loadStorage('se_cart');
         App.State.wishlist = App.Utils.loadStorage('se_wish');
         
+        App.Cart.save();
         const s = document.createElement('script'); s.src = 'https://eventsushi.blogspot.com/feeds/posts/default?alt=json-in-script&callback=API.parse&max-results=500'; s.onerror=API.fallback; document.body.appendChild(s);
         AOS.init();
         if(document.getElementById('order-time')) flatpickr('#order-time', { enableTime: true, dateFormat: "Y-m-d H:i" });
-        App.Router(); window.addEventListener('hashchange', App.Router); App.Cart.updateBadge();
+        
+        // SYNC FIX: Render immediately on load
+        App.Cart.render(); 
+        App.Cart.updateBadge();
+        
+        App.Router(); window.addEventListener('hashchange', App.Router);
     });
     //]]>
     </script>
