@@ -10,7 +10,7 @@
     <meta content='yes' name='mobile-web-app-capable'/>
     <meta content='yes' name='apple-mobile-web-app-capable'/>
     <meta content='black-translucent' name='apple-mobile-web-app-status-bar-style'/>
-    <meta content='Sushi Elite v70.10' name='apple-mobile-web-app-title'/>
+    <meta content='Sushi Elite v70.12' name='apple-mobile-web-app-title'/>
     
     <link href='https://cdn-icons-png.flaticon.com/512/2252/2252076.png' rel='icon' type='image/png'/>
     <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Amatic+SC:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap' rel='stylesheet'/>
@@ -21,7 +21,7 @@
     <link href='https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' rel='stylesheet'/>
 
     <b:skin><![CDATA[
-    /* SUSHI ELITE v70.10 [REAL-TIME PRICE FIX] */
+    /* SUSHI ELITE v70.12 [FIXED XML] */
     :root {
         --primary: #ce1212; --primary-dark: #a00d0d;
         --secondary: #37373f; --accent: #ffc107;
@@ -29,18 +29,25 @@
         --text-main: #1d1d1f; --text-muted: #86868b;
         --font-main: "Inter", sans-serif; --font-header: "Amatic SC", sans-serif;
         --radius-xl: 20px;
-        --z-marquee: 1040; --z-navbar: 1030; --z-floating: 1035; --z-toast: 1060;
+        --z-marquee: 1040; --z-navbar: 1030; --z-bread: 1025; --z-floating: 1035; --z-toast: 1060;
     }
 
     [data-theme='dark'] { --bg-body: #0a0a0c; --bg-card: #1c1c1e; --text-main: #f5f5f7; --text-muted: #a1a1a6; }
     
-    body { font-family: var(--font-main); background: var(--bg-body); color: var(--text-main); padding-top: 110px; padding-bottom: 90px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; font-size: 0.92rem; }
+    body { font-family: var(--font-main); background: var(--bg-body); color: var(--text-main); padding-top: 145px; padding-bottom: 90px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; font-size: 0.92rem; }
     
     .marquee-bar { position: fixed; top: 0; left: 0; width: 100%; height: 30px; background: #000; color: #fff; z-index: var(--z-marquee); overflow: hidden; display: flex; align-items: center; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
     .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
     @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
     .header { background: var(--bg-card); height: 80px; z-index: var(--z-navbar); border-bottom: 1px solid rgba(0,0,0,0.05); top: 30px; transition: 0.3s; }
+    
+    /* BREADCRUMB BAR */
+    .breadcrumb-bar { position: fixed; top: 110px; left: 0; width: 100%; height: 35px; background: var(--bg-body); z-index: var(--z-bread); display: flex; align-items: center; padding: 0 15px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.8rem; overflow-x: auto; white-space: nowrap; }
+    .breadcrumb-item a { text-decoration: none; color: var(--text-muted); font-weight: 500; }
+    .breadcrumb-item.active { color: var(--primary); font-weight: 700; }
+    .breadcrumb-sep { margin: 0 8px; color: #ccc; }
+
     .card, .product-card { background: var(--bg-card) !important; border: 1px solid rgba(0,0,0,0.05); }
 
     .product-card { border-radius: var(--radius-xl); overflow: hidden; height: 100%; transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative; }
@@ -134,6 +141,12 @@
         </div>
     </header>
 
+    <div class='breadcrumb-bar'>
+        <div class='container d-flex align-items-center' id='breadcrumbs'>
+            <span class='breadcrumb-item active'>🏠 Home</span>
+        </div>
+    </div>
+
     <div class='toast-container' id='toast-container'/>
 
     <div class='floating-cart' id='floating-cart' onclick='window.location.hash=&quot;#cart&quot;'>
@@ -159,7 +172,7 @@
 
         <section class='module-section' id='catalog-module'>
             <div class='container'>
-                <div class='sticky-top bg-body py-3' style='top: 80px; z-index: 1010;'>
+                <div class='sticky-top bg-body py-3' style='top: 140px; z-index: 1010;'>
                     <div class='d-flex gap-2 mb-2 skeleton-loader d-none' id='filter-skeleton'>
                         <div class='skeleton' style='width:80px; height:30px;'/><div class='skeleton' style='width:80px; height:30px;'/>
                     </div>
@@ -177,7 +190,7 @@
                     <h2 class='fw-bold m-0'>Your Order</h2>
                     <div class='d-flex gap-2'>
                         <button class='btn btn-sm btn-outline-primary' onclick='App.Cart.share()'><i class='bi bi-share'/> Share</button>
-                        <button class='btn btn-sm btn-outline-danger' onclick='App.Cart.clear()'>Empty</button>
+                        <button class='btn btn-sm btn-outline-danger' onclick='App.UI.confirm(&quot;Empty Cart&quot;, &quot;Remove all items?&quot;, App.Cart.clear)'>Empty</button>
                     </div>
                 </div>
 
@@ -222,7 +235,7 @@
                     </div>
 
                     <div class='col-lg-5'>
-                        <div class='card p-4 rounded-4 border-0 shadow-lg sticky-top' style='top: 100px; z-index:1000'>
+                        <div class='card p-4 rounded-4 border-0 shadow-lg sticky-top' style='top: 150px; z-index:1000'>
                             <h5 class='fw-bold mb-3'>Summary</h5>
                             
                             <div class='input-group mb-3'>
@@ -286,7 +299,7 @@
             <div class='container'>
                 <div class='d-flex justify-content-between mb-4'>
                     <h2 class='fw-bold'>Favorites</h2>
-                    <button class='btn btn-sm btn-outline-danger' onclick='App.Wishlist.clear()'>Empty All</button>
+                    <button class='btn btn-sm btn-outline-danger' onclick='App.UI.confirm(&quot;Clear Favorites&quot;, &quot;Remove all items?&quot;, App.Wishlist.clear)'>Empty All</button>
                 </div>
                 <div class='row gy-4' id='wishlist-grid-root'/>
             </div>
@@ -306,6 +319,21 @@
             </div>
         </section>
     </main>
+
+    <div class='modal fade' id='confirmModal' tabindex='-1'>
+        <div class='modal-dialog modal-dialog-centered'>
+            <div class='modal-content border-0 rounded-4 shadow'>
+                <div class='modal-body text-center p-4'>
+                    <h4 class='fw-bold mb-3' id='conf-title'>Confirm</h4>
+                    <p class='text-muted mb-4' id='conf-msg'>Are you sure?</p>
+                    <div class='d-flex gap-2 justify-content-center'>
+                        <button class='btn btn-light rounded-pill px-4' data-bs-dismiss='modal'>Cancel</button>
+                        <button class='btn btn-danger rounded-pill px-4' id='conf-yes'>Yes, Proceed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div aria-hidden='true' class='modal fade' id='quickViewModal' tabindex='-1'>
         <div class='modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable'>
@@ -1029,7 +1057,8 @@
     <script>
     //<![CDATA[
     /**
-     * SUSHI ELITE v70.10 [REAL-TIME PRICE FIX]
+     * SUSHI ELITE v70.12 [NAV & SAFETY]
+     * Included: Breadcrumbs, Confirmation Modal, Full Features, Fixed XML
      */
 
     const CFG = {
@@ -1054,7 +1083,7 @@
             qvItem: null, qvMult: 1.0, qvQty: 1,
             orderType: 'delivery', 
             tip: 0,
-            version: '70.10'
+            version: '70.12'
         },
 
         Utils: {
@@ -1091,6 +1120,20 @@
                 c.appendChild(t);
                 setTimeout(() => t.remove(), 3000);
             },
+            
+            confirm: (title, msg, onConfirm) => {
+                document.getElementById('conf-title').innerText = title;
+                document.getElementById('conf-msg').innerText = msg;
+                const btn = document.getElementById('conf-yes');
+                const newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                newBtn.addEventListener('click', () => {
+                    onConfirm();
+                    bootstrap.Modal.getInstance(document.getElementById('confirmModal')).hide();
+                });
+                new bootstrap.Modal(document.getElementById('confirmModal')).show();
+            },
+
             flip: (imgEl, targetId) => {
                 if(!imgEl) return;
                 const targetEl = document.getElementById(targetId);
@@ -1212,10 +1255,8 @@
             add: (id, btn) => {
                 const item = App.State.catalog.find(i => i.id === id);
                 if(!item) return;
-                
                 const variant = { name: 'Regular', mult: 1.0 };
                 const existing = App.State.cart.find(c => c.id === id && c.variant.name === 'Regular');
-                
                 if(existing) {
                     if(existing.qty + 1 > item.stock) return App.UI.toast('Stock limit reached', 'warning');
                     existing.qty++;
@@ -1223,24 +1264,23 @@
                     if(item.stock < 1) return App.UI.toast('Sold Out', 'danger');
                     App.State.cart.push({ ...item, qty: 1, variant: variant });
                 }
-                
-                App.Cart.save();
-                App.Cart.updateBadge();
-                App.Cart.render(); // <--- FIX: RENDER CALLED HERE
+                App.Cart.save(); App.Cart.updateBadge(); App.Cart.render();
                 if(btn) App.UI.flip(btn.closest('.product-card').querySelector('img'), 'nav-cart-target');
                 App.UI.toast('Added to Cart');
             },
             
-            remove: (idx) => { App.State.cart.splice(idx, 1); App.Cart.save(); App.Cart.render(); App.Cart.updateBadge(); },
+            remove: (idx) => { 
+                App.UI.confirm('Remove Item', 'Are you sure?', () => {
+                    App.State.cart.splice(idx, 1); App.Cart.save(); App.Cart.render(); App.Cart.updateBadge(); 
+                });
+            },
             
             updateQty: (idx, delta) => {
                 const cItem = App.State.cart[idx];
                 const realItem = App.State.catalog.find(i => i.id === cItem.id);
                 const newQty = cItem.qty + delta;
-                
                 if (newQty < 1) return; 
                 if (realItem && newQty > realItem.stock) return App.UI.toast(`Max stock is ${realItem.stock}`, 'warning');
-                
                 cItem.qty = newQty;
                 App.Cart.save(); App.Cart.render(); App.Cart.updateBadge();
             },
@@ -1291,7 +1331,10 @@
                 }
             },
 
-            clear: () => { App.State.cart = []; App.Cart.save(); App.Cart.render(); App.Cart.updateBadge(); },
+            clear: () => { 
+                App.State.cart = []; App.Cart.save(); App.Cart.render(); App.Cart.updateBadge(); 
+            },
+            
             setType: (type) => { App.State.orderType = type; App.Cart.render(); },
             setTip: (amount) => { App.State.tip = parseInt(amount); App.Cart.render(); },
             applyCoupon: () => { document.getElementById('coupon-feedback').innerText = (document.getElementById('coupon-code').value.toUpperCase() === 'SUSHI10') ? 'Applied!' : 'Invalid'; App.Cart.render(); },
@@ -1546,7 +1589,7 @@
                 document.getElementById('nav-wish-count').innerText = App.State.wishlist.length;
                 if(window.location.hash === '#wishlist') App.Wishlist.render();
             },
-            clear: () => { App.State.wishlist = []; localStorage.setItem('se_wish', '[]'); App.Wishlist.render(); },
+            clear: () => { App.State.wishlist = []; localStorage.setItem('se_wish', '[]'); App.Wishlist.render(); document.getElementById('nav-wish-count').innerText = 0; },
             render: () => { const r = document.getElementById('wishlist-grid-root'); r.innerHTML=''; App.State.wishlist.forEach(i => r.appendChild(App.Catalog.createCard(i))); }
         },
 
@@ -1563,6 +1606,11 @@
             
             if(hash === '#wishlist') App.Wishlist.render();
             window.scrollTo(0,0);
+            
+            // Breadcrumbs Logic
+            const bread = document.getElementById('breadcrumbs');
+            const pageName = hash.replace('#', '') || 'Home';
+            bread.innerHTML = `<a href="#home">🏠 Home</a> <span class="breadcrumb-sep">></span> <span class="breadcrumb-item active">${pageName.charAt(0).toUpperCase() + pageName.slice(1)}</span>`;
         }
     };
 
