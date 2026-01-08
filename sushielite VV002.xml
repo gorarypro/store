@@ -10,7 +10,7 @@
     <meta content='yes' name='mobile-web-app-capable'/>
     <meta content='yes' name='apple-mobile-web-app-capable'/>
     <meta content='black-translucent' name='apple-mobile-web-app-status-bar-style'/>
-    <meta content='Sushi Elite v70.13' name='apple-mobile-web-app-title'/>
+    <meta content='Sushi Elite v71.2' name='apple-mobile-web-app-title'/>
     
     <link href='https://cdn-icons-png.flaticon.com/512/2252/2252076.png' rel='icon' type='image/png'/>
     <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Amatic+SC:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap' rel='stylesheet'/>
@@ -21,7 +21,7 @@
     <link href='https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' rel='stylesheet'/>
 
     <b:skin><![CDATA[
-    /* SUSHI ELITE v70.13 [SYNC FIX] */
+    /* SUSHI ELITE v71.2 [REFERENCE FIX] */
     :root {
         --primary: #ce1212; --primary-dark: #a00d0d;
         --secondary: #37373f; --accent: #ffc107;
@@ -36,13 +36,25 @@
     
     body { font-family: var(--font-main); background: var(--bg-body); color: var(--text-main); padding-top: 145px; padding-bottom: 90px; overflow-x: hidden; -webkit-tap-highlight-color: transparent; font-size: 0.92rem; }
     
+    /* RTL SUPPORT */
+    html[dir="rtl"] body { text-align: right; }
+    html[dir="rtl"] .offcanvas-start { right: 0; left: auto; transform: translateX(100%); }
+    html[dir="rtl"] .offcanvas-start.show { transform: none; }
+    html[dir="rtl"] .me-2 { margin-left: 0.5rem !important; margin-right: 0 !important; }
+    html[dir="rtl"] .ms-2 { margin-right: 0.5rem !important; margin-left: 0 !important; }
+    html[dir="rtl"] .ms-3 { margin-right: 1rem !important; margin-left: 0 !important; }
+    html[dir="rtl"] .ms-auto { margin-right: auto !important; margin-left: 0 !important; }
+    html[dir="rtl"] .badge-float { right: auto; left: 10px; } 
+    html[dir="rtl"] .wish-btn-card { left: 10px; right: auto; }
+    html[dir="rtl"] .rounded-start-pill { border-top-right-radius: 50rem!important; border-bottom-right-radius: 50rem!important; border-top-left-radius: 0!important; border-bottom-left-radius: 0!important; }
+    html[dir="rtl"] .rounded-end-pill { border-top-left-radius: 50rem!important; border-bottom-left-radius: 50rem!important; border-top-right-radius: 0!important; border-bottom-right-radius: 0!important; }
+
     .marquee-bar { position: fixed; top: 0; left: 0; width: 100%; height: 30px; background: #000; color: #fff; z-index: var(--z-marquee); overflow: hidden; display: flex; align-items: center; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
     .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
     @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
 
     .header { background: var(--bg-card); height: 80px; z-index: var(--z-navbar); border-bottom: 1px solid rgba(0,0,0,0.05); top: 30px; transition: 0.3s; }
     
-    /* BREADCRUMB BAR */
     .breadcrumb-bar { position: fixed; top: 110px; left: 0; width: 100%; height: 35px; background: var(--bg-body); z-index: var(--z-bread); display: flex; align-items: center; padding: 0 15px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.8rem; overflow-x: auto; white-space: nowrap; }
     .breadcrumb-item a { text-decoration: none; color: var(--text-muted); font-weight: 500; }
     .breadcrumb-item.active { color: var(--primary); font-weight: 700; }
@@ -57,7 +69,7 @@
     .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
     .product-card:hover .product-img { transform: scale(1.05); }
     
-    .wish-btn-card { position: absolute; top: 10px; right: 10px; z-index: 10; width: 35px; height: 35px; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; color: #ccc; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .wish-btn-card { position: absolute; bottom: 10px; right: 10px; z-index: 10; width: 35px; height: 35px; background: rgba(255,255,255,0.9); backdrop-filter: blur(4px); border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; color: #ccc; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
     .wish-btn-card.active { color: var(--primary); transform: scale(1.1); }
 
     .desktop-actions { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0; transition: 0.3s; z-index: 20; width: 90%; text-align: center; }
@@ -68,14 +80,17 @@
 
     .badge-float { position: absolute; z-index: 10; padding: 4px 10px; border-radius: 4px; font-weight: 800; font-size: 0.65rem; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
     .badge-hot { top: 10px; left: 10px; background: linear-gradient(45deg, #ff0000, #ff8800); }
-    .badge-stock { top: 10px; right: 10px; background: rgba(0,0,0,0.7); backdrop-filter: none; }
+    .badge-stock { top: 10px; left: 10px; background: rgba(0,0,0,0.7); backdrop-filter: none; } 
     .badge-low { background: #e67e22; animation: pulse 2s infinite; }
     .badge-out { background: #c0392b; }
+    .badge-sale { top: 38px; left: 10px; background: #000; } 
+    
     @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 
-    .floating-cart { position: fixed; bottom: 85px; left: 15px; right: 15px; background: var(--text-main); color: #fff; padding: 12px 20px; border-radius: 50px; z-index: var(--z-floating); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); transform: translateY(150%); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .floating-cart { position: fixed; bottom: 85px; left: 15px; right: 15px; background: rgba(29, 29, 31, 0.85); backdrop-filter: blur(10px); color: #fff; padding: 12px 20px; border-radius: 50px; z-index: var(--z-floating); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); transform: translateY(150%); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     .floating-cart.active { transform: translateY(0); }
     .floating-cart .price-tag { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-weight: 700; margin-left: 10px; }
+    html[dir="rtl"] .floating-cart .price-tag { margin-left: 0; margin-right: 10px; }
 
     .qv-wrapper { padding: 20px; }
     
@@ -106,6 +121,9 @@
     .bg-stock-out { background-color: #dc3545; }
     .variant-select { font-size: 0.85rem; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd; background: var(--bg-body); color: var(--text-main); cursor: pointer; }
 
+    .header-action-btn { background: transparent; border: 1px solid rgba(0,0,0,0.1); border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; font-size: 1rem; cursor: pointer; transition: 0.2s; }
+    .header-action-btn:hover { background: #eee; }
+
     @media (max-width: 768px) {
         .modal.fade .modal-dialog { transform: translate(0, 100%); margin: 0; position: fixed; bottom: 0; width: 100%; max-width: 100%; }
         .modal.show .modal-dialog { transform: none; }
@@ -124,11 +142,16 @@
 
     <header class='header fixed-top'>
         <div class='container d-flex align-items-center justify-content-between h-100'>
-            <a class='text-decoration-none' href='#home'>
-                <h1 class='m-0 fw-bold' style='color:var(--text-main); font-size:1.8rem; font-family:var(--font-accent)'>SushiElite<span class='text-primary'>.</span></h1>
-            </a>
-            <div class='d-flex align-items-center gap-3'>
-                <span class='badge bg-light text-dark border'>DH</span>
+            <div class='d-flex align-items-center gap-2'>
+                <a class='text-decoration-none' href='#home'>
+                    <h1 class='m-0 fw-bold' style='color:var(--text-main); font-size:1.8rem; font-family:var(--font-accent)'>SushiElite<span class='text-primary'>.</span></h1>
+                </a>
+            </div>
+
+            <div class='d-flex align-items-center gap-2'>
+                <button class='header-action-btn' id='lang-btn' onclick='App.i18n.toggleLang()'>🇺🇸</button>
+                <button class='header-action-btn fw-bold' id='curr-btn' onclick='App.i18n.toggleCurrency()' style='font-size:0.8rem'>DH</button>
+                
                 <a class='btn position-relative' href='#wishlist'>
                     <i class='bi bi-heart fs-4' style='color:var(--text-main)'/>
                     <span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger' id='nav-wish-count'>0</span>
@@ -143,7 +166,7 @@
 
     <div class='breadcrumb-bar'>
         <div class='container d-flex align-items-center' id='breadcrumbs'>
-            <span class='breadcrumb-item active'>🏠 Home</span>
+            <span class='breadcrumb-item active' data-i18n='home'>🏠 Home</span>
         </div>
     </div>
 
@@ -152,7 +175,7 @@
     <div class='floating-cart' id='floating-cart' onclick='window.location.hash=&quot;#cart&quot;'>
         <div class='d-flex align-items-center'>
             <div class='bg-white text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold' id='float-count' style='width:30px; height:30px'>0</div>
-            <span class='ms-3 fw-bold'>View Cart</span>
+            <span class='ms-3 fw-bold' data-i18n='viewCart'>View Cart</span>
         </div>
         <div class='price-tag' id='float-total'>0.00 DH</div>
     </div>
@@ -162,9 +185,9 @@
             <div class='container py-4'>
                 <div class='row justify-content-center'>
                     <div class='col-md-8 text-center mb-5' data-aos='fade-up'>
-                        <h2 class='fw-bold display-4' style='font-family: var(--font-accent)'>Taste the Ocean</h2>
-                        <p class='lead text-muted'>Premium Japanese Cuisine Delivered.</p>
-                        <button class='btn btn-primary rounded-pill px-5 py-3 fw-bold mt-2' onclick='window.location.hash=&quot;#catalog&quot;'>ORDER NOW</button>
+                        <h2 class='fw-bold display-4' data-i18n='heroTitle' style='font-family: var(--font-accent)'>Taste the Ocean</h2>
+                        <p class='lead text-muted' data-i18n='heroSub'>Premium Japanese Cuisine Delivered.</p>
+                        <button class='btn btn-primary rounded-pill px-5 py-3 fw-bold mt-2' data-i18n='orderNow' onclick='window.location.hash=&quot;#catalog&quot;'>ORDER NOW</button>
                     </div>
                 </div>
             </div>
@@ -178,7 +201,6 @@
                     </div>
                     <div class='filter-scroll' id='category-filters'/>
                 </div>
-                
                 <div class='row gy-4' id='product-grid-root'/>
                 <div id='scroll-sentinel'><div class='spinner-border text-primary' role='status'/></div>
             </div>
@@ -187,30 +209,37 @@
         <section class='module-section' id='cart-module'>
             <div class='container'>
                 <div class='d-flex justify-content-between align-items-center mb-3'>
-                    <h2 class='fw-bold m-0'>Your Order</h2>
+                    <h2 class='fw-bold m-0' data-i18n='yourOrder'>Your Order</h2>
                     <div class='d-flex gap-2'>
-                        <button class='btn btn-sm btn-outline-primary' onclick='App.Cart.share()'><i class='bi bi-share'/> Share</button>
-                        <button class='btn btn-sm btn-outline-danger' onclick='App.UI.confirm(&quot;Empty Cart&quot;, &quot;Remove all items?&quot;, App.Cart.clear)'>Empty</button>
+                        <button class='btn btn-sm btn-outline-primary' onclick='App.Cart.share()'><i class='bi bi-share'/> <span data-i18n='share'>Share</span></button>
+                        <button class='btn btn-sm btn-outline-danger' data-i18n='empty' onclick='App.Cart.checkClear()'>Empty</button>
                     </div>
                 </div>
 
-                <div class='row g-4'>
+                <div class='text-center py-5 d-none' id='cart-empty-view'>
+                    <i class='bi bi-cart-x text-muted' style='font-size: 4rem;'/>
+                    <h4 class='mt-3 text-muted fw-bold' data-i18n='cartEmptyTitle'>Your Cart is Empty</h4>
+                    <p class='text-muted mb-4' data-i18n='cartEmptySub'>Looks like you haven&#39;t added anything yet.</p>
+                    <button class='btn btn-primary rounded-pill px-5 py-2 fw-bold' data-i18n='goToMenu' onclick='window.location.hash=&quot;#catalog&quot;'>Go to Menu</button>
+                </div>
+
+                <div class='row g-4' id='cart-content-row'>
                     <div class='col-lg-7'>
                         <div class='card p-3 rounded-4 border-0 shadow-sm mb-3'>
                             <div class='d-flex justify-content-between align-items-center mb-3'>
-                                <span class='fw-bold text-muted small'>DELIVERY METHOD</span>
+                                <span class='fw-bold text-muted small' data-i18n='delMethod'>DELIVERY METHOD</span>
                                 <div class='btn-group' role='group'>
                                     <input autocomplete='off' class='btn-check' id='type-del' name='orderType' onchange='App.Cart.setType(&quot;delivery&quot;)' type='radio'/>
-                                    <label class='btn btn-sm btn-outline-dark rounded-start-pill px-3' for='type-del'>🛵 Delivery</label>
+                                    <label class='btn btn-sm btn-outline-dark rounded-start-pill px-3' data-i18n='delivery' for='type-del'>🛵 Delivery</label>
                                     
                                     <input autocomplete='off' class='btn-check' id='type-pick' name='orderType' onchange='App.Cart.setType(&quot;pickup&quot;)' type='radio'/>
-                                    <label class='btn btn-sm btn-outline-dark rounded-end-pill px-3' for='type-pick'>🛍&#65039; Pickup</label>
+                                    <label class='btn btn-sm btn-outline-dark rounded-end-pill px-3' data-i18n='pickup' for='type-pick'>🛍&#65039; Pickup</label>
                                 </div>
                             </div>
                             
                             <div class='p-3 bg-light rounded-3 mb-3 d-none' id='delivery-tracker'>
                                 <div class='d-flex justify-content-between small fw-bold mb-1'>
-                                    <span id='delivery-msg'>Add more for FREE Delivery!</span>
+                                    <span data-i18n='addMore' id='delivery-msg'>Add more for FREE Delivery!</span>
                                     <span class='text-danger' id='delivery-amount'/>
                                 </div>
                                 <div class='delivery-progress'>
@@ -222,13 +251,13 @@
                         </div>
                         
                         <div class='card p-3 rounded-4 border-0 shadow-sm'>
-                            <h6 class='fw-bold mb-3'>Preferences</h6>
+                            <h6 class='fw-bold mb-3' data-i18n='prefs'>Preferences</h6>
                             <div class='mb-3'>
-                                <label class='form-label small text-muted fw-bold'>SCHEDULE</label>
+                                <label class='form-label small text-muted fw-bold' data-i18n='schedule'>SCHEDULE</label>
                                 <input class='form-control bg-light border-0' id='order-time' placeholder='ASAP (Now)' type='text'/>
                             </div>
                             <div class='mb-3'>
-                                <label class='form-label small text-muted fw-bold'>NOTES / ALLERGIES</label>
+                                <label class='form-label small text-muted fw-bold' data-i18n='notes'>NOTES / ALLERGIES</label>
                                 <textarea class='form-control bg-light border-0' id='order-note' placeholder='e.g. No spicy mayo...' rows='2'/>
                             </div>
                         </div>
@@ -236,21 +265,21 @@
 
                     <div class='col-lg-5'>
                         <div class='card p-4 rounded-4 border-0 shadow-lg sticky-top' style='top: 150px; z-index:1000'>
-                            <h5 class='fw-bold mb-3'>Summary</h5>
+                            <h5 class='fw-bold mb-3' data-i18n='summary'>Summary</h5>
                             
                             <div class='input-group mb-3'>
                                 <input class='form-control' id='coupon-code' placeholder='Code: SUSHI10' style='text-transform:uppercase' type='text'/>
-                                <button class='btn btn-dark' onclick='App.Cart.applyCoupon()'>APPLY</button>
+                                <button class='btn btn-dark' data-i18n='apply' onclick='App.Cart.applyCoupon()'>APPLY</button>
                             </div>
                             <div class='small mb-3' id='coupon-feedback'/>
 
-                            <div class='d-flex justify-content-between mb-2'><span class='text-muted'>Subtotal</span><span class='fw-bold' id='sum-sub'>0.00 DH</span></div>
-                            <div class='d-flex justify-content-between mb-2'><span class='text-muted'>Delivery</span><span class='fw-bold' id='sum-del'>0.00 DH</span></div>
-                            <div class='d-flex justify-content-between mb-2 text-success d-none' id='row-disc'><span>Discount</span><span class='fw-bold' id='sum-disc'>-0.00 DH</span></div>
-                            <div class='d-flex justify-content-between mb-2 text-primary d-none' id='row-bogo'><span>BOGO Promo</span><span class='fw-bold' id='sum-bogo'>-0.00 DH</span></div>
+                            <div class='d-flex justify-content-between mb-2'><span class='text-muted' data-i18n='subtotal'>Subtotal</span><span class='fw-bold' id='sum-sub'>0.00</span></div>
+                            <div class='d-flex justify-content-between mb-2'><span class='text-muted' data-i18n='delivery'>Delivery</span><span class='fw-bold' id='sum-del'>0.00</span></div>
+                            <div class='d-flex justify-content-between mb-2 text-success d-none' id='row-disc'><span data-i18n='discount'>Discount</span><span class='fw-bold' id='sum-disc'>-0.00</span></div>
+                            <div class='d-flex justify-content-between mb-2 text-primary d-none' id='row-bogo'><span>BOGO Promo</span><span class='fw-bold' id='sum-bogo'>-0.00</span></div>
                             
                             <div class='mb-3'>
-                                <span class='text-muted small'>Tip the Team</span>
+                                <span class='text-muted small' data-i18n='tip'>Tip the Team</span>
                                 <div class='btn-group w-100 mt-1' role='group'>
                                     <input checked='checked' class='btn-check' id='tip-0' name='tip' onchange='App.Cart.setTip(0)' type='radio'/>
                                     <label class='btn btn-sm btn-outline-secondary' for='tip-0'>0</label>
@@ -263,31 +292,31 @@
 
                             <hr/>
                             <div class='d-flex justify-content-between fs-3 fw-bold mb-4'>
-                                <span>Total</span>
-                                <span class='text-primary' id='sum-total'>0.00 DH</span>
+                                <span data-i18n='total'>Total</span>
+                                <span class='text-primary' id='sum-total'>0.00</span>
                             </div>
 
                             <div class='mb-3'>
                                 <div class='form-floating mb-2'>
                                     <input class='form-control' id='checkout-name' placeholder='Name' required='required' type='text'/>
-                                    <label for='checkout-name'>Your Name</label>
+                                    <label data-i18n='yourName' for='checkout-name'>Your Name</label>
                                 </div>
                                 <div class='form-floating mb-2'>
                                     <input class='form-control' id='checkout-phone' placeholder='Phone' required='required' type='tel'/>
-                                    <label for='checkout-phone'>Phone Number</label>
+                                    <label data-i18n='phoneNum' for='checkout-phone'>Phone Number</label>
                                 </div>
                                 <div class='form-floating mb-2' id='field-address'>
                                     <input class='form-control' id='checkout-address' placeholder='Address' type='text'/>
-                                    <label for='checkout-address'>Delivery Address</label>
+                                    <label data-i18n='delAddr' for='checkout-address'>Delivery Address</label>
                                 </div>
                                 <select class='form-select py-3 mb-2' id='checkout-method'>
-                                    <option value='Cash'>💵 Cash on Delivery</option>
-                                    <option value='Card'>💳 Card Terminal (TPE)</option>
+                                    <option data-i18n='cash' value='Cash'>💵 Cash on Delivery</option>
+                                    <option data-i18n='card' value='Card'>💳 Card Terminal (TPE)</option>
                                 </select>
                             </div>
 
                             <button class='btn btn-success w-100 py-3 rounded-pill fw-bold shadow-lg' onclick='App.Cart.checkout()'>
-                                <i class='bi bi-whatsapp me-2'/> CHECKOUT
+                                <i class='bi bi-whatsapp me-2'/> <span data-i18n='checkout'>CHECKOUT</span>
                             </button>
                         </div>
                     </div>
@@ -298,8 +327,8 @@
         <section class='module-section' id='wishlist-module'>
             <div class='container'>
                 <div class='d-flex justify-content-between mb-4'>
-                    <h2 class='fw-bold'>Favorites</h2>
-                    <button class='btn btn-sm btn-outline-danger' onclick='App.UI.confirm(&quot;Clear Favorites&quot;, &quot;Remove all items?&quot;, App.Wishlist.clear)'>Empty All</button>
+                    <h2 class='fw-bold' data-i18n='favorites'>Favorites</h2>
+                    <button class='btn btn-sm btn-outline-danger' data-i18n='empty' onclick='App.Wishlist.checkClear()'>Empty All</button>
                 </div>
                 <div class='row gy-4' id='wishlist-grid-root'/>
             </div>
@@ -307,11 +336,11 @@
 
         <section class='module-section' id='profile-module'>
             <div class='container'>
-                <h2 class='fw-bold mb-4'>Order History</h2>
+                <h2 class='fw-bold mb-4' data-i18n='history'>Order History</h2>
                 <div class='card border-0 shadow-sm rounded-4 overflow-hidden'>
                     <div class='table-responsive'>
                         <table class='table align-middle mb-0'>
-                            <thead class='bg-light'><tr><th>Date</th><th>Total</th><th>Items</th><th>Status</th></tr></thead>
+                            <thead class='bg-light'><tr><th data-i18n='date'>Date</th><th data-i18n='total'>Total</th><th>Items</th><th>Status</th></tr></thead>
                             <tbody id='order-history-body'/>
                         </table>
                     </div>
@@ -324,11 +353,11 @@
         <div class='modal-dialog modal-dialog-centered'>
             <div class='modal-content border-0 rounded-4 shadow'>
                 <div class='modal-body text-center p-4'>
-                    <h4 class='fw-bold mb-3' id='conf-title'>Confirm</h4>
-                    <p class='text-muted mb-4' id='conf-msg'>Are you sure?</p>
+                    <h4 class='fw-bold mb-3' data-i18n='confirm' id='conf-title'>Confirm</h4>
+                    <p class='text-muted mb-4' data-i18n='areYouSure' id='conf-msg'>Are you sure?</p>
                     <div class='d-flex gap-2 justify-content-center'>
-                        <button class='btn btn-light rounded-pill px-4' data-bs-dismiss='modal'>Cancel</button>
-                        <button class='btn btn-danger rounded-pill px-4' id='conf-yes'>Yes, Proceed</button>
+                        <button class='btn btn-light rounded-pill px-4' data-bs-dismiss='modal' data-i18n='cancel'>Cancel</button>
+                        <button class='btn btn-danger rounded-pill px-4' data-i18n='yes' id='conf-yes'>Yes, Proceed</button>
                     </div>
                 </div>
             </div>
@@ -1057,49 +1086,164 @@
     <script>
     //<![CDATA[
     /**
-     * SUSHI ELITE v70.13 [SYNC FIX]
+     * SUSHI ELITE v71.2 [REFERENCE FIX]
+     * Config & Strings encapsulated in App to prevent ReferenceError
      */
 
-    const CFG = {
-        currency: 'DH',
-        freeShipThreshold: 150,
-        shipCost: 15,
-        waNumber: '212600000000',
-        mockMenu: [
-            {id:'m1', title:'Dragon Roll', cat:'Sushi', price:85, old:100, img:'https://images.unsplash.com/photo-1579584425555-c3ce17fd43fb?w=600', hot:true, stock:50, tags:['hot']},
-            {id:'m2', title:'Spicy Tuna', cat:'Sushi', price:60, old:0, img:'https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600', hot:false, stock:3, tags:[]}
-        ]
-    };
-
     const App = {
+        Config: {
+            baseCurrency: 'DH',
+            freeShipThreshold: 150,
+            shipCost: 15,
+            waNumber: '212600000000',
+            mockMenu: [
+                {id:'m1', title:'Dragon Roll', cat:'Sushi', price:85, old:100, img:'https://images.unsplash.com/photo-1579584425555-c3ce17fd43fb?w=600', hot:true, stock:50, tags:['hot']},
+                {id:'m2', title:'Spicy Tuna', cat:'Sushi', price:60, old:0, img:'https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600', hot:false, stock:3, tags:[]}
+            ]
+        },
+
+        Strings: {
+            'EN': {
+                home: '🏠 Home', heroTitle: 'Taste the Ocean', heroSub: 'Premium Japanese Cuisine Delivered.', orderNow: 'ORDER NOW',
+                viewCart: 'View Cart', yourOrder: 'Your Order', share: 'Share', empty: 'Empty',
+                cartEmptyTitle: 'Your Cart is Empty', cartEmptySub: "Looks like you haven't added anything yet.", goToMenu: 'Go to Menu',
+                delMethod: 'DELIVERY METHOD', delivery: '🛵 Delivery', pickup: '🛍️ Pickup',
+                prefs: 'Preferences', schedule: 'SCHEDULE', notes: 'NOTES / ALLERGIES',
+                summary: 'Summary', apply: 'APPLY', subtotal: 'Subtotal', discount: 'Discount',
+                tip: 'Tip the Team', total: 'Total', yourName: 'Your Name', phoneNum: 'Phone Number',
+                delAddr: 'Delivery Address', cash: '💵 Cash on Delivery', card: '💳 Card Terminal (TPE)',
+                checkout: 'CHECKOUT', favorites: 'Favorites', history: 'Order History', date: 'Date',
+                wishlistEmptyTitle: 'Your Wishlist is Empty', wishlistEmptySub: 'Save your favorite items here.',
+                addMore: 'Add more for FREE Delivery!', confirm: 'Confirm', areYouSure: 'Are you sure?', cancel: 'Cancel', yes: 'Yes, Proceed',
+                addedToCart: 'Added to Cart', outOfStock: 'Out of Stock', lowStock: 'Low Stock', soldOut: 'Sold Out', inStock: 'In Stock',
+                qvSize: 'SIZE / OPTION', qvQty: 'Quantity', qvAdd: 'ADD TO CART', qvBuy: '⚡ BUY NOW', qvShare: 'SHARE', viewFull: 'View Full Details',
+                msgAlreadyEmpty: 'List is already empty!', msgStockLimit: 'Stock limit reached', msgMinQty: 'Minimum 1',
+                free: 'FREE', left: 'Left'
+            },
+            'FR': {
+                home: '🏠 Accueil', heroTitle: 'Goûtez l\'Océan', heroSub: 'Cuisine Japonaise Premium Livrée.', orderNow: 'COMMANDER',
+                viewCart: 'Voir Panier', yourOrder: 'Votre Commande', share: 'Partager', empty: 'Vider',
+                cartEmptyTitle: 'Votre Panier est Vide', cartEmptySub: "Vous n'avez rien ajouté pour le moment.", goToMenu: 'Voir le Menu',
+                delMethod: 'MODE DE LIVRAISON', delivery: '🛵 Livraison', pickup: '🛍️ À Emporter',
+                prefs: 'Préférences', schedule: 'HORAIRE', notes: 'NOTES / ALLERGIES',
+                summary: 'Résumé', apply: 'APPLIQUER', subtotal: 'Sous-total', discount: 'Remise',
+                tip: 'Pourboire', total: 'Total', yourName: 'Votre Nom', phoneNum: 'Téléphone',
+                delAddr: 'Adresse de Livraison', cash: '💵 Espèces à la livraison', card: '💳 TPE (Carte Bancaire)',
+                checkout: 'COMMANDER', favorites: 'Favoris', history: 'Historique', date: 'Date',
+                wishlistEmptyTitle: 'Votre Liste est Vide', wishlistEmptySub: 'Sauvegardez vos favoris ici.',
+                addMore: 'Ajoutez pour Livraison GRATUITE!', confirm: 'Confirmer', areYouSure: 'Êtes-vous sûr?', cancel: 'Annuler', yes: 'Oui, Continuer',
+                addedToCart: 'Ajouté au Panier', outOfStock: 'Rupture de Stock', lowStock: 'Stock Faible', soldOut: 'Épuisé', inStock: 'En Stock',
+                qvSize: 'TAILLE / OPTION', qvQty: 'Quantité', qvAdd: 'AJOUTER', qvBuy: '⚡ ACHETER', qvShare: 'PARTAGER', viewFull: 'Voir Détails',
+                msgAlreadyEmpty: 'La liste est déjà vide!', msgStockLimit: 'Limite de stock atteinte', msgMinQty: 'Minimum 1',
+                free: 'GRATUIT', left: 'Restant'
+            },
+            'AR': {
+                home: '🏠 الرئيسية', heroTitle: 'تذوق المحيط', heroSub: 'مأكولات يابانية فاخرة تصلك لبابك.', orderNow: 'اطلب الآن',
+                viewCart: 'عرض السلة', yourOrder: 'طلبيتك', share: 'مشاركة', empty: 'إفراغ',
+                cartEmptyTitle: 'سلتك فارغة', cartEmptySub: "لم تضف أي شيء بعد.", goToMenu: 'الذهاب للقائمة',
+                delMethod: 'طريقة الاستلام', delivery: '🛵 توصيل', pickup: '🛍️ استلام من المحل',
+                prefs: 'تفضيلات', schedule: 'التوقيت', notes: 'ملاحظات / حساسية',
+                summary: 'الملخص', apply: 'تطبيق', subtotal: 'المجموع الفرعي', discount: 'خصم',
+                tip: 'إكرامية', total: 'المجموع', yourName: 'الاسم الكامل', phoneNum: 'رقم الهاتف',
+                delAddr: 'عنوان التوصيل', cash: '💵 دفع عند الاستلام', card: '💳 بطاقة بنكية',
+                checkout: 'إتمام الطلب', favorites: 'المفضلة', history: 'سجل الطلبات', date: 'التاريخ',
+                wishlistEmptyTitle: 'قائمة المفضلة فارغة', wishlistEmptySub: 'احفظ أطباقك المفضلة هنا.',
+                addMore: 'أضف المزيد لتوصيل مجاني!', confirm: 'تأكيد', areYouSure: 'هل أنت متأكد؟', cancel: 'إلغاء', yes: 'نعم، تابع',
+                addedToCart: 'تمت الإضافة', outOfStock: 'نفد المخزون', lowStock: 'مخزون قليل', soldOut: 'نفد', inStock: 'متوفر',
+                qvSize: 'الحجم / الخيار', qvQty: 'الكمية', qvAdd: 'أضف للسلة', qvBuy: '⚡ شراء الآن', qvShare: 'مشاركة', viewFull: 'تفاصيل كاملة',
+                msgAlreadyEmpty: 'القائمة فارغة بالفعل!', msgStockLimit: 'وصلت للحد الأقصى', msgMinQty: 'أقل كمية 1',
+                free: 'مجاني', left: 'متبقي'
+            }
+        },
+
+        Rates: { 'DH': 1, 'EUR': 0.09, 'USD': 0.10 },
+        Symbols: { 'DH': ' DH', 'EUR': ' €', 'USD': '$ ' },
+
         State: {
-            catalog: [],
-            visibleCount: 0,
-            batchSize: 20,
+            catalog: [], visibleCount: 0, batchSize: 20,
             cart: [], wishlist: [], history: [],
-            currency: 'DH',
-            activeCat: 'All',
-            qvItem: null, qvMult: 1.0, qvQty: 1,
-            orderType: 'delivery', 
-            tip: 0,
-            version: '70.13'
+            activeCat: 'All', qvItem: null, qvMult: 1.0, qvQty: 1,
+            orderType: 'delivery', tip: 0,
+            currency: 'DH', lang: 'EN',
+            version: '71.2'
+        },
+
+        // Helper to get translated string
+        t: (key) => App.Strings[App.State.lang][key] || key,
+
+        i18n: {
+            toggleLang: () => {
+                const map = { 'EN': 'FR', 'FR': 'AR', 'AR': 'EN' };
+                App.State.lang = map[App.State.lang];
+                localStorage.setItem('se_lang', App.State.lang);
+                App.i18n.apply();
+                
+                // Force Re-render to update dynamic content
+                App.Catalog.renderFilters();
+                App.Catalog.renderBatch(true);
+                App.Cart.render();
+                if(window.location.hash === '#wishlist') App.Wishlist.render();
+            },
+            
+            toggleCurrency: () => {
+                const map = { 'DH': 'EUR', 'EUR': 'USD', 'USD': 'DH' };
+                App.State.currency = map[App.State.currency];
+                localStorage.setItem('se_curr', App.State.currency);
+                document.getElementById('curr-btn').innerText = App.State.currency;
+                
+                // Force Re-render
+                App.Catalog.renderBatch(true);
+                App.Cart.render();
+                if(window.location.hash === '#wishlist') App.Wishlist.render();
+            },
+            
+            apply: () => {
+                const lang = App.State.lang;
+                const flagMap = { 'EN': '🇺🇸', 'FR': '🇫🇷', 'AR': '🇲🇦' };
+                document.getElementById('lang-btn').innerText = flagMap[lang];
+                
+                if(lang === 'AR') document.documentElement.setAttribute('dir', 'rtl');
+                else document.documentElement.removeAttribute('dir');
+                
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if(App.Strings[lang][key]) el.innerText = App.Strings[lang][key];
+                });
+                
+                const phMap = {
+                    'search-input': { EN: 'Search...', FR: 'Rechercher...', AR: 'بحث...' },
+                    'order-note': { EN: 'e.g. No spicy mayo...', FR: 'ex. Pas de sauce piquante...', AR: 'مثال: بدون صلصة حارة...' },
+                    'checkout-name': { EN: 'Full Name', FR: 'Nom Complet', AR: 'الاسم الكامل' }
+                };
+            }
         },
 
         Utils: {
             safeStr: (str) => str ? str.replace(/['"`]/g, '') : '',
-            formatPrice: (val) => val.toFixed(2) + ' ' + App.State.currency,
+            
+            formatPrice: (baseValDH) => {
+                const curr = App.State.currency;
+                const rate = App.Rates[curr];
+                const finalVal = baseValDH * rate;
+                
+                if (curr === 'USD') return App.Symbols[curr] + finalVal.toFixed(2);
+                return finalVal.toFixed(2) + App.Symbols[curr];
+            },
+            
             checkStock: (item, reqQty = 1) => {
                 if(!item) return { label: 'Unknown', class: 'bg-dark', disabled: true };
-                if(item.stock === 0) return { label: 'Sold Out', class: 'bg-stock-out text-white', disabled: true };
-                if(reqQty > item.stock) return { label: `Only ${item.stock} left`, class: 'bg-stock-low text-dark', disabled: false };
-                if(item.stock < 5) return { label: `Low Stock (${item.stock})`, class: 'bg-stock-low text-dark', disabled: false };
-                return { label: 'In Stock', class: 'bg-stock-ok text-white', disabled: false };
+                if(item.stock === 0) return { label: App.t('soldOut'), class: 'bg-stock-out text-white', disabled: true };
+                if(reqQty > item.stock) return { label: App.t('lowStock'), class: 'bg-stock-low text-dark', disabled: false };
+                if(item.stock < 5) return { label: App.t('lowStock'), class: 'bg-stock-low text-dark', disabled: false };
+                return { label: App.t('inStock'), class: 'bg-stock-ok text-white', disabled: false };
             },
+            
             getStockBadge: (stock) => {
-                if(stock === 0) return { class: 'bg-stock-out', text: 'Out of Stock' };
-                if(stock < 5) return { class: 'bg-stock-low', text: `Low Stock (${stock} left)` };
-                return { class: 'bg-stock-ok', text: 'In Stock' };
+                if(stock === 0) return { class: 'bg-stock-out', text: App.t('outOfStock') };
+                if(stock < 5) return { class: 'bg-stock-low', text: App.t('lowStock') };
+                return { class: 'bg-stock-ok', text: App.t('inStock') };
             },
+            
             loadStorage: (key) => {
                 try {
                     const data = JSON.parse(localStorage.getItem(key));
@@ -1121,8 +1265,9 @@
             },
             
             confirm: (title, msg, onConfirm) => {
-                document.getElementById('conf-title').innerText = title;
-                document.getElementById('conf-msg').innerText = msg;
+                document.getElementById('conf-title').innerText = App.t('confirm');
+                document.getElementById('conf-msg').innerText = App.t('areYouSure');
+                document.getElementById('conf-yes').innerText = App.t('yes');
                 const btn = document.getElementById('conf-yes');
                 const newBtn = btn.cloneNode(true);
                 btn.parentNode.replaceChild(newBtn, btn);
@@ -1162,6 +1307,7 @@
                 App.Catalog.initObserver();
                 App.Catalog.renderBatch();
                 App.Cart.checkUrlShare(); 
+                App.i18n.apply(); 
             },
 
             renderFilters: () => {
@@ -1187,36 +1333,42 @@
                 if(s) s.style.display = 'flex';
             },
 
-            renderBatch: () => {
+            renderBatch: (reset = false) => {
+                const root = document.getElementById('product-grid-root');
+                if(reset) { root.innerHTML = ''; App.State.visibleCount = 0; }
+                
                 const { catalog, activeCat, visibleCount, batchSize } = App.State;
                 const filtered = activeCat === 'All' ? catalog : catalog.filter(i => i.cat === activeCat);
                 const nextBatch = filtered.slice(visibleCount, visibleCount + batchSize);
-                const root = document.getElementById('product-grid-root');
+                
                 if(!root) return;
                 nextBatch.forEach(item => root.appendChild(App.Catalog.createCard(item)));
                 App.State.visibleCount += batchSize;
-                if(App.State.visibleCount >= filtered.length) {
-                    const s = document.getElementById('scroll-sentinel');
-                    if(s) s.style.display = 'none';
-                }
+                
+                const s = document.getElementById('scroll-sentinel');
+                if(s) s.style.display = (App.State.visibleCount >= filtered.length) ? 'none' : 'flex';
             },
 
             createCard: (item) => {
                 const col = document.createElement('div');
                 col.className = 'col-lg-4 col-md-6 col-6'; 
                 
-                const safeTags = item.tags || [];
                 const stock = App.Utils.checkStock(item);
                 const badge = item.hot ? '<div class="badge-float badge-hot">HOT</div>' : '';
                 const stockBadge = stock.disabled ? `<div class="badge-float badge-stock ${stock.class}">${stock.label}</div>` : '';
-                
+                const saleBadge = item.oldPrice ? `<div class="badge-float badge-sale">SALE</div>` : '';
+
+                const priceDisplay = item.oldPrice 
+                    ? `<div class="d-flex align-items-baseline gap-1"><span class="text-decoration-line-through text-muted small" style="font-size:0.75rem">${App.Utils.formatPrice(item.oldPrice)}</span><span class="text-danger fw-bold">${App.Utils.formatPrice(item.price)}</span></div>` 
+                    : `<span class="text-primary fw-bold">${App.Utils.formatPrice(item.price)}</span>`;
+
                 const isWish = App.State.wishlist && App.State.wishlist.some(w => w.id === item.id);
                 const heartClass = isWish ? 'active' : '';
                 const heartIcon = isWish ? 'bi-heart-fill' : 'bi-heart';
 
                 col.innerHTML = `
                 <div class="product-card">
-                    ${badge} ${stockBadge}
+                    ${badge} ${stockBadge} ${saleBadge}
                     <div class="product-img-wrapper" id="img-wrap-${item.id}">
                         <button class="wish-btn-card ${heartClass}" onclick="App.Wishlist.toggle('${item.id}', this); event.stopPropagation();">
                             <i class="bi ${heartIcon}"></i>
@@ -1224,7 +1376,7 @@
                         <img src="${item.img}" class="product-img" loading="lazy" onclick="App.QuickView.open('${item.id}')"/>
                         <div class="desktop-actions">
                             <button class="btn btn-light rounded-pill shadow-sm fw-bold px-4" onclick="App.QuickView.open('${item.id}')">
-                                <i class="bi bi-eye"></i> Quick View
+                                <i class="bi bi-eye"></i> ${App.t('qvSize')}
                             </button>
                         </div>
                     </div>
@@ -1232,7 +1384,7 @@
                         <div class="small text-muted mb-1">${item.cat}</div>
                         <h6 class="product-title">${item.title}</h6>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="text-primary fw-bold">${App.Utils.formatPrice(item.price)}</span>
+                            ${priceDisplay}
                             <button class="btn btn-sm btn-dark rounded-circle" onclick="App.Cart.add('${item.id}', this)" ${stock.disabled?'disabled':''}><i class="bi bi-plus"></i></button>
                         </div>
                     </div>
@@ -1257,19 +1409,19 @@
                 const variant = { name: 'Regular', mult: 1.0 };
                 const existing = App.State.cart.find(c => c.id === id && c.variant.name === 'Regular');
                 if(existing) {
-                    if(existing.qty + 1 > item.stock) return App.UI.toast('Stock limit reached', 'warning');
+                    if(existing.qty + 1 > item.stock) return App.UI.toast(App.t('msgStockLimit'), 'warning');
                     existing.qty++;
                 } else {
-                    if(item.stock < 1) return App.UI.toast('Sold Out', 'danger');
+                    if(item.stock < 1) return App.UI.toast(App.t('soldOut'), 'danger');
                     App.State.cart.push({ ...item, qty: 1, variant: variant });
                 }
                 App.Cart.save(); App.Cart.updateBadge(); App.Cart.render();
                 if(btn) App.UI.flip(btn.closest('.product-card').querySelector('img'), 'nav-cart-target');
-                App.UI.toast('Added to Cart');
+                App.UI.toast(App.t('addedToCart'));
             },
             
             remove: (idx) => { 
-                App.UI.confirm('Remove Item', 'Are you sure?', () => {
+                App.UI.confirm(App.t('confirm'), App.t('areYouSure'), () => {
                     App.State.cart.splice(idx, 1); App.Cart.save(); App.Cart.render(); App.Cart.updateBadge(); 
                 });
             },
@@ -1279,7 +1431,7 @@
                 const realItem = App.State.catalog.find(i => i.id === cItem.id);
                 const newQty = cItem.qty + delta;
                 if (newQty < 1) return; 
-                if (realItem && newQty > realItem.stock) return App.UI.toast(`Max stock is ${realItem.stock}`, 'warning');
+                if (realItem && newQty > realItem.stock) return App.UI.toast(App.t('msgStockLimit'), 'warning');
                 cItem.qty = newQty;
                 App.Cart.save(); App.Cart.render(); App.Cart.updateBadge();
             },
@@ -1296,15 +1448,15 @@
                 const item = {...App.State.cart[idx]};
                 App.State.cart.splice(idx + 1, 0, item);
                 App.Cart.save(); App.Cart.render(); App.Cart.updateBadge();
-                App.UI.toast('Item Duplicated');
+                App.UI.toast('Duplicated');
             },
 
             share: () => {
-                if(App.State.cart.length === 0) return App.UI.toast('Cart is empty', 'warning');
+                if(App.State.cart.length === 0) return App.UI.toast(App.t('msgAlreadyEmpty'), 'warning');
                 const simpleCart = App.State.cart.map(i => ({id:i.id, q:i.qty, v:i.variant.name}));
                 const str = btoa(JSON.stringify(simpleCart));
                 const url = window.location.href.split('?')[0] + '?cart=' + str + '#cart';
-                navigator.clipboard.writeText(url).then(() => App.UI.toast('Link Copied to Clipboard!'));
+                navigator.clipboard.writeText(url).then(() => App.UI.toast('Link Copied!'));
             },
 
             checkUrlShare: () => {
@@ -1313,7 +1465,7 @@
                 if(shared) {
                     try {
                         const items = JSON.parse(atob(shared));
-                        App.State.cart = []; // Overwrite
+                        App.State.cart = []; 
                         items.forEach(si => {
                             const catItem = App.State.catalog.find(c => c.id === si.id);
                             if(catItem) {
@@ -1330,6 +1482,11 @@
                 }
             },
 
+            checkClear: () => {
+                if(App.State.cart.length === 0) return App.UI.toast(App.t('msgAlreadyEmpty'), 'warning');
+                App.UI.confirm(App.t('empty'), App.t('areYouSure'), App.Cart.clear);
+            },
+
             clear: () => { 
                 App.State.cart = []; App.Cart.save(); App.Cart.render(); App.Cart.updateBadge(); 
             },
@@ -1342,55 +1499,61 @@
             
             render: () => {
                 const list = document.getElementById('cart-items-list');
-                if(!list) return;
+                const emptyView = document.getElementById('cart-empty-view');
+                const contentView = document.getElementById('cart-content-row');
+                const floatCart = document.getElementById('floating-cart');
+                
+                if(window.location.hash === '#cart') floatCart.classList.remove('active');
+                else { if(App.State.cart.length > 0) floatCart.classList.add('active'); else floatCart.classList.remove('active'); }
+
+                if(App.State.cart.length === 0) {
+                    emptyView.classList.remove('d-none'); contentView.classList.add('d-none');
+                    document.getElementById('float-count').innerText = '0';
+                    document.getElementById('float-total').innerText = App.Utils.formatPrice(0);
+                    return;
+                } 
+                
+                emptyView.classList.add('d-none'); contentView.classList.remove('d-none');
                 list.innerHTML = '';
+                
                 let subtotal = 0;
                 let bogoDiscount = 0;
                 let dragonRollCount = 0;
 
-                if(App.State.cart.length === 0) list.innerHTML = '<div class="text-center py-5 text-muted">Cart is empty.</div>';
-                else {
-                    App.State.cart.forEach((item, idx) => {
-                        const price = item.price * item.variant.mult;
-                        const rowTotal = price * item.qty;
-                        subtotal += rowTotal;
-                        if(item.title.includes('Dragon Roll')) dragonRollCount += item.qty;
-                        const liveItem = App.State.catalog.find(c => c.id === item.id);
-                        const stockData = App.Utils.getStockBadge(liveItem ? liveItem.stock : 0);
+                App.State.cart.forEach((item, idx) => {
+                    const price = item.price * item.variant.mult;
+                    const rowTotal = price * item.qty;
+                    subtotal += rowTotal;
+                    if(item.title.includes('Dragon Roll')) dragonRollCount += item.qty;
+                    const liveItem = App.State.catalog.find(c => c.id === item.id);
+                    const stockData = App.Utils.getStockBadge(liveItem ? liveItem.stock : 0);
 
-                        list.innerHTML += `
-                        <div class="d-flex gap-3 mb-3 border-bottom pb-3">
-                            <img src="${item.img}" width="80" height="80" class="rounded object-fit-cover"/>
-                            <div class="flex-grow-1">
-                                <div class="d-flex justify-content-between mb-1">
-                                    <div>
-                                        <h6 class="m-0 fw-bold">${item.title}</h6>
-                                        <small class="text-muted" style="font-size:0.75rem">ID: ${item.id}</small>
-                                    </div>
-                                    <span class="fw-bold">${App.Utils.formatPrice(rowTotal)}</span>
-                                </div>
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="stock-dot ${stockData.class}"></span>
-                                    <small class="text-muted" style="font-size:0.75rem">${stockData.text}</small>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-end">
-                                    <select class="variant-select" onchange="App.Cart.changeVariant(${idx}, this)">
-                                        <option value="Regular|1.0" ${item.variant.name==='Regular'?'selected':''}>Regular</option>
-                                        <option value="Box|1.2" ${item.variant.name==='Box'?'selected':''}>Box (1.2x)</option>
-                                        <option value="Party|1.5" ${item.variant.name==='Party'?'selected':''}>Party (1.5x)</option>
-                                    </select>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="App.Cart.updateQty(${idx}, -1)">-</button>
-                                        <span class="fw-bold">${item.qty}</span>
-                                        <button class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="App.Cart.updateQty(${idx}, 1)">+</button>
-                                        <button class="btn btn-sm border-0 text-muted" onclick="App.Cart.duplicate(${idx})" title="Duplicate"><i class="bi bi-files"></i></button>
-                                        <button class="btn btn-sm border-0 text-danger" onclick="App.Cart.remove(${idx})"><i class="bi bi-trash"></i></button>
-                                    </div>
+                    list.innerHTML += `
+                    <div class="d-flex gap-3 mb-3 border-bottom pb-3">
+                        <img src="${item.img}" width="80" height="80" class="rounded object-fit-cover"/>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between mb-1">
+                                <div><h6 class="m-0 fw-bold">${item.title}</h6><small class="text-muted" style="font-size:0.75rem">ID: ${item.id}</small></div>
+                                <span class="fw-bold">${App.Utils.formatPrice(rowTotal)}</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 mb-2"><span class="stock-dot ${stockData.class}"></span><small class="text-muted" style="font-size:0.75rem">${stockData.text}</small></div>
+                            <div class="d-flex justify-content-between align-items-end">
+                                <select class="variant-select" onchange="App.Cart.changeVariant(${idx}, this)">
+                                    <option value="Regular|1.0" ${item.variant.name==='Regular'?'selected':''}>Regular</option>
+                                    <option value="Box|1.2" ${item.variant.name==='Box'?'selected':''}>Box (1.2x)</option>
+                                    <option value="Party|1.5" ${item.variant.name==='Party'?'selected':''}>Party (1.5x)</option>
+                                </select>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="App.Cart.updateQty(${idx}, -1)">-</button>
+                                    <span class="fw-bold">${item.qty}</span>
+                                    <button class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="App.Cart.updateQty(${idx}, 1)">+</button>
+                                    <button class="btn btn-sm border-0 text-muted" onclick="App.Cart.duplicate(${idx})" title="Duplicate"><i class="bi bi-files"></i></button>
+                                    <button class="btn btn-sm border-0 text-danger" onclick="App.Cart.remove(${idx})"><i class="bi bi-trash"></i></button>
                                 </div>
                             </div>
-                        </div>`;
-                    });
-                }
+                        </div>
+                    </div>`;
+                });
 
                 if (dragonRollCount >= 3) {
                     const freeItems = Math.floor(dragonRollCount / 3);
@@ -1402,15 +1565,15 @@
                 } else document.getElementById('row-bogo').classList.add('d-none');
 
                 const isDel = App.State.orderType === 'delivery';
-                let delFee = isDel ? (subtotal >= CFG.freeShipThreshold ? 0 : CFG.shipCost) : 0;
+                let delFee = isDel ? (subtotal >= App.Config.freeShipThreshold ? 0 : App.Config.shipCost) : 0;
                 
                 if(isDel) {
                     document.getElementById('delivery-tracker').classList.remove('d-none');
                     document.getElementById('field-address').style.display='block';
                     document.getElementById('checkout-address').setAttribute('required','true');
-                    const pct = Math.min((subtotal/CFG.freeShipThreshold)*100, 100);
+                    const pct = Math.min((subtotal/App.Config.freeShipThreshold)*100, 100);
                     document.getElementById('delivery-bar').style.width = pct + '%';
-                    document.getElementById('delivery-amount').innerText = delFee === 0 ? '' : (CFG.freeShipThreshold - subtotal).toFixed(0) + ' DH Left';
+                    document.getElementById('delivery-amount').innerText = delFee === 0 ? '' : App.Utils.formatPrice(App.Config.freeShipThreshold - subtotal) + ' ' + App.t('left');
                     document.getElementById('type-del').checked = true;
                 } else {
                     document.getElementById('delivery-tracker').classList.add('d-none');
@@ -1419,33 +1582,25 @@
                     document.getElementById('type-pick').checked = true;
                 }
 
-                let couponDisc = document.getElementById('coupon-feedback').innerText === 'Applied!' ? subtotal * 0.10 : 0;
+                let couponDisc = document.getElementById('coupon-feedback').innerText.includes('Applied') ? subtotal * 0.10 : 0;
                 if(couponDisc > 0) document.getElementById('row-disc').classList.remove('d-none'); else document.getElementById('row-disc').classList.add('d-none');
 
                 const total = subtotal + delFee - couponDisc - bogoDiscount + App.State.tip;
 
                 document.getElementById('sum-sub').innerText = App.Utils.formatPrice(subtotal);
-                document.getElementById('sum-del').innerText = isDel && delFee===0 ? 'FREE' : App.Utils.formatPrice(delFee);
+                document.getElementById('sum-del').innerText = isDel && delFee===0 ? App.t('free') : App.Utils.formatPrice(delFee);
                 document.getElementById('sum-disc').innerText = '-' + App.Utils.formatPrice(couponDisc);
                 document.getElementById('sum-bogo').innerText = '-' + App.Utils.formatPrice(bogoDiscount);
                 document.getElementById('sum-total').innerText = App.Utils.formatPrice(total);
                 
-                // Update Floating Cart
-                const floatCart = document.getElementById('floating-cart');
-                const cartCount = App.State.cart.reduce((a,b)=>a+b.qty,0);
-                if(cartCount > 0 && window.location.hash !== '#cart') {
-                    floatCart.classList.add('active');
-                    document.getElementById('float-count').innerText = cartCount;
-                    document.getElementById('float-total').innerText = App.Utils.formatPrice(total);
-                } else {
-                    floatCart.classList.remove('active');
-                }
+                document.getElementById('float-count').innerText = App.State.cart.reduce((a,b)=>a+b.qty,0);
+                document.getElementById('float-total').innerText = App.Utils.formatPrice(total);
             },
 
             checkout: () => {
                 const name = document.getElementById('checkout-name').value;
                 const phone = document.getElementById('checkout-phone').value;
-                if(!name || !phone) return App.UI.toast('Name & Phone Required', 'danger');
+                if(!name || !phone) return App.UI.toast(App.t('yourName') + ' Required', 'danger');
                 
                 let msg = `*ORDER ${Date.now().toString().substr(-6)}* %0A`;
                 msg += `👤 ${name} (${phone}) %0A`;
@@ -1461,7 +1616,7 @@
                 App.State.history.unshift({id:Date.now(), date:new Date().toLocaleDateString(), total:document.getElementById('sum-total').innerText, items:App.State.cart.length, status:'Sent'});
                 localStorage.setItem('se_hist', JSON.stringify(App.State.history));
                 localStorage.removeItem('se_cart'); App.State.cart = [];
-                window.open(`https://wa.me/${CFG.waNumber}?text=${msg}`, '_blank');
+                window.open(`https://wa.me/${App.Config.waNumber}?text=${msg}`, '_blank');
                 window.location.reload();
             }
         },
@@ -1474,6 +1629,10 @@
                 const stockInfo = App.Utils.checkStock(item);
                 document.getElementById('qv-sku').innerText = `SKU: ${item.id.toUpperCase()}`;
                 
+                const priceDisplay = item.oldPrice 
+                    ? `<div class="d-flex align-items-baseline gap-2"><h2 class="text-danger fw-bold mb-0" id="qv-price">${App.Utils.formatPrice(item.price)}</h2><span class="text-decoration-line-through text-muted" id="qv-old-price">${App.Utils.formatPrice(item.oldPrice)}</span></div>` 
+                    : `<h2 class="text-primary fw-bold mb-0" id="qv-price">${App.Utils.formatPrice(item.price)}</h2>`;
+
                 document.getElementById('quickview-content').innerHTML = `
                 <div class="qv-wrapper">
                     <div class="text-center mb-3">
@@ -1481,12 +1640,12 @@
                     </div>
                     <h3 class="fw-bold mb-1">${item.title}</h3>
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <span class="h4 text-primary fw-bold mb-0" id="qv-price">${App.Utils.formatPrice(item.price)}</span>
+                        ${priceDisplay}
                         <span class="badge ${stockInfo.class}">${stockInfo.label}</span>
                     </div>
                     
                     <div class="mb-4">
-                        <label class="small fw-bold text-muted mb-2">SIZE / OPTION</label>
+                        <label class="small fw-bold text-muted mb-2">${App.t('qvSize')}</label>
                         <div class="d-flex gap-2">
                             <div class="swatch-item active" onclick="App.QuickView.setOption(1.0, this)">Regular</div>
                             <div class="swatch-item" onclick="App.QuickView.setOption(1.2, this)">Box (1.2x)</div>
@@ -1495,7 +1654,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-light rounded-4">
-                        <span class="fw-bold">Quantity</span>
+                        <span class="fw-bold">${App.t('qvQty')}</span>
                         <div class="d-flex align-items-center gap-3">
                             <button class="qty-btn" onclick="App.QuickView.updateQty(-1)">-</button>
                             <span class="fw-bold fs-5" id="qv-qty">1</span>
@@ -1505,21 +1664,21 @@
 
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary py-3 rounded-pill fw-bold fs-5" onclick="App.QuickView.add()" ${stockInfo.disabled?'disabled':''}>
-                            ADD TO CART
+                            ${App.t('qvAdd')}
                         </button>
                         <div class="row g-2">
                             <div class="col-6">
-                                <button class="btn btn-outline-dark w-100 rounded-pill py-2 fw-bold" onclick="App.QuickView.expressCheckout()">⚡ BUY NOW</button>
+                                <button class="btn btn-outline-dark w-100 rounded-pill py-2 fw-bold" onclick="App.QuickView.expressCheckout()">${App.t('qvBuy')}</button>
                             </div>
                             <div class="col-6">
                                 <button class="btn btn-outline-secondary w-100 rounded-pill py-2 fw-bold" onclick="App.QuickView.share()">
-                                    <i class="bi bi-share"></i> SHARE
+                                    <i class="bi bi-share"></i> ${App.t('qvShare')}
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="text-center mt-3">
-                        <a href="#catalog" class="text-decoration-none small text-muted" onclick="bootstrap.Modal.getInstance(document.getElementById('quickViewModal')).hide()">View Full Details</a>
+                        <a href="#catalog" class="text-decoration-none small text-muted" onclick="bootstrap.Modal.getInstance(document.getElementById('quickViewModal')).hide()">${App.t('viewFull')}</a>
                     </div>
                 </div>
                 `;
@@ -1530,13 +1689,19 @@
                 App.State.qvMult = mult;
                 document.querySelectorAll('.swatch-item').forEach(e => e.classList.remove('active'));
                 el.classList.add('active');
-                document.getElementById('qv-price').innerText = App.Utils.formatPrice(App.State.qvItem.price * mult);
+                
+                const newPrice = App.State.qvItem.price * mult;
+                document.getElementById('qv-price').innerText = App.Utils.formatPrice(newPrice);
+                
+                if(App.State.qvItem.oldPrice) {
+                     document.getElementById('qv-old-price').innerText = App.Utils.formatPrice(App.State.qvItem.oldPrice * mult);
+                }
             },
 
             updateQty: (delta) => {
                 const newQ = App.State.qvQty + delta;
                 if(newQ < 1) return;
-                if(newQ > App.State.qvItem.stock) return App.UI.toast(`Max stock is ${App.State.qvItem.stock}`);
+                if(newQ > App.State.qvItem.stock) return App.UI.toast(App.t('msgStockLimit'), 'warning');
                 App.State.qvQty = newQ;
                 document.getElementById('qv-qty').innerText = newQ;
             },
@@ -1544,7 +1709,6 @@
             add: () => {
                 const item = App.State.qvItem;
                 const variantName = App.State.qvMult === 1.2 ? 'Box' : (App.State.qvMult === 1.5 ? 'Party' : 'Regular');
-                // Loop to add multiple
                 const existing = App.State.cart.find(c => c.id === item.id && c.variant.name === variantName);
                 if(existing) {
                     existing.qty += App.State.qvQty;
@@ -1554,14 +1718,14 @@
                 
                 App.Cart.save(); App.Cart.updateBadge(); App.Cart.render();
                 bootstrap.Modal.getInstance(document.getElementById('quickViewModal')).hide();
-                App.UI.toast('Added to Cart');
+                App.UI.toast(App.t('addedToCart'));
             },
 
             expressCheckout: () => {
                 const item = App.State.qvItem;
                 const total = (item.price * App.State.qvMult * App.State.qvQty).toFixed(2);
-                const msg = `*EXPRESS ORDER* %0A📦 ${item.title} x${App.State.qvQty} (${total} DH)`;
-                window.open(`https://wa.me/${CFG.waNumber}?text=${msg}`, '_blank');
+                const msg = `*EXPRESS ORDER* %0A📦 ${item.title} x${App.State.qvQty} (${total})`;
+                window.open(`https://wa.me/${App.Config.waNumber}?text=${msg}`, '_blank');
             },
 
             share: () => {
@@ -1588,8 +1752,28 @@
                 document.getElementById('nav-wish-count').innerText = App.State.wishlist.length;
                 if(window.location.hash === '#wishlist') App.Wishlist.render();
             },
-            clear: () => { App.State.wishlist = []; localStorage.setItem('se_wish', '[]'); App.Wishlist.render(); document.getElementById('nav-wish-count').innerText = 0; },
-            render: () => { const r = document.getElementById('wishlist-grid-root'); r.innerHTML=''; App.State.wishlist.forEach(i => r.appendChild(App.Catalog.createCard(i))); }
+            checkClear: () => {
+                if(App.State.wishlist.length === 0) return App.UI.toast(App.t('msgAlreadyEmpty'), 'warning');
+                App.UI.confirm(App.t('empty'), App.t('areYouSure'), App.Wishlist.clear);
+            },
+            clear: () => { 
+                App.State.wishlist = []; localStorage.setItem('se_wish', '[]'); App.Wishlist.render(); document.getElementById('nav-wish-count').innerText = 0; 
+            },
+            render: () => { 
+                const r = document.getElementById('wishlist-grid-root'); r.innerHTML=''; 
+                if(App.State.wishlist.length === 0) {
+                    const l = App.State.lang || 'EN';
+                    r.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-heart text-muted" style="font-size: 4rem;"></i>
+                        <h4 class="mt-3 text-muted fw-bold">${App.Strings[l].wishlistEmptyTitle}</h4>
+                        <p class="text-muted mb-4">${App.Strings[l].wishlistEmptySub}</p>
+                        <button class="btn btn-primary rounded-pill px-5 py-2 fw-bold" onclick="window.location.hash='#catalog'">${App.Strings[l].goToMenu}</button>
+                    </div>`;
+                    return;
+                }
+                App.State.wishlist.forEach(i => r.appendChild(App.Catalog.createCard(i))); 
+            }
         },
 
         Seo: { injectSchema: (i) => { const s = document.createElement('script'); s.type='application/ld+json'; s.text = JSON.stringify({"@context":"https://schema.org/","@type":"Product","name":i.title,"image":i.img,"offers":{"@type":"Offer","price":i.price,"priceCurrency":"MAD"}}); document.head.appendChild(s); } },
@@ -1602,7 +1786,7 @@
             // Breadcrumbs Logic
             const bread = document.getElementById('breadcrumbs');
             const pageName = hash.replace('#', '') || 'Home';
-            bread.innerHTML = `<a href="#home">🏠 Home</a> <span class="breadcrumb-sep">></span> <span class="breadcrumb-item active">${pageName.charAt(0).toUpperCase() + pageName.slice(1)}</span>`;
+            bread.innerHTML = `<a href="#home">${App.t('home')}</a> <span class="breadcrumb-sep">></span> <span class="breadcrumb-item active">${pageName.charAt(0).toUpperCase() + pageName.slice(1)}</span>`;
 
             // Hide floating cart on cart page
             if(hash === '#cart') document.getElementById('floating-cart').classList.remove('active');
@@ -1618,28 +1802,59 @@
             if(!json.feed.entry) return API.fallback();
             App.State.catalog = json.feed.entry.map(e => {
                 const tags = e.category ? e.category.map(c=>c.term) : [];
-                let p=50, s=20, a=null;
-                tags.forEach(t=>{ if(t.startsWith('price-')) p=parseFloat(t.split('-')[1]); if(t.startsWith('stock-')) s=parseInt(t.split('-')[1]); if(t.startsWith('img-alt-url-')) a=t.replace('img-alt-url-','https://'); });
-                return { id: e.id.$t.split('-').pop(), title: e.title.$t, img: e.media$thumbnail?e.media$thumbnail.url.replace('s72-c','w600-h600-c'):'', price:p, stock:s, cat:'General', hot:tags.includes('hot'), tags:tags };
+                let p = 50, s = 20, a = null, salePrice = null, isSale = false;
+
+                tags.forEach(t => { 
+                    if(t.startsWith('price-')) p = parseFloat(t.split('-')[1]); 
+                    if(t.startsWith('stock-')) s = parseInt(t.split('-')[1]); 
+                    if(t === 'out_of_stock') s = 0;
+                    if(t.startsWith('img-alt-url-')) a = t.replace('img-alt-url-','https://');
+                    if(t === 'on_sale') isSale = true;
+                    if(t.startsWith('on_sale_price-')) salePrice = parseFloat(t.split('-')[1]);
+                });
+
+                let finalPrice = p;
+                let oldPrice = null;
+                if (isSale && salePrice !== null) {
+                    finalPrice = salePrice;
+                    oldPrice = p;
+                }
+
+                return { 
+                    id: e.id.$t.split('-').pop(), 
+                    title: e.title.$t, 
+                    img: e.media$thumbnail ? e.media$thumbnail.url.replace('s72-c','w600-h600-c') : '', 
+                    price: finalPrice, 
+                    oldPrice: oldPrice,
+                    stock: s, 
+                    altImg: a,
+                    cat: 'General', 
+                    hot: tags.includes('hot'), 
+                    tags: tags 
+                };
             });
             App.Catalog.init(App.State.catalog);
         },
-        fallback: () => App.Catalog.init(CFG.mockMenu)
+        fallback: () => App.Catalog.init(App.Config.mockMenu)
     };
 
     document.addEventListener('DOMContentLoaded', () => {
         if(localStorage.getItem('se_version') !== App.State.version) { localStorage.removeItem('se_cart'); localStorage.setItem('se_version', App.State.version); App.State.cart=[]; }
         else App.State.cart = App.Utils.loadStorage('se_cart');
-        App.State.wishlist = App.Utils.loadStorage('se_wish');
         
-        App.Cart.save();
+        App.State.wishlist = App.Utils.loadStorage('se_wish');
+        App.State.currency = localStorage.getItem('se_curr') || 'DH';
+        App.State.lang = localStorage.getItem('se_lang') || 'EN';
+        
+        document.getElementById('curr-btn').innerText = App.State.currency;
+        
         const s = document.createElement('script'); s.src = 'https://eventsushi.blogspot.com/feeds/posts/default?alt=json-in-script&callback=API.parse&max-results=500'; s.onerror=API.fallback; document.body.appendChild(s);
         AOS.init();
         if(document.getElementById('order-time')) flatpickr('#order-time', { enableTime: true, dateFormat: "Y-m-d H:i" });
         
-        // SYNC FIX: Render immediately on load
         App.Cart.render(); 
         App.Cart.updateBadge();
+        App.i18n.apply();
         
         App.Router(); window.addEventListener('hashchange', App.Router);
     });
