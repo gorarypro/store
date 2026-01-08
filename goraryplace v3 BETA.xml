@@ -1,0 +1,1588 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateUrl='indie.xml' b:templateVersion='1.0.0' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no' name='viewport'/>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+    <title><data:blog.pageTitle/></title>
+    
+    <meta content='#ce1212' name='theme-color'/>
+    <link href='https://cdn-icons-png.flaticon.com/512/2252/2252076.png' rel='icon' type='image/png'/>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;family=Amatic+SC:wght@400;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap' rel='stylesheet'/>
+    
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css' rel='stylesheet'/>
+    <link href='https://unpkg.com/aos@2.3.1/dist/aos.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' rel='stylesheet'/>
+
+    <script id='json-ld-store' type='application/ld+json'>{}</script>
+
+    <b:skin><![CDATA[
+    /* SUSHI ELITE v87.0 - GOLDEN MASTER */
+    :root {
+        --primary: #ce1212; --primary-dark: #a00d0d;
+        --secondary: #37373f; --accent: #ffc107;
+        --bg-body: #f8f9fa; --bg-card: #ffffff;
+        --text-main: #1d1d1f; --text-muted: #86868b;
+        --radius-xl: 20px;
+        --z-marquee: 1040; --z-navbar: 1030; --z-floating: 1035;
+    }
+
+    [data-theme='dark'] { --bg-body: #0a0a0c; --bg-card: #1c1c1e; --text-main: #f5f5f7; --text-muted: #a1a1a6; }
+    
+    body { font-family: "Inter", sans-serif; background: var(--bg-body); color: var(--text-main); padding-top: 145px; padding-bottom: 90px; overflow-x: hidden; }
+    
+    /* UTILS */
+    .header { background: var(--bg-card); height: 80px; z-index: var(--z-navbar); border-bottom: 1px solid rgba(0,0,0,0.05); top: 30px; transition: 0.3s; }
+    .breadcrumb-bar { position: fixed; top: 110px; left: 0; width: 100%; height: 35px; background: var(--bg-body); z-index: 1025; display: flex; align-items: center; padding: 0 15px; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.8rem; overflow-x: auto; white-space: nowrap; }
+
+    /* CARD STYLES */
+    .product-card { background: var(--bg-card); border-radius: var(--radius-xl); overflow: hidden; height: 100%; transition: 0.3s; position: relative; border: 1px solid rgba(0,0,0,0.05); }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .product-img-wrapper { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #f0f0f0; cursor: pointer; }
+    .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .product-card:hover .product-img { transform: scale(1.05); }
+
+    /* ACTIONS & BADGES */
+    .wish-btn-card { position: absolute; bottom: 10px; right: 10px; z-index: 10; width: 35px; height: 35px; background: rgba(255,255,255,0.9); border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; color: #ccc; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; }
+    .wish-btn-card.active { color: var(--primary); transform: scale(1.1); }
+    .desktop-actions { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0; transition: 0.3s; z-index: 20; width: 90%; text-align: center; }
+    .product-card:hover .desktop-actions { opacity: 1; transform: translateX(-50%) translateY(0); }
+    @media (max-width: 991px) { .desktop-actions { display: none; } }
+
+    .badge-float { position: absolute; z-index: 10; padding: 4px 10px; border-radius: 4px; font-weight: 800; font-size: 0.65rem; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    .badge-hot { top: 10px; left: 10px; background: linear-gradient(45deg, #ff0000, #ff8800); }
+    .badge-stock { top: 10px; left: 10px; background: rgba(0,0,0,0.7); backdrop-filter: none; } 
+    .badge-low { background: #e67e22; top: 10px; left: 10px; animation: pulse 2s infinite; }
+    .badge-out { background: #c0392b; top: 10px; left: 10px; }
+    .badge-sale { top: 38px; left: 10px; background: #000; } 
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+
+    /* CART & UI */
+    .floating-cart { position: fixed; bottom: 85px; left: 15px; right: 15px; background: rgba(29, 29, 31, 0.85); backdrop-filter: blur(10px); color: #fff; padding: 12px 20px; border-radius: 50px; z-index: var(--z-floating); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); transform: translateY(150%); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .floating-cart.active { transform: translateY(0); }
+    .floating-cart .price-tag { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-weight: 700; margin-left: 10px; }
+    
+    .delivery-progress { height: 8px; background: #eee; border-radius: 10px; overflow: hidden; margin-top: 5px; }
+    .delivery-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.5s; }
+
+    .filter-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+    .filter-scroll::-webkit-scrollbar { display: none; }
+    .filter-chip { white-space: nowrap; padding: 8px 18px; border-radius: 50px; background: var(--bg-card); border: 1px solid rgba(0,0,0,0.1); color: var(--text-muted); font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.85rem; }
+    .filter-chip:hover, .filter-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .module-section { display: none !important; opacity: 0; animation: fadeIn 0.4s forwards; }
+    .module-section.active { display: block !important; opacity: 1; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .marquee-bar { position: fixed; top: 0; left: 0; width: 100%; height: 30px; background: #000; color: #fff; z-index: var(--z-marquee); overflow: hidden; display: flex; align-items: center; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+    .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 20s linear infinite; padding-left: 100%; }
+    @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+    #store-closed-banner { top: 30px; z-index: 1050; font-size: 0.75rem; padding: 5px 0; background: rgba(220, 53, 69, 0.9); backdrop-filter: blur(4px); }
+
+    .toast-container { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); z-index: 1060; width: 90%; max-width: 350px; pointer-events: none; }
+    .toast { pointer-events: auto; background: var(--bg-card); color: var(--text-main); border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-radius: 12px; margin-bottom: 10px; }
+    
+    .stock-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+    .bg-stock-ok { background-color: #198754; }
+    .variant-select { font-size: 0.85rem; padding: 2px 8px; border-radius: 4px; border: 1px solid #ddd; background: var(--bg-body); color: var(--text-main); cursor: pointer; }
+    ]]></b:skin>
+</head>
+<body>
+
+    <div class='marquee-bar'><div class='marquee-content'>&#9889; FLASH SALE: 50% OFF ALL DRAGON ROLLS! 🍣 FREE DELIVERY &gt; 200 DH!</div></div>
+
+    <div class='fixed-top text-white text-center fw-bold d-none' id='store-closed-banner'>
+        &#9940; STORE CLOSED - CHECKOUT DISABLED
+    </div>
+
+    <header class='header fixed-top'>
+        <div class='container d-flex align-items-center justify-content-between h-100'>
+            <a class='text-decoration-none' href='#home'>
+                <h1 class='m-0 fw-bold' style='color:var(--text-main); font-size:1.8rem; font-family:&quot;Amatic SC&quot;'>SushiElite<span class='text-primary'>.</span></h1>
+            </a>
+            <div class='d-flex align-items-center gap-2'>
+                <button class='btn btn-light rounded-circle' onclick='App.i18n.toggleLang()'>🇺🇸</button>
+                <button class='btn btn-light rounded-circle fw-bold' id='curr-btn' onclick='App.i18n.toggleCurrency()' style='font-size:0.8rem'>DH</button>
+                
+                <a class='btn position-relative' href='#wishlist'>
+                    <i class='bi bi-heart fs-4' style='color:var(--text-main)'/>
+                    <span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger' id='nav-wish-count'>0</span>
+                </a>
+                <a class='btn position-relative' href='#cart' id='nav-cart-target'>
+                    <i class='bi bi-bag fs-4' style='color:var(--text-main)'/>
+                    <span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger' id='nav-cart-count'>0</span>
+                </a>
+                <button class='btn' id='auth-btn' onclick='App.Auth.openModal()'><i class='bi bi-person fs-4'/></button>
+            </div>
+        </div>
+    </header>
+
+    <div class='breadcrumb-bar'><div class='container d-flex align-items-center' id='breadcrumbs'><span class='fw-bold'>🏠 Home</span></div></div>
+    <div class='toast-container' id='toast-container'/>
+
+    <div class='floating-cart' id='floating-cart' onclick='window.location.hash=&quot;#cart&quot;'>
+        <div class='d-flex align-items-center'>
+            <div class='bg-white text-dark rounded-circle d-flex align-items-center justify-content-center fw-bold' id='float-count' style='width:30px; height:30px'>0</div>
+            <span class='ms-3 fw-bold'>View Cart</span>
+        </div>
+        <div class='price-tag' id='float-total'>0.00 DH</div>
+    </div>
+
+    <main id='app-root'>
+        <section class='module-section active' id='home-module'>
+            <div class='container py-5 text-center'>
+                <h2 class='display-3 fw-bold' style='font-family: &quot;Amatic SC&quot;'>Taste the Ocean</h2>
+                <p class='lead text-muted'>Premium Japanese Cuisine Delivered.</p>
+                <button class='btn btn-primary rounded-pill px-5 py-3 fw-bold mt-2' onclick='window.location.hash=&quot;#catalog&quot;'>ORDER NOW</button>
+            </div>
+            <div class='container mt-5 d-none' id='recent-container'>
+                <h4 class='fw-bold mb-3'>Recently Viewed</h4>
+                <div class='row gy-4' id='recent-grid'/>
+            </div>
+        </section>
+
+        <section class='module-section' id='catalog-module'>
+            <div class='container'>
+                <div class='sticky-top bg-body py-3' style='top: 140px; z-index: 1010;'>
+                    <input class='form-control mb-2 rounded-pill' onkeyup='App.Catalog.search(this.value)' placeholder='🔍 Search sushi, rolls...' type='text'/>
+                    <div class='filter-scroll' id='category-filters'/>
+                </div>
+                <div class='row gy-4' id='product-grid-root'/>
+                <div id='scroll-sentinel' style='height: 50px; display: flex; justify-content: center; align-items: center;'><div class='spinner-border text-primary'/></div>
+            </div>
+        </section>
+
+        <section class='module-section' id='cart-module'>
+            <div class='container'>
+                <div class='d-flex justify-content-between align-items-center mb-3'>
+                    <h2 class='fw-bold m-0'>Your Order</h2>
+                    <div class='d-flex gap-2'>
+                        <button class='btn btn-sm btn-outline-primary' onclick='App.Cart.share()'><i class='bi bi-share'/> Share</button>
+                        <button class='btn btn-sm btn-outline-danger' onclick='App.Cart.checkClear()'>Empty</button>
+                    </div>
+                </div>
+
+                <div class='text-center py-5 d-none' id='cart-empty-view'>
+                    <i class='bi bi-cart-x text-muted' style='font-size: 4rem;'/>
+                    <h4 class='mt-3 text-muted fw-bold'>Your Cart is Empty</h4>
+                    <button class='btn btn-primary rounded-pill px-5 py-2 fw-bold mt-3' onclick='window.location.hash=&quot;#catalog&quot;'>Go to Menu</button>
+                </div>
+
+                <div class='row g-4' id='cart-content-row'>
+                    <div class='col-lg-7'>
+                        <div class='card p-3 rounded-4 border-0 shadow-sm mb-3'>
+                            <div class='p-3 bg-light rounded-3 mb-3 d-none' id='delivery-tracker'>
+                                <div class='d-flex justify-content-between small fw-bold mb-1'>
+                                    <span id='delivery-msg'>Add more for FREE Delivery!</span>
+                                    <span class='text-danger' id='delivery-amount'/>
+                                </div>
+                                <div class='delivery-progress'>
+                                    <div class='delivery-bar' id='delivery-bar'/>
+                                </div>
+                            </div>
+                            <div id='cart-items-list'/>
+                        </div>
+                        <div class='card p-3 rounded-4 border-0 shadow-sm'>
+                            <h6 class='fw-bold mb-3'>Preferences</h6>
+                            <input class='form-control bg-light border-0 mb-3' id='order-time' placeholder='Schedule: ASAP (Now)' type='text'/>
+                            <textarea class='form-control bg-light border-0' id='order-note' placeholder='Notes / Allergies...' rows='2'/>
+                        </div>
+                    </div>
+
+                    <div class='col-lg-5'>
+                        <div class='card p-4 rounded-4 border-0 shadow-lg sticky-top' style='top: 150px; z-index:1000'>
+                            <h5 class='fw-bold mb-3'>Summary</h5>
+                            <div class='input-group mb-3'>
+                                <input class='form-control' id='coupon-code' placeholder='Coupon Code' style='text-transform:uppercase' type='text'/>
+                                <button class='btn btn-dark' onclick='App.Cart.applyCoupon()'>APPLY</button>
+                            </div>
+                            <div class='small mb-3' id='coupon-feedback'/>
+                            
+                            <div class='d-flex justify-content-between mb-2'><span class='text-muted'>Subtotal</span><span class='fw-bold' id='sum-sub'>0.00</span></div>
+                            <div class='d-flex justify-content-between mb-2'><span class='text-muted'>Delivery</span><span class='fw-bold' id='sum-del'>0.00</span></div>
+                            <div class='d-flex justify-content-between mb-2 text-success d-none' id='row-disc'><span>Discount</span><span class='fw-bold' id='sum-disc'>-0.00</span></div>
+                            <hr/>
+                            <div class='d-flex justify-content-between fs-3 fw-bold mb-4'><span>Total</span><span class='text-primary' id='sum-total'>0.00</span></div>
+
+                            <div class='mb-2'>
+                                <label class='small text-muted fw-bold'>Delivery Zone</label>
+                                <select class='form-select' id='checkout-zone' onchange='App.Cart.render()'/>
+                            </div>
+
+                            <input class='form-control mb-2' id='checkout-name' placeholder='Your Name' required='required'/>
+                            <input class='form-control mb-2' id='checkout-phone' placeholder='Phone Number' required='required' type='tel'/>
+                            <input class='form-control mb-2' id='checkout-address' placeholder='Detailed Address'/>
+                            <button class='btn btn-success w-100 py-3 rounded-pill fw-bold shadow-lg' id='checkout-btn' onclick='App.Cart.checkout()'>CHECKOUT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class='module-section' id='wishlist-module'>
+            <div class='container'>
+                <div class='d-flex justify-content-between mb-4'>
+                    <h2 class='fw-bold'>Favorites</h2>
+                    <button class='btn btn-sm btn-outline-danger' onclick='App.Wishlist.checkClear()'>Empty All</button>
+                </div>
+                <div class='row gy-4' id='wishlist-grid-root'/>
+            </div>
+        </section>
+
+        <section class='module-section' id='profile-module'>
+            <div class='container'>
+                <div class='d-flex justify-content-between align-items-center mb-4'>
+                    <h2 class='fw-bold m-0'>Profile</h2>
+                    <button class='btn btn-outline-danger rounded-pill px-3' id='logout-btn-top' onclick='App.Auth.logout()'>Logout</button>
+                </div>
+                
+                <div class='card p-4 rounded-4 border-0 shadow-sm text-center d-none' id='profile-logged-in'>
+                    <div class='mb-3'><i class='bi bi-person-circle display-4 text-primary'/></div>
+                    <h4 class='fw-bold' id='user-name-display'>User</h4>
+                    <p class='text-muted mb-1' id='user-phone-display'/>
+                    <p class='small text-muted'>Member since: <span id='user-join-date'>-</span></p>
+                </div>
+
+                <div class='text-center py-5 d-none' id='profile-logged-out'>
+                    <p class='text-muted'>Please login to view your profile and orders.</p>
+                    <button class='btn btn-primary rounded-pill px-5' onclick='App.Auth.openModal()'>Login / Register</button>
+                </div>
+
+                <div class='d-none mt-4' id='order-history-section'>
+                    <h5 class='fw-bold mb-3'>Order History</h5>
+                    <div id='order-history-list'/>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class='modal fade' id='authModal' tabindex='-1'>
+        <div class='modal-dialog modal-dialog-centered'>
+            <div class='modal-content border-0 rounded-4 shadow'>
+                <div class='modal-body p-4'>
+                    <ul class='nav nav-pills nav-fill mb-3'><li class='nav-item'><button class='nav-link active' data-bs-target='#login-tab' data-bs-toggle='pill'>Login</button></li><li class='nav-item'><button class='nav-link' data-bs-target='#register-tab' data-bs-toggle='pill'>Register</button></li></ul>
+                    <div class='tab-content'>
+                        <div class='tab-pane fade show active' id='login-tab'>
+                            <input class='form-control mb-3' id='login-phone' placeholder='Phone'/>
+                            <input class='form-control mb-3' id='login-pass' placeholder='Password' type='password'/>
+                            <button class='btn btn-primary w-100 rounded-pill' onclick='App.Auth.login()'>LOGIN</button>
+                        </div>
+                        <div class='tab-pane fade' id='register-tab'>
+                            <input class='form-control mb-3' id='reg-name' placeholder='Name'/>
+                            <input class='form-control mb-3' id='reg-phone' placeholder='Phone'/>
+                            <input class='form-control mb-3' id='reg-pass' placeholder='Password' type='password'/>
+                            <button class='btn btn-success w-100 rounded-pill' onclick='App.Auth.register()'>CREATE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div aria-hidden='true' class='modal fade' id='quickViewModal' tabindex='-1'><div class='modal-dialog modal-dialog-centered modal-lg'><div class='modal-content border-0 rounded-4 shadow-lg'><div class='modal-header border-0 pb-0'><button class='btn-close' data-bs-dismiss='modal' type='button'/></div><div class='modal-body p-0' id='quickview-content'/></div></div></div>
+    
+    <div class='modal fade' id='confirmModal' tabindex='-1'><div class='modal-dialog modal-dialog-centered'><div class='modal-content border-0 rounded-4 shadow'><div class='modal-body text-center p-4'><h4 id='conf-title'>Confirm</h4><p class='text-muted' id='conf-msg'/><button class='btn btn-danger rounded-pill px-4' id='conf-yes'>Yes</button></div></div></div></div>
+
+    <div style='display:none'><b:section id='main' maxwidgets='1' showaddelement='no'>
+  <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' visible='true'>
+    <b:widget-settings>
+      <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+      <b:widget-setting name='style.textcolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='showShareButtons'>false</b:widget-setting>
+      <b:widget-setting name='showCommentLink'>false</b:widget-setting>
+      <b:widget-setting name='style.urlcolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='showAuthor'>false</b:widget-setting>
+      <b:widget-setting name='style.linkcolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+      <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='timestampLabel'/>
+      <b:widget-setting name='reactionsLabel'/>
+      <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+      <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+      <b:widget-setting name='showLabels'>true</b:widget-setting>
+      <b:widget-setting name='showLocation'>false</b:widget-setting>
+      <b:widget-setting name='postLabelsLabel'/>
+      <b:widget-setting name='showTimestamp'>false</b:widget-setting>
+      <b:widget-setting name='postsPerAd'>1</b:widget-setting>
+      <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+      <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+      <b:widget-setting name='showReactions'>false</b:widget-setting>
+    </b:widget-settings>
+    <b:includable id='main' var='this'>
+  <div class='blog-posts hfeed container'>
+    <b:loop index='i' values='data:posts' var='post'>
+      <b:include data='post' name='postCommentsAndAd'/>
+    </b:loop>
+  </div>
+  <b:include cond='data:view.isMultipleItems' name='postPagination'/>
+  <b:include name='feedLinks'/>
+  <b:if cond='data:blog.isGoogleEverywhereLinkTooltipEnabled'>
+    <b:include name='tooltipCss'/>
+  </b:if>
+</b:includable>
+    <b:includable id='aboutPostAuthor'>
+  <div class='author-name'>
+    <a class='g-profile' expr:href='data:post.author.profileUrl' rel='author' title='author profile'>
+      <span>
+        <data:post.author.name/>
+      </span>
+    </a>
+  </div>
+  <div>
+    <span class='author-desc'>
+      <data:post.author.aboutMe/>
+    </span>
+  </div>
+</b:includable>
+    <b:includable id='addComments'>
+  <a expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:message name='messages.postAComment'/>
+  </a>
+</b:includable>
+    <b:includable id='blogThisShare'>
+  <b:with value='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=270,width=475\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+    <b:includable id='bylineByName' var='byline'>
+  <b:switch var='data:byline.name'>
+  <b:case value='share'/>
+    <b:include cond='data:post.shareUrl' name='postShareButtons'/>
+  <b:case value='comments'/>
+    <b:include cond='data:post.allowComments' name='postCommentsLink'/>
+  <b:case value='location'/>
+    <b:include cond='data:post.location' name='postLocation'/>
+  <b:case value='timestamp'/>
+    <b:include cond='not data:view.isPage' name='postTimestamp'/>
+  <b:case value='author'/>
+    <b:include name='postAuthor'/>
+  <b:case value='labels'/>
+    <b:include cond='data:post.labels' name='postLabels'/>
+  <b:case value='icons'/>
+    <b:include cond='data:post.emailPostUrl' name='emailPostIcon'/>
+  </b:switch>
+</b:includable>
+    <b:includable id='bylineRegion' var='regionItems'>
+  <b:loop values='data:regionItems' var='byline'>
+    <b:include data='byline' name='bylineByName'/>
+  </b:loop>
+</b:includable>
+    <b:includable id='commentAuthorAvatar'>
+  <div class='avatar-image-container'>
+    <img class='author-avatar' expr:src='data:comment.authorAvatarSrc' height='35' width='35'/>
+  </div>
+</b:includable>
+    <b:includable id='commentDeleteIcon' var='comment'>
+  <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+    <b:if cond='data:showCmtPopup'>
+      <div class='goog-toggle-button'>
+        <div class='goog-inline-block comment-action-icon'/>
+      </div>
+    <b:else/>
+      <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:messages.deleteComment'>
+        <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+    <b:includable id='commentForm' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+    <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+      <p><data:this.messages.blogComment/></p>
+    </b:if>
+    <b:include data='post' name='commentFormIframeSrc'/>
+    <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+    <b:includable id='commentFormIframeSrc' var='post'>
+  <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+</b:includable>
+    <b:includable id='commentItem' var='comment'>
+  <div class='comment' expr:id='&quot;c&quot; + data:comment.id'>
+    <b:include cond='data:blog.enabledCommentProfileImages' name='commentAuthorAvatar'/>
+
+    <div class='comment-block'>
+      <div class='comment-author'>
+        <b:if cond='data:comment.authorUrl'>
+          <b:message name='messages.authorSaidWithLink'>
+            <b:param expr:value='data:comment.author' name='authorName'/>
+            <b:param expr:value='data:comment.authorUrl' name='authorUrl'/>
+          </b:message>
+        <b:else/>
+          <b:message name='messages.authorSaid'>
+            <b:param expr:value='data:comment.author' name='authorName'/>
+          </b:message>
+        </b:if>
+      </div>
+      <div expr:class='&quot;comment-body&quot; + (data:comment.isDeleted ? &quot; deleted&quot; : &quot;&quot;)'>
+        <data:comment.body/>
+      </div>
+      <div class='comment-footer'>
+        <span class='comment-timestamp'>
+          <a expr:href='data:comment.url' title='comment permalink'>
+            <data:comment.timestamp/>
+          </a>
+          <b:include data='comment' name='commentDeleteIcon'/>
+        </span>
+      </div>
+    </div>
+  </div>
+</b:includable>
+    <b:includable id='commentList' var='comments'>
+  <div id='comments-block'>
+    <b:loop values='data:comments' var='comment'>
+      <b:include data='comment' name='commentItem'/>
+    </b:loop>
+  </div>
+</b:includable>
+    <b:includable id='commentPicker' var='post'>
+  <b:if cond='data:post.showThreadedComments'>
+    <b:include data='post' name='threadedComments'/>
+  <b:else/>
+    <b:include data='post' name='comments'/>
+  </b:if>
+</b:includable>
+    <b:includable id='comments' var='post'>
+  <section expr:class='&quot;comments&quot; + (data:post.embedCommentForm ? &quot; embed&quot; : &quot;&quot;)' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+    <b:if cond='data:post.allowComments'>
+
+      <b:include name='commentsTitle'/>
+
+      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+        <b:include cond='data:post.comments' data='post.comments' name='commentList'/>
+      </div>
+
+      <b:if cond='data:post.commentPagingRequired'>
+        <div class='paging-control-container'>
+          <b:if cond='data:post.hasOlderLinks'>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
+              <data:messages.oldest/>
+            </a>
+            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
+              <data:messages.older/>
+            </a>
+          </b:if>
+
+          <span class='comment-range-text'>
+            <data:post.commentRangeText/>
+          </span>
+
+          <b:if cond='data:post.hasNewerLinks'>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
+              <data:messages.newer/>
+            </a>
+            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
+              <data:messages.newest/>
+            </a>
+          </b:if>
+        </div>
+      </b:if>
+
+      <div class='footer'>
+        <b:if cond='data:post.embedCommentForm'>
+          <b:if cond='data:post.allowNewComments'>
+            <b:include data='post' name='commentForm'/>
+          <b:else/>
+            <data:post.noNewCommentsText/>
+          </b:if>
+        <b:else/>
+          <b:if cond='data:post.allowComments'>
+            <b:include data='post' name='addComments'/>
+          </b:if>
+        </b:if>
+      </div>
+    </b:if>
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
+</b:includable>
+    <b:includable id='commentsLink'>
+  <a class='comment-link' expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+    <b:if cond='data:post.numberOfComments &gt; 0'>
+      <b:message name='messages.numberOfComments'>
+        <b:param expr:value='data:post.numberOfComments' name='numComments'/>
+      </b:message>
+    <b:else/>
+      <data:messages.postAComment/>
+    </b:if>
+  </a>
+</b:includable>
+    <b:includable id='commentsLinkIframe'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+    <b:includable id='commentsTitle'>
+  <h3 class='title'><data:messages.comments/></h3>
+</b:includable>
+    <b:includable id='defaultAdUnit'>
+  <ins class='adsbygoogle' data-ad-format='auto' expr:data-ad-client='data:adClientId ?: data:blog.adsenseClientId' expr:data-ad-host='data:blog.adsenseHostId' expr:style='data:style ?: &quot;display: block;&quot;'>
+    <b:attr cond='not data:blog.analytics4' expr:value='data:blog.analyticsAccountNumber' name='data-analytics-uacct'/>
+  </ins>
+  <script>
+   (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</b:includable>
+    <b:includable id='emailPostIcon'>
+  <span class='byline post-icons'>
+    <!-- email post links -->
+    <span class='item-action'>
+      <a expr:href='data:post.emailPostUrl' expr:title='data:messages.emailPost'>
+        <b:include data='{ iconClass: &quot;touch-icon sharing-icon&quot; }' name='emailIcon'/>
+      </a>
+    </span>
+  </span>
+</b:includable>
+    <b:includable id='facebookShare'>
+  <b:with value='&quot;window.open(this.href, \&quot;_blank\&quot;, \&quot;height=430,width=640\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+    <b:includable id='feedLinks'>
+  <b:if cond='!data:view.isPost'> <!-- Blog feed links -->
+    <b:if cond='data:feedLinks'>
+      <div class='blog-feeds'>
+        <b:include data='feedLinks' name='feedLinksBody'/>
+      </div>
+    </b:if>
+  <b:else/> <!--Post feed links -->
+    <div class='post-feeds'>
+      <b:loop values='data:posts' var='post'>
+        <b:if cond='data:post.allowComments and data:post.feedLinks'>
+          <b:include data='post.feedLinks' name='feedLinksBody'/>
+        </b:if>
+      </b:loop>
+    </div>
+  </b:if>
+</b:includable>
+    <b:includable id='feedLinksBody' var='links'>
+  <div class='feed-links'>
+  <data:messages.subscribeTo/>
+  <b:loop values='data:links' var='f'>
+     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
+  </b:loop>
+  </div>
+</b:includable>
+    <b:includable id='footerBylines'>
+  <b:if cond='data:widgets.Blog.first.footerBylines'>
+    <b:loop index='i' values='data:widgets.Blog.first.footerBylines' var='region'>
+      <b:if cond='not data:region.items.empty'>
+        <div expr:class='&quot;post-footer-line post-footer-line-&quot; + (data:i + 1)'>
+          <b:with value='&quot;footer-&quot; + (data:i + 1)' var='regionName'>
+            <b:include data='region.items' name='bylineRegion'/>
+          </b:with>
+        </div>
+      </b:if>
+    </b:loop>
+  </b:if>
+</b:includable>
+    <b:includable id='googlePlusShare'>
+</b:includable>
+    <b:includable id='headerByline'>
+  <b:if cond='data:widgets.Blog.first.headerByline'>
+    <div class='post-header'>
+      <div class='post-header-line-1'>
+        <b:with value='&quot;header-1&quot;' var='regionName'>
+          <b:include data='data:widgets.Blog.first.headerByline.items' name='bylineRegion'/>
+        </b:with>
+      </div>
+    </div>
+  </b:if>
+</b:includable>
+    <b:includable id='homePageLink'>
+  <a class='home-link' expr:href='data:blog.homepageUrl'>
+    <data:messages.home/>
+  </a>
+</b:includable>
+    <b:includable id='iframeComments' var='post'>
+  <!-- G+ comments, no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+    <b:includable id='inlineAd' var='post'>
+  <b:if cond='!data:view.isPreview'>
+    <b:if cond='data:this.adCode or data:this.adClientId or data:blog.adsenseClientId'>
+      <!-- Ad -->
+      <div class='inline-ad'>
+        <b:if cond='data:this.adCode != &quot;&quot;'>
+          <data:this.adCode/>
+        <b:else/>
+          <b:include cond='data:this.adClientId or data:blog.adsenseClientId' name='defaultAdUnit'/>
+        </b:if>
+      </div>
+    </b:if>
+  <b:else/>
+    <div class='inline-ad'>
+      <div class='inline-ad-placeholder'>
+        <span><b:message name='messages.adsGoHere'/></span>
+      </div>
+    </div>
+  </b:if>
+</b:includable>
+    <b:includable id='linkShare'>
+  <b:with value='&quot;window.prompt(\&quot;Copy to clipboard: Ctrl+C, Enter\&quot;, \&quot;&quot; + data:originalUrl + &quot;\&quot;); return false;&quot;' var='onclick'>
+    <b:include name='platformShare'/>
+  </b:with>
+</b:includable>
+    <b:includable id='nextPageLink'>
+  <a class='blog-pager-older-link' expr:href='data:olderPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-older-link&quot;' expr:title='data:messages.olderPosts'>
+    <data:messages.olderPosts/>
+  </a>
+</b:includable>
+    <b:includable id='otherSharingButton'>
+  <span class='sharing-platform-button sharing-element-other' expr:aria-label='data:messages.shareToOtherApps.escaped' expr:data-url='data:originalUrl' expr:title='data:messages.shareToOtherApps.escaped' role='menuitem' tabindex='-1'>
+    <b:with value='{key: &quot;sharingOther&quot;}' var='platform'>
+      <b:include name='sharingPlatformIcon'/>
+    </b:with>
+    <span class='platform-sharing-text'><data:messages.shareOtherApps.escaped/></span>
+  </span>
+</b:includable>
+    <b:includable id='platformShare'>
+  <a expr:class='&quot;goog-inline-block sharing-&quot; + data:platform.key' expr:data-url='data:originalUrl' expr:href='data:shareUrl + &quot;&amp;target=&quot; + data:platform.target' expr:onclick='data:onclick ? data:onclick : &quot;&quot;' expr:title='data:platform.shareMessage' target='_blank'>
+    <span class='share-button-link-text'>
+      <data:platform.shareMessage/>
+    </span>
+  </a>
+</b:includable>
+    <b:includable id='post' var='post'>
+  <div class='post'>
+    <b:include data='post' name='postMeta'/>
+    <b:include data='post' name='postTitle'/>
+    <b:include name='headerByline'/>
+    <b:if cond='data:view.isSingleItem'>
+      <b:include data='post' name='postBody'/>
+    <b:else/>
+      <b:include data='post' name='postBodySnippet'/>
+      <b:include data='post' name='postJumpLink'/>
+    </b:if>
+    <b:include data='post' name='postFooter'/>
+  </div>
+</b:includable>
+    <b:includable id='postAuthor'>
+  <span class='byline post-author vcard'>
+    <span class='post-author-label'>
+      <data:byline.label/>
+    </span>
+    <span class='fn'>
+      <b:if cond='data:post.author.profileUrl'>
+        <meta expr:content='data:post.author.profileUrl'/>
+        <a class='g-profile' expr:href='data:post.author.profileUrl' rel='author' title='author profile'>
+          <span><data:post.author.name/></span>
+        </a>
+      <b:else/>
+        <span><data:post.author.name/></span>
+      </b:if>
+    </span>
+  </span>
+</b:includable>
+    <b:includable id='postBody' var='post'>
+  <!-- If metaDescription is empty, use the post body as the schema.org description too, for G+/FB snippeting. -->
+  <div class='post-body entry-content float-container' expr:id='&quot;post-body-&quot; + data:post.id'>
+    <data:post.body/>
+  </div>
+</b:includable>
+    <b:includable id='postBodySnippet' var='post'>
+  <b:include data='post' name='postBody'/>
+</b:includable>
+    <b:includable id='postCommentsAndAd' var='post'>
+  <article class='post-outer-container'>
+    <!-- Post title and body -->
+    <div class='post-outer'>
+      <b:include data='post' name='post'/>
+    </div>
+
+    <!-- Comments -->
+    <b:include cond='data:view.isSingleItem' data='post' name='commentPicker'/>
+
+    <!-- Show ad inside post container, after comments, if single item. -->
+    <b:include cond='data:view.isSingleItem and data:post.includeAd' data='post' name='inlineAd'/>
+  </article>
+
+  <!-- Show ad outside post container (between posts) for feed pages. -->
+  <b:include cond='data:view.isMultipleItems and data:post.includeAd' data='post' name='inlineAd'/>
+</b:includable>
+    <b:includable id='postCommentsLink'>
+  <b:if cond='data:view.isMultipleItems'>
+    <span class='byline post-comment-link container'>
+      <b:include cond='data:post.commentSource != 1' name='commentsLink'/>
+    </span>
+  </b:if>
+</b:includable>
+    <b:includable id='postFooter' var='post'>
+  <div class='post-footer'>
+    <b:include name='footerBylines'/>
+    <b:include data='post' name='postFooterAuthorProfile'/>
+  </div>
+</b:includable>
+    <b:includable id='postFooterAuthorProfile' var='post'>
+  <b:if cond='data:post.author.aboutMe and data:view.isPost'>
+    <div class='author-profile'>
+      <b:if cond='data:post.author.authorPhoto.url'>
+        <img class='author-image' expr:src='data:post.author.authorPhoto.url' width='50px'/>
+        <div class='author-about'>
+          <b:include data='post' name='aboutPostAuthor'/>
+        </div>
+      <b:else/>
+        <b:include data='post' name='aboutPostAuthor'/>
+      </b:if>
+    </div>
+  </b:if>
+</b:includable>
+    <b:includable id='postHeader' var='post'>
+  <b:include name='headerByline'/>
+</b:includable>
+    <b:includable id='postJumpLink' var='post'>
+  <div class='jump-link flat-button'>
+    <a expr:href='data:post.url fragment &quot;more&quot;' expr:title='data:post.title'>
+      <b:eval expr='data:blog.jumpLinkMessage'/>
+    </a>
+  </div>
+</b:includable>
+    <b:includable id='postLabels'>
+  <span class='byline post-labels'>
+    <span class='byline-label'><data:byline.label/></span>
+    <b:loop index='i' values='data:post.labels' var='label'>
+      <a expr:href='data:label.url' rel='tag'>
+        <data:label.name/>
+      </a>
+    </b:loop>
+  </span>
+</b:includable>
+    <b:includable id='postLocation'>
+  <span class='byline post-location'>
+    <data:byline.label/>
+    <a expr:href='data:post.location.mapsUrl' target='_blank'><data:post.location.name/></a>
+  </span>
+</b:includable>
+    <b:includable id='postMeta' var='post'>
+  <b:include data='post' name='postMetadataJSON'/>
+</b:includable>
+    <b:includable id='postMetadataJSONImage'>
+  &quot;image&quot;: {
+    &quot;@type&quot;: &quot;ImageObject&quot;,
+    <b:if cond='data:post.featuredImage.isResizable'>
+    &quot;url&quot;: &quot;<b:eval expr='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)'/>&quot;,
+    &quot;height&quot;: 630,
+    &quot;width&quot;: 1200
+    <b:else/>
+    &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/w1200/&quot;,
+    &quot;height&quot;: 348,
+    &quot;width&quot;: 1200
+    </b:if>
+  },
+</b:includable>
+    <b:includable id='postMetadataJSONPublisher'>
+ &quot;publisher&quot;: {
+    &quot;@type&quot;: &quot;Organization&quot;,
+    &quot;name&quot;: &quot;Blogger&quot;,
+    &quot;logo&quot;: {
+      &quot;@type&quot;: &quot;ImageObject&quot;,
+      &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/U2hvZWJveA/AVvXsEgfMvYAhAbdHksiBA24JKmb2Tav6K0GviwztID3Cq4VpV96HaJfy0viIu8z1SSw_G9n5FQHZWSRao61M3e58ImahqBtr7LiOUS6m_w59IvDYwjmMcbq3fKW4JSbacqkbxTo8B90dWp0Cese92xfLMPe_tg11g/h60/&quot;,
+      &quot;width&quot;: 206,
+      &quot;height&quot;: 60
+    }
+  },
+</b:includable>
+    <b:includable id='postPagination'>
+  <div class='blog-pager container' id='blog-pager'>
+    <b:include cond='data:newerPageUrl' name='previousPageLink'/>
+    <b:include cond='data:olderPageUrl' name='nextPageLink'/>
+    <b:include cond='data:view.url != data:blog.homepageUrl' name='homePageLink'/>
+  </div>
+</b:includable>
+    <b:includable id='postReactions'>
+  <!-- Reaction feature no longer available. The includable is retained for backwards-compatibility. -->
+</b:includable>
+    <b:includable id='postShareButtons'>
+  <div class='byline post-share-buttons goog-inline-block'>
+    <b:with value='data:sharingId ?: ((data:widget.instanceId ?: &quot;sharing&quot;) + &quot;-&quot; + (data:regionName ?: &quot;byline&quot;) + &quot;-&quot; + data:post.id)' var='sharingId'>
+      <!-- Note: 'sharingButtons' includable is from the default Sharing widget markup. -->
+      <b:include data='{                                                sharingId: data:sharingId,                                                originalUrl: data:post.url,                                                platforms: data:this.sharing.platforms,                                                shareUrl: data:post.shareUrl,                                                shareTitle: data:post.title,                                              }' name='sharingButtons'/>
+    </b:with>
+  </div>
+</b:includable>
+    <b:includable id='postTimestamp'>
+  <span class='byline post-timestamp'>
+    <data:byline.label/>
+    <b:if cond='data:post.url'>
+      <meta expr:content='data:post.url.canonical'/>
+      <a class='timestamp-link' expr:href='data:post.url' rel='bookmark' title='permanent link'>
+        <time class='published' expr:datetime='data:post.date.iso8601' expr:title='data:post.date.iso8601'>
+          <data:post.date/>
+        </time>
+      </a>
+    </b:if>
+  </span>
+</b:includable>
+    <b:includable id='postTitle' var='post'>
+  <a expr:name='data:post.id'/>
+  <b:if cond='data:post.title != &quot;&quot;'>
+    <h3 class='post-title entry-title'>
+      <b:if cond='data:post.link or (data:post.url and data:view.url != data:post.url)'>
+        <a expr:href='data:post.link ?: data:post.url'><data:post.title/></a>
+      <b:else/>
+        <data:post.title/>
+      </b:if>
+    </h3>
+  </b:if>
+</b:includable>
+    <b:includable id='previousPageLink'>
+  <a class='blog-pager-newer-link' expr:href='data:newerPageUrl' expr:id='data:widget.instanceId + &quot;_blog-pager-newer-link&quot;' expr:title='data:messages.newerPosts'>
+    <data:messages.newerPosts/>
+  </a>
+</b:includable>
+    <b:includable id='sharingButton'>
+  <span expr:aria-label='data:platform.shareMessage' expr:class='&quot;sharing-platform-button sharing-element-&quot; + data:platform.key' expr:data-href='data:shareUrl + &quot;&amp;target=&quot; + data:platform.target' expr:data-url='data:originalUrl' expr:title='data:platform.shareMessage' role='menuitem' tabindex='-1'>
+    <b:include name='sharingPlatformIcon'/>
+    <span class='platform-sharing-text'><data:platform.name/></span>
+  </span>
+</b:includable>
+    <b:includable id='sharingButtonContent'>
+  <div class='flat-icon-button ripple'>
+    <b:include name='shareIcon'/>
+  </div>
+</b:includable>
+    <b:includable id='sharingButtons'>
+  <div class='sharing' expr:aria-owns='&quot;sharing-popup-&quot; + data:sharingId' expr:data-title='data:shareTitle'>
+    <button class='sharing-button touch-icon-button' expr:aria-controls='&quot;sharing-popup-&quot; + data:sharingId' expr:aria-label='data:messages.share.escaped' expr:id='&quot;sharing-button-&quot; + data:sharingId' role='button'>
+      <b:include name='sharingButtonContent'/>
+    </button>
+    <b:include name='sharingButtonsMenu'/>
+  </div>
+</b:includable>
+    <b:includable id='sharingButtonsMenu'>
+  <div class='share-buttons-container'>
+    <ul aria-hidden='true' class='share-buttons hidden' expr:aria-label='data:messages.share.escaped' expr:id='&quot;sharing-popup-&quot; + data:sharingId' role='menu'>
+      <b:loop values='(data:platforms ?: data:blog.sharing.platforms) filter (p =&gt; p.key not in {&quot;blogThis&quot;})' var='platform'>
+        <li>
+          <b:include name='sharingButton'/>
+        </li>
+      </b:loop>
+      <li aria-hidden='true' class='hidden'>
+        <b:include name='otherSharingButton'/>
+      </li>
+    </ul>
+  </div>
+</b:includable>
+    <b:includable id='sharingPlatformIcon'>
+  <b:include data='{ iconClass: (&quot;touch-icon sharing-&quot; + data:platform.key) }' expr:name='data:platform.key + &quot;Icon&quot;'/>
+</b:includable>
+    <b:includable id='threadedCommentForm' var='post'>
+  <div class='comment-form'>
+    <a name='comment-form'/>
+    <h4 id='comment-post-message'><data:messages.postAComment/></h4>
+    <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+      <p><data:this.messages.blogComment/></p>
+    </b:if>
+    <b:include data='post' name='commentFormIframeSrc'/>
+    <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    <data:post.cmtfpIframe/>
+    <script type='text/javascript'>
+      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+    </script>
+  </div>
+</b:includable>
+    <b:includable id='threadedCommentJs' var='post'>
+  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+  <b:template-script inline='true' name='threaded_comments'/>
+  <script type='text/javascript'>
+    blogger.widgets.blog.initThreadedComments(
+        <data:post.commentJso/>,
+        <data:post.commentMsgs/>,
+        <data:post.commentConfig/>);
+  </script>
+</b:includable>
+    <b:includable id='threadedComments' var='post'>
+  <section class='comments threaded' expr:data-embed='data:post.embedCommentForm' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+    <a name='comments'/>
+
+    <b:include name='commentsTitle'/>
+
+    <div class='comments-content'>
+      <b:if cond='data:post.embedCommentForm'>
+        <b:include data='post' name='threadedCommentJs'/>
+      </b:if>
+      <div id='comment-holder'>
+         <data:post.commentHtml/>
+      </div>
+    </div>
+
+    <p class='comment-footer'>
+      <b:if cond='data:post.allowNewComments'>
+        <b:include data='post' name='threadedCommentForm'/>
+      <b:else/>
+        <data:post.noNewCommentsText/>
+      </b:if>
+      <b:if cond='data:post.showManageComments'>
+        <b:include data='post' name='manageComments'/>
+      </b:if>
+    </p>
+
+    <b:if cond='data:showCmtPopup'>
+      <div id='comment-popup'>
+        <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
+        </iframe>
+      </div>
+    </b:if>
+  </section>
+</b:includable>
+    <b:includable id='tooltipCss'>
+  <!-- LINT.IfChange -->
+  <style>
+    .post-body a.b-tooltip-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .post-body a.b-tooltip-container .b-tooltip {
+      display: block !important;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-20%, 1px);
+      visibility: hidden;
+      opacity: 0;
+      z-index: 1;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .post-body a.b-tooltip-container .b-tooltip iframe {
+      width: 200px;
+      height: 198px;
+      max-width: none;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (hover: hover) {
+      .post-body a.b-tooltip-container:hover .b-tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  </style>
+  <!-- LINT.ThenChange(//depot/google3/java/com/google/blogger/b2/layouts/widgets/v2-style.css) -->
+</b:includable>
+  </b:widget>
+</b:section></div>
+
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'/>
+    <script src='https://unpkg.com/aos@2.3.1/dist/aos.js'/>
+    <script src='https://cdn.jsdelivr.net/npm/flatpickr'/>
+
+    <script>
+    //<![CDATA[
+    const API_URL = "https://script.google.com/macros/s/AKfycbxnDZiQY_tpQexinqIgq2H1xXEDvwrDpmnItcLh5uFGB1VqB12uh6M4-P6jGhSQmXwe/exec"; 
+
+    const App = {
+        Config: { baseCurrency: 'MAD', freeShipThreshold: 200, waNumber: '212600000000', deliveryZones: {} },
+        Symbols: { 'MAD': ' DH', 'EUR': ' €', 'USD': '$ ' },
+        State: { catalog:[], cart:[], wishlist:[], recent:[], history:[], user:null, activeCat:'All', searchTerm:'', currency:'MAD', lastActive:0, lastCurrencyChange:0, batchSize: 12, visibleCount: 0, activeCoupon: null },
+
+        Utils: {
+            getPriceObj: (i) => {
+                const c = App.State.currency;
+                if(c==='EUR') return {now: i.price_EUR, old: i.oldPrice_EUR};
+                if(c==='USD') return {now: i.price_USD, old: i.oldPrice_USD};
+                return {now: i.price_MAD, old: i.oldPrice_MAD};
+            },
+            fmt: (n) => App.State.currency==='USD' ? '$ '+n.toFixed(2) : n.toFixed(2)+App.Symbols[App.State.currency],
+            save: (k) => localStorage.setItem(k, JSON.stringify(App.State[k.split('_')[1]])),
+            load: (k) => { try { return JSON.parse(localStorage.getItem(k))||[] } catch(e){return[]} },
+            checkStock: (item) => {
+                if(!item || item.stock === 0) return { disabled: true, badge: '<div class="badge-float badge-out">SOLD OUT</div>' };
+                if(item.stock < 5) return { disabled: false, badge: '<div class="badge-float badge-low">LOW STOCK</div>' };
+                if(item.hot) return { disabled: false, badge: '<div class="badge-float badge-hot">HOT</div>' };
+                return { disabled: false, badge: '' };
+            }
+        },
+
+        // SEO Injection
+        SEO: {
+            generateSchema: () => {
+                const schema = {
+                    "@context": "https://schema.org",
+                    "@type": "Restaurant",
+                    "name": "Sushi Elite",
+                    "image": "https://cdn-icons-png.flaticon.com/512/2252/2252076.png",
+                    "menu": {
+                        "@type": "Menu",
+                        "hasMenuSection": App.State.catalog.map(i => ({
+                            "@type": "MenuSection",
+                            "name": i.title,
+                            "offers": { "@type": "Offer", "price": i.price_MAD, "priceCurrency": "MAD" }
+                        }))
+                    }
+                };
+                document.getElementById('json-ld-store').textContent = JSON.stringify(schema);
+            }
+        },
+
+        Auth: {
+            openModal: () => new bootstrap.Modal(document.getElementById('authModal')).show(),
+            login: () => {
+                const p = document.getElementById('login-phone').value, pass = document.getElementById('login-pass').value;
+                if(!p) return alert('Enter Phone');
+                fetch(API_URL, {method:'POST', body:JSON.stringify({action:'login', data:{phone:p, password:pass}})})
+                .then(r=>r.json()).then(res=>{
+                    if(res.status==='success') {
+                        App.State.user = {id:res.userId, name:res.name, phone:p};
+                        localStorage.setItem('se_user', JSON.stringify(App.State.user));
+                        location.reload();
+                    } else alert(res.message);
+                });
+            },
+            register: () => {
+                const n = document.getElementById('reg-name').value, p = document.getElementById('reg-phone').value, pass = document.getElementById('reg-pass').value;
+                fetch(API_URL, {method:'POST', body:JSON.stringify({action:'register', data:{name:n, phone:p, password:pass}})})
+                .then(r=>r.json()).then(res=>{
+                    if(res.status==='success') {
+                        App.State.user = {id:res.userId, name:n, phone:p};
+                        localStorage.setItem('se_user', JSON.stringify(App.State.user));
+                        location.reload();
+                    } else alert(res.message);
+                });
+            },
+            logout: () => { localStorage.removeItem('se_user'); location.reload(); },
+            check: () => {
+                const u = App.State.user;
+                if(u) {
+                    if(document.getElementById('profile-logged-in')) document.getElementById('profile-logged-in').classList.remove('d-none');
+                    if(document.getElementById('profile-logged-out')) document.getElementById('profile-logged-out').classList.add('d-none');
+                    if(document.getElementById('order-history-section')) document.getElementById('order-history-section').classList.remove('d-none');
+                    if(document.getElementById('user-name-display')) document.getElementById('user-name-display').innerText = u.name;
+                    if(document.getElementById('auth-btn')) document.getElementById('auth-btn').innerHTML = '<i class="bi bi-person-check-fill text-success"></i>';
+                }
+            }
+        },
+
+        API: {
+            init: () => {
+                // Check Store Status & Config
+                fetch(API_URL + '?action=checkStoreStatus').then(r=>r.json()).then(res=>{
+                    if(!res.isOpen) {
+                        const b = document.getElementById('store-closed-banner');
+                        b.innerText = "⛔ STORE CLOSED (" + res.hours + ") - CHECKOUT DISABLED";
+                        b.classList.remove('d-none');
+                        document.getElementById('checkout-btn').disabled = true;
+                    }
+                    if(res.config) {
+                        App.Config.freeShipThreshold = res.config.Free_Shipping_Threshold || 200;
+                        const zones = {};
+                        const select = document.getElementById('checkout-zone');
+                        select.innerHTML = '';
+                        for(const key in res.config) {
+                            if(key.startsWith('Delivery_')) {
+                                const city = key.replace('Delivery_','');
+                                zones[city] = res.config[key];
+                                const opt = document.createElement('option');
+                                opt.value = city;
+                                opt.innerText = city + " (+" + res.config[key] + " DH)";
+                                select.appendChild(opt);
+                            }
+                        }
+                        const pick = document.createElement('option'); pick.value='Pickup'; pick.innerText='Pickup (0 DH)';
+                        select.prepend(pick);
+                        App.Config.deliveryZones = zones;
+                    }
+                });
+                
+                fetch(API_URL + '?action=getCatalog').then(r=>r.json()).then(res=>{
+                    if(res.status==='success') {
+                        App.State.catalog = res.data.map(i=>({
+                            id: i.id, title: i.title, cat: i.category,
+                            price_MAD: parseFloat(i.price_MAD), price_EUR: parseFloat(i.price_EUR), price_USD: parseFloat(i.price_USD),
+                            oldPrice_MAD: parseFloat(i.oldPrice_MAD), oldPrice_EUR: parseFloat(i.oldPrice_EUR), oldPrice_USD: parseFloat(i.oldPrice_USD),
+                            stock: i.stock, img: i.image, hot: (i.tags||'').includes('hot')
+                        }));
+                        App.Catalog.renderFilters();
+                        App.Catalog.renderBatch(true);
+                        App.Recent.render();
+                        App.SEO.generateSchema();
+                        if(App.State.user) App.API.syncDown(App.State.user.id);
+                    }
+                });
+            },
+            syncDown: (uid) => {
+                fetch(API_URL + '?action=getUserData&userId='+uid).then(r=>r.json()).then(res=>{
+                    if(res.status==='success') {
+                        if(res.cart) { App.State.cart = JSON.parse(res.cart); App.Cart.render(); }
+                        if(res.wishlist) {
+                            const rawIds = String(res.wishlist).split(',').map(s=>s.trim().replace('p-','')).filter(s=>s!=='');
+                            App.State.wishlist = App.State.catalog.filter(p=> rawIds.includes(String(p.id).replace('p-','')));
+                            if(document.getElementById('nav-wish-count')) document.getElementById('nav-wish-count').innerText = App.State.wishlist.length;
+                            App.Catalog.renderBatch(true);
+                        }
+                        if(res.joinDate && document.getElementById('user-join-date')) document.getElementById('user-join-date').innerText = new Date(res.joinDate).toLocaleDateString();
+                        if(res.currency && (Date.now() - App.State.lastCurrencyChange > 15000)) {
+                            App.State.currency = res.currency;
+                            if(document.getElementById('curr-btn')) document.getElementById('curr-btn').innerText = res.currency;
+                            App.Cart.render();
+                        }
+                        if(res.orders) {
+                            App.State.history = res.orders;
+                            App.Profile.renderOrders();
+                        }
+                    }
+                });
+            },
+            push: (type) => {
+                if(!App.State.user) return;
+                const pl = type==='cart' ? {userId:App.State.user.id, cartJson:JSON.stringify(App.State.cart), currency:App.State.currency} 
+                                         : {userId:App.State.user.id, items:App.State.wishlist.map(i=>i.id).join(',')};
+                fetch(API_URL, {method:'POST', body:JSON.stringify({action: type==='cart'?'syncCart':'syncWishlist', data:pl})});
+            }
+        },
+
+        Catalog: {
+            renderFilters: () => {
+                const c = document.getElementById('category-filters'); if(!c) return;
+                const cats = ['All', ...new Set(App.State.catalog.map(i=>i.cat))];
+                c.innerHTML = cats.map(k => `<button class="filter-chip ${k==='All'?'active':''}" onclick="App.Catalog.filter('${k}', this)">${k}</button>`).join('');
+            },
+            search: (term) => {
+                App.State.searchTerm = term.toLowerCase();
+                App.Catalog.renderBatch(true);
+            },
+            filter: (cat, btn) => {
+                App.State.activeCat = cat; 
+                App.State.visibleCount = 0; 
+                document.getElementById('product-grid-root').innerHTML = '';
+                if(btn) { document.querySelectorAll('.filter-chip').forEach(e=>e.classList.remove('active')); btn.classList.add('active'); }
+                App.Catalog.renderBatch();
+            },
+            renderBatch: (reset) => {
+                const c = document.getElementById('product-grid-root');
+                if(reset) { c.innerHTML=''; App.State.visibleCount=0; }
+                
+                let filtered = App.State.catalog;
+                if(App.State.activeCat !== 'All') filtered = filtered.filter(i=>i.cat===App.State.activeCat);
+                if(App.State.searchTerm) filtered = filtered.filter(i=>i.title.toLowerCase().includes(App.State.searchTerm));
+
+                const batch = filtered.slice(App.State.visibleCount, App.State.visibleCount+App.State.batchSize);
+                batch.forEach(i => c.innerHTML += App.Catalog.createCard(i));
+                App.State.visibleCount += App.State.batchSize;
+                
+                const sentinel = document.getElementById('scroll-sentinel');
+                if(sentinel) {
+                    sentinel.style.display = (App.State.visibleCount >= filtered.length) ? 'none' : 'flex';
+                    new IntersectionObserver(e=>{ if(e[0].isIntersecting) App.Catalog.renderBatch(); }).observe(sentinel);
+                }
+            },
+            createCard: (i) => {
+                const p = App.Utils.getPriceObj(i);
+                const stockInfo = App.Utils.checkStock(i);
+                const isWish = App.State.wishlist.some(w=>w.id===i.id) ? 'active' : '';
+                
+                let badges = stockInfo.badge;
+                if(p.old > 0) badges += `<div class="badge-float badge-sale">SALE</div>`;
+
+                const priceDisplay = p.old > 0 ? 
+                    `<span class="text-decoration-line-through text-muted small me-2">${App.Utils.fmt(p.old)}</span><span class="text-danger fw-bold">${App.Utils.fmt(p.now)}</span>` : 
+                    `<span class="text-primary fw-bold">${App.Utils.fmt(p.now)}</span>`;
+
+                return `<div class="col-6 col-md-4"><div class="product-card h-100">
+                    ${badges}
+                    <div class="product-img-wrapper">
+                        <button class="wish-btn-card ${isWish}" onclick="App.Wishlist.toggle('${i.id}', this);event.stopPropagation()"><i class="bi bi-heart${isWish?'-fill text-danger':''}"></i></button>
+                        <img src="${i.img}" class="product-img" onclick="App.QuickView.open('${i.id}')">
+                        <div class="desktop-actions">
+                            <button class="btn btn-light rounded-pill shadow-sm fw-bold px-4" onclick="App.QuickView.open('${i.id}')">
+                                <i class="bi bi-eye"></i> Quick View
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h6 class="product-title">${i.title}</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>${priceDisplay}</div>
+                            <button class="btn btn-sm btn-dark rounded-circle" onclick="App.Cart.add('${i.id}', this)" ${stockInfo.disabled ? 'disabled' : ''}><i class="bi bi-plus"></i></button>
+                        </div>
+                    </div>
+                </div></div>`;
+            }
+        },
+
+        Cart: {
+            add: (id, btn) => {
+                App.State.lastActive = Date.now();
+                const item = App.State.catalog.find(i=>i.id===id); if(!item) return;
+                const ex = App.State.cart.find(c=>c.id===id && c.variant.name==='Regular');
+                if(ex) ex.qty++; else App.State.cart.push({...item, qty:1, variant:{name:'Regular', mult:1.0}});
+                App.Utils.save('se_cart');
+                App.Cart.render(); App.Cart.updateBadge(); App.API.push('cart');
+                if(btn) alert('Added to Cart'); 
+            },
+            remove: (idx) => { 
+                App.State.lastActive = Date.now();
+                App.State.cart.splice(idx,1); App.Utils.save('se_cart'); App.Cart.render(); App.Cart.updateBadge(); App.API.push('cart');
+            },
+            updateQty: (idx, d) => { 
+                App.State.lastActive = Date.now();
+                const i = App.State.cart[idx]; if(i.qty+d > 0) { i.qty+=d; App.Utils.save('se_cart'); App.Cart.render(); App.Cart.updateBadge(); App.API.push('cart'); } 
+            },
+            changeVariant: (idx, el) => {
+                const val = el.value.split('|');
+                App.State.cart[idx].variant = { name: val[0], mult: parseFloat(val[1]) };
+                App.Utils.save('se_cart'); App.Cart.render();
+            },
+            duplicate: (idx) => {
+                const item = {...App.State.cart[idx]};
+                App.State.cart.splice(idx + 1, 0, item);
+                App.Utils.save('se_cart'); App.Cart.render(); App.Cart.updateBadge();
+            },
+            checkClear: () => { if(confirm('Empty entire cart?')) App.Cart.clear(); },
+            clear: () => { App.State.lastActive = Date.now(); App.State.cart=[]; App.Utils.save('se_cart'); App.Cart.render(); App.Cart.updateBadge(); App.API.push('cart'); },
+            
+            updateBadge: () => { 
+                const el = document.getElementById('nav-cart-count'); 
+                if(el) el.innerText = App.State.cart.reduce((a,b)=>a+b.qty,0); 
+            },
+            
+            render: () => {
+                const list = document.getElementById('cart-items-list');
+                const empty = document.getElementById('cart-empty-view');
+                const content = document.getElementById('cart-content-row');
+                const float = document.getElementById('floating-cart');
+                const tracker = document.getElementById('delivery-tracker');
+                const bar = document.getElementById('delivery-bar');
+                const msg = document.getElementById('delivery-msg');
+                const amt = document.getElementById('delivery-amount');
+                
+                if(window.location.hash==='#cart') float?.classList.remove('active');
+                else if(App.State.cart.length>0) float?.classList.add('active'); else float?.classList.remove('active');
+
+                if(!list) return;
+
+                if(App.State.cart.length===0) { 
+                    if(empty) empty.classList.remove('d-none'); 
+                    if(content) content.classList.add('d-none'); 
+                    return; 
+                }
+                if(empty) empty.classList.add('d-none'); 
+                if(content) content.classList.remove('d-none');
+
+                let total = 0;
+                list.innerHTML = App.State.cart.map((i, idx) => {
+                    const priceVal = App.Utils.getPriceObj(i).now; 
+                    const row = priceVal * i.variant.mult * i.qty; 
+                    total += row;
+                    return `<div class="d-flex gap-3 mb-3 border-bottom pb-3">
+                        <img src="${i.img}" width="60" class="rounded object-fit-cover">
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-0">${i.title}</h6>
+                                <b class="text-primary">${App.Utils.fmt(row)}</b>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-end mt-2">
+                                <select class="variant-select form-select form-select-sm w-auto py-0" onchange="App.Cart.changeVariant(${idx}, this)">
+                                    <option value="Regular|1.0" ${i.variant.name==='Regular'?'selected':''}>Regular</option>
+                                    <option value="Box|1.2" ${i.variant.name==='Box'?'selected':''}>Box (1.2x)</option>
+                                    <option value="Party|1.5" ${i.variant.name==='Party'?'selected':''}>Party (1.5x)</option>
+                                </select>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="App.Cart.updateQty(${idx},-1)">-</button>
+                                    <b class="small">${i.qty}</b>
+                                    <button class="btn btn-sm btn-outline-secondary py-0 px-2" onclick="App.Cart.updateQty(${idx},1)">+</button>
+                                    <button class="btn btn-sm text-muted border-0" onclick="App.Cart.duplicate(${idx})"><i class="bi bi-files"></i></button>
+                                    <button class="btn btn-sm text-danger border-0" onclick="App.Cart.remove(${idx})"><i class="bi bi-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+                
+                // RESTORED: Free Shipping Meter
+                if(tracker) {
+                    tracker.classList.remove('d-none');
+                    if(total >= App.Config.freeShipThreshold) {
+                        msg.innerText = "You've unlocked FREE Delivery!";
+                        amt.innerText = "";
+                        bar.style.width = "100%";
+                        bar.classList.add("bg-success");
+                    } else {
+                        const left = App.Config.freeShipThreshold - total;
+                        msg.innerText = "Add more for FREE Delivery!";
+                        amt.innerText = "Add " + App.Utils.fmt(left);
+                        const pct = (total / App.Config.freeShipThreshold) * 100;
+                        bar.style.width = pct + "%";
+                        bar.classList.remove("bg-success");
+                    }
+                }
+
+                // Delivery Calculation
+                const zone = document.getElementById('checkout-zone').value;
+                let deliveryCost = App.Config.deliveryZones[zone] || 0;
+                if(total >= App.Config.freeShipThreshold) deliveryCost = 0;
+
+                // Coupon Calculation
+                let discountAmt = 0;
+                if(App.State.activeCoupon) discountAmt = total * App.State.activeCoupon.discount;
+
+                const finalTotal = total + deliveryCost - discountAmt;
+                App.State.currentTotal = finalTotal;
+
+                document.getElementById('sum-sub').innerText = App.Utils.fmt(total);
+                document.getElementById('sum-del').innerText = App.Utils.fmt(deliveryCost);
+                document.getElementById('sum-disc').innerText = '-' + App.Utils.fmt(discountAmt);
+                if(discountAmt > 0) document.getElementById('row-disc').classList.remove('d-none');
+
+                document.getElementById('sum-total').innerText = App.Utils.fmt(finalTotal);
+                document.getElementById('float-total').innerText = App.Utils.fmt(finalTotal);
+                document.getElementById('float-count').innerText = App.State.cart.reduce((a,b)=>a+b.qty,0);
+            },
+            
+            applyCoupon: () => {
+                const code = document.getElementById('coupon-code').value.toUpperCase();
+                const feedback = document.getElementById('coupon-feedback');
+                
+                fetch(API_URL, {method:'POST', body:JSON.stringify({action:'checkCoupon', data:{code:code}})})
+                .then(r=>r.json()).then(res=>{
+                    if(res.status==='success') {
+                        App.State.activeCoupon = res;
+                        feedback.innerText = 'Applied! ' + (res.discount*100) + '% Off';
+                        feedback.className = 'small mb-3 text-success fw-bold';
+                        App.Cart.render();
+                    } else {
+                        feedback.innerText = 'Invalid Code';
+                        feedback.className = 'small mb-3 text-danger';
+                    }
+                });
+            },
+
+            checkout: () => {
+                const name = document.getElementById('checkout-name').value;
+                const phone = document.getElementById('checkout-phone').value;
+                const address = document.getElementById('checkout-address').value;
+                const zone = document.getElementById('checkout-zone').value;
+                
+                if(!name || !phone) return alert('Name & Phone Required');
+                if(zone !== 'Pickup' && !address) return alert('Address Required');
+
+                const btn = document.getElementById('checkout-btn');
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Processing...';
+                btn.disabled = true;
+
+                // Send cart as STRUCTURED object for backend validation
+                const orderData = {
+                    userId: App.State.user ? App.State.user.id : null,
+                    name: name,
+                    phone: phone,
+                    address: address,
+                    zone: zone,
+                    cart: JSON.stringify(App.State.cart.map(i => ({
+                        id: i.id, 
+                        qty: i.qty, 
+                        variantMult: i.variant.mult, 
+                        title: i.title + " (" + i.variant.name + ")"
+                    }))),
+                    couponCode: App.State.activeCoupon ? App.State.activeCoupon.code : null,
+                    method: 'Cash'
+                };
+
+                fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'placeOrder', data: orderData }) })
+                .then(r => r.json())
+                .then(res => {
+                    if(res.status === 'success') {
+                        const orderId = res.orderId;
+                        let msg = `*NEW ORDER ${orderId}* %0A`;
+                        msg += `👤 ${name} (${phone}) %0A`;
+                        msg += `🚚 ${zone} - ${address} %0A`;
+                        msg += `--------------------%0A`;
+                        App.State.cart.forEach(i => msg += `🍱 ${i.qty}x ${i.title} [${i.variant.name}] %0A`);
+                        msg += `--------------------%0A`;
+                        msg += `💰 *TOTAL: ${App.Utils.fmt(res.secureTotal)}*`; // Use SERVER total
+
+                        App.State.history.unshift({
+                            id: orderId, 
+                            date: new Date().toLocaleDateString(), 
+                            total: res.secureTotal, 
+                            items: App.State.cart.length, 
+                            status: 'Sent'
+                        });
+                        
+                        // 🔥 EMPTY CART LOGIC
+                        App.State.cart = [];
+                        App.Utils.save('se_cart');
+                        App.Cart.render();
+                        App.API.push('cart'); 
+
+                        window.open(`https://wa.me/${App.Config.waNumber}?text=${msg}`, '_blank');
+                        window.location.reload();
+                    } else {
+                        alert('Order Failed: ' + res.message);
+                        btn.disabled = false;
+                        btn.innerHTML = 'CHECKOUT';
+                    }
+                })
+                .catch(err => {
+                    alert('Network Error');
+                    btn.disabled = false;
+                    btn.innerHTML = 'CHECKOUT';
+                });
+            }
+        },
+
+        Recent: {
+            add: (id) => {
+                App.State.recent = App.State.recent.filter(x => x !== id);
+                App.State.recent.unshift(id);
+                App.State.recent = App.State.recent.slice(0, 6);
+                App.Utils.save('se_recent');
+                App.Recent.render();
+            },
+            render: () => {
+                const c = document.getElementById('recent-grid');
+                const cont = document.getElementById('recent-container');
+                if(!c || !cont) return;
+                
+                if(App.State.recent.length === 0) {
+                    cont.classList.add('d-none');
+                    return;
+                }
+                cont.classList.remove('d-none');
+                const items = App.State.catalog.filter(p => App.State.recent.includes(p.id));
+                c.innerHTML = items.map(i => App.Catalog.createCard(i)).join('');
+            }
+        },
+
+        QuickView: {
+            open: (id) => {
+                const i = App.State.catalog.find(x=>x.id===id); if(!i) return;
+                App.Recent.add(id); // Hook for history
+                const priceVal = App.Utils.getPriceObj(i).now;
+                document.getElementById('quickview-content').innerHTML = `<div class="p-4 text-center"><img src="${i.img}" class="img-fluid rounded mb-3"/><h3>${i.title}</h3><h2 class="text-primary">${App.Utils.fmt(priceVal)}</h2><button class="btn btn-primary w-100 mt-3" onclick="App.Cart.add('${i.id}', null)">ADD TO CART</button></div>`;
+                new bootstrap.Modal(document.getElementById('quickViewModal')).show();
+            }
+        },
+
+        Wishlist: {
+            checkClear: () => { if(App.State.wishlist.length===0) return; if(confirm('Empty Wishlist?')) App.Wishlist.clear(); },
+            clear: () => { App.State.wishlist=[]; App.Utils.save('se_wish'); App.Wishlist.render(); document.getElementById('nav-wish-count').innerText=0; App.API.push('wishlist'); },
+            toggle: (id, btn) => { 
+                App.State.lastActive = Date.now();
+                const idx = App.State.wishlist.findIndex(w => w.id === id);
+                if(idx > -1) {
+                    App.State.wishlist.splice(idx, 1);
+                    if(btn) { btn.classList.remove('active'); btn.innerHTML = '<i class="bi bi-heart"></i>'; }
+                } else {
+                    const item = App.State.catalog.find(i => i.id === id);
+                    if(item) {
+                        App.State.wishlist.push(item);
+                        if(btn) { btn.classList.add('active'); btn.innerHTML = '<i class="bi bi-heart-fill text-danger"></i>'; }
+                    }
+                }
+                App.Utils.save('se_wish');
+                document.getElementById('nav-wish-count').innerText = App.State.wishlist.length;
+                if(window.location.hash === '#wishlist') App.Wishlist.render();
+                App.API.push('wishlist'); 
+            },
+            render: () => { 
+                const r = document.getElementById('wishlist-grid-root'); 
+                if(!r) return;
+                r.innerHTML=''; 
+                if(App.State.wishlist.length === 0) {
+                    r.innerHTML = `<div class="col-12 text-center py-5"><i class="bi bi-heart text-muted display-4"></i><p class="mt-3 text-muted">No favorites yet.</p><button class="btn btn-primary rounded-pill" onclick="window.location.hash='#catalog'">Go to Menu</button></div>`;
+                    return;
+                }
+                App.State.wishlist.forEach(i => r.innerHTML += App.Catalog.createCard(i)); 
+            }
+        },
+
+        Profile: {
+            renderOrders: () => {
+                const list = document.getElementById('order-history-list');
+                if(!list) return;
+                list.innerHTML = '';
+                if(App.State.history.length === 0) {
+                    list.innerHTML = '<p class="text-muted text-center py-3">No orders yet.</p>';
+                    return;
+                }
+                App.State.history.forEach(o => {
+                    const date = new Date(o.date).toLocaleDateString();
+                    list.innerHTML += `<div class="card border-0 shadow-sm mb-3"><div class="card-body"><div class="d-flex justify-content-between"><span>${o.id}</span><small class="text-muted">${date}</small></div><div class="d-flex justify-content-between mt-2"><strong>${App.Utils.fmt(parseFloat(o.total))}</strong><span class="badge bg-light text-dark border">${o.status}</span></div></div></div>`;
+                });
+            }
+        },
+
+        i18n: {
+            toggleLang: () => {
+                const map = { 'EN': 'FR', 'FR': 'AR', 'AR': 'EN' };
+                App.State.lang = map[App.State.lang];
+                localStorage.setItem('se_lang', App.State.lang);
+                App.i18n.apply();
+                App.Catalog.renderFilters(); App.Catalog.renderBatch(true); App.Cart.render();
+                if(window.location.hash === '#wishlist') App.Wishlist.render();
+            },
+            toggleCurrency: () => {
+                App.State.lastCurrencyChange = Date.now(); 
+                App.State.lastActive = Date.now();
+                const map = { 'MAD': 'EUR', 'EUR': 'USD', 'USD': 'MAD' };
+                App.State.currency = map[App.State.currency];
+                localStorage.setItem('se_curr', App.State.currency);
+                document.getElementById('curr-btn').innerText = App.State.currency;
+                
+                if(App.State.user) {
+                    fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'updatePreference', data: { userId: App.State.user.id, currency: App.State.currency } }) });
+                    App.API.push('cart'); 
+                }
+                App.Catalog.renderBatch(true); App.Cart.render();
+                if(window.location.hash === '#wishlist') App.Wishlist.render();
+            },
+            apply: () => {
+                // Simplified apply for now
+            }
+        },
+
+        Router: (scroll=true) => {
+            const h = window.location.hash || '#home';
+            document.querySelectorAll('.module-section').forEach(e=>e.classList.remove('active'));
+            const t = document.querySelector(h+'-module'); if(t) t.classList.add('active');
+            document.getElementById('breadcrumbs').innerHTML = `<span class="fw-bold">🏠 ${h.replace('#','').toUpperCase()}</span>`;
+            if(h==='#cart') document.getElementById('floating-cart').classList.remove('active');
+            else App.Cart.render();
+            if(h==='#profile') App.Auth.check();
+            if(h==='#wishlist') App.Wishlist.render();
+            if(scroll) window.scrollTo(0,0);
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        App.State.cart = App.Utils.load('se_cart');
+        App.State.wishlist = App.Utils.load('se_wish');
+        App.State.recent = App.Utils.load('se_recent');
+        App.State.user = JSON.parse(localStorage.getItem('se_user'));
+        App.State.lang = localStorage.getItem('se_lang') || 'EN';
+        App.State.currency = localStorage.getItem('se_curr') || 'MAD';
+        
+        document.getElementById('curr-btn').innerText = App.State.currency;
+        App.Auth.check();
+        App.API.init(); 
+        AOS.init();
+        App.Cart.render(); 
+        App.Cart.updateBadge();
+        App.Router(); window.addEventListener('hashchange', App.Router);
+        
+        if(App.State.user) {
+            App.API.syncDown(App.State.user.id);
+            setInterval(() => {
+               const isIdle = (Date.now() - App.State.lastActive) > 15000;
+               if(App.State.user && isIdle) App.API.syncDown(App.State.user.id);
+            }, 10000);
+        }
+    });
+    //]]>
+    </script>
+</body>
+</html>
