@@ -14,6 +14,9 @@
     <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css' rel='stylesheet'/>
     <link href='https://unpkg.com/aos@2.3.1/dist/aos.css' rel='stylesheet'/>
     <link href='https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' rel='stylesheet'/>
+    <script src='https://cdn.jsdelivr.net/npm/flatpickr'/> 
+    <script src='https://npmcdn.com/flatpickr/dist/l10n/ar.js'/>
+    <script src='https://npmcdn.com/flatpickr/dist/l10n/fr.js'/>
 
     <script id='json-ld-store' type='application/ld+json'>{}</script>
 
@@ -450,7 +453,7 @@
                             <!-- FIX 1: Coupon Input -->
                             <div class='input-group input-group-sm mb-3'>
                                 <input class='form-control' id='coupon-code' placeholder='Promo Code'/>
-                                <button class='btn btn-outline-secondary' onclick='App.Cart.applyCoupon()' type='button'>Apply</button>
+                                <button class='btn btn-outline-secondary' data-i18n='btn_apply' onclick='App.Cart.applyCoupon()' type='button'>Apply</button>
                             </div>
                             <div class='small text-end mb-2' id='coupon-feedback'/>
 
@@ -578,7 +581,7 @@
                         <div class='row g-2 mb-3'>
                             <div class='col-6'>
                                 <label class='form-label small fw-bold text-muted' data-i18n='lbl_date'>Date</label>
-                                <input class='form-control' id='res-date' required='required' type='date'/>
+                                <input class='form-control' id='res-date' placeholder='Select Date' required='required' type='text'/>
                             </div>
                             <div class='col-6'>
                                 <label class='form-label small fw-bold text-muted' data-i18n='lbl_time'>Time</label>
@@ -1403,6 +1406,7 @@
                             <input class='form-control mb-3' id='reg-name' placeholder='Name'/>
                             <input class='form-control mb-3' id='reg-phone' placeholder='Phone'/>
                             <input class='form-control mb-3' id='reg-pass' placeholder='Password' type='password'/>
+                          	<input class='form-control mb-3' id='reg-ref' placeholder='Referral Code (Optional)'/>
                             <button class='btn btn-success w-100 rounded-pill' data-i18n='btn_create_account' onclick='App.Auth.register()' type='button'>CREATE ACCOUNT</button>
                         </div>
                     </div>
@@ -1548,7 +1552,12 @@ const App = {
             "nav_reservation": {"en":"Book a Table", "fr":"Réserver une table", "ar":"حجز طاولة"}, "lbl_date": {"en":"Date", "fr":"Date", "ar":"التاريخ"}, "lbl_time": {"en":"Time", "fr":"Heure", "ar":"الوقت"}, "lbl_guests": {"en":"Guests", "fr":"Invités", "ar":"الضيوف"}, "btn_book_now": {"en":"CONFIRM BOOKING", "fr":"CONFIRMER LA RÉSERVATION", "ar":"تأكيد الحجز"}, "msg_booked": {"en":"Table Booked Successfully!", "fr":"Table Réservée avec Succès !", "ar":"تم حجز الطاولة بنجاح!"},
             "opt_1_person": {"en":"1 Person", "fr":"1 Personne", "ar":"شخص واحد"}, "opt_2_people": {"en":"2 People", "fr":"2 Personnes", "ar":"شخصين"}, "opt_3_people": {"en":"3 People", "fr":"3 Personnes", "ar":"3 أشخاص"}, "opt_4_people": {"en":"4 People", "fr":"4 Personnes", "ar":"4 أشخاص"}, "opt_5_people": {"en":"5 People", "fr":"5 Personnes", "ar":"5 أشخاص"}, "opt_6_plus": {"en":"6+ People", "fr":"6+ Personnes", "ar":"+6 أشخاص"},
             "lbl_extras": {"en":"EXTRAS", "fr":"SUPPLÉMENTS", "ar":"إضافات"}, "prompt_rating": {"en":"Rating (1-5):", "fr":"Note (1-5) :", "ar":"التقييم (1-5):"}, "msg_review_sending": {"en":"Sending review...", "fr":"Envoi de l'avis...", "ar":"جاري إرسال المراجعة..."}, "lbl_rate_exp": {"en":"Rate Product", "fr":"Noter le produit", "ar":"قيم المنتج"}, "btn_submit": {"en":"SUBMIT REVIEW", "fr":"ENVOYER L'AVIS", "ar":"إرسال المراجعة"},
-            "admin_title": {"en":"Merchant Dashboard", "fr":"Tableau de Bord Marchand", "ar":"لوحة التحكم للتاجر"}, "admin_revenue": {"en":"Today's Revenue", "fr":"Revenu d'Aujourd'hui", "ar":"أرباح اليوم"}, "admin_store_status": {"en":"Store Status", "fr":"État du Magasin", "ar":"حالة المتجر"}, "admin_pending": {"en":"Pending Orders", "fr":"Commandes en Attente", "ar":"الطلبات المعلقة"}, "admin_reservations": {"en":"Reservations", "fr":"Réservations", "ar":"الحجوزات"}, "admin_no_orders": {"en":"No pending orders.", "fr":"Aucune commande en attente.", "ar":"لا توجد طلبات معلقة."}, "admin_no_res": {"en":"No pending reservations.", "fr":"Aucune réservation en attente.", "ar":"لا توجد حجوزات معلقة."}, "btn_complete": {"en":"Complete", "fr":"Terminer", "ar":"إكمال"}, "btn_cancel": {"en":"Cancel", "fr":"Annuler", "ar":"إلغاء"}, "btn_prep": {"en":"Prep", "fr":"Préparer", "ar":"تحضير"}, "btn_ship": {"en":"Ship", "fr":"Expédier", "ar":"شحن"}, "admin_login_title": {"en":"Merchant Access", "fr":"Accès Marchand", "ar":"دخول التاجر"}, "ph_pin": {"en":"Enter PIN", "fr":"Entrez PIN", "ar":"أدخل الرمز"}, "btn_enter_dashboard": {"en":"ENTER DASHBOARD", "fr":"ENTRER", "ar":"دخول"}, "lbl_merchant_login": {"en":"Merchant Login", "fr":"Connexion Marchand", "ar":"تسجيل دخول التاجر"}, "status_open": {"en":"OPEN", "fr":"OUVERT", "ar":"مفتوح"}, "status_closed": {"en":"CLOSED", "fr":"FERMÉ", "ar":"مغلق"}, "catalog_empty": {"en":"No items found.", "fr":"Aucun article trouvé.", "ar":"لم يتم العثور على عناصر."}, "history_empty": {"en":"No orders found.", "fr":"Aucune commande trouvée.", "ar":"لم يتم العثور على طلبات."}, "cart_remove_title": {"en":"Remove Item", "fr":"Supprimer l'article", "ar":"حذف العنصر"}, "cart_remove_msg": {"en":"Remove from cart?", "fr":"Supprimer du panier ?", "ar":"حذف من السلة؟"}, "cart_empty_title": {"en":"Empty Cart", "fr":"Vider le panier", "ar":"إفراغ السلة"}, "cart_empty_msg": {"en":"Clear entire order?", "fr":"Vider toute la commande ?", "ar":"مسح الطلب بالكامل؟"}, "wish_clear_title": {"en":"Clear Wishlist", "fr":"Vider la liste de souhaits", "ar":"إفراغ المفضلة"}, "wish_clear_msg": {"en":"Remove all favorites?", "fr":"Supprimer tous les favoris ?", "ar":"حذف جميع المفضلات؟"}, "msg_wish_removed": {"en":"Removed from Favorites", "fr":"Retiré des favoris", "ar":"تم الحذف من المفضلة"}, "msg_wish_added": {"en":"Added to Favorites", "fr":"Ajouté aux favoris", "ar":"تمت الإضافة للمفضلة"}, "lbl_related": {"en":"You Might Also Like", "fr":"Vous pourriez aussi aimer", "ar":"قد يعجبك أيضاً"}
+            "admin_title": {"en":"Merchant Dashboard", "fr":"Tableau de Bord Marchand", "ar":"لوحة التحكم للتاجر"}, "admin_revenue": {"en":"Today's Revenue", "fr":"Revenu d'Aujourd'hui", "ar":"أرباح اليوم"}, "admin_store_status": {"en":"Store Status", "fr":"État du Magasin", "ar":"حالة المتجر"}, "admin_pending": {"en":"Pending Orders", "fr":"Commandes en Attente", "ar":"الطلبات المعلقة"}, "admin_reservations": {"en":"Reservations", "fr":"Réservations", "ar":"الحجوزات"}, "admin_no_orders": {"en":"No pending orders.", "fr":"Aucune commande en attente.", "ar":"لا توجد طلبات معلقة."}, "admin_no_res": {"en":"No pending reservations.", "fr":"Aucune réservation en attente.", "ar":"لا توجد حجوزات معلقة."}, "btn_complete": {"en":"Complete", "fr":"Terminer", "ar":"إكمال"}, "btn_cancel": {"en":"Cancel", "fr":"Annuler", "ar":"إلغاء"}, "btn_prep": {"en":"Prep", "fr":"Préparer", "ar":"تحضير"}, "btn_ship": {"en":"Ship", "fr":"Expédier", "ar":"شحن"}, "admin_login_title": {"en":"Merchant Access", "fr":"Accès Marchand", "ar":"دخول التاجر"}, "ph_pin": {"en":"Enter PIN", "fr":"Entrez PIN", "ar":"أدخل الرمز"}, "btn_enter_dashboard": {"en":"ENTER DASHBOARD", "fr":"ENTRER", "ar":"دخول"}, "lbl_merchant_login": {"en":"Merchant Login", "fr":"Connexion Marchand", "ar":"تسجيل دخول التاجر"}, "status_open": {"en":"OPEN", "fr":"OUVERT", "ar":"مفتوح"}, "status_closed": {"en":"CLOSED", "fr":"FERMÉ", "ar":"مغلق"}, "catalog_empty": {"en":"No items found.", "fr":"Aucun article trouvé.", "ar":"لم يتم العثور على عناصر."}, "history_empty": {"en":"No orders found.", "fr":"Aucune commande trouvée.", "ar":"لم يتم العثور على طلبات."}, "cart_remove_title": {"en":"Remove Item", "fr":"Supprimer l'article", "ar":"حذف العنصر"}, "cart_remove_msg": {"en":"Remove from cart?", "fr":"Supprimer du panier ?", "ar":"حذف من السلة؟"}, "cart_empty_title": {"en":"Empty Cart", "fr":"Vider le panier", "ar":"إفراغ السلة"}, "cart_empty_msg": {"en":"Clear entire order?", "fr":"Vider toute la commande ?", "ar":"مسح الطلب بالكامل؟"}, "wish_clear_title": {"en":"Clear Wishlist", "fr":"Vider la liste de souhaits", "ar":"إفراغ المفضلة"}, "wish_clear_msg": {"en":"Remove all favorites?", "fr":"Supprimer tous les favoris ?", "ar":"حذف جميع المفضلات؟"}, "msg_wish_removed": {"en":"Removed from Favorites", "fr":"Retiré des favoris", "ar":"تم الحذف من المفضلة"}, "msg_wish_added": {"en":"Added to Favorites", "fr":"Ajouté aux favoris", "ar":"تمت الإضافة للمفضلة"}, "lbl_related": {"en":"You Might Also Like", "fr":"Vous pourriez aussi aimer", "ar":"قد يعجبك أيضاً"},"msg_free_unlocked": {"en":"Free Delivery Unlocked!", "fr":"Livraison Gratuite !", "ar":"توصيل مجاني!"},
+"btn_apply": {"en":"Apply", "fr":"Appliquer", "ar":"تطبيق"},
+"msg_verifying": {"en":"Verifying...", "fr":"Vérification...", "ar":"جاري التحقق..."},
+"msg_code_invalid": {"en":"Invalid Code", "fr":"Code Invalide", "ar":"رمز غير صحيح"},
+"msg_active": {"en":"Active", "fr":"Actif", "ar":"مفعل"},
+"msg_off": {"en":"Off", "fr":"de réduction", "ar":"خصم"},"ph_select_date": {"en":"Select Date", "fr":"Choisir la date", "ar":"اختر التاريخ"}
         } 
     },
     
@@ -1556,7 +1565,10 @@ const App = {
     I18n: {
         setLang: (l, reload = true) => { App.State.lang = l; localStorage.setItem('se_lang', l); if(App.State.user) App.API.updateLang(l); if(reload) { App.UI.showReload(); } else { document.documentElement.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr'); App.UI.updateIcons(); App.I18n.updateDOM(); App.Cart.render(); App.Catalog.renderBatch(true); App.Cart.renderZones(App.Config.zoneData); const bc = document.getElementById('breadcrumbs'); if(bc && (bc.innerHTML.includes("Home") || bc.innerHTML.includes("Accueil") || bc.innerHTML.includes("الرئيسية"))) { App.Router.go(App.State.currentView || 'home'); } } },
         t: (key) => { if(!key) return ""; let dict = App.State.translations[key]; if (!dict) { const foundKey = Object.keys(App.State.translations).find(k => k.toLowerCase() === key.toLowerCase()); if (foundKey) dict = App.State.translations[foundKey]; } if(dict) { const val = dict[App.State.lang]; if(val && (val.includes("#NAME?") || val.includes("#ERROR"))) return dict['en']; return val || dict['en']; } return key; },
-        updateDOM: () => { document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if(key) el.innerText = App.I18n.t(key); }); const phMap = {'login-phone': 'ph_phone', 'login-pass': 'ph_password', 'reg-name': 'ph_name', 'reg-phone': 'ph_phone', 'reg-pass': 'ph_password', 'addr-name': 'ph_name', 'addr-street': 'ph_address', 'addr-apt': 'ph_address', 'addr-city': 'lbl_city', 'addr-zip': 'lbl_zip', 'chk-name': 'ph_name', 'chk-phone': 'ph_phone', 'chk-address': 'ph_address', 'order-note': 'ph_notes', 'setting-name': 'ph_name', 'setting-email': 'lbl_email', 'res-name': 'ph_name', 'res-phone': 'ph_phone', 'review-comment': 'ph_review', 'admin-pw': 'ph_pin', 'coupon-code': 'lbl_extras'}; Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el) el.placeholder = App.I18n.t(phMap[id]) || el.placeholder; }); const search = document.getElementById('search-input'); if(search) search.placeholder = App.I18n.t('search_ph') || "Search..."; const typeSel = document.getElementById('addr-type'); if(typeSel) { if(typeSel.options[0]) typeSel.options[0].text = App.I18n.t('lbl_home'); if(typeSel.options[1]) typeSel.options[1].text = App.I18n.t('lbl_office'); } const countryInput = document.getElementById('addr-country'); if(countryInput) { const current = countryInput.value; if (!current || current.includes('Morocco') || current.includes('Maroc')) countryInput.value = App.I18n.t('val_morocco'); } },
+        updateDOM: () => { document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if(key) el.innerText = App.I18n.t(key); }); const phMap = {'login-phone': 'ph_phone', 'login-pass': 'ph_password', 'reg-name': 'ph_name', 'reg-phone': 'ph_phone', 'reg-pass': 'ph_password', 'addr-name': 'ph_name', 'addr-street': 'ph_address', 'addr-apt': 'ph_address', 'addr-city': 'lbl_city', 'addr-zip': 'lbl_zip', 'chk-name': 'ph_name', 'chk-phone': 'ph_phone', 'chk-address': 'ph_address', 'order-note': 'ph_notes', 'setting-name': 'ph_name', 'setting-email': 'lbl_email', 'res-name': 'ph_name', 'res-phone': 'ph_phone', 
+'review-comment': 'ph_review', 'admin-pw': 'ph_pin', 'coupon-code': 'lbl_extras', 'res-date': 'ph_select_date'}; 
+
+Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el) el.placeholder = App.I18n.t(phMap[id]) || el.placeholder; }); const search = document.getElementById('search-input'); if(search) search.placeholder = App.I18n.t('search_ph') || "Search..."; const typeSel = document.getElementById('addr-type'); if(typeSel) { if(typeSel.options[0]) typeSel.options[0].text = App.I18n.t('lbl_home'); if(typeSel.options[1]) typeSel.options[1].text = App.I18n.t('lbl_office'); } const countryInput = document.getElementById('addr-country'); if(countryInput) { const current = countryInput.value; if (!current || current.includes('Morocco') || current.includes('Maroc')) countryInput.value = App.I18n.t('val_morocco'); } },
         fetch: () => { fetch(API_URL + '?action=getTranslations').then(r=>r.json()).then(res=>{ if(res.status==='success') { App.State.translations = {...App.State.translations, ...res.data}; App.I18n.updateDOM(); App.Cart.render(); } }); }
     }, 
     
@@ -1720,15 +1732,114 @@ const App = {
         updateVariant: (idx, el) => { const selectedOption = el.options[el.selectedIndex]; const newMult = parseFloat(selectedOption.value); const newName = selectedOption.text; App.State.cart[idx].variant = { name: newName, mult: newMult }; App.Utils.save('se_cart', App.State.cart); App.Cart.render(); },
         remove: (idx) => { App.UI.confirm(App.I18n.t('cart_remove_title'), App.I18n.t('cart_remove_msg'), () => { App.State.cart.splice(idx, 1); App.Utils.save('se_cart', App.State.cart); App.Cart.render(); App.API.push('cart'); }); },
         empty: () => { if(App.State.cart.length===0) return; App.UI.confirm(App.I18n.t('cart_empty_title'), App.I18n.t('cart_empty_msg'), () => { App.State.cart = []; App.Utils.save('se_cart', []); App.Cart.render(); App.API.push('cart'); }); },
-        applyCoupon: () => { const code = App.Utils.el('coupon-code').value.toUpperCase(); const feed = App.Utils.el('coupon-feedback'); feed.innerHTML = 'Verifying...'; fetch(API_URL, {method:'POST', body:JSON.stringify({action:'checkCoupon', data:{code}})}).then(r=>r.json()).then(res=>{ if(res.status==='success') { App.State.activeCoupon = res; feed.innerHTML = `<span class="text-success fw-bold">Active: ${code} (${res.discount*100}% Off)</span>`; App.Cart.calculateTotal(); } else { App.State.activeCoupon = null; feed.innerHTML = `<span class="text-danger">Invalid Code</span>`; } }); },
+        
+		applyCoupon: () => { 
+    const code = App.Utils.el('coupon-code').value.toUpperCase(); 
+    const feed = App.Utils.el('coupon-feedback'); 
+    feed.innerHTML = App.I18n.t('msg_verifying'); 
+    fetch(API_URL, {method:'POST', body:JSON.stringify({action:'checkCoupon', data:{code}})})
+    .then(r=>r.json()).then(res=>{ 
+        if(res.status==='success') { 
+            App.State.activeCoupon = res; 
+            feed.innerHTML = `<span class="text-success fw-bold">${App.I18n.t('msg_active')}: ${code} (${res.discount*100}% ${App.I18n.t('msg_off')})</span>`; 
+            App.Cart.calculateTotal(); 
+        } else { 
+            App.State.activeCoupon = null; 
+            feed.innerHTML = `<span class="text-danger">${App.I18n.t('msg_code_invalid')}</span>`; 
+        } 
+    }); 
+},
+
+
         renderZones: (config) => { if(config) App.Config.zoneData = config; const data = App.Config.zoneData; if(!data) return; const sel = document.getElementById('chk-zone'); if(!sel) return; sel.innerHTML = `<option value="">${App.I18n.t('select_zone_ph')}</option>`; for(const k in data) { if(k.startsWith('Delivery_')) { const city = k.replace('Delivery_',''); App.Config.deliveryZones[city] = data[k]; const key = 'city_' + city.toLowerCase().replace(/\s+/g, '_'); const translated = App.I18n.t(key); const label = (translated === key) ? city : translated; sel.innerHTML += `<option value="${city}">${label} (+${App.Utils.fmt(data[k])})</option>`; } } },
         fillAddress: () => { const type = document.getElementById('cart-addr-select').value; if(!type) return; if(App.State.addresses && App.State.addresses[type.toLowerCase()]) { const data = App.State.addresses[type.toLowerCase()]; const fullAddr = (typeof data === 'string') ? data : data.full; const userName = (typeof data === 'object' && data.name) ? data.name : App.State.user.name; document.getElementById('chk-name').value = userName; document.getElementById('chk-address').value = fullAddr; } },
-        calculateTotal: () => { const zone = App.Utils.el('chk-zone').value; const del = App.Config.deliveryZones[zone] || 0; let sub = App.State.cart.reduce((a,b) => a + ((b.price_MAD + (b.extraCost||0)) * b.variant.mult * b.qty), 0); App.Utils.el('cart-subtotal').innerText = App.Utils.fmt(sub); const bar = document.getElementById('delivery-bar-fill'); const msg = document.getElementById('delivery-msg'); const amt = document.getElementById('delivery-amt'); const thresh = App.Config.freeShipThreshold || 200; let finalDel = del; if(sub >= thresh) { finalDel = 0; if(bar) { bar.style.width = '100%'; bar.style.backgroundColor = '#198754'; } if(msg) msg.innerText = "Free Delivery Unlocked!"; if(amt) amt.innerText = ""; } else { const pct = (sub / thresh) * 100; if(bar) bar.style.width = pct + '%'; if(msg) msg.innerText = "Add more for Free Delivery"; if(amt) amt.innerText = App.Utils.fmt(thresh - sub); } let disc = 0; if(App.State.activeCoupon) { disc = sub * App.State.activeCoupon.discount; App.Utils.el('row-disc').classList.remove('d-none'); App.Utils.el('cart-disc').innerText = '-' + App.Utils.fmt(disc); } if(finalDel === 0 && del > 0) { App.Utils.el('cart-delivery').innerHTML = `<s class="text-muted small me-1">${App.Utils.fmt(del)}</s> <span class="text-success fw-bold">${App.I18n.t('lbl_free')}</span>`; } else if(del === 0 && zone === "") { App.Utils.el('cart-delivery').innerText = "--"; } else { App.Utils.el('cart-delivery').innerText = App.Utils.fmt(finalDel); } App.Utils.el('cart-total').innerText = App.Utils.fmt(sub + finalDel - disc); const stickyTotal = document.getElementById('sticky-total-disp'); if(stickyTotal) stickyTotal.innerText = App.Utils.fmt(sub + finalDel - disc); },
+        
+calculateTotal: () => { 
+    const zone = App.Utils.el('chk-zone').value; 
+    const del = App.Config.deliveryZones[zone] || 0; 
+    let sub = App.State.cart.reduce((a,b) => a + ((b.price_MAD + (b.extraCost||0)) * b.variant.mult * b.qty), 0); 
+    App.Utils.el('cart-subtotal').innerText = App.Utils.fmt(sub); 
+    
+    // Points Logic
+    let pointsDisc = 0;
+    const ptsCheck = document.getElementById('use-points-check');
+    if(ptsCheck && ptsCheck.checked && App.State.user) {
+        pointsDisc = App.State.user.points / 10;
+        if(pointsDisc > sub) pointsDisc = sub;
+    }
+
+    const bar = document.getElementById('delivery-bar-fill'); 
+    const msg = document.getElementById('delivery-msg'); 
+    const amt = document.getElementById('delivery-amt'); 
+    const thresh = App.Config.freeShipThreshold || 200; 
+    let finalDel = del; 
+    
+    if(sub >= thresh) { 
+        finalDel = 0; 
+        if(bar) { bar.style.width = '100%'; bar.style.backgroundColor = '#198754'; } 
+        if(msg) msg.innerText = App.I18n.t('msg_free_unlocked'); 
+        if(amt) amt.innerText = ""; 
+    } else { 
+        const pct = (sub / thresh) * 100; 
+        if(bar) bar.style.width = pct + '%'; 
+        if(msg) msg.innerText = "Add more for Free Delivery"; 
+        if(amt) amt.innerText = App.Utils.fmt(thresh - sub); 
+    } 
+    
+    let disc = 0; 
+    if(App.State.activeCoupon) { 
+        disc = sub * App.State.activeCoupon.discount; 
+        App.Utils.el('row-disc').classList.remove('d-none'); 
+        App.Utils.el('cart-disc').innerText = '-' + App.Utils.fmt(disc); 
+    } 
+    
+    if(finalDel === 0 && del > 0) { 
+        App.Utils.el('cart-delivery').innerHTML = `<s class="text-muted small me-1">${App.Utils.fmt(del)}</s> <span class="text-success fw-bold">${App.I18n.t('lbl_free')}</span>`; 
+    } else if(del === 0 && zone === "") { 
+        App.Utils.el('cart-delivery').innerText = "--"; 
+    } else { 
+        App.Utils.el('cart-delivery').innerText = App.Utils.fmt(finalDel); 
+    } 
+    
+    // Final Total Calculation with Points
+    const finalTotal = sub + finalDel - disc - pointsDisc;
+    App.Utils.el('cart-total').innerText = App.Utils.fmt(finalTotal); 
+    const stickyTotal = document.getElementById('sticky-total-disp'); 
+    if(stickyTotal) stickyTotal.innerText = App.Utils.fmt(finalTotal);
+},
         render: () => {
             const list = document.getElementById('cart-list'); const count = App.State.cart.reduce((a,b) => a+b.qty, 0); App.Utils.el('nav-cart-count').innerText = count; App.Utils.el('cn-count').innerText = count; if (App.State.cart.length > 0) { App.Utils.el('cart-empty-state').classList.add('d-none'); App.Utils.el('cart-content').classList.remove('d-none'); } else { App.Utils.el('cart-empty-state').classList.remove('d-none'); App.Utils.el('cart-content').classList.add('d-none'); } 
             let sub = App.State.cart.reduce((a,b) => a + ((b.price_MAD + (b.extraCost||0)) * b.variant.mult * b.qty), 0); 
             if(list) { list.innerHTML = App.State.cart.map((i, idx) => { const lineTotal = (i.price_MAD + (i.extraCost||0)) * i.variant.mult * i.qty; const safeId = String(i.id).replace(/'/g, "\\'"); let extraText = ''; if(i.extras && i.extras.length > 0) { const translatedExtras = i.extras.map(eKey => { const originalItem = App.State.catalog.find(c => String(c.id) === String(i.id)); if(originalItem && originalItem.extras) { const exObj = originalItem.extras.find(eo => (typeof eo.name === 'string' ? eo.name : eo.name.en) === eKey); if(exObj) return App.Utils.getLocalizedText(exObj.name); } return eKey; }); extraText = `<div class="small text-muted">+ ${translatedExtras.join(', ')}</div>`; } return `<div class="cart-item-card"><img src="${App.Utils.optimizeImg(i.image || IMG_FALLBACK)}" class="cart-item-img img-fade" onload="this.style.opacity=1"/><div class="flex-grow-1 d-flex flex-column justify-content-between"><div class="d-flex justify-content-between align-items-start"><div><h6 class="m-0 fw-bold">${i.title}</h6>${extraText}<select class="form-select form-select-sm border-0 bg-light py-1 ps-2 pe-4" style="font-size:0.75rem; width:auto" onchange="App.Cart.updateVariant(${idx}, this)"><option value="1" ${i.variant.mult===1?'selected':''}>${App.I18n.t('opt_regular')}</option><option value="1.2" ${i.variant.mult===1.2?'selected':''}>${App.I18n.t('opt_box')}</option><option value="1.5" ${i.variant.mult===1.5?'selected':''}>${App.I18n.t('opt_party')}</option></select></div><div class="text-primary fw-bold">${App.Utils.fmt(lineTotal)}</div></div><div class="d-flex justify-content-between align-items-center mt-2"><div class="qty-selector"><button class="qty-btn" onclick="App.Cart.add('${safeId}', null, -1, {mult:${i.variant.mult}, name:'${i.variant.name}'}, ${JSON.stringify(i.extras).replace(/"/g,"'")})">-</button><span class="qty-val">${i.qty}</span><button class="qty-btn" onclick="App.Cart.add('${safeId}', null, 1, {mult:${i.variant.mult}, name:'${i.variant.name}'}, ${JSON.stringify(i.extras).replace(/"/g,"'")})">+</button></div><div><i class="bi bi-trash text-danger action-icon" onclick="App.Cart.remove(${idx})"></i></div></div></div></div>`; }).join(''); } 
-            const summaryCard = document.querySelector('.summary-card'); if(summaryCard && !document.getElementById('chk-payment')) { const payDiv = document.createElement('div'); payDiv.className = 'mb-3'; payDiv.innerHTML = `<label class="small text-muted fw-bold mb-1" data-i18n="lbl_payment_method">${App.I18n.t('lbl_payment_method')}</label><select class="form-select form-select-sm" id="chk-payment"><option value="cod">${App.I18n.t('pay_cod')}</option><option value="cp">${App.I18n.t('pay_cp')}</option></select>`; const subRow = summaryCard.querySelector('.summary-row'); if(subRow) summaryCard.insertBefore(payDiv, subRow); } App.Cart.calculateTotal(); App.Cart.renderZones(); const addrSelect = document.getElementById('cart-addr-select'); if(addrSelect && (App.State.addresses.home || App.State.addresses.office)) { if(addrSelect.options.length <= 1) { addrSelect.innerHTML = `<option value="">${App.I18n.t('select_addr_ph')}</option>`; if(App.State.addresses.home) { const val = (typeof App.State.addresses.home === 'string') ? App.State.addresses.home : App.State.addresses.home.full; addrSelect.innerHTML += `<option value="Home">${App.I18n.t('lbl_home')}: ${val.substring(0, 20)}...</option>`; } if(App.State.addresses.office) { const val = (typeof App.State.addresses.office === 'string') ? App.State.addresses.office : App.State.addresses.office.full; addrSelect.innerHTML += `<option value="Office">${App.I18n.t('lbl_office')}: ${val.substring(0, 20)}...</option>`; } } } if(window.innerWidth <= 768 && App.State.currentView === 'cart' && App.State.cart.length > 0) { let sticky = document.getElementById('sticky-checkout-bar'); if(!sticky) { sticky = document.createElement('div'); sticky.id = 'sticky-checkout-bar'; sticky.className = 'sticky-checkout'; document.body.appendChild(sticky); } sticky.style.display = 'flex'; sticky.innerHTML = `<div><small class="text-muted d-block">${App.I18n.t('lbl_total')}</small><span class="fw-bold fs-5 text-primary" id="sticky-total-disp">${App.Utils.fmt(sub)}</span></div><button class="btn btn-success rounded-pill fw-bold px-4" onclick="App.API.checkout()">${App.I18n.t('btn_checkout')}</button>`; } else { const sticky = document.getElementById('sticky-checkout-bar'); if(sticky) sticky.style.display = 'none'; }
+            
+
+const summaryCard = document.querySelector('.summary-card'); 
+if(summaryCard) {
+    const subRow = summaryCard.querySelector('.summary-row');
+
+    // 1. Payment Method
+    if(!document.getElementById('chk-payment')) { 
+        const payDiv = document.createElement('div'); 
+        payDiv.className = 'mb-3'; 
+        payDiv.innerHTML = `<label class="small text-muted fw-bold mb-1" data-i18n="lbl_payment_method">${App.I18n.t('lbl_payment_method')}</label><select class="form-select form-select-sm" id="chk-payment"><option value="cod">${App.I18n.t('pay_cod')}</option><option value="cp">${App.I18n.t('pay_cp')}</option></select>`; 
+        if(subRow) summaryCard.insertBefore(payDiv, subRow); 
+    }
+
+    // 2. Points Toggle
+    const oldPts = document.getElementById('pts-container');
+    if(oldPts) oldPts.remove(); // Refresh logic
+
+    if(App.State.user && App.State.user.points > 0) {
+        const ptsDiv = document.createElement('div');
+        ptsDiv.id = 'pts-container';
+        ptsDiv.className = 'mb-3 bg-light p-2 rounded border d-flex justify-content-between align-items-center';
+        const ptsVal = (App.State.user.points / 10).toFixed(2);
+        ptsDiv.innerHTML = `<div class="small"><i class="bi bi-star-fill text-warning"></i> Use ${App.State.user.points} Pts (-${ptsVal})</div><div class="form-check form-switch m-0"><input class="form-check-input" type="checkbox" id="use-points-check" onchange="App.Cart.calculateTotal()"></div>`;
+        if(subRow) summaryCard.insertBefore(ptsDiv, subRow);
+    }
+}
+
+App.Cart.calculateTotal(); App.Cart.renderZones(); const addrSelect = document.getElementById('cart-addr-select'); if(addrSelect && (App.State.addresses.home || App.State.addresses.office)) { if(addrSelect.options.length <= 1) { addrSelect.innerHTML = `<option value="">${App.I18n.t('select_addr_ph')}</option>`; if(App.State.addresses.home) { const val = (typeof App.State.addresses.home === 'string') ? App.State.addresses.home : App.State.addresses.home.full; addrSelect.innerHTML += `<option value="Home">${App.I18n.t('lbl_home')}: ${val.substring(0, 20)}...</option>`; } if(App.State.addresses.office) { const val = (typeof App.State.addresses.office === 'string') ? App.State.addresses.office : App.State.addresses.office.full; addrSelect.innerHTML += `<option value="Office">${App.I18n.t('lbl_office')}: ${val.substring(0, 20)}...</option>`; } } } if(window.innerWidth <= 768 && App.State.currentView === 'cart' && App.State.cart.length > 0) { let sticky = document.getElementById('sticky-checkout-bar'); if(!sticky) { sticky = document.createElement('div'); sticky.id = 'sticky-checkout-bar'; sticky.className = 'sticky-checkout'; document.body.appendChild(sticky); } sticky.style.display = 'flex'; sticky.innerHTML = `<div><small class="text-muted d-block">${App.I18n.t('lbl_total')}</small><span class="fw-bold fs-5 text-primary" id="sticky-total-disp">${App.Utils.fmt(sub)}</span></div><button class="btn btn-success rounded-pill fw-bold px-4" onclick="App.API.checkout()">${App.I18n.t('btn_checkout')}</button>`; } else { const sticky = document.getElementById('sticky-checkout-bar'); if(sticky) sticky.style.display = 'none'; }
         }
     },
     
@@ -1755,7 +1866,22 @@ const App = {
     Auth: {
         openModal: () => new bootstrap.Modal(document.getElementById('authModal')).show(),
         login: () => { const p = App.Utils.el('login-phone').value; const pass = App.Utils.el('login-pass').value; if(!p) return alert('Enter Phone'); fetch(API_URL, {method:'POST', body:JSON.stringify({action:'login', data:{phone:p, password:pass}})}).then(r=>r.json()).then(res=>{ if(res.status==='success') { App.State.user = {id:res.userId, name:res.name, phone:p, authToken: res.authToken}; App.Utils.save('se_user', App.State.user); location.reload(); } else alert(res.message); }); },
-        register: () => { const n = App.Utils.el('reg-name').value; const p = App.Utils.el('reg-phone').value; const pass = App.Utils.el('reg-pass').value; if(!App.Utils.isValidPhone(p)) return alert("Invalid Phone Number. Use 06... or 07..."); fetch(API_URL, {method:'POST', body:JSON.stringify({action:'register', data:{name:n, phone:p, password:pass}})}).then(r=>r.json()).then(res=>{ if(res.status==='success') { App.State.user = {id:res.userId, name:n, phone:p, authToken: res.authToken}; App.Utils.save('se_user', App.State.user); location.reload(); } else alert(res.message); }); },
+        
+register: () => { 
+    const n = App.Utils.el('reg-name').value; 
+    const p = App.Utils.el('reg-phone').value; 
+    const pass = App.Utils.el('reg-pass').value; 
+    const ref = App.Utils.el('reg-ref').value; 
+    if(!App.Utils.isValidPhone(p)) return alert("Invalid Phone Number. Use 06... or 07..."); 
+    fetch(API_URL, {method:'POST', body:JSON.stringify({action:'register', data:{name:n, phone:p, password:pass, referralCode:ref}})})
+    .then(r=>r.json()).then(res=>{ 
+        if(res.status==='success') { 
+            App.State.user = {id:res.userId, name:n, phone:p, authToken: res.authToken}; 
+            App.Utils.save('se_user', App.State.user); 
+            location.reload(); 
+        } else alert(res.message); 
+    }); 
+},
         logout: () => { App.UI.confirm(App.I18n.t('logout_title'), App.I18n.t('logout_msg'), () => { localStorage.removeItem('se_user'); location.reload(); }); },
         check: () => { const u = App.State.user; if(u) { App.Utils.el('profile-logged-in').style.display = 'block'; App.Utils.el('profile-logged-out').style.display = 'none'; App.Utils.el('user-name-display').innerText = u.name; App.Utils.el('user-phone-display').innerText = u.phone; App.Utils.el('auth-btn').innerHTML = '<i class="bi bi-person-check-fill text-success fs-5"></i>'; App.Utils.el('setting-user-id').innerText = u.id.substring(0,8)+'...'; App.Profile.renderHistory(); if(App.Wishlist && typeof App.Wishlist.render === 'function') App.Wishlist.render(); App.Profile.renderAddresses(); App.Profile.updatePointsUI(); const addrSelect = document.getElementById('cart-addr-select'); if(addrSelect && (App.State.addresses.home || App.State.addresses.office)) { addrSelect.innerHTML = `<option value="">${App.I18n.t('select_addr_ph')}</option>`; if(App.State.addresses.home) addrSelect.innerHTML += `<option value="Home">${App.I18n.t('lbl_home')}: ${typeof App.State.addresses.home === 'string' ? App.State.addresses.home : App.State.addresses.home.full}</option>`; } if(App.State.addresses.office) addrSelect.innerHTML += `<option value="Office">${App.I18n.t('lbl_office')}: ${typeof App.State.addresses.office === 'string' ? App.State.addresses.office : App.State.addresses.office.full}</option>`; } }
     },
@@ -1803,6 +1929,7 @@ const App = {
 
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof AOS !== 'undefined') { AOS.init(); }
+
     App.Catalog.searchDebounced = App.Utils.debounce(App.Catalog._searchImpl, 300);
     App.State.cart = App.Utils.load('se_cart') || [];
     App.State.wishlist = App.Utils.load('se_wish') || [];
@@ -1841,6 +1968,24 @@ document.addEventListener('DOMContentLoaded', () => {
     App.API.init();
     App.Auth.check();
     App.Cart.render();
+
+	    // Fix Calendar format
+    // Fix Calendar format with translations
+    if (typeof flatpickr !== 'undefined') { 
+        const currentLang = App.State.lang;
+        const localeMap = {
+            'ar': 'ar',
+            'fr': 'fr',
+            'en': 'default'
+        };
+
+        flatpickr("#res-date", { 
+            minDate: "today", 
+            dateFormat: "Y-m-d",
+            locale: localeMap[currentLang] || 'default',
+            disableMobile: true // Forces the styled calendar on mobile instead of native
+        }); 
+    }
 });
 //]]>
 </script>
