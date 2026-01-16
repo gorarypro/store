@@ -1,7 +1,7 @@
 var SPREADSHEET_ID = "1O5L8yrkZVMbcZqitOAgStQj8E4sJzxyNrjoZCCswESo"; 
 var ADMIN_SECRET = "admin123"; // CHANGE THIS PASSWORD!
 var SS;
-
+ 
 try {
   SS = SPREADSHEET_ID ? SpreadsheetApp.openById(SPREADSHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
 } catch(e) { SS = null; }
