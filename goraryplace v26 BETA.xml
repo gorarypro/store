@@ -14,9 +14,7 @@
     <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css' rel='stylesheet'/>
     <link href='https://unpkg.com/aos@2.3.1/dist/aos.css' rel='stylesheet'/>
     <link href='https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' rel='stylesheet'/>
-    <script src='https://cdn.jsdelivr.net/npm/flatpickr'/> 
-    <script src='https://npmcdn.com/flatpickr/dist/l10n/ar.js'/>
-    <script src='https://npmcdn.com/flatpickr/dist/l10n/fr.js'/>
+	
 
     <script id='json-ld-store' type='application/ld+json'>{}</script>
 
@@ -389,7 +387,9 @@
 
     <div class='breadcrumb-bar' id='breadcrumb-bar'><div class='container' id='breadcrumbs'/></div>
     <div class='toast-container' id='toast-container'/>
-
+	<audio id='admin-sound' src='https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3'/>
+	<div id='print-area'/>
+  
     <main id='app-root'>
         <section class='module-section active' id='home-module'>
             <div class='container py-5 text-center' data-aos='fade-up'>
@@ -399,14 +399,14 @@
             </div>
             <div class='container mt-5'>
                 <h5 class='fw-bold mb-3' data-i18n='recent_title'>Recently Viewed</h5>
-                <div class='row gy-3' id='recent-grid'><p class='text-center text-muted'>No recent items.</p></div>
+                <div class='row gy-3' id='recent-grid'><p class='text-center text-muted' data-i18n='lbl_no_recent'>No recent items.</p></div>
             </div>
         </section>
 
         <section class='module-section' id='catalog-module'>
             <div class='container'>
                 <div class='sticky-top bg-body py-3' style='top: 130px; z-index: 1010;'>
-                    <input class='form-control mb-2 rounded-pill border-0 shadow-sm' id='search-input' onkeyup='App.Catalog.search(this.value)' placeholder='Search...' type='text'/>
+                    <input class='form-control mb-2 rounded-pill border-0 shadow-sm' data-i18n-ph='lbl_search_ph' id='search-input' onkeyup='App.Catalog.search(this.value)' placeholder='Search...' type='text'/>
                     <div class='filter-scroll' id='category-filters'><div class='skeleton' style='width:80px; height:30px'/></div>
                 </div>
                 <div class='row gy-4' id='product-grid-root'/>
@@ -495,7 +495,17 @@
                           	<span class='sub-link text-primary' data-i18n='lbl_merchant_login' onclick='App.Admin.openLogin()'>Merchant Login</span>
                         </div>
                     </div>
-                    <ul class='nav nav-pills mb-4 flex-nowrap overflow-auto pb-2 justify-content-center' id='profileTabs'>
+                  	<div class='card border-0 shadow-sm mb-4 bg-primary text-white overflow-hidden position-relative cursor-pointer' onclick='App.Social.shareReferral()'>
+                    <div class='card-body position-relative z-1 d-flex align-items-center justify-content-between'>
+                        <div>
+                            <h6 class='fw-bold mb-1' data-i18n='lbl_invite'>Invite Friends &amp; Earn</h6>
+                            <small class='opacity-75' style='font-size:0.75rem'>Click to share your code on WhatsApp</small>
+                        </div>
+                        	<i class='bi bi-whatsapp fs-1 opacity-50'/>
+                    	</div>
+                    <div style='position:absolute; right:-20px; top:-20px; width:100px; height:100px; background:rgba(255,255,255,0.1); border-radius:50%'/>
+                		</div>
+                        <ul class='nav nav-pills mb-4 flex-nowrap overflow-auto pb-2 justify-content-center' id='profileTabs'>
                         <li class='nav-item'><button class='nav-link active' data-bs-target='#tab-orders' data-bs-toggle='pill' data-i18n='tab_orders'>Orders</button></li>
                         <li class='nav-item'><button class='nav-link' data-bs-target='#tab-cart' data-bs-toggle='pill' data-i18n='nav_cart'>Cart</button></li>
                         <li class='nav-item'><button class='nav-link' data-bs-target='#tab-wish' data-bs-toggle='pill' data-i18n='tab_saved' onclick='App.Wishlist.render()'>Saved</button></li>
@@ -581,7 +591,7 @@
                         <div class='row g-2 mb-3'>
                             <div class='col-6'>
                                 <label class='form-label small fw-bold text-muted' data-i18n='lbl_date'>Date</label>
-                                <input class='form-control' id='res-date' placeholder='Select Date' required='required' type='text'/>
+                                <input class='form-control' id='res-date' placeholder='Select Date' required='required' style='background-color: #fff !important; cursor: pointer;' type='text'/>
                             </div>
                             <div class='col-6'>
                                 <label class='form-label small fw-bold text-muted' data-i18n='lbl_time'>Time</label>
@@ -1503,6 +1513,16 @@
         </div>
     </div>
   
+<div class='install-toast' id='install-prompt'>
+    <img class='install-img' src='https://cdn-icons-png.flaticon.com/512/2252/2252076.png'/>
+    <div style='flex:1'>
+        <h6 class='fw-bold m-0' data-i18n='lbl_install_app'>SushiElite App</h6>
+        <small class='text-muted' data-i18n='lbl_fast_delivery'>Fast &amp; Free Delivery</small>
+    </div>
+    <button class='btn btn-primary rounded-pill fw-bold btn-sm px-3 shadow-sm' data-i18n='btn_install' onclick='App.PWA.install()'>Install</button>
+    <button class='btn-close ms-1' onclick='document.getElementById(&quot;install-prompt&quot;).classList.remove(&quot;active&quot;)'/>
+</div>
+  
 <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'/>
 <script src='https://unpkg.com/aos@2.3.1/dist/aos.js'/>
 
@@ -1533,6 +1553,19 @@ style.innerHTML = `
   .admin-card { border-left: 4px solid #0d6efd; background: #fff; padding: 15px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
   .admin-card.completed { border-left-color: #198754; opacity: 0.7; }
   @media(min-width: 769px) { .sticky-checkout { display: none !important; } }
+  /* INSTALL POPUP */
+  .install-toast { position: fixed; bottom: -120px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 20px; padding: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); z-index: 9999; display: flex; align-items: center; gap: 15px; transition: bottom 0.6s cubic-bezier(0.19, 1, 0.22, 1); border: 1px solid rgba(255,255,255,0.5); }
+  .install-toast.active { bottom: 30px; }
+  .install-img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+  /* THERMAL PRINTER CSS */
+  @media print {
+    body * { visibility: hidden; }
+    #print-area, #print-area * { visibility: visible; }
+    #print-area { position: absolute; left: 0; top: 0; width: 100%; color: black; background: white; font-family: 'Courier New', monospace; }
+    .print-header { text-align: center; border-bottom: 2px dashed #000; padding-bottom: 10px; margin-bottom: 10px; }
+    .print-row { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px; }
+    .print-total { border-top: 2px dashed #000; padding-top: 10px; margin-top: 10px; font-weight: bold; font-size: 16px; }
+  }
 `;
 document.head.appendChild(style);
 
@@ -1557,7 +1590,21 @@ const App = {
 "msg_verifying": {"en":"Verifying...", "fr":"Vérification...", "ar":"جاري التحقق..."},
 "msg_code_invalid": {"en":"Invalid Code", "fr":"Code Invalide", "ar":"رمز غير صحيح"},
 "msg_active": {"en":"Active", "fr":"Actif", "ar":"مفعل"},
-"msg_off": {"en":"Off", "fr":"de réduction", "ar":"خصم"},"ph_select_date": {"en":"Select Date", "fr":"Choisir la date", "ar":"اختر التاريخ"}
+"msg_off": {"en":"Off", "fr":"de réduction", "ar":"خصم"},"ph_select_date": {"en":"Select Date", "fr":"Choisir la date", "ar":"اختر التاريخ"},"lbl_invite": {"en":"Invite Friends & Earn", "fr":"Invitez et Gagnez", "ar":"ادع أصدقاءك واربح"},
+"msg_share_ref": {"en":"Use my code to get a discount:", "fr":"Utilisez mon code pour une réduction :", "ar":"استخدم رمزي للحصول على خصم:"},
+"txt_social_proof": {"en":"just ordered", "fr":"vient de commander", "ar":"طلب للتو"},
+"lbl_verified": {"en":"Verified Order", "fr":"Commande Vérifiée", "ar":"طلب مؤكد"},"lbl_no_recent": {"en":"No recent items.", "fr":"Aucun article récent.", "ar":"لا توجد عناصر حديثة."},
+"lbl_search_ph": {"en":"Search...", "fr":"Rechercher...", "ar":"بحث..."},
+"lbl_delivery_free": {"en":"Free Delivery Unlocked!", "fr":"Livraison Gratuite !", "ar":"توصيل مجاني!"},
+"lbl_delivery_more": {"en":"Add more for Free Delivery", "fr":"Ajoutez plus pour la livraison gratuite", "ar":"أضف المزيد للحصول على توصيل مجاني"},
+"lbl_close": {"en":"Close", "fr":"Fermer", "ar":"إغلاق"},
+"lbl_install_app": {"en":"SushiElite App", "fr":"App SushiElite", "ar":"تطبيق SushiElite"},
+"lbl_fast_delivery": {"en":"Fast & Free Delivery", "fr":"Livraison Rapide & Gratuite", "ar":"توصيل سريع ومجاني"},
+"btn_install": {"en":"Install", "fr":"Installer", "ar":"تثبيت"},
+"lbl_thank_you": {"en":"*** Thank You ***", "fr":"*** Merci ***", "ar":"*** شكرا لكم ***"},
+"lbl_cust": {"en":"Cust:", "fr":"Client :", "ar":"الزبون:"},
+"lbl_tel": {"en":"Tel:", "fr":"Tél :", "ar":"الهاتف:"},
+"lbl_language": {"en":"Language", "fr":"Langue", "ar":"اللغة"},
         } 
     },
     
@@ -1568,7 +1615,15 @@ const App = {
         updateDOM: () => { document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if(key) el.innerText = App.I18n.t(key); }); const phMap = {'login-phone': 'ph_phone', 'login-pass': 'ph_password', 'reg-name': 'ph_name', 'reg-phone': 'ph_phone', 'reg-pass': 'ph_password', 'addr-name': 'ph_name', 'addr-street': 'ph_address', 'addr-apt': 'ph_address', 'addr-city': 'lbl_city', 'addr-zip': 'lbl_zip', 'chk-name': 'ph_name', 'chk-phone': 'ph_phone', 'chk-address': 'ph_address', 'order-note': 'ph_notes', 'setting-name': 'ph_name', 'setting-email': 'lbl_email', 'res-name': 'ph_name', 'res-phone': 'ph_phone', 
 'review-comment': 'ph_review', 'admin-pw': 'ph_pin', 'coupon-code': 'lbl_extras', 'res-date': 'ph_select_date'}; 
 
-Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el) el.placeholder = App.I18n.t(phMap[id]) || el.placeholder; }); const search = document.getElementById('search-input'); if(search) search.placeholder = App.I18n.t('search_ph') || "Search..."; const typeSel = document.getElementById('addr-type'); if(typeSel) { if(typeSel.options[0]) typeSel.options[0].text = App.I18n.t('lbl_home'); if(typeSel.options[1]) typeSel.options[1].text = App.I18n.t('lbl_office'); } const countryInput = document.getElementById('addr-country'); if(countryInput) { const current = countryInput.value; if (!current || current.includes('Morocco') || current.includes('Maroc')) countryInput.value = App.I18n.t('val_morocco'); } },
+Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el) el.placeholder = App.I18n.t(phMap[id]) || el.placeholder; }); 
+
+// Generic Placeholder Translator
+document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.getAttribute('data-i18n-ph');
+    if(key) el.placeholder = App.I18n.t(key);
+});
+
+const search = document.getElementById('search-input'); if(search) search.placeholder = App.I18n.t('search_ph') || "Search..."; const typeSel = document.getElementById('addr-type'); if(typeSel) { if(typeSel.options[0]) typeSel.options[0].text = App.I18n.t('lbl_home'); if(typeSel.options[1]) typeSel.options[1].text = App.I18n.t('lbl_office'); } const countryInput = document.getElementById('addr-country'); if(countryInput) { const current = countryInput.value; if (!current || current.includes('Morocco') || current.includes('Maroc')) countryInput.value = App.I18n.t('val_morocco'); } },
         fetch: () => { fetch(API_URL + '?action=getTranslations').then(r=>r.json()).then(res=>{ if(res.status==='success') { App.State.translations = {...App.State.translations, ...res.data}; App.I18n.updateDOM(); App.Cart.render(); } }); }
     }, 
     
@@ -1631,14 +1686,26 @@ Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el
     
     // 7. QUICKVIEW
     QuickView: {
-        open: (id) => { const p = App.State.catalog.find(x => String(x.id) === String(id)); if(!p) return; App.Recent.add(id); document.getElementById('qv-body').innerHTML = App.UI.renderQuickView(p); new bootstrap.Modal(document.getElementById('quickViewModal')).show(); App.API.fetchReviews(id); },
+		//For Google
+        open: (id) => { 
+    const p = App.State.catalog.find(x => String(x.id) === String(id)); 
+    if(!p) return; 
+    App.Recent.add(id); 
+    // Inject SEO Data
+    App.SEO.setProduct(p); 
+    document.getElementById('qv-body').innerHTML = App.UI.renderQuickView(p); 
+    new bootstrap.Modal(document.getElementById('quickViewModal')).show(); 
+    App.API.fetchReviews(id); 
+},
+
         updatePrice: (base, oldBase) => { const mult = parseFloat(document.querySelector('input[name="qv-size"]:checked').value); document.getElementById('qv-price-display').innerText = App.Utils.fmt(base * mult); const oldEl = document.getElementById('qv-old-price-display'); if(oldEl && oldBase) oldEl.innerText = App.Utils.fmt(oldBase * mult); },
         updateQty: (delta) => { const el = document.getElementById('qv-qty'); if(!el) return; let val = parseInt(el.value) || 1; val += delta; if(val < 1) val = 1; el.value = val; },
         addToCart: (id) => { const qtyInput = document.getElementById('qv-qty'); let sizeInput = document.querySelector('input[name="qv-size"]:checked'); if(!sizeInput) sizeInput = document.getElementById('size-reg'); const qty = qtyInput ? parseInt(qtyInput.value) : 1; const el = sizeInput || { value: 1, id: 'size-reg' }; let labelText = "Regular"; if(sizeInput) { const label = document.querySelector(`label[for="${sizeInput.id}"]`); if(label) labelText = label.innerText; } const extras = []; document.querySelectorAll('.extra-check:checked').forEach(c => extras.push(c.value)); const variant = { mult: parseFloat(el.value), name: labelText }; App.Cart.add(id, null, qty, variant, extras); bootstrap.Modal.getInstance(document.getElementById('quickViewModal')).hide(); }
     },
     
-    // 8. ADMIN
+	// 8. ADMIN (Updated for Pro Tools)
     Admin: {
+        lastOrderCount: 0, // Track order count for sound
         openLogin: () => { 
             if(document.activeElement) document.activeElement.blur();
             new bootstrap.Modal(document.getElementById('adminLoginModal')).show(); 
@@ -1648,6 +1715,8 @@ Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el
             if(!pw) return;
             App.State.adminPw = pw;
             bootstrap.Modal.getInstance(document.getElementById('adminLoginModal')).hide();
+            // Pre-load audio on user interaction so it plays later
+            document.getElementById('admin-sound').load();
             App.Admin.fetchDashboard();
             App.Router.go('admin');
             if(App.State.adminInterval) clearInterval(App.State.adminInterval);
@@ -1667,15 +1736,31 @@ Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el
                 statusEl.className = isManualClosed ? "h3 fw-bold text-danger" : "h3 fw-bold text-success";
 
                 const orderList = document.getElementById('admin-orders-list');
+                const newCount = res.orders.filter(o => o.status === 'Pending').length;
+
+                // SOUND NOTIFICATION LOGIC
+                if(newCount > App.Admin.lastOrderCount) {
+                    const audio = document.getElementById('admin-sound');
+                    if(audio) audio.play().catch(e => console.log("Audio prevented"));
+                    App.UI.toast("🔔 New Order Received!", "success");
+                }
+                App.Admin.lastOrderCount = newCount;
+
                 if(res.orders.length === 0) { orderList.innerHTML = `<p class="text-muted">${App.I18n.t('admin_no_orders')}</p>`; } 
                 else {
                     orderList.innerHTML = res.orders.map(o => {
                         const statusTrans = App.I18n.t('status_' + o.status.toLowerCase().replace(/\s+/g,'')) || o.status; 
+                        // Added Print Button
+                        const printBtn = `<button class="btn btn-sm btn-outline-secondary" onclick="App.Admin.printReceipt('${o.id}', '${o.name}', '${o.phone}', '${o.items.replace(/"/g, '&quot;')}', '${o.total}', '${o.date}')"><i class="bi bi-printer"></i></button>`;
+                        
                         return `
                         <div class="admin-card ${o.status==='Completed'?'completed':''}">
                             <div class="d-flex justify-content-between">
                                 <span class="fw-bold">#${o.id}</span>
-                                <span class="badge bg-${o.status==='Pending'?'warning':'success'}">${statusTrans}</span>
+                                <div class="d-flex gap-2">
+                                    ${printBtn}
+                                    <span class="badge bg-${o.status==='Pending'?'warning':'success'}">${statusTrans}</span>
+                                </div>
                             </div>
                             <div class="small mt-2">
                                 <div><i class="bi bi-person"></i> ${o.name} (${o.phone})</div>
@@ -1711,6 +1796,36 @@ Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el
             fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'updateStatus', data: { password: App.State.adminPw, orderId: oid, newStatus: status } }) }).then(r=>r.json()).then(res=>{
                  if(res.status==='success') App.Admin.fetchDashboard();
              });
+        },
+        printReceipt: (id, name, phone, itemsStr, total, date) => {
+            let itemsHtml = '';
+            try {
+                const items = JSON.parse(itemsStr);
+                items.forEach(i => {
+                    itemsHtml += `<div class="print-row"><span>${i}</span></div>`;
+                });
+            } catch(e) { itemsHtml = itemsStr; }
+            
+            const html = `
+                <div class="print-header">
+                    <h2>SushiElite</h2>
+                    <p>Order #${id}</p>
+                    <p>${new Date(date).toLocaleString()}</p>
+                </div>
+                <div style="margin-bottom:15px; border-bottom:1px solid #000; padding-bottom:5px;">
+                    <p><b>${App.I18n.t('lbl_cust')}</b> ${name}</p>
+                    <p><b>${App.I18n.t('lbl_tel')}</b> ${phone}</p>
+                </div>
+                ${itemsHtml}
+                <div class="print-total">
+                    <div class="print-row"><span>TOTAL:</span><span>${App.Utils.fmt(parseFloat(total))}</span></div>
+                </div>
+                <div style="text-align:center; margin-top:20px;">
+                    <p>${App.I18n.t('lbl_thank_you')}</p>
+                </div>
+            `;
+            document.getElementById('print-area').innerHTML = html;
+            window.print();
         }
     },
     
@@ -1720,7 +1835,14 @@ Object.keys(phMap).forEach(id => { const el = document.getElementById(id); if(el
         syncDown: (uid) => { const token = (App.State.user && App.State.user.authToken) ? App.State.user.authToken : ''; fetch(API_URL + '?action=getUserData&userId='+uid + '&token=' + token).then(r=>r.json()).then(res=>{ if(res.status==='success') { if(res.cart && App.State.cart.length === 0) { App.State.cart = JSON.parse(res.cart); App.Cart.render(); } if(res.wishlist) { App.State.wishlist = String(res.wishlist).split(','); App.Utils.el('nav-wish-count').innerText = App.State.wishlist.length; } if(res.addresses) { App.State.addresses = res.addresses; App.Profile.renderAddresses(); } if(res.orders) { App.State.history = res.orders; App.Profile.renderHistory(); } if(res.profile) { App.State.user.points = res.profile.points || 0; App.Profile.updatePointsUI(); App.State.user.name = res.profile.name; App.State.user.phone = res.profile.phone; if(document.getElementById('setting-name')) document.getElementById('setting-name').value = res.profile.name; if(document.getElementById('setting-phone')) document.getElementById('setting-phone').value = res.profile.phone; if(document.getElementById('setting-email')) document.getElementById('setting-email').value = res.profile.email || ''; if(res.profile.lang) { App.I18n.setLang(res.profile.lang, false); } } } }); },
         push: (type) => { if(!App.State.user) return; let pl = { userId: App.State.user.id, authToken: App.State.user.authToken }; if (type === 'cart') { pl.cartJson = JSON.stringify(App.State.cart); pl.currency = App.State.currency; } else if (type === 'wishlist') { pl.items = App.State.wishlist.join(','); } else if (type === 'pref') { fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'updatePreference', data: { userId: App.State.user.id, authToken: App.State.user.authToken, currency: App.State.currency } }) }); return; } fetch(API_URL, {method:'POST', body:JSON.stringify({ action: type==='cart'?'syncCart':'syncWishlist', data: pl })}); },
         updateLang: (lang) => { if(!App.State.user) return; fetch(API_URL, {method:'POST', body:JSON.stringify({ action: 'updateUser', data: { userId: App.State.user.id, authToken: App.State.user.authToken, lang: lang } })}).catch(e=>console.log(e)); },
-        checkout: () => { const name = App.Utils.el('chk-name').value; const phone = App.Utils.el('chk-phone').value; const address = App.Utils.el('chk-address').value; const zone = App.Utils.el('chk-zone').value; const payment = document.getElementById('chk-payment') ? document.getElementById('chk-payment').value : 'cod'; if(!name || !phone || !zone) return alert('Fill all fields'); if(!App.Utils.isValidPhone(phone)) return alert("Invalid Phone. Use 06... or 07..."); if(!address) return alert("Please enter delivery address"); const note = App.Utils.el('order-note').value; const btn = document.getElementById('checkout-btn'); if(btn) { btn.disabled = true; btn.innerText = App.I18n.t('btn_processing'); } const cartData = App.State.cart.map(i => ({ id: i.id, qty: i.qty, variantMult: i.variant.mult, title: i.title, extras: i.extras })); const orderData = { userId: App.State.user ? App.State.user.id : null, authToken: App.State.user ? App.State.user.authToken : null, name, phone, zone, address: `${zone} - ${address}`, cart: JSON.stringify(cartData), method: payment, couponCode: App.State.activeCoupon ? App.State.activeCoupon.code : null }; fetch(API_URL, { method: 'POST', headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: 'placeOrder', data: orderData }) }).then(r => r.json()).then(res => { if(res.status === 'success') { App.State.cart.forEach(c => { if(!App.State.wishlist.includes(String(c.id))) App.State.wishlist.push(String(c.id)); }); App.Utils.save('se_wish', App.State.wishlist); App.API.push('wishlist'); App.State.cart = []; App.Utils.save('se_cart', []); App.Cart.render(); const wa_new_order = App.I18n.t('wa_new_order'); const wa_total = App.I18n.t('wa_total'); const wa_1h = App.I18n.t('wa_1h'); let msg = `*${wa_new_order} ${res.orderId}*%0A`; msg += `👤 ${name} (${phone})%0A🚚 ${orderData.address}%0A💳 ${payment === 'cp' ? 'Cash Plus' : 'COD'}%0A🕒 ${wa_1h}%0A📝 ${note}%0A--------------------%0A`; cartData.forEach(i => { msg += `🍱 ${i.qty}x ${i.title}`; if(i.extras && i.extras.length>0) msg+= ` + ${i.extras.join(',')}`; msg += `%0A`; }); msg += `💰 *${wa_total}: ${App.Utils.fmt(res.secureTotal)}*`; const waLink = `https://wa.me/${App.Config.waNumber}?text=${msg}`; document.getElementById('cart-content').classList.add('d-none'); document.getElementById('cart-empty-state').classList.add('d-none'); const container = document.getElementById('cart-module').querySelector('.container'); container.innerHTML = `<div class="text-center py-5 fade-in"><div class="mb-4"><i class="bi bi-check-circle-fill text-success display-1"></i></div><h2 class="fw-bold mb-3">${App.I18n.t('msg_order_confirmed')}</h2><p class="text-muted mb-4 lead">${App.I18n.t('msg_order_redirect')}</p><a href="${waLink}" target="_blank" class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow mb-4"><i class="bi bi-whatsapp me-2"></i> ${App.I18n.t('btn_whatsapp')}</a><br/><button class="btn btn-link text-muted text-decoration-none" onclick="location.reload()">${App.I18n.t('btn_back_home')}</button></div>`; const sticky = document.getElementById('sticky-checkout-bar'); if(sticky) sticky.remove(); } else { alert("Server Error: " + res.message); if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_checkout'); } } }).catch(e => { console.error(e); alert("Connection failed."); if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_checkout'); } }); },
+        checkout: () => { const name = App.Utils.el('chk-name').value; const phone = App.Utils.el('chk-phone').value; const address = App.Utils.el('chk-address').value; const zone = App.Utils.el('chk-zone').value; const payment = document.getElementById('chk-payment') ? document.getElementById('chk-payment').value : 'cod'; if(!name || !phone || !zone) return alert('Fill all fields'); if(!App.Utils.isValidPhone(phone)) return alert("Invalid Phone. Use 06... or 07..."); if(!address) return alert("Please enter delivery address"); const note = App.Utils.el('order-note').value; const btn = document.getElementById('checkout-btn'); if(btn) { btn.disabled = true; btn.innerText = App.I18n.t('btn_processing'); } const cartData = App.State.cart.map(i => ({ id: i.id, qty: i.qty, variantMult: i.variant.mult, title: i.title, extras: i.extras })); const orderData = { userId: App.State.user ? App.State.user.id : null, authToken: App.State.user ? App.State.user.authToken : null, name, phone, zone, address: `${zone} - ${address}`, cart: JSON.stringify(cartData), method: payment, couponCode: App.State.activeCoupon ? App.State.activeCoupon.code : null }; fetch(API_URL, { method: 'POST', headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: 'placeOrder', data: orderData }) }).then(r => r.json()).then(res => { if(res.status === 'success') { App.State.cart.forEach(c => { if(!App.State.wishlist.includes(String(c.id))) App.State.wishlist.push(String(c.id)); }); App.Utils.save('se_wish', App.State.wishlist); App.API.push('wishlist'); App.State.cart = []; App.Utils.save('se_cart', []); 
+
+// Phase 7: Celebration (Safe Mode)
+if(window.confetti) {
+    window.confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ce1212', '#ffc107', '#2d3436'] });
+}
+
+App.Cart.render(); const wa_new_order = App.I18n.t('wa_new_order'); const wa_total = App.I18n.t('wa_total'); const wa_1h = App.I18n.t('wa_1h'); let msg = `*${wa_new_order} ${res.orderId}*%0A`; msg += `👤 ${name} (${phone})%0A🚚 ${orderData.address}%0A💳 ${payment === 'cp' ? 'Cash Plus' : 'COD'}%0A🕒 ${wa_1h}%0A📝 ${note}%0A--------------------%0A`; cartData.forEach(i => { msg += `🍱 ${i.qty}x ${i.title}`; if(i.extras && i.extras.length>0) msg+= ` + ${i.extras.join(',')}`; msg += `%0A`; }); msg += `💰 *${wa_total}: ${App.Utils.fmt(res.secureTotal)}*`; const waLink = `https://wa.me/${App.Config.waNumber}?text=${msg}`; document.getElementById('cart-content').classList.add('d-none'); document.getElementById('cart-empty-state').classList.add('d-none'); const container = document.getElementById('cart-module').querySelector('.container'); container.innerHTML = `<div class="text-center py-5 fade-in"><div class="mb-4"><i class="bi bi-check-circle-fill text-success display-1"></i></div><h2 class="fw-bold mb-3">${App.I18n.t('msg_order_confirmed')}</h2><p class="text-muted mb-4 lead">${App.I18n.t('msg_order_redirect')}</p><a href="${waLink}" target="_blank" class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow mb-4"><i class="bi bi-whatsapp me-2"></i> ${App.I18n.t('btn_whatsapp')}</a><br/><button class="btn btn-link text-muted text-decoration-none" onclick="location.reload()">${App.I18n.t('btn_back_home')}</button></div>`; const sticky = document.getElementById('sticky-checkout-bar'); if(sticky) sticky.remove(); } else { alert("Server Error: " + res.message); if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_checkout'); } } }).catch(e => { console.error(e); alert("Connection failed."); if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_checkout'); } }); },
         fetchReviews: (pid) => { fetch(API_URL + '?action=getReviews&productId=' + pid).then(r=>r.json()).then(res => { const c = document.getElementById('qv-reviews-list'); if(!c) return; if(res.status==='success' && res.data.length > 0) { c.innerHTML = res.data.map(r => `<div class="review-card"><div class="d-flex justify-content-between mb-1"><span class="fw-bold small">${r.user}</span><small class="text-muted">${r.date}</small></div><div class="text-warning small mb-1">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div><p class="m-0 small text-dark">${r.comment}</p></div>`).join(''); } else { c.innerHTML = '<p class="text-muted small">No reviews yet.</p>'; } }); },
         submitReview: (orderId, pid) => { const rating = App.State.tempRating; const pid2 = App.State.tempReviewPid; const comment = document.getElementById('review-comment').value; if(!rating || rating === 0) return alert("Select rating"); if(!comment) return alert("Write comment"); bootstrap.Modal.getInstance(document.getElementById('reviewModal')).hide(); App.UI.toast(App.I18n.t('msg_review_sending')); fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'submitReview', data: { userId: App.State.user.id, authToken: App.State.user.authToken, productId: pid2, rating: rating, comment: comment, userName: App.State.user.name } }) }).then(r=>r.json()).then(res => { if(res.status === 'success') { App.UI.toast(App.I18n.t('msg_rev_sub')); } else { alert(res.message); } }); },
         bookTable: () => { const btn = document.getElementById('btn-book-table'); if(btn) btn.disabled = true; const d = { userId: App.State.user ? App.State.user.id : "Guest", authToken: App.State.user ? App.State.user.authToken : null, name: document.getElementById('res-name').value, phone: document.getElementById('res-phone').value, date: document.getElementById('res-date').value, time: document.getElementById('res-time').value, guests: document.getElementById('res-guests').value }; if(!d.name || !d.phone) { alert("Fill fields"); if(btn) btn.disabled=false; return; } fetch(API_URL, { method:'POST', body:JSON.stringify({action:'bookTable', data:d}) }).then(r=>r.json()).then(res=>{ if(res.status==='success') { alert(App.I18n.t('msg_booked')); location.reload(); } else { alert(res.message); if(btn) btn.disabled=false; } }).catch(e=>{ alert("Error"); if(btn) btn.disabled=false; }); }
@@ -1782,7 +1904,7 @@ calculateTotal: () => {
     } else { 
         const pct = (sub / thresh) * 100; 
         if(bar) bar.style.width = pct + '%'; 
-        if(msg) msg.innerText = "Add more for Free Delivery"; 
+        if(msg) msg.innerText = App.I18n.t('lbl_delivery_more');
         if(amt) amt.innerText = App.Utils.fmt(thresh - sub); 
     } 
     
@@ -1925,21 +2047,155 @@ register: () => {
     
     // 15. WISHLIST MODULE
     Wishlist: { toggle: (id) => { const strId = String(id); const idx = App.State.wishlist.indexOf(strId); const isActive = (idx !== -1); if(isActive) { App.State.wishlist.splice(idx,1); App.UI.toast(App.I18n.t('msg_wish_removed')); } else { App.State.wishlist.push(strId); App.UI.toast(App.I18n.t('msg_wish_added')); } App.Utils.save('se_wish', App.State.wishlist); App.Utils.el('nav-wish-count').innerText = App.State.wishlist.length; App.UI.updateHearts(strId, !isActive); App.API.push('wishlist'); if(document.getElementById('profile-wishlist-grid') && document.getElementById('profile-wishlist-grid').offsetParent !== null) App.Wishlist.render(); }, render: () => { let container = document.getElementById('wishlist-grid'); if(document.getElementById('profile-wishlist-grid') && document.getElementById('profile-wishlist-grid').offsetParent !== null) container = document.getElementById('profile-wishlist-grid'); if(!container) return; container.innerHTML = ''; const items = App.State.catalog.filter(p => App.State.wishlist.includes(String(p.id))); if(items.length === 0) { container.innerHTML = `<p class="text-center text-muted mt-5 col-12" data-i18n="wishlist_empty">${App.I18n.t('wishlist_empty')}</p>`; return; } items.forEach(i => container.innerHTML += App.UI.renderCard(i)); }, clear: () => { if(App.State.wishlist.length === 0) return; App.UI.confirm(App.I18n.t('wish_clear_title'), App.I18n.t('wish_clear_msg'), () => { App.State.wishlist=[]; App.Utils.save('se_wish',[]); App.Wishlist.render(); App.API.push('wishlist'); }); } }
+
+,
+    // 16. SEO (Google Rich Snippets)
+    SEO: {
+        init: () => {
+            const script = document.getElementById('json-ld-store');
+            const data = {
+                "@context": "https://schema.org",
+                "@type": "Restaurant",
+                "name": "SushiElite",
+                "image": "https://cdn-icons-png.flaticon.com/512/2252/2252076.png",
+                "telephone": App.Config.waNumber,
+                "priceRange": "$$",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressCountry": "MA"
+                }
+            };
+            script.textContent = JSON.stringify(data);
+        },
+        setProduct: (p) => {
+            const script = document.getElementById('json-ld-store');
+            const data = {
+                "@context": "https://schema.org",
+                "@type": "Product",
+                "name": App.Utils.getLocalizedText(p.title),
+                "image": p.image || IMG_FALLBACK,
+                "description": App.Utils.getLocalizedText(p.desc).replace(/<[^>]*>?/gm, ''),
+                "offers": {
+                    "@type": "Offer",
+                    "priceCurrency": "MAD",
+                    "price": p.price_MAD,
+                    "availability": p.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+                }
+            };
+            script.textContent = JSON.stringify(data);
+        }
+    },
+
+	// 17. PWA (Install App Feature)
+    PWA: {
+        deferredPrompt: null,
+        init: () => {
+            // 1. Generate Manifest
+            const manifest = {
+                "name": "SushiElite",
+                "short_name": "SushiElite",
+                "start_url": window.location.href,
+                "display": "standalone",
+                "background_color": "#ffffff",
+                "theme_color": "#ce1212",
+                "icons": [
+                    { "src": "https://cdn-icons-png.flaticon.com/512/2252/2252076.png", "sizes": "192x192", "type": "image/png" },
+                    { "src": "https://cdn-icons-png.flaticon.com/512/2252/2252076.png", "sizes": "512x512", "type": "image/png" }
+                ]
+            };
+            const link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = 'data:application/manifest+json;base64,' + btoa(JSON.stringify(manifest));
+            document.head.appendChild(link);
+
+            // 2. Listen for Install Event
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                App.PWA.deferredPrompt = e;
+                // Show the Beautiful Popup after 2 seconds
+                setTimeout(() => {
+                    document.getElementById('install-prompt').classList.add('active');
+                }, 2000);
+            });
+
+            // 3. Handle App Installed
+            window.addEventListener('appinstalled', () => {
+                App.PWA.deferredPrompt = null;
+                document.getElementById('install-prompt').classList.remove('active');
+                App.UI.toast("App Installed Successfully!", "success");
+            });
+        },
+        install: async () => {
+            const promptEvent = App.PWA.deferredPrompt;
+            if (!promptEvent) return;
+            promptEvent.prompt();
+            const { outcome } = await promptEvent.userChoice;
+            if (outcome === 'accepted') {
+                console.log('User accepted');
+            }
+            App.PWA.deferredPrompt = null;
+            document.getElementById('install-prompt').classList.remove('active');
+        }
+    }
+
+	,
+    // 18. Social & Engagement (Phase 9)
+    Social: {
+        init: () => {
+            // Trigger first social proof after 10 seconds, then every 45 seconds
+            setTimeout(App.Social.showNotification, 10000);
+            setInterval(App.Social.showNotification, 45000);
+        },
+        shareReferral: () => {
+            if(!App.State.user) return App.Auth.openModal();
+            // Generate a fake code from ID if real one doesn't exist yet
+            const code = App.State.user.referralCode || App.State.user.id.substring(0,6).toUpperCase(); 
+            const text = `${App.I18n.t('msg_share_ref')} *${code}* %0A ${window.location.href}`;
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        },
+        showNotification: () => {
+            // Fake Data for Social Proof
+            const names = ['Ahmed', 'Sara', 'Karim', 'Salma', 'Omar', 'Yasmine', 'Fatima', 'Mehdi'];
+            const cities = ['Casablanca', 'Rabat', 'Marrakech', 'Tangier', 'Agadir'];
+            const items = App.State.catalog.length > 0 ? App.State.catalog : [{title: {en: "Sushi Set"}, image: ""}];
+            
+            const rName = names[Math.floor(Math.random() * names.length)];
+            const rCity = cities[Math.floor(Math.random() * cities.length)];
+            const rItem = items[Math.floor(Math.random() * items.length)];
+            const rTitle = App.Utils.getLocalizedText(rItem.title);
+            const rImg = rItem.image || "https://placehold.co/100";
+
+            const msg = `<b>${rName}</b> (${rCity}) ${App.I18n.t('txt_social_proof')} <br/> <span class="text-primary">${rTitle}</span>`;
+            
+            const toast = document.createElement('div');
+            toast.className = 'custom-toast border-success social-proof-toast';
+            toast.innerHTML = `<div class="d-flex align-items-center gap-3"><img src="${rImg}" style="width:40px;height:40px;border-radius:50%;object-fit:cover; border:1px solid #ddd;"><div><small class="d-block text-success fw-bold text-uppercase" style="font-size:0.65rem"><i class="bi bi-patch-check-fill"></i> ${App.I18n.t('lbl_verified')}</small><span style="font-size:0.8rem; line-height:1.2; display:block;">${msg}</span></div></div>`;
+            
+            const container = document.getElementById('toast-container');
+            if(container) {
+                container.appendChild(toast);
+                // Remove after 5 seconds
+                setTimeout(() => { toast.style.opacity = '0'; setTimeout(()=>toast.remove(), 300); }, 5000);
+            }
+        }
+    }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof AOS !== 'undefined') { AOS.init(); }
 
+    // 1. Core Logic Init
     App.Catalog.searchDebounced = App.Utils.debounce(App.Catalog._searchImpl, 300);
     App.State.cart = App.Utils.load('se_cart') || [];
     App.State.wishlist = App.Utils.load('se_wish') || [];
     App.State.recent = App.Utils.load('se_recent') || [];
     App.State.user = App.Utils.load('se_user');
-    
-    // OFFLINE MODE LISTENER (Phase 5)
+
+    // 2. Offline Listeners
     window.addEventListener('offline', () => { App.UI.toast("You are offline. Changes saved locally.", "warning"); });
     window.addEventListener('online', () => { App.UI.toast("Back online!", "success"); App.API.init(); });
 
+    // 3. Welcome / Init Logic
     if (!localStorage.getItem('se_setup_done')) {
         const browserLang = navigator.language.slice(0,2);
         if (['en', 'fr', 'ar'].includes(browserLang)) {
@@ -1948,7 +2204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                  ['en','fr','ar'].forEach(l => document.getElementById('wel-lang-'+l)?.classList.remove('selected'));
                  document.getElementById('wel-lang-'+browserLang)?.classList.add('selected');
                  const btn = document.getElementById('btn-welcome-start');
-                 if(btn) btn.innerText = App.State.translations['btn_start_ordering'][browserLang];
+                 if(btn && App.State.translations['btn_start_ordering']) btn.innerText = App.State.translations['btn_start_ordering'][browserLang];
             }, 500);
         }
         const welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
@@ -1968,24 +2224,46 @@ document.addEventListener('DOMContentLoaded', () => {
     App.API.init();
     App.Auth.check();
     App.Cart.render();
+    
+    // Init SEO & PWA & Social
+    if(App.PWA) App.PWA.init();
+    if(App.SEO) App.SEO.init();
+    if(App.Social) App.Social.init();
 
-	    // Fix Calendar format
-    // Fix Calendar format with translations
-    if (typeof flatpickr !== 'undefined') { 
-        const currentLang = App.State.lang;
-        const localeMap = {
-            'ar': 'ar',
-            'fr': 'fr',
-            'en': 'default'
-        };
+    // 4. SAFE SCRIPT LOADER (Fixes Calendar & Confetti)
+    const loadScript = (src, callback) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = callback;
+        document.head.appendChild(s);
+    };
 
-        flatpickr("#res-date", { 
-            minDate: "today", 
-            dateFormat: "Y-m-d",
-            locale: localeMap[currentLang] || 'default',
-            disableMobile: true // Forces the styled calendar on mobile instead of native
-        }); 
-    }
+    // Load Confetti
+    loadScript('https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js', null);
+
+    // Load Flatpickr Chain
+    loadScript('https://cdn.jsdelivr.net/npm/flatpickr', () => {
+        loadScript('https://npmcdn.com/flatpickr/dist/l10n/ar.js', () => {
+            loadScript('https://npmcdn.com/flatpickr/dist/l10n/fr.js', () => {
+                
+                // Initialize Calendar
+                const currentLang = App.State.lang;
+                const localeMap = { 'ar': 'ar', 'fr': 'fr', 'en': 'default' };
+                
+                flatpickr("#res-date", { 
+                    minDate: "today", 
+                    dateFormat: "Y-m-d",
+                    locale: localeMap[currentLang] || 'default',
+                    disableMobile: false, 
+                    allowInput: false,    
+                    onOpen: function(selectedDates, dateStr, instance) {
+                        document.activeElement.blur();
+                    }
+                });
+
+            });
+        });
+    });
 });
 //]]>
 </script>
