@@ -1,4 +1,4 @@
-var SPREADSHEET_ID = "1O5L8yrkZVMbcZqitOAgStQj8E4sJzxyNrjoZCCswESo"; 
+var SPREADSHEET_ID = "1O5L8yrkZVMbcZqitOAgStQj8E4sJzxyNrjoZCCswESo"; // REPLACE WITH YOUR SHEET ID
 var ADMIN_SECRET = "admin123"; 
 var SS;
 
@@ -19,7 +19,7 @@ function doGet(e) {
     
     if (a == "clearCache") {
       if (e.parameter.pw !== ADMIN_SECRET) return responseJSON({status: "error", message: "Unauthorized"});
-      CacheService.getScriptCache().removeAll(['cat_v156', 'trans_v150', 'rev_summary']);
+      CacheService.getScriptCache().removeAll(['cat_v170', 'trans_v150', 'rev_summary']);
       return responseJSON({status: "success", message: "Cache Cleared"});
     }
     return responseJSON({status: "error", message: "Invalid Action"});
@@ -54,7 +54,7 @@ function doPost(e) {
   } catch(e) { return responseJSON({status: "error", message: "JSON Parse Error"}); }
 }
 
-// --- CORE FUNCTIONS UPDATED FOR REFERRALS & POINTS ---
+// --- CORE FUNCTIONS ---
 
 function registerUser(d) { 
   if (!isValidMoroccanPhone(d.phone)) return responseJSON({status: "error", message: "Invalid Phone"}); 
@@ -62,7 +62,6 @@ function registerUser(d) {
   for (var i = 1; i < r.length; i++) if (String(r[i][2]) == String(d.phone)) return responseJSON({status: "error", message: "Taken"}); 
   
   var id = Utilities.getUuid();
-  var shortCode = id.substring(0,6).toUpperCase(); // Generating Referral Code
   var t = Utilities.getUuid(); 
   var startPoints = 0;
 
@@ -120,7 +119,10 @@ function placeOrderSecure(d) {
           if (item.extras && Array.isArray(item.extras) && idxExtras > -1) {
              var availableExtras = []; try { availableExtras = JSON.parse(pData[r][idxExtras] || "[]"); } catch(e) {}
              item.extras.forEach(function(reqExtra) {
-                var found = availableExtras.find(function(ex) { return ex.name === reqExtra; }); // Match logic simplified for backend
+                var found = availableExtras.find(function(ex) { 
+                    var exName = (typeof ex.name === 'object') ? ex.name.en : ex.name;
+                    return exName === reqExtra; 
+                });
                 if (found) { extraCost += Number(found.price); extraNames.push(found.name); }
              });
           }
@@ -198,10 +200,13 @@ function placeOrderSecure(d) {
     var id = "ORD-" + Math.floor(Math.random() * 1000000);
     var fd = Utilities.formatDate(new Date(), "Africa/Casablanca", "yyyy-MM-dd HH:mm:ss");
     
-    var finalNote = (pointsUsed > 0) ? "(Paid " + pointsUsed + " pts) " + (d.method || "Cash") : (d.method || "Cash");
+    var finalNote = (pointsUsed > 0) ? "(Paid " + pointsUsed + " pts) " + (d.notes || "") : (d.notes || "");
     
+    // Append Order
+    // ID, UserID, Name, Phone, Address, Total, Note, ItemsJSON, Date, Status, Currency, SecureTotal
     o.appendRow([String(id), String(d.userId || "Guest"), String(d.name || "Unknown"), "'" + String(d.phone || "No Phone"), String(d.address || d.zone || "N/A"), Number(tot.toFixed(2)), finalNote, JSON.stringify(il), String(fd), "Pending", "MAD", Number(tot.toFixed(2))]);
-    CacheService.getScriptCache().remove("cat_v156");
+    
+    CacheService.getScriptCache().remove("cat_v170"); // Invalidate catalog cache to update stock
     return responseJSON({status: "success", orderId: id, secureTotal: tot.toFixed(2), pointsRedeemed: pointsUsed});
   } catch (err) {
     return responseJSON({status: "error", message: "Server Error: " + err.message});
@@ -213,32 +218,102 @@ function getAdminDashboard(pw) {
   var oSheet = SS.getSheetByName("Orders");
   var cSheet = SS.getSheetByName("Config");
   var rSheet = SS.getSheetByName("Reservations");
+  
   var oData = oSheet.getDataRange().getValues();
   var orders = [];
   var revenueToday = 0;
   var todayStr = Utilities.formatDate(new Date(), "Africa/Casablanca", "yyyy-MM-dd");
+  
   for (var i = oData.length - 1; i >= 1; i--) {
     if (orders.length >= 50) break;
     var row = oData[i];
     orders.push({ id: row[0], userId: row[1], name: row[2], phone: row[3], total: row[5], status: row[9], date: row[8], items: row[7] });
     if ((row[9] === "Completed" || row[9] === "Delivered") && String(row[8]).indexOf(todayStr) > -1) { revenueToday += Number(row[5]); }
   }
+  
   var resData = rSheet ? rSheet.getDataRange().getValues() : [];
   var reservations = [];
   for (var j = 1; j < resData.length; j++) {
     if (resData[j][8] === "Pending") { reservations.push({ id: resData[j][0], name: resData[j][3], date: resData[j][5], time: resData[j][6], guests: resData[j][7] }); }
   }
+  
   var config = {};
   var cData = cSheet.getDataRange().getValues();
   for(var k=1; k<cData.length; k++) config[cData[k][0]] = cData[k][1];
+  
   return responseJSON({ status: "success", orders: orders, reservations: reservations, revenue: revenueToday.toFixed(2), config: config });
 }
+
 function toggleStore(d) { if (d.password !== ADMIN_SECRET) return responseJSON({status: "error", message: "Unauthorized"}); var s = SS.getSheetByName("Config"); var data = s.getDataRange().getValues(); var found = false; for(var i=1; i<data.length; i++) { if(data[i][0] === "Manual_Close") { s.getRange(i+1, 2).setValue(d.state); found = true; break; } } if(!found) s.appendRow(["Manual_Close", d.state]); return responseJSON({status: "success", newState: d.state}); }
+
 function updateOrderStatus(d) { if (d.password !== ADMIN_SECRET) return responseJSON({status: "error", message: "Unauthorized"}); var s = SS.getSheetByName("Orders"); var r = s.getDataRange().getValues(); for (var i = 1; i < r.length; i++) if (String(r[i][0]) === String(d.orderId)) { s.getRange(i + 1, 10).setValue(d.newStatus); return responseJSON({status: "success"}); } return responseJSON({status: "error", message: "Order not found"}); }
-function getCatalog(){ var c = CacheService.getScriptCache(), h = c.get("cat_v156"); if (h) return ContentService.createTextOutput(h).setMimeType(ContentService.MimeType.JSON); var s = SS.getSheetByName("Catalog"), d = s.getDataRange().getValues(), headers = d[0]; function getIdx(name) { var i = headers.indexOf(name); if (i > -1) return i; return headers.findIndex(function(h) { return String(h).toLowerCase() === String(name).toLowerCase(); }); } var idxID = getIdx("ID"), idxCat = getIdx("Category"), idxPrice = getIdx("Price_MAD"), idxStock = getIdx("Stock"), idxImg = getIdx("Image_URL"), idxTags = getIdx("Tags"), idxExtras = getIdx("Extras_JSON"); var idxTitleEn = getIdx("Title_EN"), idxTitleFr = getIdx("Title_FR"), idxTitleAr = getIdx("Title_AR"), idxDescEn = getIdx("Desc_EN"), idxDescFr = getIdx("Desc_FR"), idxDescAr = getIdx("Desc_AR"), idxOldPrice = getIdx("Old_Price_MAD"); var products = []; for (var i = 1; i < d.length; i++) { var r = d[i]; if (!r[idxID]) continue; var extras = []; if(idxExtras > -1 && r[idxExtras]) { try { extras = JSON.parse(r[idxExtras]); } catch(e) {} } products.push({ id: r[idxID], category: (idxCat > -1) ? r[idxCat] : "General", title: { en: r[idxTitleEn] || "", fr: r[idxTitleFr] || "", ar: r[idxTitleAr] || "" }, desc: { en: r[idxDescEn] || "", fr: r[idxDescFr] || "", ar: r[idxDescAr] || "" }, price_MAD: (idxPrice > -1) ? Number(r[idxPrice]) : 0, old_price_MAD: (idxOldPrice > -1) ? Number(r[idxOldPrice]) : 0, stock: (idxStock > -1) ? Number(r[idxStock]) : 0, image: (idxImg > -1 && r[idxImg]) ? r[idxImg] : "", tags: (idxTags > -1) ? r[idxTags] : "", extras: extras }); } var j = JSON.stringify({status: "success", data: products}); c.put("cat_v156", j, 1200); return ContentService.createTextOutput(j).setMimeType(ContentService.MimeType.JSON); }
-function getUserData(uid, token){ var w = SS.getSheetByName("Wishlists"), c = SS.getSheetByName("Carts"), u = SS.getSheetByName("Users"), o = SS.getSheetByName("Orders"), as = SS.getSheetByName("Adresses")||SS.getSheetByName("Adress")||SS.getSheetByName("Address"); var wl = String(findVal(w,uid,2)||""), cart="", curr="MAD"; var cr=c.getDataRange().getValues(); for(var k=1;k<cr.length;k++) if(String(cr[k][0])==String(uid)){cart=cr[k][1];curr=cr[k][2];break} var p={name:"",phone:"",email:"",joined:"", lang:"en", points: 0}, ur=u.getDataRange().getValues(); for(var i=1;i<ur.length;i++) if(String(ur[i][0])==String(uid)){ p.name=ur[i][1]; p.phone=ur[i][2]; if(ur[i][4])p.joined=new Date(ur[i][4]).toLocaleDateString(); if(ur[i][6])p.email=ur[i][6]; if(ur[i][7])p.lang=ur[i][7]; p.points = (ur[i].length > 9) ? Number(ur[i][9]||0) : 0; break; } var ad={home:null,office:null}; if(as){ var adv=as.getDataRange().getValues(); for(var m=1;m<adv.length;m++) if(String(adv[m][0])===String(uid)){ try{ad.home=JSON.parse(adv[m][1])}catch(e){ad.home=adv[m][1]?{full:adv[m][1]}:null} try{ad.office=JSON.parse(adv[m][2])}catch(e){ad.office=adv[m][2]?{full:adv[m][2]}:null} break } } var ord=[],or=o.getDataRange().getValues(); for(var j=1;j<or.length;j++) if(String(or[j][1])==String(uid)){ var valSecure = Number(or[j][11]) || Number(or[j][9]) || 0; ord.push({ id:or[j][0], total: valSecure.toFixed(2), date:or[j][8], status:or[j][9], items:or[j][7] }) } return responseJSON({status:"success",wishlist:wl,cart:cart,currency:curr,profile:p,orders:ord.reverse(),addresses:ad}) }
+
+function getCatalog(){ 
+  var c = CacheService.getScriptCache(), h = c.get("cat_v170"); 
+  if (h) return ContentService.createTextOutput(h).setMimeType(ContentService.MimeType.JSON); 
+  
+  var s = SS.getSheetByName("Catalog"), d = s.getDataRange().getValues(), headers = d[0]; 
+  function getIdx(name) { var i = headers.indexOf(name); if (i > -1) return i; return headers.findIndex(function(h) { return String(h).toLowerCase() === String(name).toLowerCase(); }); } 
+  
+  var idxID = getIdx("ID"), idxCat = getIdx("Category"), idxPrice = getIdx("Price_MAD"), idxStock = getIdx("Stock"), idxImg = getIdx("Image_URL"), idxTags = getIdx("Tags"), idxExtras = getIdx("Extras_JSON"); 
+  var idxTitleEn = getIdx("Title_EN"), idxTitleFr = getIdx("Title_FR"), idxTitleAr = getIdx("Title_AR"), idxDescEn = getIdx("Desc_EN"), idxDescFr = getIdx("Desc_FR"), idxDescAr = getIdx("Desc_AR"), idxOldPrice = getIdx("Old_Price_MAD"); 
+  
+  // Helper to safely parse numbers from messy inputs (e.g. "50 DH" -> 50)
+  function safeNum(val) {
+    if (!val) return 0;
+    var clean = String(val).replace(/[^0-9.]/g, ""); // Remove non-numeric chars
+    var num = parseFloat(clean);
+    return isNaN(num) ? 0 : num;
+  }
+
+  var products = []; 
+  for (var i = 1; i < d.length; i++) { 
+    var r = d[i]; 
+    if (!r[idxID]) continue; 
+    var extras = []; 
+    if(idxExtras > -1 && r[idxExtras]) { try { extras = JSON.parse(r[idxExtras]); } catch(e) {} } 
+    
+    products.push({ 
+      id: r[idxID], 
+      category: (idxCat > -1) ? r[idxCat] : "General", 
+      title: { en: r[idxTitleEn] || "", fr: r[idxTitleFr] || "", ar: r[idxTitleAr] || "" }, 
+      desc: { en: r[idxDescEn] || "", fr: r[idxDescFr] || "", ar: r[idxDescAr] || "" }, 
+      // USE SAFE NUM PARSING HERE
+      price_MAD: (idxPrice > -1) ? safeNum(r[idxPrice]) : 0, 
+      old_price_MAD: (idxOldPrice > -1) ? safeNum(r[idxOldPrice]) : 0, 
+      stock: (idxStock > -1) ? safeNum(r[idxStock]) : 0, 
+      image: (idxImg > -1 && r[idxImg]) ? r[idxImg] : "", 
+      tags: (idxTags > -1) ? r[idxTags] : "", 
+      extras: extras 
+    }); 
+  } 
+  
+  var j = JSON.stringify({status: "success", data: products}); 
+  c.put("cat_v170", j, 1200); 
+  return ContentService.createTextOutput(j).setMimeType(ContentService.MimeType.JSON); 
+}
+
+function getUserData(uid, token){ 
+  var w = SS.getSheetByName("Wishlists"), c = SS.getSheetByName("Carts"), u = SS.getSheetByName("Users"), o = SS.getSheetByName("Orders"), as = SS.getSheetByName("Adresses")||SS.getSheetByName("Adress")||SS.getSheetByName("Address"); 
+  var wl = String(findVal(w,uid,2)||""), cart="", curr="MAD"; 
+  var cr=c.getDataRange().getValues(); for(var k=1;k<cr.length;k++) if(String(cr[k][0])==String(uid)){cart=cr[k][1];curr=cr[k][2];break} 
+  
+  var p={name:"",phone:"",email:"",joined:"", lang:"en", points: 0}, ur=u.getDataRange().getValues(); 
+  for(var i=1;i<ur.length;i++) if(String(ur[i][0])==String(uid)){ p.name=ur[i][1]; p.phone=ur[i][2]; if(ur[i][4])p.joined=new Date(ur[i][4]).toLocaleDateString(); if(ur[i][6])p.email=ur[i][6]; if(ur[i][7])p.lang=ur[i][7]; p.points = (ur[i].length > 9) ? Number(ur[i][9]||0) : 0; break; } 
+  
+  var ad={home:null,office:null}; 
+  if(as){ var adv=as.getDataRange().getValues(); for(var m=1;m<adv.length;m++) if(String(adv[m][0])===String(uid)){ try{ad.home=JSON.parse(adv[m][1])}catch(e){ad.home=adv[m][1]?{full:adv[m][1]}:null} try{ad.office=JSON.parse(adv[m][2])}catch(e){ad.office=adv[m][2]?{full:adv[m][2]}:null} break } } 
+  
+  var ord=[],or=o.getDataRange().getValues(); 
+  for(var j=1;j<or.length;j++) if(String(or[j][1])==String(uid)){ var valSecure = Number(or[j][11]) || Number(or[j][9]) || 0; ord.push({ id:or[j][0], total: valSecure.toFixed(2), date:or[j][8], status:or[j][9], items:or[j][7] }) } 
+  
+  return responseJSON({status:"success",wishlist:wl,cart:cart,currency:curr,profile:p,orders:ord.reverse(),addresses:ad}) 
+}
+
 function submitReview(d) { var s = SS.getSheetByName("Reviews"); if(!s) { s = SS.insertSheet("Reviews"); s.appendRow(["ID","Date","UserId","UserName","ProductId","Rating","Comment","Status"]); } var id = "REV-" + Utilities.getUuid().substring(0,8); s.appendRow([id, new Date(), d.userId, d.userName, d.productId, d.rating, d.comment, "Active"]); CacheService.getScriptCache().remove("rev_summary"); return responseJSON({status: "success", message: "Review Submitted"}); }
+
 function getReviews(pid) { var s = SS.getSheetByName("Reviews"); if(!s) return responseJSON({status:"success", data:[]}); var data = s.getDataRange().getValues(); var reviews = []; var total = 0; var count = 0; for(var i=1; i<data.length; i++) { if(String(data[i][4]) === String(pid) && data[i][7] !== 'Hidden') { reviews.push({ user: data[i][3], date: new Date(data[i][1]).toLocaleDateString(), rating: data[i][5], comment: data[i][6] }); total += Number(data[i][5]); count++; } } return responseJSON({status:"success", data: reviews, avg: count>0 ? (total/count).toFixed(1) : 0, count: count}); }
+
 function isValidMoroccanPhone(p) { var clean = String(p).replace(/[\s\-\(\)]/g, ''); return /^(?:(?:\+|00)212|0)[67]\d{8}$/.test(clean); }
 function isValidEmail(e) { if (!e) return true; return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(e); }
 function verifySession(uid, token) { if (!uid || !token) return false; var c = CacheService.getScriptCache(); if (c.get("auth_" + uid) === token) return true; var s = SS.getSheetByName("Users"), d = s.getDataRange().getValues(); for (var i = 1; i < d.length; i++) if (String(d[i][0]) === String(uid) && String(d[i][8]) === token) { c.put("auth_" + uid, token, 600); return true; } return false; }
@@ -254,4 +329,5 @@ function getTranslations() { var c = CacheService.getScriptCache(), cached = c.g
 function updateAddress(d){ var s=SS.getSheetByName("Adresses")||SS.getSheetByName("Adress")||SS.getSheetByName("Address"); if(!s)return responseJSON({status:"error",message:"Sheet missing"}); var r=s.getDataRange().getValues(),idx=-1,tid=String(d.userId); for(var i=1;i<r.length;i++) if(String(r[i][0])===tid){idx=i+1;break} var as=d.addressJson; if(idx>-1){ if(d.type==='Home')s.getRange(idx,2).setValue(as); if(d.type==='Office')s.getRange(idx,3).setValue(as) }else{ s.appendRow([tid,(d.type==='Home'?as:''),(d.type==='Office'?as:'')]) } return responseJSON({status:"success"}) }
 function updateOrAppend(s,k,c,v,cur){ var r=s.getDataRange().getValues(); for(var i=1;i<r.length;i++){ if(String(r[i][0])==String(k)){ s.getRange(i+1,c).setValue(v); if(cur)s.getRange(i+1,3).setValue(cur); s.getRange(i+1,4).setValue(new Date()); return; } } s.appendRow([k,v,cur||"MAD",new Date()]) }
 function findVal(s,k,c){ var r=s.getDataRange().getValues(); for(var i=1;i<r.length;i++) if(String(r[i][0])==String(k)) return r[i][c-1]; return null; }
+function bookTable(d){ var s=SS.getSheetByName("Reservations"); if(!s){s=SS.insertSheet("Reservations"); s.appendRow(["ID","UserID","DateCreated","Name","Phone","ResDate","ResTime","Guests","Status"]);} var id="RES-"+Utilities.getUuid().substring(0,6); s.appendRow([id,d.userId,new Date(),d.name,"'"+d.phone,d.date,d.time,d.guests,"Pending"]); return responseJSON({status:"success",id:id}); }
 function responseJSON(o){ return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON) }
