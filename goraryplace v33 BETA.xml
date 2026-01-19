@@ -1702,10 +1702,29 @@ I18n: {
         transition: (cb) => { const grid = document.getElementById('product-grid-root'); if(grid) grid.innerHTML = Array(4).fill('<div class="col-6 col-md-3"><div class="skeleton" style="height:250px"></div></div>').join(''); setTimeout(() => { if(cb) cb(); }, 300); },
         showCartNotification: () => { const n = document.getElementById('cart-notification'); const c = document.getElementById('cn-count'); if(n && c) { c.innerText = App.State.cart.reduce((a,b)=>a+b.qty, 0); n.classList.add('active'); setTimeout(() => { n.classList.remove('active'); }, 5000); } },
         renderCard: (i, isGrid=true) => { 
-            const stock = App.Utils.checkStock(i); const isWish = App.State.wishlist.includes(String(i.id)); const heartClass = isWish ? 'active' : ''; const heartIcon = isWish ? 'bi-heart-fill text-danger' : 'bi-heart'; const colClass = isGrid ? 'col-6 col-md-4 col-lg-3' : 'col-6 col-md-3'; const displayTitle = App.Utils.getLocalizedText(i.title); const safeId = String(i.id).replace(/'/g, "\\'"); let priceHtml = `<span class="text-primary fw-bold">${App.Utils.fmt(i.price_MAD)}</span>`; if(i.old_price_MAD > i.price_MAD) priceHtml = `<div class="d-flex align-items-center gap-2"><s class="text-muted small">${App.Utils.fmt(i.old_price_MAD)}</s> <span class="text-danger fw-bold">${App.Utils.fmt(i.price_MAD)}</span></div>`; 
-            // NEW (Explicitly ask for 400px):
-			const optImg = App.Utils.optimizeImg(i.image || IMG_FALLBACK, 'w400-h400-c');
-            return `<div class="${colClass}"><div class="product-card h-100">${stock.badge}<div class="product-img-wrapper" onclick="App.QuickView.open('${safeId}')"><img src="${optImg}" class="product-img img-fade" onload="this.style.opacity=1" loading="lazy" /><button class="wish-btn-card ${heartClass}" data-id="${safeId}" onclick="event.stopPropagation(); event.preventDefault(); App.Wishlist.toggle('${safeId}'); return false;" type="button"><i class="bi ${heartIcon}"></i></button></div><div class="p-3"><div class="star-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> <span class="text-muted small">(4.5)</span></div><h6 class="product-title">${displayTitle}</h6><div class="d-flex justify-content-between align-items-center">${priceHtml}<button class="btn btn-sm btn-dark rounded-circle" ${stock.disabled ? 'disabled="disabled"' : ''} onclick="event.stopPropagation(); event.preventDefault(); App.Cart.add('${safeId}', this); return false;" type="button"><i class="bi bi-plus"></i></button></div></div></div></div>`; 
+            const stock = App.Utils.checkStock(i); 
+            const isWish = App.State.wishlist.includes(String(i.id)); 
+            const heartClass = isWish ? 'active' : ''; 
+            const heartIcon = isWish ? 'bi-heart-fill text-danger' : 'bi-heart'; 
+            const colClass = isGrid ? 'col-6 col-md-4 col-lg-3' : 'col-6 col-md-3'; 
+            const displayTitle = App.Utils.getLocalizedText(i.title); 
+            const safeId = String(i.id).replace(/'/g, "\\'"); 
+            
+            // --- NEW: Calculate Qty in Cart ---
+            let cartQty = 0;
+            if(App.State.cart && App.State.cart.length > 0) {
+                 const cartItems = App.State.cart.filter(c => String(c.id) === String(i.id));
+                 cartQty = cartItems.reduce((sum, item) => sum + item.qty, 0);
+            }
+            const qtyBadge = cartQty > 0 ? `<span class="position-absolute top-0 start-0 m-2 badge rounded-pill bg-primary border border-white shadow-sm" style="z-index:5; font-size:0.75rem">${cartQty}</span>` : '';
+            // ----------------------------------
+
+            let priceHtml = `<span class="text-primary fw-bold">${App.Utils.fmt(i.price_MAD)}</span>`; 
+            if(i.old_price_MAD > i.price_MAD) priceHtml = `<div class="d-flex align-items-center gap-2"><s class="text-muted small">${App.Utils.fmt(i.old_price_MAD)}</s> <span class="text-danger fw-bold">${App.Utils.fmt(i.price_MAD)}</span></div>`; 
+            
+            const optImg = App.Utils.optimizeImg(i.image || IMG_FALLBACK, 'w400-h400-c'); 
+            
+            return `<div class="${colClass}"><div class="product-card h-100">${stock.badge}${qtyBadge}<div class="product-img-wrapper" onclick="App.QuickView.open('${safeId}')"><img src="${optImg}" class="product-img img-fade" onload="this.style.opacity=1" loading="lazy" /><button class="wish-btn-card ${heartClass}" data-id="${safeId}" onclick="event.stopPropagation(); event.preventDefault(); App.Wishlist.toggle('${safeId}'); return false;" type="button"><i class="bi ${heartIcon}"></i></button></div><div class="p-3"><div class="star-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i> <span class="text-muted small">(4.5)</span></div><h6 class="product-title">${displayTitle}</h6><div class="d-flex justify-content-between align-items-center">${priceHtml}<button class="btn btn-sm btn-dark rounded-circle" ${stock.disabled ? 'disabled="disabled"' : ''} onclick="event.stopPropagation(); event.preventDefault(); App.Cart.add('${safeId}', this); return false;" type="button"><i class="bi bi-plus"></i></button></div></div></div></div>`; 
         },
         renderQuickView: (p) => { 
             const stock = App.Utils.checkStock(p); 
@@ -1842,7 +1861,11 @@ QuickView: {
             let existing = App.State.cart.find(x => x.id === id && x.variant.name === variant.name && JSON.stringify(x.extras.sort()) === JSON.stringify(extras.sort())); 
             if(existing) { existing.qty += qty; } else { App.State.cart.push({ id: id, qty: qty, title: p.title, price: p.price_MAD, image: p.image, variant: variant, extras: extras }); } 
             App.Utils.save('se_cart', App.State.cart); App.UI.showCartNotification(); App.UI.toast(App.I18n.t('cart_updated'), 'success'); 
+            
+            // Refresh views to show "In Cart" badges
             if(App.State.currentView === 'cart') App.Cart.render(); 
+            if(App.State.currentView === 'home' || App.State.currentView === 'catalog') App.Catalog.renderBatch(false); // Refresh grid to show badges
+
             if(App.State.user) App.API.push('cart'); 
             const isUpsellClick = btn && btn.closest('.custom-toast'); if (!App.State.hasUpsold && !isUpsellClick) { App.UI.checkUpsell(p.category); } 
         },
@@ -1865,6 +1888,18 @@ QuickView: {
                     const hasDrinks = App.State.cart.some(c => { const p = App.State.catalog.find(x => String(x.id) === String(c.id)); return p && (p.category === 'Drinks' || p.category === 'Boissons'); });
                     if(!hasDrinks) { const drinks = App.State.catalog.filter(x => x.category === 'Drinks' || x.category === 'Boissons').slice(0, 4); if(drinks.length > 0) { html += `<div class="mt-4 mb-2"><h6 class="fw-bold small text-muted text-uppercase" data-i18n="msg_upsell_side">${App.I18n.t('msg_upsell_side')}</h6><div class="d-flex gap-2 overflow-auto pb-2" style="scrollbar-width:none">` + drinks.map(d => `<div class="border rounded p-2" style="min-width:140px; background:#fff; cursor:pointer;" onclick="App.Cart.add('${String(d.id).replace(/'/g, "\\'")}', this)"><div class="d-flex align-items-center gap-2"><img src="${d.image || IMG_FALLBACK}" style="width:40px; height:40px; object-fit:cover; border-radius:6px;"><div style="line-height:1.1"><div class="small fw-bold text-truncate" style="max-width:80px">${App.Utils.getLocalizedText(d.title)}</div><div class="small text-primary fw-bold">${App.Utils.fmt(d.price_MAD)}</div></div><div class="ms-auto"><i class="bi bi-plus-circle-fill text-success"></i></div></div></div>`).join('') + `</div></div>`; } }
                     el.innerHTML = html; 
+                    
+                    // --- NEW: AUTO-FILL GUEST INFO ---
+                    if(!App.State.user) {
+                        const guest = JSON.parse(localStorage.getItem('se_guest_info'));
+                        if(guest) {
+                            if(document.getElementById('chk-name')) document.getElementById('chk-name').value = guest.name || '';
+                            if(document.getElementById('chk-phone')) document.getElementById('chk-phone').value = guest.phone || '';
+                            if(document.getElementById('chk-address')) document.getElementById('chk-address').value = guest.address || '';
+                            if(document.getElementById('chk-zone')) document.getElementById('chk-zone').value = guest.zone || '';
+                        }
+                    }
+                    // ---------------------------------
                 } 
                 App.Cart.calculateTotal(); 
             } 
@@ -1894,30 +1929,20 @@ QuickView: {
             const s = document.getElementById('chk-zone'); 
             if(!s) return; 
             s.innerHTML = `<option value="">${App.I18n.t('select_zone_ph')}</option>`; 
-            
             Object.keys(config).forEach(k => { 
                 if(k.startsWith('Delivery_')) { 
                     const zoneName = k.replace('Delivery_', ''); 
-                    
-                    // FIX: Use 'city_' to match your CSV
-                    // AND keep spaces to match "city_ain diab" in your file
-                    const tKey = 'city_' + zoneName.toLowerCase().trim(); 
-                    
+                    const tKey = 'city_' + zoneName.toLowerCase().trim().replace(/\s+/g, '_'); 
                     let label = App.I18n.t(tKey);
-                    
-                    // Fallback: If translation missing, use original name
                     if (label === tKey) label = zoneName; 
-
                     s.innerHTML += `<option value="${zoneName}">${label} (${config[k]} DH)</option>`; 
                 } 
             }); 
         },
-
         fillAddress: () => { const sel = document.getElementById('cart-addr-select'); if(!sel || !sel.value) return; const type = sel.value.toLowerCase(); const data = App.State.addresses[type]; if(data) { document.getElementById('chk-address').value = (typeof data === 'string') ? data : data.full; document.getElementById('chk-zone').focus(); } },
         togglePoints: () => { App.Cart.calculateTotal(); },
         reorder: (itemsJsonStr) => { try { let items = []; if (itemsJsonStr.startsWith('[')) { items = JSON.parse(itemsJsonStr); } else { items = [itemsJsonStr]; } let addedCount = 0; items.forEach(itemStr => { const regex = /^(\d+)x\s(.+)$/; const match = itemStr.match(regex); if (match) { const qty = parseInt(match[1]); let rest = match[2]; let extras = []; if (rest.includes('(') && rest.includes(')')) { const parts = rest.split('('); rest = parts[0].trim(); const extrasStr = parts[1].replace(')', ''); extras = extrasStr.split(',').map(s => s.trim()); } let foundProd = null; for(let i=0; i<App.State.catalog.length; i++) { const p = App.State.catalog[i]; if ( (typeof p.title === 'object' && (p.title.en === rest || p.title.fr === rest || p.title.ar === rest)) || (typeof p.title === 'string' && p.title === rest) ) { foundProd = p; break; } } if (foundProd) { const variant = {mult: 1, name: 'Regular'}; App.Cart.add(foundProd.id, null, qty, variant, extras); addedCount++; } } }); if (addedCount > 0) { App.Router.go('cart'); App.UI.toast(`${addedCount} items added to cart`, 'success'); } else { App.UI.toast("Could not find items", 'danger'); } } catch (e) { console.error("Reorder failed", e); App.UI.toast("Error reordering", 'danger'); } },
         
-        // --- NEW: TOAST REPLACEMENT FOR CHECKOUT ---
         checkout: () => { 
             const n = document.getElementById('chk-name').value;
             const p = document.getElementById('chk-phone').value;
@@ -1963,6 +1988,12 @@ QuickView: {
                         App.Profile.updatePointsUI();
                         App.Utils.save('se_user', App.State.user);
                     }
+
+                    // --- NEW: SAVE GUEST INFO ---
+                    if(!App.State.user) {
+                        localStorage.setItem('se_guest_info', JSON.stringify({ name: n, phone: p, address: a, zone: z }));
+                    }
+                    // ----------------------------
 
                     App.State.cart = []; App.Utils.save('se_cart', []); App.Cart.render(); 
                     
