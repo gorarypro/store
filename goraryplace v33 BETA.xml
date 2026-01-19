@@ -812,49 +812,49 @@
             </div>
         </section>
       
-        <section class='module-section' id='cpanel-module'>
+<section class='module-section' id='cpanel-module'>
             <div class='container'>
                 <div class='d-flex justify-content-between align-items-center mb-4 border-bottom pb-3'>
                     <div>
-                        <h2 class='fw-bold m-0 text-danger'>cPanel</h2>
-                        <small class='text-muted'>Super Admin Access</small>
+                        <h2 class='fw-bold m-0 text-danger' data-i18n='cpanel_title'>cPanel</h2>
+                        <small class='text-muted' data-i18n='cpanel_sub'>Super Admin Access</small>
                     </div>
-                    <button class='btn btn-sm btn-light' onclick='App.Router.go(&apos;home&apos;)'>Exit</button>
+                    <button class='btn btn-sm btn-light' data-i18n='lbl_exit' onclick='App.Router.go(&apos;home&apos;)'>Exit</button>
                 </div>
 
                 <div class='card border-0 shadow-sm mb-4'>
                     <div class='card-header bg-dark text-white fw-bold d-flex justify-content-between align-items-center'>
-                        <span><i class='bi bi-cpu me-2'/> System Modules</span>
-                        <span class='badge bg-secondary' style='font-size:0.7rem'>LIVE CONFIG</span>
+                        <span><i class='bi bi-cpu me-2'/> <span data-i18n='lbl_modules'>System Modules</span></span>
+                        <span class='badge bg-secondary' data-i18n='lbl_live' style='font-size:0.7rem'>LIVE CONFIG</span>
                     </div>
                     <div class='card-body'>
                         <div class='row g-3'>
                             <div class='col-md-6'>
                                 <div class='form-check form-switch p-3 border rounded bg-light'>
                                     <input class='form-check-input' id='cp-mod-wishlist' onchange='App.CPanel.toggleModule(&apos;Module_Wishlist&apos;, this.checked)' type='checkbox'/>
-                                    <label class='form-check-label fw-bold' for='cp-mod-wishlist'>Enable Wishlist</label>
-                                    <div class='small text-muted mt-1'>Allow customers to save favorites.</div>
+                                    <label class='form-check-label fw-bold' data-i18n='cp_wishlist' for='cp-mod-wishlist'>Enable Wishlist</label>
+                                    <div class='small text-muted mt-1' data-i18n='cp_wish_desc'>Allow customers to save favorites.</div>
                                 </div>
                             </div>
                             <div class='col-md-6'>
                                 <div class='form-check form-switch p-3 border rounded bg-light'>
                                     <input class='form-check-input' id='cp-mod-reservation' onchange='App.CPanel.toggleModule(&apos;Module_Reservation&apos;, this.checked)' type='checkbox'/>
-                                    <label class='form-check-label fw-bold' for='cp-mod-reservation'>Enable Reservations</label>
-                                    <div class='small text-muted mt-1'>Turn table booking system on/off.</div>
+                                    <label class='form-check-label fw-bold' data-i18n='cp_res' for='cp-mod-reservation'>Enable Reservations</label>
+                                    <div class='small text-muted mt-1' data-i18n='cp_res_desc'>Turn table booking system on/off.</div>
                                 </div>
                             </div>
                             <div class='col-md-6'>
                                 <div class='form-check form-switch p-3 border rounded bg-light'>
                                     <input class='form-check-input' id='cp-mod-reviews' onchange='App.CPanel.toggleModule(&apos;Module_Reviews&apos;, this.checked)' type='checkbox'/>
-                                    <label class='form-check-label fw-bold' for='cp-mod-reviews'>Enable Reviews</label>
-                                    <div class='small text-muted mt-1'>Allow customers to rate products.</div>
+                                    <label class='form-check-label fw-bold' data-i18n='cp_rev' for='cp-mod-reviews'>Enable Reviews</label>
+                                    <div class='small text-muted mt-1' data-i18n='cp_rev_desc'>Allow customers to rate products.</div>
                                 </div>
                             </div>
                             <div class='col-md-6'>
                                 <div class='form-check form-switch p-3 border rounded bg-light'>
                                     <input class='form-check-input' id='cp-mod-maintenance' onchange='App.CPanel.toggleModule(&apos;Manual_Close&apos;, this.checked)' type='checkbox'/>
-                                    <label class='form-check-label fw-bold text-danger' for='cp-mod-maintenance'>Store Closed (Maintenance)</label>
-                                    <div class='small text-muted mt-1'>Force close the entire store.</div>
+                                    <label class='form-check-label fw-bold text-danger' data-i18n='cp_maint' for='cp-mod-maintenance'>Store Closed (Maintenance)</label>
+                                    <div class='small text-muted mt-1' data-i18n='cp_maint_desc'>Force close the entire store.</div>
                                 </div>
                             </div>
                         </div>
@@ -862,19 +862,18 @@
                 </div>
 
                 <div class='card border-0 shadow-sm'>
-                    <div class='card-header bg-white fw-bold'><i class='bi bi-people-fill me-2'/> User Roles</div>
+                    <div class='card-header bg-white fw-bold'><i class='bi bi-people-fill me-2'/> <span data-i18n='lbl_roles'>User Roles</span></div>
                     <div class='card-body p-0'>
                         <div class='table-responsive' style='max-height: 400px; overflow-y: auto;'>
                             <table class='table table-hover align-middle mb-0'>
                                 <thead class='table-light sticky-top'>
                                     <tr>
-                                        <th>User</th>
-                                        <th>Role</th>
-                                        <th class='text-end'>Action</th>
+                                        <th data-i18n='lbl_name'>User</th>
+                                        <th data-i18n='lbl_role'>Role</th>
+                                        <th class='text-end' data-i18n='lbl_action'>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id='cpanel-user-list'>
-                                    </tbody>
+                                <tbody id='cpanel-user-list'/>
                             </table>
                         </div>
                     </div>
@@ -887,13 +886,13 @@
                 <div class='modal-content border-0 rounded-4 shadow bg-dark text-white'>
                     <div class='modal-body p-4 text-center'>
                         <i class='bi bi-shield-lock-fill display-4 text-danger mb-3'/>
-                        <h5 class='fw-bold mb-3'>SUPER ADMIN</h5>
+                        <h5 class='fw-bold mb-3' data-i18n='cp_login_title'>SUPER ADMIN</h5>
                         <input class='form-control form-control-sm mb-3 text-center bg-secondary border-0 text-white placeholder-light' data-i18n-ph='ph_pin' id='root-pw' placeholder='Root Key' type='password'/>
-                        <button class='btn btn-danger w-100 rounded-pill btn-sm fw-bold' onclick='App.CPanel.login()'>UNLOCK SYSTEM</button>
+                        <button class='btn btn-danger w-100 rounded-pill btn-sm fw-bold' data-i18n='btn_unlock' onclick='App.CPanel.login()'>UNLOCK SYSTEM</button>
                     </div>
                 </div>
             </div>
-        </div>      	
+        </div>    	
       
       	
 		      
@@ -1891,103 +1890,34 @@ QuickView: {
             const container = document.getElementById('available-coupons'); if(!container) return; const subtotal = App.State.cart.reduce((a,b) => a + (b.price * b.variant.mult * b.qty), 0); if(App.State.coupons.length === 0) { container.innerHTML = ''; return; }
             container.innerHTML = `<h6 class="small fw-bold text-muted mb-2">${App.I18n.t('lbl_avail_coupons')}</h6>` + App.State.coupons.map(c => { const isUnlocked = subtotal >= c.min; const diff = c.min - subtotal; const bgClass = isUnlocked ? "bg-light border-success" : "bg-light opacity-75"; const textClass = isUnlocked ? "text-success" : "text-muted"; const btnHtml = isUnlocked ? `<button class="btn btn-sm btn-success rounded-pill px-3" onclick="document.getElementById('coupon-code').value='${c.code}'; App.Cart.applyCoupon()">${App.I18n.t('btn_apply')}</button>` : `<small class="text-danger fw-bold" style="font-size:0.7rem">${App.I18n.t('lbl_add_more')} ${App.Utils.fmt(diff)}</small>`; return `<div class="d-flex justify-content-between align-items-center p-2 mb-2 border rounded ${bgClass}"><div><div class="fw-bold small ${textClass}">${c.code}</div><div class="small text-muted" style="font-size:0.75rem">${c.desc}</div></div>${btnHtml}</div>`; }).join(''); 
         },
-        renderZones: (config) => { const s = document.getElementById('chk-zone'); if(!s) return; s.innerHTML = `<option value="">${App.I18n.t('select_zone_ph')}</option>`; Object.keys(config).forEach(k => { if(k.startsWith('Delivery_')) { const zoneName = k.replace('Delivery_', ''); const tKey = 'zone_' + zoneName.toLowerCase(); const label = (App.State.translations[tKey]) ? App.I18n.t(tKey) : zoneName; s.innerHTML += `<option value="${zoneName}">${label} (${config[k]} DH)</option>`; } }); },
+        renderZones: (config) => { 
+            const s = document.getElementById('chk-zone'); 
+            if(!s) return; 
+            s.innerHTML = `<option value="">${App.I18n.t('select_zone_ph')}</option>`; 
+            
+            Object.keys(config).forEach(k => { 
+                if(k.startsWith('Delivery_')) { 
+                    const zoneName = k.replace('Delivery_', ''); 
+                    
+                    // FIX: Use 'city_' to match your CSV
+                    // AND keep spaces to match "city_ain diab" in your file
+                    const tKey = 'city_' + zoneName.toLowerCase().trim(); 
+                    
+                    let label = App.I18n.t(tKey);
+                    
+                    // Fallback: If translation missing, use original name
+                    if (label === tKey) label = zoneName; 
+
+                    s.innerHTML += `<option value="${zoneName}">${label} (${config[k]} DH)</option>`; 
+                } 
+            }); 
+        },
+
         fillAddress: () => { const sel = document.getElementById('cart-addr-select'); if(!sel || !sel.value) return; const type = sel.value.toLowerCase(); const data = App.State.addresses[type]; if(data) { document.getElementById('chk-address').value = (typeof data === 'string') ? data : data.full; document.getElementById('chk-zone').focus(); } },
         togglePoints: () => { App.Cart.calculateTotal(); },
-        reorder: (itemsJsonStr) => { try { let items = []; if (itemsJsonStr.startsWith('[')) { items = JSON.parse(itemsJsonStr); } else { items = [itemsJsonStr]; } let addedCount = 0; items.forEach(itemStr => { const regex = /^(\d+)x\s(.+)$/; const match = itemStr.match(regex); if (match) { const qty = parseInt(match[1]); let rest = match[2]; let extras = []; if (rest.includes('(') && rest.includes(')')) { const parts = rest.split('('); rest = parts[0].trim(); const extrasStr = parts[1].replace(')', ''); extras = extrasStr.split(',').map(s => s.trim()); } let foundProd = null; for(let i=0; i<App.State.catalog.length; i++) { const p = App.State.catalog[i]; if ( (typeof p.title === 'object' && (p.title.en === rest || p.title.fr === rest || p.title.ar === rest)) || (typeof p.title === 'string' && p.title === rest) ) { foundProd = p; break; } } if (foundProd) { const variant = {mult: 1, name: 'Regular'}; App.Cart.add(foundProd.id, null, qty, variant, extras); addedCount++; } } }); if (addedCount > 0) { App.Router.go('cart'); App.UI.toast(`${addedCount} items added to cart`, 'success'); } else { App.UI.toast("Could not find items", 'error'); } } catch (e) { console.error("Reorder failed", e); App.UI.toast("Error reordering", 'error'); } }
-    },
-
-    // 7.5 WISHLIST
-    Wishlist: {
-        toggle: (id) => {
-            const idx = App.State.wishlist.indexOf(String(id));
-            if(idx > -1) { App.State.wishlist.splice(idx, 1); App.UI.toast(App.I18n.t('msg_wish_removed')); App.UI.updateHearts(id, false); } 
-            else { App.State.wishlist.push(String(id)); App.UI.toast(App.I18n.t('msg_wish_added'), 'success'); App.UI.updateHearts(id, true); const p = App.State.catalog.find(x => String(x.id) === String(id)); if(p && !App.State.hasUpsold) App.UI.checkUpsell(p.category); }
-            App.Utils.save('se_wish', App.State.wishlist); const badge = document.getElementById('nav-wish-count'); if(badge) badge.innerText = App.State.wishlist.length;
-            if(App.State.user) App.API.push('wish');
-            if(App.State.currentView === 'wishlist') App.Wishlist.render();
-        },
-        render: () => {
-            const gridProfile = document.getElementById('profile-wishlist-grid'); const moduleContainer = document.getElementById('wishlist-module');
-            let html = '';
-            if(App.State.wishlist.length === 0) { html = `<div class="col-12 text-center text-muted py-5"><i class="bi bi-heart display-1 text-light"></i><p class="mt-3">${App.I18n.t('wishlist_empty')}</p><button class="btn btn-outline-primary rounded-pill" onclick="App.Router.go('catalog')">${App.I18n.t('btn_shop')}</button></div>`; } 
-            else { const items = App.State.wishlist.map(id => { const p = App.State.catalog.find(x => String(x.id) === String(id)); return p ? App.UI.renderCard(p, true) : ''; }).join(''); html = items; }
-            if(gridProfile) gridProfile.innerHTML = html; if(moduleContainer) { moduleContainer.innerHTML = `<div class="container"><h2 class="fw-bold mb-4">${App.I18n.t('nav_wishlist')}</h2><div class="row gy-4">${html}</div></div>`; }
-        }
-    },
-
-    // 8. API (FIXED: USING showLoader() INSTEAD OF showReload())
-    API: {
-        init: () => {
-            fetch(API_URL + '?action=checkStoreStatus').then(r=>r.json()).then(res => { if(res.status === 'success') { App.Config = {...App.Config, ...res.config, deliveryZones: res.config}; App.Cart.renderZones(res.config); if(!res.isOpen) { const badge = document.getElementById('store-float-badge'); if(badge) badge.classList.add('active'); } } });
-            fetch(API_URL + '?action=getCoupons').then(r=>r.json()).then(res => { if(res.status === 'success') { App.State.coupons = res.data; if(App.Cart.renderCoupons) App.Cart.renderCoupons(); } });
-            fetch(API_URL + '?action=getCatalog').then(r=>r.json()).then(res => { 
-                if(res.status === 'success') { 
-                    App.State.catalog = res.data; 
-                    App.Catalog.renderFilters(); 
-                    App.Catalog.renderBatch(true); 
-                    if(App.Catalog.renderRecent) App.Catalog.renderRecent(); 
-                    // Initial User Fetch
-                    if(App.State.user) App.API.fetchUserData(); 
-                } 
-            });
-            App.I18n.fetch();
-        },
-
-        fetchUserData: (isPolling = false) => {
-            const u = App.State.user;
-            if (!u) return;
-            
-            // FIX: Use showLoader (visual) instead of showReload (refresh)
-            if (!isPolling) App.UI.showLoader();
-
-            fetch(API_URL + '?action=getUserData&userId=' + u.id + '&token=' + u.authToken)
-            .then(r=>r.json()).then(res => {
-                if (!isPolling) App.UI.hideLoader();
-
-                if(res.status === 'success') {
-                    if(res.wishlist) App.State.wishlist = res.wishlist.split(',');
-                    if(res.cart && App.State.cart.length === 0) App.State.cart = JSON.parse(res.cart);
-                    if(res.currency) App.State.currency = res.currency;
-                    if(res.orders) App.State.history = res.orders;
-                    if(res.addresses) App.State.addresses = res.addresses;
-                    if(res.profile && res.profile.points) App.State.user.points = res.profile.points;
-                    
-                    if(res.recent) {
-                         const combined = [...new Set([...res.recent, ...App.State.recent])];
-                         App.State.recent = combined.slice(0, 12);
-                         App.Utils.save('se_recent', App.State.recent);
-                         if(App.Catalog.renderRecent) App.Catalog.renderRecent();
-                    }
-
-                    App.State.exchange['MAD'] = 1;
-                    App.Utils.save('se_user', App.State.user);
-
-                    // Notification Logic
-                    if (res.orders && res.orders.length > 0) {
-                        const latest = res.orders[0];
-                        const storageKey = 'se_last_stat_' + latest.id;
-                        const lastKnownStatus = localStorage.getItem(storageKey);
-                        if (lastKnownStatus && lastKnownStatus !== latest.status) {
-                            const statusKey = 'status_' + latest.status.toLowerCase().replace(/\s/g,'_');
-                            const statusText = App.I18n.t(statusKey) || latest.status;
-                            App.UI.toast(`🔔 Order #${latest.id}: ${statusText}`, 'success');
-                            const audio = document.getElementById('admin-sound');
-                            if(audio) audio.play().catch(e => {});
-                            App.Profile.renderHistory();
-                        }
-                        localStorage.setItem(storageKey, latest.status);
-                    }
-
-                    if (!isPolling) {
-                        App.Cart.render();
-                        App.Auth.check();
-                    }
-                }
-            }).catch(e => { if(!isPolling) App.UI.hideLoader(); });
-        },
-
-        push: (type) => { const u = App.State.user; if(!u) return; let action = '', data = { userId: u.id, authToken: u.authToken }; if(type === 'cart') { action = 'syncCart'; data.cartJson = JSON.stringify(App.State.cart); data.currency = App.State.currency; } if(type === 'wish') { action = 'syncWishlist'; data.items = App.State.wishlist.join(','); } if(type === 'pref') { action = 'updatePreference'; data.currency = App.State.currency; } if(action) fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: action, data: data }) }); },
+        reorder: (itemsJsonStr) => { try { let items = []; if (itemsJsonStr.startsWith('[')) { items = JSON.parse(itemsJsonStr); } else { items = [itemsJsonStr]; } let addedCount = 0; items.forEach(itemStr => { const regex = /^(\d+)x\s(.+)$/; const match = itemStr.match(regex); if (match) { const qty = parseInt(match[1]); let rest = match[2]; let extras = []; if (rest.includes('(') && rest.includes(')')) { const parts = rest.split('('); rest = parts[0].trim(); const extrasStr = parts[1].replace(')', ''); extras = extrasStr.split(',').map(s => s.trim()); } let foundProd = null; for(let i=0; i<App.State.catalog.length; i++) { const p = App.State.catalog[i]; if ( (typeof p.title === 'object' && (p.title.en === rest || p.title.fr === rest || p.title.ar === rest)) || (typeof p.title === 'string' && p.title === rest) ) { foundProd = p; break; } } if (foundProd) { const variant = {mult: 1, name: 'Regular'}; App.Cart.add(foundProd.id, null, qty, variant, extras); addedCount++; } } }); if (addedCount > 0) { App.Router.go('cart'); App.UI.toast(`${addedCount} items added to cart`, 'success'); } else { App.UI.toast("Could not find items", 'danger'); } } catch (e) { console.error("Reorder failed", e); App.UI.toast("Error reordering", 'danger'); } },
+        
+        // --- NEW: TOAST REPLACEMENT FOR CHECKOUT ---
         checkout: () => { 
             const n = document.getElementById('chk-name').value;
             const p = document.getElementById('chk-phone').value;
@@ -1997,9 +1927,9 @@ QuickView: {
             const note = document.getElementById('order-note').value;
             const usePoints = document.getElementById('use-points-switch') ? document.getElementById('use-points-switch').checked : false;
 
-            if(App.State.cart.length === 0) return alert(App.I18n.t('cart_empty'));
-            if(!n || !p || !a || !z) return alert(App.I18n.t('msg_fill_fields'));
-            if(!App.Utils.isValidPhone(p)) return alert(App.I18n.t('msg_invalid_phone'));
+            if(App.State.cart.length === 0) return App.UI.toast(App.I18n.t('cart_empty'), 'warning');
+            if(!n || !p || !a || !z) return App.UI.toast(App.I18n.t('msg_fill_fields'), 'warning');
+            if(!App.Utils.isValidPhone(p)) return App.UI.toast(App.I18n.t('msg_invalid_phone'), 'danger');
             
             const btn = document.getElementById('checkout-btn');
             if(btn) { btn.disabled = true; btn.innerText = App.I18n.t('btn_processing'); } 
@@ -2049,8 +1979,7 @@ QuickView: {
                         msg += `%0A`; 
                     }); 
                     
-                     // NEW (Uses fmtPlain):
-                    msg += `💰 *${wa_total}: ${App.Utils.fmtPlain(res.secureTotal)}*`;
+                    msg += `💰 *${wa_total}: ${App.Utils.fmtPlain(res.secureTotal)}*`; 
                     
                     const waLink = `https://wa.me/${App.Config.waNumber}?text=${msg}`;
 
@@ -2066,15 +1995,108 @@ QuickView: {
                     localStorage.setItem('se_last_stat_' + res.orderId, 'Pending');
 
                 } else { 
-                    alert("Server Error: " + res.message); 
+                    App.UI.toast(res.message, 'danger');
                     if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_checkout'); } 
                 } 
             }).catch(e => { 
                 console.error(e); 
-                alert("Connection failed."); 
+                App.UI.toast(App.I18n.t('err_conn_failed'), 'danger');
                 if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_checkout'); } 
             }); 
+        }
+    },
+
+    // 7.5 WISHLIST
+    Wishlist: {
+        toggle: (id) => {
+            const idx = App.State.wishlist.indexOf(String(id));
+            if(idx > -1) { App.State.wishlist.splice(idx, 1); App.UI.toast(App.I18n.t('msg_wish_removed')); App.UI.updateHearts(id, false); } 
+            else { App.State.wishlist.push(String(id)); App.UI.toast(App.I18n.t('msg_wish_added'), 'success'); App.UI.updateHearts(id, true); const p = App.State.catalog.find(x => String(x.id) === String(id)); if(p && !App.State.hasUpsold) App.UI.checkUpsell(p.category); }
+            App.Utils.save('se_wish', App.State.wishlist); const badge = document.getElementById('nav-wish-count'); if(badge) badge.innerText = App.State.wishlist.length;
+            if(App.State.user) App.API.push('wish');
+            if(App.State.currentView === 'wishlist') App.Wishlist.render();
         },
+        render: () => {
+            const gridProfile = document.getElementById('profile-wishlist-grid'); const moduleContainer = document.getElementById('wishlist-module');
+            let html = '';
+            if(App.State.wishlist.length === 0) { html = `<div class="col-12 text-center text-muted py-5"><i class="bi bi-heart display-1 text-light"></i><p class="mt-3">${App.I18n.t('wishlist_empty')}</p><button class="btn btn-outline-primary rounded-pill" onclick="App.Router.go('catalog')">${App.I18n.t('btn_shop')}</button></div>`; } 
+            else { const items = App.State.wishlist.map(id => { const p = App.State.catalog.find(x => String(x.id) === String(id)); return p ? App.UI.renderCard(p, true) : ''; }).join(''); html = items; }
+            if(gridProfile) gridProfile.innerHTML = html; if(moduleContainer) { moduleContainer.innerHTML = `<div class="container"><h2 class="fw-bold mb-4">${App.I18n.t('nav_wishlist')}</h2><div class="row gy-4">${html}</div></div>`; }
+        }
+    },
+
+    // 8. API (FIXED: USING showLoader() INSTEAD OF showReload())
+    API: {
+        init: () => {
+            fetch(API_URL + '?action=checkStoreStatus').then(r=>r.json()).then(res => { if(res.status === 'success') { App.Config = {...App.Config, ...res.config, deliveryZones: res.config}; App.Cart.renderZones(res.config); if(!res.isOpen) { const badge = document.getElementById('store-float-badge'); if(badge) badge.classList.add('active'); } } });
+            fetch(API_URL + '?action=getCoupons').then(r=>r.json()).then(res => { if(res.status === 'success') { App.State.coupons = res.data; if(App.Cart.renderCoupons) App.Cart.renderCoupons(); } });
+            fetch(API_URL + '?action=getCatalog').then(r=>r.json()).then(res => { 
+                if(res.status === 'success') { 
+                    App.State.catalog = res.data; 
+                    App.Catalog.renderFilters(); 
+                    App.Catalog.renderBatch(true); 
+                    if(App.Catalog.renderRecent) App.Catalog.renderRecent(); 
+                    if(App.State.user) App.API.fetchUserData(); 
+                } 
+            });
+            App.I18n.fetch();
+        },
+
+        fetchUserData: (isPolling = false) => {
+            const u = App.State.user;
+            if (!u) return;
+            
+            // Only show loader if this is NOT a background poll
+            if (!isPolling) App.UI.showLoader();
+
+            fetch(API_URL + '?action=getUserData&userId=' + u.id + '&token=' + u.authToken)
+            .then(r=>r.json()).then(res => {
+                if (!isPolling) App.UI.hideLoader();
+
+                if(res.status === 'success') {
+                    if(res.wishlist) App.State.wishlist = res.wishlist.split(',');
+                    if(res.cart && App.State.cart.length === 0) App.State.cart = JSON.parse(res.cart);
+                    if(res.currency) App.State.currency = res.currency;
+                    if(res.orders) App.State.history = res.orders;
+                    if(res.addresses) App.State.addresses = res.addresses;
+                    if(res.profile && res.profile.points) App.State.user.points = res.profile.points;
+                    
+                    if(res.recent) {
+                         const combined = [...new Set([...res.recent, ...App.State.recent])];
+                         App.State.recent = combined.slice(0, 12);
+                         App.Utils.save('se_recent', App.State.recent);
+                         if(App.Catalog.renderRecent) App.Catalog.renderRecent();
+                    }
+
+                    App.State.exchange['MAD'] = 1;
+                    App.Utils.save('se_user', App.State.user);
+
+                    // Check for order updates
+                    if (res.orders && res.orders.length > 0) {
+                        const latest = res.orders[0];
+                        const storageKey = 'se_last_stat_' + latest.id;
+                        const lastKnownStatus = localStorage.getItem(storageKey);
+                        if (lastKnownStatus && lastKnownStatus !== latest.status) {
+                            const statusKey = 'status_' + latest.status.toLowerCase().replace(/\s+/g,'_');
+                            const statusText = App.I18n.t(statusKey) === statusKey ? latest.status : App.I18n.t(statusKey);
+                            App.UI.toast(`🔔 Order #${latest.id}: ${statusText}`, 'success');
+                            const audio = document.getElementById('admin-sound');
+                            if(audio) audio.play().catch(e => {});
+                            App.Profile.renderHistory();
+                        }
+                        localStorage.setItem(storageKey, latest.status);
+                    }
+
+                    if (!isPolling) {
+                        App.Cart.render();
+                        App.Auth.check();
+                    }
+                }
+            }).catch(e => { if(!isPolling) App.UI.hideLoader(); });
+        },
+
+        push: (type) => { const u = App.State.user; if(!u) return; let action = '', data = { userId: u.id, authToken: u.authToken }; if(type === 'cart') { action = 'syncCart'; data.cartJson = JSON.stringify(App.State.cart); data.currency = App.State.currency; } if(type === 'wish') { action = 'syncWishlist'; data.items = App.State.wishlist.join(','); } if(type === 'pref') { action = 'updatePreference'; data.currency = App.State.currency; } if(action) fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: action, data: data }) }); },
+        
         bookTable: () => {
              const d = {
                 name: document.getElementById('res-name').value,
@@ -2084,7 +2106,7 @@ QuickView: {
                 guests: document.getElementById('res-guests').value,
                 userId: App.State.user ? App.State.user.id : 'Guest'
             };
-            if(!d.name || !d.phone || !d.date || !d.time) return alert(App.I18n.t('msg_fill_fields'));
+            if(!d.name || !d.phone || !d.date || !d.time) return App.UI.toast(App.I18n.t('msg_fill_fields'), 'warning');
             
             const btn = document.getElementById('btn-book-table');
             btn.disabled = true; 
@@ -2093,14 +2115,15 @@ QuickView: {
             fetch(API_URL, {method:'POST', body:JSON.stringify({action:'bookTable', data:d})}).then(r=>r.json()).then(res=>{
                 btn.disabled = false; btn.innerText = App.I18n.t('btn_book_now');
                 if(res.status==='success') {
-                    alert(App.I18n.t('msg_res_sent'));
+                    App.UI.toast(App.I18n.t('msg_booked'), 'success');
                     App.Router.go('home');
-                } else alert(res.message);
+                } else App.UI.toast(res.message, 'danger');
             });
         },
+        
         submitReview: () => {
-            if(!App.State.user) return alert("Login to review");
-            if(App.State.tempRating === 0) return alert("Select a star rating");
+            if(!App.State.user) return App.UI.toast("Login to review", 'warning');
+            if(App.State.tempRating === 0) return App.UI.toast("Select a star rating", 'warning');
             const txt = document.getElementById('review-comment').value;
             fetch(API_URL, {method:'POST', body:JSON.stringify({action:'submitReview', data:{
                 userId: App.State.user.id,
@@ -2110,7 +2133,7 @@ QuickView: {
                 comment: txt
             }})}).then(r=>r.json()).then(res=>{
                 if(res.status==='success') {
-                    App.UI.toast("Review Submitted!");
+                    App.UI.toast(App.I18n.t('msg_rev_sub'), 'success');
                     bootstrap.Modal.getInstance(document.getElementById('reviewModal')).hide();
                 }
             });
@@ -2120,6 +2143,94 @@ QuickView: {
             const u = App.State.user;
             if(!u) return;
             fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'updateUser', data: { userId: u.id, authToken: u.authToken, lang: l } }) });
+        },
+
+        // --- CHECKOUT FUNCTION (Moved Here to Fix Error) ---
+        checkout: () => { 
+            const n = document.getElementById('chk-name').value;
+            const p = document.getElementById('chk-phone').value;
+            const a = document.getElementById('chk-address').value;
+            const z = document.getElementById('chk-zone').value;
+            const m = document.getElementById('chk-payment') ? document.getElementById('chk-payment').value : 'cod';
+            const note = document.getElementById('order-note').value;
+            const usePoints = document.getElementById('use-points-switch') ? document.getElementById('use-points-switch').checked : false;
+
+            if(App.State.cart.length === 0) return App.UI.toast(App.I18n.t('cart_empty'), 'warning');
+            if(!n || !p || !a || !z) return App.UI.toast(App.I18n.t('msg_fill_fields'), 'warning');
+            if(!App.Utils.isValidPhone(p)) return App.UI.toast(App.I18n.t('msg_invalid_phone'), 'danger');
+            
+            const btn = document.getElementById('checkout-btn');
+            if(btn) { btn.disabled = true; btn.innerText = App.I18n.t('btn_processing'); } 
+            
+            const cartData = App.State.cart.map(i => {
+                let cleanTitle = i.title;
+                if (typeof i.title === 'object' && i.title !== null) {
+                    cleanTitle = i.title[App.State.lang] || i.title['en'] || "Item";
+                }
+                return { id: i.id, qty: i.qty, variantMult: i.variant.mult, title: cleanTitle, extras: i.extras };
+            });
+
+            const orderData = { 
+                userId: App.State.user ? App.State.user.id : 'Guest', 
+                authToken: App.State.user ? App.State.user.authToken : null, 
+                name: n, phone: p, zone: z, address: `${z} - ${a}`, 
+                cart: JSON.stringify(cartData), method: m, 
+                couponCode: App.State.activeCoupon ? App.State.activeCoupon.code : null,
+                usePoints: usePoints
+            }; 
+            
+            fetch(API_URL, { method: 'POST', headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: 'placeOrder', data: orderData }) })
+            .then(r => r.json()).then(res => { 
+                if(res.status === 'success') { 
+                    App.State.cart.forEach(c => { if(!App.State.wishlist.includes(String(c.id))) App.State.wishlist.push(String(c.id)); }); 
+                    App.Utils.save('se_wish', App.State.wishlist); 
+                    if(App.State.user) App.API.push('wishlist'); 
+                    
+                    if(App.State.user && res.pointsRedeemed > 0) {
+                        App.State.user.points = Math.max(0, App.State.user.points - res.pointsRedeemed);
+                        App.Profile.updatePointsUI();
+                        App.Utils.save('se_user', App.State.user);
+                    }
+
+                    App.State.cart = []; App.Utils.save('se_cart', []); App.Cart.render(); 
+                    
+                    const wa_new_order = App.I18n.t('wa_new_order'); 
+                    const wa_total = App.I18n.t('wa_total'); 
+                    const wa_1h = App.I18n.t('wa_1h'); 
+                    
+                    let msg = `*${wa_new_order} ${res.orderId}*%0A`; 
+                    msg += `👤 ${n} (${p})%0A🚚 ${orderData.address}%0A💳 ${m === 'cp' ? 'Cash Plus' : 'COD'}%0A🕒 ${wa_1h}%0A📝 ${note}%0A--------------------%0A`; 
+                    
+                    cartData.forEach(i => { 
+                        msg += `🍱 ${i.qty}x ${i.title}`; 
+                        if(i.extras && i.extras.length>0) msg+= ` + ${i.extras.join(',')}`; 
+                        msg += `%0A`; 
+                    }); 
+                    
+                    msg += `💰 *${wa_total}: ${App.Utils.fmtPlain(res.secureTotal)}*`; 
+                    
+                    const waLink = `https://wa.me/${App.Config.waNumber}?text=${msg}`;
+
+                    document.getElementById('cart-content').classList.add('d-none'); 
+                    document.getElementById('cart-empty-state').classList.add('d-none');
+                    const container = document.getElementById('cart-module').querySelector('.container');
+                    container.innerHTML = `<div class="text-center py-5 fade-in"><div class="mb-4"><i class="bi bi-check-circle-fill text-success display-1"></i></div><h2 class="fw-bold mb-3">${App.I18n.t('msg_order_confirmed')}</h2><p class="text-muted mb-4 lead">${App.I18n.t('msg_order_redirect')}</p><a href="${waLink}" target="_blank" class="btn btn-success rounded-pill px-5 py-3 fw-bold shadow mb-4"><i class="bi bi-whatsapp me-2"></i> ${App.I18n.t('btn_whatsapp')}</a><br/><button class="btn btn-link text-muted text-decoration-none" onclick="location.reload()">${App.I18n.t('btn_back_home')}</button></div>`;
+                    const sticky = document.getElementById('sticky-checkout-bar'); 
+                    if(sticky) sticky.remove();
+                    
+                    if(window.confetti) confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+
+                    localStorage.setItem('se_last_stat_' + res.orderId, 'Pending');
+
+                } else { 
+                    App.UI.toast(res.message, 'danger');
+                    if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_checkout'); } 
+                } 
+            }).catch(e => { 
+                console.error(e); 
+                App.UI.toast(App.I18n.t('err_conn_failed'), 'danger');
+                if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_checkout'); } 
+            }); 
         }
     },
 
@@ -2282,7 +2393,7 @@ QuickView: {
             const input = document.getElementById('addr-street');
             const btn = document.getElementById('btn-gps-action');
             if(mode === 'gps') {
-                input.value = ''; input.placeholder = App.I18n.t('ph_street_gps'); input.readOnly = true; btn.classList.remove('d-none');
+                input.value = ''; input.placeholder = App.I18n.t('ph_street_gps') || "GPS Location..."; input.readOnly = true; btn.classList.remove('d-none');
             } else {
                 input.placeholder = App.I18n.t('ph_street_manual'); input.readOnly = false; btn.classList.add('d-none');
             }
@@ -2311,7 +2422,7 @@ QuickView: {
             modal.show(); 
         },
         getLocation: (btn) => {
-            if (!navigator.geolocation) return alert(App.I18n.t('err_geo_not_supported'));
+            if (!navigator.geolocation) return App.UI.toast(App.I18n.t('err_geo_not_supported'), 'danger');
             const originalHtml = btn.innerHTML;
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
@@ -2323,40 +2434,37 @@ QuickView: {
                 btn.disabled = false; btn.innerHTML = originalHtml; btn.classList.replace('btn-danger', 'btn-success');
                 App.UI.toast(App.I18n.t('msg_location_found'), "success");
             }, (error) => {
-                console.error("Geo Error:", error); btn.disabled = false; btn.innerHTML = originalHtml; alert(App.I18n.t('err_geo_failed'));
+                console.error("Geo Error:", error); btn.disabled = false; btn.innerHTML = originalHtml; 
+                App.UI.toast(App.I18n.t('err_geo_failed'), 'danger');
             }, { enableHighAccuracy: true, timeout: 10000 });
         },
-		cancelOrder: (oid) => {
-			// FIX 1: Use I18n for confirmation
-            if(!confirm(App.I18n.t('msg_confirm_cancel'))) return;
-            
-            const btn = document.getElementById('btn-cancel-order');
-            // FIX 2: Use I18n for button loading state
-            if(btn) { btn.disabled = true; btn.innerText = App.I18n.t('btn_cancelling'); }
+        // --- ASYNC CONFIRM FIX ---
+        cancelOrder: (oid) => {
+            App.UI.confirm(App.I18n.t('msg_confirm_cancel'), "", () => {
+                const btn = document.getElementById('btn-cancel-order');
+                if(btn) { btn.disabled = true; btn.innerText = App.I18n.t('btn_cancelling'); }
 
-            fetch(API_URL, {
-                method: 'POST',
-                body: JSON.stringify({
-                    action: 'cancelOrder',
-                    data: { 
-                        userId: App.State.user.id, 
-                        authToken: App.State.user.authToken,
-                        orderId: oid 
-                    }
+                fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'cancelOrder',
+                        data: { userId: App.State.user.id, authToken: App.State.user.authToken, orderId: oid }
+                    })
                 })
-            })
-            .then(r => r.json())
-            .then(res => {
-                if(res.status === 'success') {
-					App.UI.toast(App.I18n.t('msg_order_cancelled'), "success");
-                    bootstrap.Modal.getInstance(document.getElementById('orderDetailModal')).hide();
-                    App.Profile.renderHistory(); // Refresh list
-                } else {
-                    alert(res.message);
-                    if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_cancel_order'); }
-                }
+                .then(r => r.json())
+                .then(res => {
+                    if(res.status === 'success') {
+                        App.UI.toast(App.I18n.t('msg_order_cancelled'), "success");
+                        bootstrap.Modal.getInstance(document.getElementById('orderDetailModal')).hide();
+                        App.Profile.renderHistory(); 
+                    } else {
+                        App.UI.toast(res.message, 'danger');
+                        if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_cancel_order'); }
+                    }
+                });
             });
         },
+        // -------------------------
         renderAddresses: () => { 
             const c = document.getElementById('address-list-grid'); if(!c) return; c.innerHTML = ''; 
             const a = App.State.addresses; let html = ''; 
@@ -2372,15 +2480,15 @@ QuickView: {
             return `<div class="col-md-6"><div class="address-card"><span class="address-tag" data-i18n="${labelKey}">${App.I18n.t(labelKey)}</span><h6 class="fw-bold mb-3">${icon}</h6><p class="small text-muted mb-3 text-truncate">${display}</p><button class="btn btn-sm btn-outline-dark rounded-pill px-3" onclick="App.Profile.openAddressModal('${type}')" data-i18n="btn_edit">Edit</button></div></div>`; 
         },
         saveAddress: () => { 
-            if(!App.State.user) return alert(App.I18n.t('err_login_first'));
+            if(!App.State.user) return App.UI.toast(App.I18n.t('err_login_first'), 'danger');
             const btn = document.getElementById('save-addr-btn'); 
             if(btn) { btn.disabled = true; btn.innerText = App.I18n.t('btn_saving'); } 
             const getVal = (id) => { const el = document.getElementById(id); return el ? el.value : ""; }; 
             const type = getVal('addr-type'); 
             const addrData = { name: getVal('addr-name'), street: getVal('addr-street'), apt: getVal('addr-apt'), city: getVal('addr-city'), zip: getVal('addr-zip'), country: getVal('addr-country'), full: `${getVal('addr-street')} ${getVal('addr-apt')}, ${getVal('addr-city')}` }; 
-            if(!addrData.street) { if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_save_addr'); } return alert('Enter Address'); } 
+            if(!addrData.street) { if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_save_addr'); } return App.UI.toast(App.I18n.t('msg_enter_address'), 'warning'); } 
             fetch(API_URL, { method:'POST', body:JSON.stringify({ action: 'updateAddress', data: { userId: App.State.user.id, authToken: App.State.user.authToken, type: type, addressJson: JSON.stringify(addrData) } }) })
-            .then(r=>r.json()).then(res=>{ if(res.status==='success') { if(type==='Home') App.State.addresses.home = addrData; else App.State.addresses.office = addrData; App.Profile.renderAddresses(); bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide(); App.UI.toast(App.I18n.t('msg_addr_saved')); } else { alert("Save failed: " + res.message); } if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_save_addr'); } }).catch(e => { alert("Error saving"); if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_save_addr'); } }); 
+            .then(r=>r.json()).then(res=>{ if(res.status==='success') { if(type==='Home') App.State.addresses.home = addrData; else App.State.addresses.office = addrData; App.Profile.renderAddresses(); bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide(); App.UI.toast(App.I18n.t('msg_addr_saved'), 'success'); } else { App.UI.toast("Save failed: " + res.message, 'danger'); } if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_save_addr'); } }).catch(e => { App.UI.toast("Error saving", 'danger'); if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_save_addr'); } }); 
         },
         saveSettings: () => { 
             if(!App.State.user) return;
@@ -2390,46 +2498,22 @@ QuickView: {
             const e = document.getElementById('setting-email').value; 
             const p = document.getElementById('setting-phone').value; 
             fetch(API_URL, {method:'POST', body:JSON.stringify({ action: 'updateUser', data: { userId: App.State.user.id, authToken: App.State.user.authToken, name: n, email: e, phone: p } })})
-            .then(r=>r.json()).then(res=>{ if(res.status==='success') App.UI.toast(App.I18n.t('msg_settings_saved')); if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_save_changes'); } }); 
+            .then(r=>r.json()).then(res=>{ if(res.status==='success') App.UI.toast(App.I18n.t('msg_settings_saved'), 'success'); if(btn) { btn.disabled = false; btn.innerText = App.I18n.t('btn_save_changes'); } }); 
         },
         renderHistory: () => { 
-            const list = document.getElementById('order-history-list'); 
-            if(!list) return; 
-            
-            if(App.State.history.length === 0) { 
-                list.innerHTML = `<p class="text-muted small py-2">${App.I18n.t('history_empty')}</p>`; 
-                return; 
-            } 
-            
+            const list = document.getElementById('order-history-list'); if(!list) return; 
+            if(App.State.history.length === 0) { list.innerHTML = `<p class="text-muted small py-2">${App.I18n.t('history_empty')}</p>`; return; } 
             list.innerHTML = ''; 
             App.State.history.forEach(o => { 
                 const displayTotal = App.Utils.fmt(parseFloat(o.total)) || "0.00 DH"; 
                 let thumbsHtml = ''; 
                 try { 
                     const items = JSON.parse(o.items); 
-                    if(items && items.length) { 
-                        thumbsHtml = items.slice(0, 3).map(item => { 
-                            var img = IMG_FALLBACK; 
-                            if (typeof item === 'object' && item.image) { img = item.image; } 
-                            else { 
-                                // Fallback image finder
-                                let searchStr = (typeof item === 'string') ? item : (item.title ? (item.title.en || item.title) : ''); 
-                                for (var k = 0; k < App.State.catalog.length; k++) { 
-                                    var prod = App.State.catalog[k]; 
-                                    if(typeof item === 'object' && item.id && String(item.id) === String(prod.id)) { img = prod.image; break; } 
-                                    if (JSON.stringify(prod.title).includes(searchStr)) { img = prod.image; break; } 
-                                } 
-                            } 
-                            return `<img src="${App.Utils.optimizeImg(img, 'w100-h100-c')}" class="order-thumb-img"/>`; 
-                        }).join(''); 
-                    } 
-                } catch(e) {} 
+                    if(items && items.length) { thumbsHtml = items.slice(0, 3).map(item => { var img = IMG_FALLBACK; if (typeof item === 'object' && item.image) { img = item.image; } else { let searchStr = (typeof item === 'string') ? item : (item.title ? (item.title.en || item.title) : ''); for (var k = 0; k < App.State.catalog.length; k++) { var prod = App.State.catalog[k]; if(typeof item === 'object' && item.id && String(item.id) === String(prod.id)) { img = prod.image; break; } if (JSON.stringify(prod.title).includes(searchStr)) { img = prod.image; break; } } } return `<img src="${App.Utils.optimizeImg(img, 'w100-h100-c')}" class="order-thumb-img"/>`; }).join(''); } 
+                } catch(e) { console.error("History Render Error", e); } 
                 
-                // FIX: Standardize Status Key (Replace spaces with underscores)
-                // Result: "On the Way" -> "status_on_the_way"
                 const statusKey = 'status_' + o.status.toLowerCase().replace(/\s+/g, '_');
                 const displayStatus = App.I18n.t(statusKey) === statusKey ? o.status : App.I18n.t(statusKey);
-
                 const statusClass = (o.status === 'Completed' || o.status === 'Sent' || o.status === 'Delivered') ? 'status-pill-completed' : 'status-pill-processing'; 
                 
                 list.innerHTML += `<div class="order-card-modern"><div class="d-flex justify-content-between mb-3"><span class="fw-bold text-dark">#${o.id}</span><span class="text-muted small">${new Date(o.date).toLocaleDateString()}</span></div><div class="order-thumbs d-flex gap-2 mb-3">${thumbsHtml}</div><div class="d-flex justify-content-between align-items-center mb-2"><span class="text-muted">${App.I18n.t('lbl_status')}</span><span class="${statusClass}">${displayStatus}</span></div><div class="d-flex justify-content-between align-items-center mb-3"><span class="text-muted">${App.I18n.t('lbl_total')}</span><span class="fw-bold fs-5">${displayTotal}</span></div><div class="d-flex gap-2"><button class="btn btn-primary flex-grow-1 rounded-pill" onclick="App.Profile.showOrderDetail('${o.id}')">${App.I18n.t('btn_track')}</button><button class="btn btn-light flex-grow-1 rounded-pill" onclick="App.Profile.showOrderDetail('${o.id}')">${App.I18n.t('btn_details')}</button><button class="btn btn-outline-primary flex-grow-1 rounded-pill" onclick="App.Cart.reorder('${o.items.replace(/"/g, '"')}')"><i class="bi bi-arrow-repeat"></i> ${App.I18n.t('btn_reorder')}</button></div></div>`; 
@@ -2438,71 +2522,37 @@ QuickView: {
         showOrderDetail: (id) => { 
             const o = App.State.history.find(x => x.id === id); 
             if(!o) return; 
-            
-            // FIX: Translated fallback text
-            let itemsHtml = `<p class="text-muted">${App.I18n.t('msg_no_details') || "No details"}</p>`; 
+            let itemsHtml = `<p class="text-muted">${App.I18n.t('msg_no_details')}</p>`;
             try { 
                 const items = JSON.parse(o.items); 
                 if(items && items.length) { 
                     itemsHtml = `<div class="bg-light p-3 rounded mb-3">` + items.map(i => { 
                         let title = "", qty = 1, img = IMG_FALLBACK, unitPrice = 0, pid = null; 
-                        if (typeof i === 'object') { 
-                            qty = i.qty; 
-                            // FIX: Ensure title is localized
-                            title = App.Utils.getLocalizedText(i.title); 
-                            img = i.image || IMG_FALLBACK; 
-                            unitPrice = i.price; 
-                            pid = i.id; 
-                        } else { title = String(i); } 
-                        
+                        if (typeof i === 'object') { qty = i.qty; title = App.Utils.getLocalizedText(i.title); img = i.image || IMG_FALLBACK; unitPrice = i.price; pid = i.id; } else { title = String(i); } 
                         const subtotal = unitPrice * qty; 
                         const displayPrice = unitPrice > 0 ? App.Utils.fmt(subtotal) : ''; 
-                        
-                        // FIX: Translate 'Write a Review'
                         const reviewBtn = (o.status === 'Completed' && pid) ? `<button class="btn btn-link btn-sm text-decoration-none p-0 ms-2" onclick="App.UI.openReviewModal('${pid}')"><small>★ ${App.I18n.t('btn_write_review')}</small></button>` : ''; 
-                        
                         return `<div class="order-detail-row"><img src="${App.Utils.optimizeImg(img)}" class="od-img"/><div><div class="fw-bold small">${qty}x ${title}</div><div class="text-primary small fw-bold">${displayPrice} ${reviewBtn}</div></div></div>`; 
                     }).join('') + `</div>`; 
                 } 
             } catch(e) {} 
-            
             let totalVal = parseFloat(o.total) || 0; 
             const statuses = ['Pending', 'Preparing', 'On the Way', 'Delivered']; 
             let currentStep = statuses.indexOf(o.status); 
             if(o.status === 'Completed') currentStep = 3; 
             if(currentStep === -1) currentStep = 0; 
-            
             const timelineHtml = `<div class="timeline">` + statuses.map((s, idx) => { 
                 const isActive = idx <= currentStep ? 'active' : ''; 
-                // FIX: Standardize status key generation
                 const statusKey = 'status_' + s.toLowerCase().replace(/\s+/g,'_'); 
-                const statusLabel = App.I18n.t(statusKey);
-                // Fallback to original English if translation is missing (prevents displaying key)
-                const displayStatus = (statusLabel === statusKey) ? s : statusLabel;
-
-                return `<div class="timeline-item ${isActive}"><span class="small ${isActive ? 'fw-bold text-success' : 'text-muted'}">${displayStatus}</span></div>`; 
+                return `<div class="timeline-item ${isActive}"><span class="small ${isActive ? 'fw-bold text-success' : 'text-muted'}">${App.I18n.t(statusKey) || s}</span></div>`; 
             }).join('') + `</div>`; 
-            
-            // --- LOGIC: Show Cancel Button ONLY if Pending ---
             let actionButtons = `<button class="btn btn-outline-dark w-100 rounded-pill mt-4" data-bs-dismiss="modal">${App.I18n.t('btn_close')}</button>`;
-            
             if (o.status === 'Pending') {
-                // FIX: Translate 'Cancel Order' button
-                actionButtons = `
-                    <div class="d-flex gap-2 mt-4">
-                        <button class="btn btn-outline-dark flex-grow-1 rounded-pill" data-bs-dismiss="modal">${App.I18n.t('btn_close')}</button>
-                        <button id="btn-cancel-order" class="btn btn-danger flex-grow-1 rounded-pill fw-bold" onclick="App.Profile.cancelOrder('${o.id}')">${App.I18n.t('btn_cancel_order') || "Cancel Order"}</button>
-                    </div>
-                `;
+                actionButtons = `<div class="d-flex gap-2 mt-4"><button class="btn btn-outline-dark flex-grow-1 rounded-pill" data-bs-dismiss="modal">${App.I18n.t('btn_close')}</button><button id="btn-cancel-order" class="btn btn-danger flex-grow-1 rounded-pill fw-bold" onclick="App.Profile.cancelOrder('${o.id}')">${App.I18n.t('btn_cancel_order') || "Cancel Order"}</button></div>`;
             }
-            // -------------------------------------------------
-
-            // FIX: Translate top status badge
             const mainStatusKey = 'status_' + o.status.toLowerCase().replace(/\s+/g,'_');
             const mainStatusLabel = App.I18n.t(mainStatusKey) === mainStatusKey ? o.status : App.I18n.t(mainStatusKey);
-
             const html = `<div class="p-3"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="m-0 fw-bold">#${o.id}</h5><span class="badge bg-primary">${mainStatusLabel}</span></div><h6 class="small fw-bold text-muted mb-2 text-uppercase">${App.I18n.t('lbl_timeline')}</h6>${timelineHtml}${itemsHtml}<div class="d-flex justify-content-between fw-bold border-top pt-3"><span>${App.I18n.t('total_caps')}</span><span class="text-primary">${App.Utils.fmt(totalVal)}</span></div>${actionButtons}</div>`; 
-            
             document.getElementById('order-detail-body').innerHTML = html; 
             new bootstrap.Modal(document.getElementById('orderDetailModal')).show(); 
         },
@@ -2655,11 +2705,11 @@ QuickView: {
     },
     
     // 16. DRIVER
-    Driver: { 
+	Driver: { 
         openLogin: () => new bootstrap.Modal(document.getElementById('driverLoginModal')).show(),
         login: () => { 
-            const input = document.getElementById('driver-pin').value; if(!input) return alert(App.I18n.t('err_enter_pin')); 
-            fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'driverLogin', data: { pin: input } }) }).then(r => r.json()).then(res => { if(res.status === 'success') { App.State.adminPw = input; bootstrap.Modal.getInstance(document.getElementById('driverLoginModal')).hide(); App.Driver.fetchOrders(); App.Router.go('driver'); if(App.Driver.interval) clearInterval(App.Driver.interval); App.Driver.interval = setInterval(App.Driver.fetchOrders, 15000); } else alert("❌ " + App.I18n.t('err_wrong_pin')); }); 
+            const input = document.getElementById('driver-pin').value; if(!input) return App.UI.toast(App.I18n.t('err_enter_pin'), 'warning'); 
+            fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'driverLogin', data: { pin: input } }) }).then(r => r.json()).then(res => { if(res.status === 'success') { App.State.adminPw = input; bootstrap.Modal.getInstance(document.getElementById('driverLoginModal')).hide(); App.Driver.fetchOrders(); App.Router.go('driver'); if(App.Driver.interval) clearInterval(App.Driver.interval); App.Driver.interval = setInterval(App.Driver.fetchOrders, 15000); } else App.UI.toast("❌ " + App.I18n.t('err_wrong_pin'), 'danger'); }); 
         },
         fetchOrders: () => { 
             if(!App.State.adminPw) return; 
@@ -2682,14 +2732,25 @@ QuickView: {
         rootKey: null,
         login: () => {
             const k = document.getElementById('root-pw').value; if(!k) return;
-            const btn = document.querySelector('#cPanelLoginModal button'); const oldText = btn.innerText; btn.innerText = "ACCESSING...";
+            const btn = document.querySelector('#cPanelLoginModal button'); 
+            const oldText = btn.innerText; 
+            btn.innerText = App.I18n.t('msg_accessing') || "ACCESSING...";
+            
             fetch(API_URL + '?action=getSuperAdminData&rootPw=' + k).then(r=>r.json()).then(res => {
                 if(res.status === 'success') {
-                    App.CPanel.rootKey = k; const modal = bootstrap.Modal.getInstance(document.getElementById('cPanelLoginModal')); if(modal) modal.hide();
-                    App.CPanel.render(res.config, res.users); App.Router.go('admin'); 
+                    App.CPanel.rootKey = k; 
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('cPanelLoginModal')); 
+                    if(modal) modal.hide();
+                    App.CPanel.render(res.config, res.users); 
+                    App.Router.go('admin'); 
                     document.querySelectorAll('.module-section').forEach(e => { e.classList.remove('active'); e.style.display='none'; });
-                    const cp = document.getElementById('cpanel-module'); cp.style.display='block'; setTimeout(()=>cp.classList.add('active'), 10);
-                } else { alert("ACCESS DENIED"); } btn.innerText = oldText;
+                    const cp = document.getElementById('cpanel-module'); 
+                    cp.style.display='block'; 
+                    setTimeout(()=>cp.classList.add('active'), 10);
+                } else { 
+                    App.UI.toast(App.I18n.t('err_denied'), 'danger'); 
+                } 
+                btn.innerText = oldText;
             });
         },
         render: (config, users) => {
@@ -2701,16 +2762,60 @@ QuickView: {
             }
             const list = document.getElementById('cpanel-user-list');
             if(list && users) {
-                list.innerHTML = users.map(u => `<tr><td><div class="fw-bold text-truncate" style="max-width:120px">${u.name}</div><div class="small text-muted" style="font-size:0.7rem">${u.phone}</div></td><td><span class="badge ${u.role==='admin'?'bg-danger':'bg-secondary'}">${u.role}</span></td><td class="text-end"><div class="dropdown"><button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></button><ul class="dropdown-menu dropdown-menu-end shadow border-0"><li><h6 class="dropdown-header">Assign Role</h6></li><li><a class="dropdown-item" href="#" onclick="App.CPanel.updateRole('${u.id}', 'customer')">Customer</a></li><li><a class="dropdown-item" href="#" onclick="App.CPanel.updateRole('${u.id}', 'driver')">Driver</a></li><li><hr class="dropdown-divider"></li><li><a class="dropdown-item text-danger fw-bold" href="#" onclick="App.CPanel.updateRole('${u.id}', 'admin')">Make Admin</a></li></ul></div></td></tr>`).join('');
+                // Translated text for dropdown items
+                const lblAssign = App.I18n.t('lbl_assign');
+                const lblAdmin = App.I18n.t('btn_make_admin');
+                
+                list.innerHTML = users.map(u => `
+                    <tr>
+                        <td>
+                            <div class="fw-bold text-truncate" style="max-width:120px">${u.name}</div>
+                            <div class="small text-muted" style="font-size:0.7rem">${u.phone}</div>
+                        </td>
+                        <td><span class="badge ${u.role==='admin'?'bg-danger':'bg-secondary'}">${u.role}</span></td>
+                        <td class="text-end">
+                            <div class="dropdown">
+                                <button class="btn btn-link text-dark p-0" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                    <li><h6 class="dropdown-header">${lblAssign}</h6></li>
+                                    <li><a class="dropdown-item" href="#" onclick="App.CPanel.updateRole('${u.id}', 'customer')">Customer</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="App.CPanel.updateRole('${u.id}', 'driver')">Driver</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-danger fw-bold" href="#" onclick="App.CPanel.updateRole('${u.id}', 'admin')">${lblAdmin}</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>`).join('');
             }
         },
         toggleModule: (key, state) => {
-            if(!App.CPanel.rootKey) return; App.UI.toast(`Updating ${key}...`);
-            fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'updateConfig', data: { rootPassword: App.CPanel.rootKey, key: key, value: state } }) }).then(r=>r.json()).then(res=>{ if(res.status==='success') App.UI.toast("System Updated", "success"); else alert("Update Failed"); });
+            if(!App.CPanel.rootKey) return; 
+            App.UI.toast(`${App.I18n.t('msg_updating')} ${key}...`);
+            fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'updateConfig', data: { rootPassword: App.CPanel.rootKey, key: key, value: state } }) })
+            .then(r=>r.json())
+            .then(res=>{ 
+                if(res.status==='success') App.UI.toast(App.I18n.t('msg_sys_updated'), "success"); 
+                else App.UI.toast(App.I18n.t('err_update_failed') || "Update Failed", "danger"); 
+            });
         },
         updateRole: (uid, role) => {
-            if(!App.CPanel.rootKey) return; if(!confirm(`Promote user to ${role}?`)) return;
-            fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'updateUserRole', data: { rootPassword: App.CPanel.rootKey, targetId: uid, role: role } }) }).then(r=>r.json()).then(res=>{ if(res.status==='success') { App.UI.toast("User Role Updated", "success"); fetch(API_URL + '?action=getSuperAdminData&rootPw=' + App.CPanel.rootKey).then(r=>r.json()).then(d => App.CPanel.render(d.config, d.users)); } else alert("Failed"); });
+            if(!App.CPanel.rootKey) return; 
+            const msg = `${App.I18n.t('msg_promote')} ${role}?`;
+            App.UI.confirm(msg, "", () => {
+                fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'updateUserRole', data: { rootPassword: App.CPanel.rootKey, targetId: uid, role: role } }) })
+                .then(r=>r.json())
+                .then(res=>{ 
+                    if(res.status==='success') { 
+                        App.UI.toast(App.I18n.t('msg_role_updated'), "success"); 
+                        // Refresh data to show new role
+                        fetch(API_URL + '?action=getSuperAdminData&rootPw=' + App.CPanel.rootKey)
+                        .then(r=>r.json())
+                        .then(d => App.CPanel.render(d.config, d.users)); 
+                    } else {
+                        App.UI.toast(App.I18n.t('err_failed') || "Failed", 'danger'); 
+                    }
+                });
+            });
         }
     },
     
